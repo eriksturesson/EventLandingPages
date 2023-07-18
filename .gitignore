@@ -26,3 +26,5 @@ src/components/utilsAndInterfaces/config.tsx
 src/components/utilsAndInterfaces/config.jsx
 customStyles.css
 .firebaserc
+ui-debug.log
+database-debug.log
