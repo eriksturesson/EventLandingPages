@@ -1,0 +1,236 @@
+body {
+  background-color: white;
+  font-size: 16px;
+}
+
+/* DETTA ÄR OM WRAPPERN FÖR MENYN ÄR FIXED
+  
+  @media only screen and (max-width : 400px) {
+    body {
+      margin-top: 3rem;
+    }
+  }
+  
+  @media only screen and (max-width : 700px) {
+    body {
+      margin-top: 4rem;
+    }
+  } */
+
+.eriks-nav-wrapper {
+  min-height: 56px;
+  background-color: white;
+  height: 2em;
+  line-height: 2em;
+  top: 0;
+  right: 0;
+  width: 100%;
+  border-bottom: 0.5px solid grey;
+}
+
+.eriks-nav-wrapper ul {
+  list-style: none;
+}
+
+.img-in-nav {
+  position: relative;
+  min-height: 50px;
+  max-width: 80%;
+  max-height: 80%;
+  margin: 0.5vw 1vw 1vw 0.5vw;
+  border-radius: 100%;
+}
+
+.right-menu-in-nav {
+  float: right;
+  width: 100%;
+  height: 4vw;
+  min-height: 56px;
+}
+
+.right-menu-in-nav a {
+  color: #0c3c7c;
+}
+
+.eriks-nav-wrapper li {
+  float: right;
+  text-align: right;
+  margin: 0vw 2vw 0vw 0vw;
+}
+
+@media only screen and (max-width : 400px) {
+  .eriks-nav-wrapper li {
+    font-size: 10px;
+  }
+}
+
+.center-logo-div {
+  max-height: 20%;
+  width: 100%;
+}
+
+/* Style the video: 100% width and height to cover the entire window */
+#myVideo {
+  position: relative;
+  right: 0;
+  top: 0;
+  width: 100%;
+  max-height: 90%;
+}
+
+/* ROTARYKNAPP ENLIGT RIKTLINJER
+  Default and click states
+  Text color: #FFFFFF
+  Background color: #019FCB */
+
+.knapp-sektion {
+  background-color: white;
+  width: 100%;
+  height: 2, 5em;
+}
+
+.ql-editor{
+  min-height:200px;
+}
+
+/* Style för Content under videon */
+.wrapperOfImagesWithPitch {
+  width: relative;
+  overflow: hidden;
+  position: relative;
+}
+
+.eriks-container:nth-of-type(1) {
+  width: 33.3%;
+  float: left;
+  min-width: 150px;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.eriks-container:nth-of-type(2) {
+  width: 33.3%;
+  float: left;
+  min-width: 150px;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.eriks-container:nth-of-type(3) {
+  width: 33.3%;
+  float: left;
+  min-width: 150px;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.erik-1rem {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.uploadImageButton {
+margin-top: -15rem!important;
+}
+
+.visningsbilder {
+  position: relative;
+  max-width: 100%;
+}
+
+@media only screen and (max-width : 1088px) {
+  .eriks-container:nth-of-type(1) {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width : 1088px) {
+  .eriks-container:nth-of-type(2) {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width : 1088px) {
+  .eriks-container:nth-of-type(3) {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width : 770px) {
+  .eriks-container:nth-of-type(1) {
+    width: 100%;
+    margin: auto;
+  }
+}
+
+@media only screen and (max-width : 770px) {
+  .eriks-container:nth-of-type(2) {
+    width: 100%;
+    margin: auto;
+  }
+}
+
+@media only screen and (max-width : 770px) {
+  .eriks-container:nth-of-type(3) {
+    width: 100%;
+    margin: auto;
+  }
+}
+
+#endwrapper {
+  width: relative;
+  position: relative;
+  border: 1px solid black;
+}
+
+#kontaktinfo {
+  height: 100%;
+  width: 30%;
+  float: left;
+}
+
+#karta {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  width: 70%;
+  float: left;
+}
+
+#kartbild {
+  max-width: 100%;
+  position: relative;
+}
+
+@media only screen and (max-width : 900px) {
+  #kontaktinfo {
+    width: 100%;
+    border-top: 1px solid black;
+  }
+}
+
+@media only screen and (max-width : 900px) {
+  #karta {
+    width: 100%;
+    border-top: 1px solid black;
+  }
+}
+
+#footer {
+  max-height: 3rem;
+  left: 0;
+  bottom: 0;
+  background-color: #f7a81b;
+  text-align: center;
+  clear: left;
+}
+
+.button {
+  display: inline-block;
+  height: 36px;
+  margin-left: 8px;
+  min-width: 88px;
+}

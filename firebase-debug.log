@@ -1,0 +1,89 @@
+[debug] [2023-07-18T11:14:28.998Z] ----------------------------------------------------------------------
+[debug] [2023-07-18T11:14:29.003Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Erik Sturesson\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start
+[debug] [2023-07-18T11:14:29.004Z] CLI Version:   12.4.4
+[debug] [2023-07-18T11:14:29.004Z] Platform:      win32
+[debug] [2023-07-18T11:14:29.005Z] Node Version:  v16.16.0
+[debug] [2023-07-18T11:14:29.006Z] Time:          Tue Jul 18 2023 13:14:29 GMT+0200 (Central European Summer Time)
+[debug] [2023-07-18T11:14:29.006Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-07-18T11:14:29.216Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-07-18T11:14:29.217Z] > authorizing via signed-in user (eriksturesson91@gmail.com)
+[debug] [2023-07-18T11:14:29.462Z] java version "19.0.1" 2022-10-18
+
+[debug] [2023-07-18T11:14:29.463Z] Java(TM) SE Runtime Environment (build 19.0.1+10-21)
+Java HotSpot(TM) 64-Bit Server VM (build 19.0.1+10-21, mixed mode, sharing)
+
+[debug] [2023-07-18T11:14:29.505Z] Parsed Java major version: 19
+[info] i  emulators: Starting emulators: auth, database, hosting {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth, database, hosting"}}
+[debug] [2023-07-18T11:14:29.540Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-07-18T11:14:29.540Z] [auth] Authentication Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-07-18T11:14:29.540Z] [database] Database Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-07-18T11:14:29.540Z] [hosting] Hosting Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-07-18T11:14:29.541Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"auth":[{"address":"127.0.0.1","family":"IPv4","port":9099}],"database":[{"address":"127.0.0.1","family":"IPv4","port":9000}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5000}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2023-07-18T11:14:29.562Z] [hub] writing locator at C:\Users\ERIKST~1\AppData\Local\Temp\hub-stockholm-city-affarsnatverk.json
+[debug] [2023-07-18T11:14:29.578Z] > refreshing access token with scopes: []
+[debug] [2023-07-18T11:14:29.581Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2023-07-18T11:14:29.581Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-07-18T11:14:29.674Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2023-07-18T11:14:29.674Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-07-18T11:14:29.702Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/stockholm-city-affarsnatverk [none]
+[debug] [2023-07-18T11:14:30.019Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/stockholm-city-affarsnatverk 403
+[debug] [2023-07-18T11:14:30.020Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/stockholm-city-affarsnatverk {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[debug] [2023-07-18T11:14:30.022Z] HTTP Error: 403, The caller does not have permission
+[debug] [2023-07-18T11:14:30.023Z] Failed to retrieve default database instance: {"name":"FirebaseError","children":[],"exit":2,"message":"Failed to get Firebase project stockholm-city-affarsnatverk. Please make sure the project exists and your account has permission to access it.","original":{"name":"FirebaseError","children":[],"context":{"body":{"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}},"response":{"statusCode":403}},"exit":1,"message":"HTTP Error: 403, The caller does not have permission","status":403},"status":500} {"metadata":{"emulator":{"name":"database"},"message":"Failed to retrieve default database instance: {\"name\":\"FirebaseError\",\"children\":[],\"exit\":2,\"message\":\"Failed to get Firebase project stockholm-city-affarsnatverk. Please make sure the project exists and your account has permission to access it.\",\"original\":{\"name\":\"FirebaseError\",\"children\":[],\"context\":{\"body\":{\"error\":{\"code\":403,\"message\":\"The caller does not have permission\",\"status\":\"PERMISSION_DENIED\"}},\"response\":{\"statusCode\":403}},\"exit\":1,\"message\":\"HTTP Error: 403, The caller does not have permission\",\"status\":403},\"status\":500}"}}
+[debug] [2023-07-18T11:14:30.024Z] database rules config:  [{"instance":"stockholm-city-affarsnatverk-default-rtdb","rules":"C:\\Users\\Erik Sturesson\\Google Drive\\Programmering\\rotaryReact\\rotary-react\\database.rules.json"}]
+[debug] [2023-07-18T11:14:30.042Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2023-07-18T11:14:30.043Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2023-07-18T11:14:30.043Z] Ignoring unsupported arg: rules {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: rules"}}
+[debug] [2023-07-18T11:14:30.043Z] Starting Database Emulator with command {"binary":"java","args":["-Duser.language=en","-jar","C:\\Users\\Erik Sturesson\\.cache\\firebase\\emulators\\firebase-database-emulator-v4.11.2.jar","--host","127.0.0.1","--port",9000,"--single_project_mode","Warning"],"optionalArgs":["port","host","functions_emulator_port","functions_emulator_host","single_project_mode"],"joinArgs":false} {"metadata":{"emulator":{"name":"database"},"message":"Starting Database Emulator with command {\"binary\":\"java\",\"args\":[\"-Duser.language=en\",\"-jar\",\"C:\\\\Users\\\\Erik Sturesson\\\\.cache\\\\firebase\\\\emulators\\\\firebase-database-emulator-v4.11.2.jar\",\"--host\",\"127.0.0.1\",\"--port\",9000,\"--single_project_mode\",\"Warning\"],\"optionalArgs\":[\"port\",\"host\",\"functions_emulator_port\",\"functions_emulator_host\",\"single_project_mode\"],\"joinArgs\":false}"}}
+[info] i  database: Database Emulator logging to database-debug.log {"metadata":{"emulator":{"name":"database"},"message":"Database Emulator logging to \u001b[1mdatabase-debug.log\u001b[22m"}}
+[debug] [2023-07-18T11:14:47.120Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/stockholm-city-affarsnatverk/sites 
+[debug] [2023-07-18T11:14:47.951Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/stockholm-city-affarsnatverk/sites 403
+[debug] [2023-07-18T11:14:47.951Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/stockholm-city-affarsnatverk/sites {"error":{"code":403,"message":"Permission 'firebasehosting.sites.get' denied on resource 'projects/stockholm-city-affarsnatverk' (or it may not exist)","status":"PERMISSION_DENIED"}}
+[debug] [2023-07-18T11:14:47.952Z] Failed to list hosting sites
+[debug] HTTP Error: 403, Permission 'firebasehosting.sites.get' denied on resource 'projects/stockholm-city-affarsnatverk' (or it may not exist)
+[debug] [2023-07-18T11:14:47.952Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/stockholm-city-affarsnatverk/webApps/-/config [none]
+[debug] [2023-07-18T11:14:48.203Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/stockholm-city-affarsnatverk/webApps/-/config 403
+[debug] [2023-07-18T11:14:48.203Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/stockholm-city-affarsnatverk/webApps/-/config {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[debug] [2023-07-18T11:14:48.204Z] fetchWebSetup error: FirebaseError: HTTP Error: 403, The caller does not have permission
+[warn] !  hosting: Authentication error when trying to fetch your current web app configuration, have you run firebase login? 
+[warn] !  hosting: Using web app configuration from cache. 
+[debug] [2023-07-18T11:14:48.207Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/stockholm-city-affarsnatverk [none]
+[debug] [2023-07-18T11:14:48.429Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/stockholm-city-affarsnatverk 403
+[debug] [2023-07-18T11:14:48.430Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/stockholm-city-affarsnatverk {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[debug] [2023-07-18T11:14:48.430Z] HTTP Error: 403, The caller does not have permission
+[info] i  hosting[stockholm-city-affarsnatverk]: Serving hosting files from: build {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mbuild\u001b[22m"}}
+[info] +  hosting[stockholm-city-affarsnatverk]: Local server: http://127.0.0.1:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://127.0.0.1:5000\u001b[22m\u001b[24m"}}
+[debug] [2023-07-18T11:14:48.455Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2023-07-18T11:14:48.455Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2023-07-18T11:14:48.455Z] Starting Emulator UI with command {"binary":"node","args":["C:\\Users\\Erik Sturesson\\.cache\\firebase\\emulators\\ui-v1.11.7\\server\\server.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"C:\\\\Users\\\\Erik Sturesson\\\\.cache\\\\firebase\\\\emulators\\\\ui-v1.11.7\\\\server\\\\server.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2023-07-18T11:14:48.608Z] Web / API server started at 127.0.0.1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4000\n"}}
+[debug] [2023-07-18T11:14:48.608Z] Web / API server started at ::1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at ::1:4000\n"}}
+[debug] [2023-07-18T11:14:48.737Z] >>> [apiv2][query] PUT http://127.0.0.1:9000/.settings/rules.json ns=stockholm-city-affarsnatverk-default-rtdb
+[debug] [2023-07-18T11:14:48.737Z] >>> [apiv2][body] PUT http://127.0.0.1:9000/.settings/rules.json "{\r\n  \"rules\": {\r\n    \"Program\": {\r\n      \".read\": true,\r\n      \".write\": \"auth.uid != null\"\r\n    },\r\n    \"users\": {\r\n      \"$user_id\": {\r\n        \".read\": \"$user_id === auth.uid\",\r\n        \".write\": \"$user_id === auth.uid\"\r\n      }\r\n    },\r\n    \"adminUsers\": {\r\n      \"$user_id\": {\r\n        \".read\": \"$user_id === auth.uid\",\r\n        \".write\": \"$user_id === auth.uid\"\r\n      }\r\n    },\r\n    \"websites\": {\r\n      \"$website_id\": {\r\n        \".read\": true,\r\n        \".write\": \"auth.uid != null\"\r\n      }\r\n    },\r\n    \"websitesIds\": {\r\n      \".read\": true,\r\n      \".write\": true\r\n    }\r\n  }\r\n}"
+[debug] [2023-07-18T11:14:48.818Z] <<< [apiv2][status] PUT http://127.0.0.1:9000/.settings/rules.json 200
+[debug] [2023-07-18T11:14:48.818Z] <<< [apiv2][body] PUT http://127.0.0.1:9000/.settings/rules.json {"status":"ok"}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4000/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌────────────────┬────────────────┬────────────────────────────────┐
+│ Emulator       │ Host:Port      │ View in Emulator UI            │
+├────────────────┼────────────────┼────────────────────────────────┤
+│ Authentication │ 127.0.0.1:9099 │ http://127.0.0.1:4000/auth     │
+├────────────────┼────────────────┼────────────────────────────────┤
+│ Database       │ 127.0.0.1:9000 │ http://127.0.0.1:4000/database │
+├────────────────┼────────────────┼────────────────────────────────┤
+│ Hosting        │ 127.0.0.1:5000 │ n/a                            │
+└────────────────┴────────────────┴────────────────────────────────┘
+  Emulator Hub running at 127.0.0.1:4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[debug] [2023-07-18T12:36:46.721Z] Received signal SIGHUP 1
