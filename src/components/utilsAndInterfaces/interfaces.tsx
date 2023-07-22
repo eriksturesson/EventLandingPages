@@ -21,6 +21,11 @@ export interface DBWebsiteHomePageContentPitchCards {
     title: string;
     description: string;
     order: number
+    id: string;
+}
+
+export interface DBWebsitePitchCardKey {
+    [key: string]: DBWebsiteHomePageContentPitchCards
 }
 
 export interface DBWebsiteHomePageContentButton {
@@ -43,7 +48,7 @@ export interface DBWebsiteHomePageContentFooter {
 
 export interface DBWebsiteHomePageContent {
     header: StandardWebPageContentHeader,
-    pitchCards: DBWebsiteHomePageContentPitchCards[],
+    pitchCards: DBWebsitePitchCardKey,
     quillContent: string,
     button: DBWebsiteHomePageContentButton,
     footer: DBWebsiteHomePageContentFooter,

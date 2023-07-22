@@ -100,7 +100,7 @@ body {
   position: relative;
 }
 
-.eriks-container:nth-of-type(1) {
+.pitchcard-container {
   width: 33.3%;
   float: left;
   min-width: 150px;
@@ -108,23 +108,7 @@ body {
   padding-bottom: 2rem;
 }
 
-.eriks-container:nth-of-type(2) {
-  width: 33.3%;
-  float: left;
-  min-width: 150px;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-}
-
-.eriks-container:nth-of-type(3) {
-  width: 33.3%;
-  float: left;
-  min-width: 150px;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-}
-
-.erik-1rem {
+.pitchcard-box {
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -142,39 +126,13 @@ margin-top: -15rem!important;
 }
 
 @media only screen and (max-width : 1088px) {
-  .eriks-container:nth-of-type(1) {
+  .pitchcard-container {
     width: 50%;
   }
 }
 
-@media only screen and (max-width : 1088px) {
-  .eriks-container:nth-of-type(2) {
-    width: 50%;
-  }
-}
-
-@media only screen and (max-width : 1088px) {
-  .eriks-container:nth-of-type(3) {
-    width: 100%;
-  }
-}
-
 @media only screen and (max-width : 770px) {
-  .eriks-container:nth-of-type(1) {
-    width: 100%;
-    margin: auto;
-  }
-}
-
-@media only screen and (max-width : 770px) {
-  .eriks-container:nth-of-type(2) {
-    width: 100%;
-    margin: auto;
-  }
-}
-
-@media only screen and (max-width : 770px) {
-  .eriks-container:nth-of-type(3) {
+  .pitchcard-container {
     width: 100%;
     margin: auto;
   }

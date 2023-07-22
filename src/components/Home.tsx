@@ -24,14 +24,16 @@ export const initialState: DBWebsiteHomePageContent = {
         video: "",
         image: "",
     },
-    pitchCards: [
+    pitchCards: {
+        "myHardodedKey":
         {
             image: "", // url to storage
             title: "",
             description: "",
-            order: 0
+            order: 0,
+            id: "randomKey"
         },
-    ],
+    },
     quillContent: "",
     button: {
         formLink: "link to form here (use 'https://' to link outside the webpage)",
@@ -67,7 +69,7 @@ const Home = ({ websiteID }: { websiteID: string }): JSX.Element => {
         <div>
             < HeaderComponent header={homepageContent.header} />
             < RegisterButtonComponent buttonContent={homepageContent.button} />
-            < PitchCardsComponent pitchCards={homepageContent.pitchCards} />
+            < PitchCardsComponent pitchCardsDB={homepageContent.pitchCards} />
             < RegisterButtonComponent buttonContent={homepageContent.button} />
             < ShowQuillContent quillContent={homepageContent.quillContent} />
             < RegisterButtonComponent buttonContent={homepageContent.button} />

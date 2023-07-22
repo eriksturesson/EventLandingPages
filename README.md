@@ -1,28 +1,42 @@
 # Readme
 
-- This is a plattform for creating one or more landingpages for event(s) from one single codebase that an admin can edit (a CMS for eventpages).
-- Registrations (personal data) is handled via the call-to-action botton that you can lead to a form (google form etc), it is not handled in the platform.
-- The first version is not done yet, please wait while rebuilding older code to react.
-- This project uses firebase with "no-cost" plan from start. Just upgrade your plan if needed for production uses with more data and/or users.
+-  This is a plattform for creating one or more landingpages for event(s) from one single codebase that an admin can edit (a CMS for eventpages).
+-  Registrations (personal data) is handled via the call-to-action botton that you can lead to a form (google form etc), it is not handled in the platform.
+-  The first version is not done yet, please wait while rebuilding older code to react.
+-  This project uses firebase with "no-cost" plan from start. Just upgrade your plan if needed for production uses with more data and/or users.
 
 # You need to know this before starting:
 
-- Typescript
-- React
-- How to set up a Firebase project
+-  Typescript
+-  React
+-  How to set up a Firebase project
 
 # How to set up:
 
 1. Create a Firebase Project
 
-   - Create your firebase project at firebase.com
-   - Follow Firebase's own steps for deploying and setting up your project. Use `firebase init`. Install, when asked all these: `emulators`, `cloud functions`, `realtime database`, `storage` and `hosting`. Don't remove the `databaseRules` nor `firebase`.json.
-   - Create a file `config.tsx` and copy paste your `firebaseConfig` from firebase and export the variable firebaseConfig. Put it here: `src\components\utilsAndInterfaces\config.jsx`. You find your firebaseConfig in the firebase console --> firebase settings --> General
+   -  Create your firebase project at firebase.com
+   -  Follow Firebase's own steps for deploying and setting up your project. Use `firebase init`. Install, when asked all these: `emulators`, `cloud functions`, `realtime database`, `storage` and `hosting`. Don't remove the `databaseRules` nor `firebase`.json.
+   -  Create a file `config.tsx` and copy paste your `firebaseConfig` from firebase and export the variable firebaseConfig. Put it here: `src\components\utilsAndInterfaces\config.tsx`. You find your firebaseConfig in the firebase console --> firebase settings --> General
 
-2. Emulate your code:
+2. Change the storage.rules files to fit the name of your storage bucket link:
 
-- Run both `firebase emulators:start` in one terminal to use the emulators for authentication, db and more, but you also need to run `npm run start` for the react-scripts to run at the same time. Both has to be active. It only works localy, not on your network, since firebase only works locally.
-- All users are admins currently, so just create a user with email and password in firebase emulator (standard set tolocalhost:4000, in theauth-section) and login with those credentials. Everytime you restart the firebase emulators you will need to recreate your user.
+```
+rules_version = '2';
+service firebase.storage {
+  match /b/YOUR_BUCKET_ID.appspot.com/o {
+    match /{allPaths=**} {
+        allow read;
+        allow write: if request.auth != null;
+    }
+  }
+}
+```
+
+# Emulate your code:
+
+-  Run both `firebase emulators:start` in one terminal to use the emulators for authentication, db and more, but you also need to run `npm run start` for the react-scripts to run at the same time. Both has to be active. It only works localy, not on your network, since firebase only works locally.
+-  All users are admins currently, so just create a user with email and password in firebase emulator (standard set tolocalhost:4000, in theauth-section) and login with those credentials. Everytime you restart the firebase emulators you will need to recreate your user.
 
 3. Deploy to firebase (not tested yet)
 
@@ -35,7 +49,7 @@
 2. Check how to, or inform here in readme about how to limit datause to limit costs after a DDOS-attack
 3. Cookie Banner if Google Analytics or other cookies are stored
 4. Admin editing of pitchcards, backend functionality not implemented yet (style implemented)
-5. Admin editing of map, footer, sub-pages, video on toop
+5. Admin editing of map, footer, sub-pages, top video/img, speaker(s) and organizers/participants
 6. Implement different css styles for different websites (fonts and colors for different webbpages, now all fonts will be the same for all landingpages)
 7. Implement adminRoles in db and implement that in the code. Currently all users are admins for all landingpages in the codebase.
 8. Go from firebase `realtime database` to `firestore database`

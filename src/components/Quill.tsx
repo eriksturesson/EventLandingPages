@@ -1,7 +1,7 @@
 import ReactQuill, { Quill } from 'react-quill';
 import React, { useEffect, useState } from 'react';
 import 'react-quill/dist/quill.snow.css';
-import { Button } from '@mui/material';
+import { Button, Divider } from '@mui/material';
 import { ref, set } from 'firebase/database';
 import { auth, db } from './utilsAndInterfaces/firebase';
 import SaveIcon from '@mui/icons-material/Save';
@@ -49,7 +49,7 @@ export function QuillComponent({ websiteID, quillContent }: { websiteID: string,
     }, [quillContent])
     return (
         <>
-            <h1>Add more texts to your homepage:</h1>
+            <Divider><h2>Edit Texts on your webpage</h2></Divider>
             <div className='myquillComponent'>
                 <ReactQuill theme="snow" value={value} defaultValue={value} onChange={setValue} />
                 <div style={{ justifyContent: "center", display: 'flex', marginTop: "1rem" }}>

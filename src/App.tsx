@@ -14,11 +14,12 @@ import { auth } from './components/utilsAndInterfaces/firebase';
 import { handleWebSiteID } from './components/utilsAndInterfaces/handleWebsiteID';
 import { LoadingSpinner } from './components/Loading';
 import { LayoutModulesLoader } from './LayoutModulesLoader';
-
+export let WEBSITE_ID = ""
 const App = (): JSX.Element => {
    const [logedIn, setLogedIn] = useState<boolean | null>(null);
    //const [loading, setLoading] = useState<boolean>(true)
    const [websiteID, setWebsiteID] = useState<string>('');
+   WEBSITE_ID = websiteID
    //const [websiteID, setWebsiteID] = useState<string | null>(null)
    let userOrNull: User | null = auth.currentUser;
    useEffect(() => {
