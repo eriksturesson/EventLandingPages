@@ -149,10 +149,16 @@ export const Admin = ({ user, websiteID }: { user: User | null, websiteID: strin
           <EditRegisterButtonComponent buttonContent={homepageContent.button} websiteID={websiteID} />
         </Box>
         <Box id="editHeader">
-
+          {/*Video component */}
         </Box>
         <Box id="editPitchCards" alignContent={"center"}>
-          <PitchCardsComponent adminEdit={true} pitchCards={homepageContent.pitchCards} />
+          <PitchCardsComponent adminEdit={true} pitchCardsDB={homepageContent.pitchCards} />
+        </Box>
+        <Box id="speakers">
+          {/*Box for speaker(s) at the event*/}
+        </Box>
+        <Box id="participants" alignContent={"center"}>
+          {/*Box for participants / organizers etc at the event*/}
         </Box>
         <Box id="myQuillComponent">
           <QuillComponent websiteID={websiteID} quillContent={homepageContent.quillContent} />

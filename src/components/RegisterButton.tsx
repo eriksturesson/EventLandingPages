@@ -91,9 +91,9 @@ export function EditRegisterButtonComponent({ buttonContent, websiteID }: { butt
 
     return (
         <>
-            <Divider>Botton preview</Divider>
+            <Divider><h2>Edit botton</h2></Divider>
             <RegisterButtonComponent buttonContent={buttonContent} />
-            <Divider sx={{ padding: 4 }}>Edit register/call to action Button</Divider>
+            <Box sx={{ padding: 4, textAlign: "center" }}><h3>Edit register/call to action Button</h3></Box>
             <Box sx={{ display: "inline-flex", minWidth: "10rem", flexDirection: "row", padding: "1rem" }} textAlign="center">
                 <FormControl fullWidth>
 
