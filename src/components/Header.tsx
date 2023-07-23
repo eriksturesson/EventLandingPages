@@ -9,7 +9,7 @@ import { RegisterButtonComponent } from "./RegisterButton";
 
 export function HeaderComponent({ adminEdit, header, buttonContent }: { adminEdit?: true, header: StandardWebPageContentHeader, buttonContent: DBWebsiteHomePageContentButton }): JSX.Element {
     let logo = header?.logo ? header.logo : rotaryLogo
-    let video = header?.video ? header.video : null
+    let video = header?.video ? header.video : rotaryVideomp4
     let image = header?.image ? header.image : null
     let videoOrImage = video ? video : image ? image : null
     let headerTitle = header?.title ? header.title : "Stockholm City Affärsnätverk"
@@ -26,18 +26,19 @@ export function HeaderComponent({ adminEdit, header, buttonContent }: { adminEdi
 
     if (videoOrImage === video && video !== null) {
         headerContent = <><video autoPlay muted loop id="myVideo">
-            <source src={video} type={`video/${videoExtension}`} />
+            <source src={video} type={`video/mp4`} />
             {/*<source src={rotaryVideoWebm} type="video/webm" />*/}
             Your browser does not support the video tag.
         </video></>
     } else if (videoOrImage === image && image !== null) {
         headerContent = <img className="top-image" src={image} alt="headerImage"></img>
     } else {
-        headerContent = <></>
+        console.log('Header - no img nor video')
     }
 
     return (
         <>
+            {logo ? <img id="header-logo" src={logo} alt="headerImage" /> : null}
             <div className="header-container">
                 <div className="black-layer">
 
@@ -47,8 +48,6 @@ export function HeaderComponent({ adminEdit, header, buttonContent }: { adminEdi
                     <div className="box-text-over-video">
                         <h1 className="text-over-video">{headerTitle}</h1>
                         <h3 className="text-over-video">{headerDescription}</h3>
-                        <RegisterButtonComponent buttonContent={buttonContent} />
-
                         {/*<h2 class="text-over-video">VI AVVAKTAR DATUM &#8226; ANMÄL DIG OCH FÅ VIP-INBJUDAN</h2> */}
                         <h2 className="text-over-video">{time} &#8226; {location}</h2>
                         <p><img className="move-arrow" src={arrowDown}></img></p>
