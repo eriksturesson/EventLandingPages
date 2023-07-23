@@ -9,11 +9,14 @@ import Home, { initialState } from "./Home";
 import Button from "@mui/material/Button";
 import { TextareaAutosize } from '@mui/base';
 import NavWrapper from "./NavWrapper";
-import Footer from "./Footer";
+import { Footer } from "./Footer";
 import { EditRegisterButtonComponent } from "./RegisterButton";
 import { DBWebsite, DBWebsiteHomePageContent } from "./utilsAndInterfaces/interfaces";
 import { Box } from "@mui/material";
 import { PitchCardsComponent } from "./PitchCards";
+import { HeaderComponent } from "./Header";
+import { OrganizersComponent } from "./Organizers";
+import { ScheduleComponent } from "./Schedule";
 // Get user data //
 
 var name, email: string | null, photoUrl, uid: string, emailVerified;
@@ -145,11 +148,12 @@ export const Admin = ({ user, websiteID }: { user: User | null, websiteID: strin
         <Box id="changeOrCreateNewPageToEdit">
 
         </Box>
+
         <Box id="editRegisterButton">
           <EditRegisterButtonComponent buttonContent={homepageContent.button} websiteID={websiteID} />
         </Box>
         <Box id="editHeader">
-          {/*Video component */}
+          < HeaderComponent header={homepageContent.header} buttonContent={homepageContent.button} />
         </Box>
         <Box id="editPitchCards" alignContent={"center"}>
           <PitchCardsComponent adminEdit={true} pitchCardsDB={homepageContent.pitchCards} />
@@ -157,14 +161,20 @@ export const Admin = ({ user, websiteID }: { user: User | null, websiteID: strin
         <Box id="speakers">
           {/*Box for speaker(s) at the event*/}
         </Box>
+        <Box id="schedule-box">
+          <ScheduleComponent schedule={homepageContent.eventSchedule} />
+        </Box>
         <Box id="participants" alignContent={"center"}>
           {/*Box for participants / organizers etc at the event*/}
         </Box>
         <Box id="myQuillComponent">
           <QuillComponent websiteID={websiteID} quillContent={homepageContent.quillContent} />
         </Box>
+        <Box id="organizers">
+          < OrganizersComponent organizers={homepageContent.organizers} />
+        </Box>
         <Box id="editFooter">
-
+          <Footer footerContent={homepageContent.footer} />
         </Box>
       </Box>
       <Box>
@@ -173,7 +183,6 @@ export const Admin = ({ user, websiteID }: { user: User | null, websiteID: strin
       <Box id="readDatabaseContentForAdmin" className="DBContent">
         <NavWrapper websiteID={websiteID} />
         <Home websiteID={websiteID} />
-        <Footer websiteID={websiteID} />
       </Box>
 
     </>

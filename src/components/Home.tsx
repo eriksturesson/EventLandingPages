@@ -12,6 +12,11 @@ import { HeaderComponent } from './Header';
 import { PitchCardsComponent } from './PitchCards';
 import { DBWebsiteHomePageContent } from './utilsAndInterfaces/interfaces';
 import { QuillComponent, ShowQuillContent } from './Quill';
+import { SpeakersComponent } from './Speakers';
+import { ParticipantComponent } from './Participants';
+import { OrganizersComponent } from './Organizers';
+import { Footer } from './Footer';
+import { ScheduleComponent } from './Schedule';
 
 
 function testonload() {
@@ -23,6 +28,16 @@ export const initialState: DBWebsiteHomePageContent = {
         logo: "",
         video: "",
         image: "",
+    },
+    speakers: {},
+    participants: {
+        title: "Deltagare"
+    },
+    eventSchedule: {
+        scheduleName: "Kvällens upplägg"
+    },
+    organizers: {
+        title: "Arrangörer"
     },
     pitchCards: {
         "myHardodedKey":
@@ -43,9 +58,12 @@ export const initialState: DBWebsiteHomePageContent = {
     },
     footer: {
         integrityPolicy: "",
+        integrityPolicyDescription: "",
+        contactTitle: "",
         contactName: "",
         contactEmail: "",
         contactPhone: "",
+        adressTitle: "",
         contactAddress1: "",
         contactAddress2: "",
         mapImage: "",
@@ -67,12 +85,16 @@ const Home = ({ websiteID }: { websiteID: string }): JSX.Element => {
     }, []);
     return (
         <div>
-            < HeaderComponent header={homepageContent.header} />
+            < HeaderComponent header={homepageContent.header} buttonContent={homepageContent.button} />
             < RegisterButtonComponent buttonContent={homepageContent.button} />
             < PitchCardsComponent pitchCardsDB={homepageContent.pitchCards} />
-            < RegisterButtonComponent buttonContent={homepageContent.button} />
+            < SpeakersComponent DBSpeakers={homepageContent.speakers} />
+            < ScheduleComponent schedule={homepageContent.eventSchedule} />
             < ShowQuillContent quillContent={homepageContent.quillContent} />
+            < ParticipantComponent participants={homepageContent.participants} />
+            < OrganizersComponent organizers={homepageContent.organizers} />
             < RegisterButtonComponent buttonContent={homepageContent.button} />
+            < Footer footerContent={homepageContent.footer} />
         </div >
     );
 }

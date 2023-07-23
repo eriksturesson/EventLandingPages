@@ -11,6 +11,8 @@ export interface StandardWebPageContentHeader {
     metaData?: StandardWebPageContentHeaderMetaData;
     title?: string;
     description?: string;
+    time?: string;
+    location?: string;
     logo: string; // url to storage
     video: string; // url to storage 
     image: string; // url to storage
@@ -36,18 +38,63 @@ export interface DBWebsiteHomePageContentButton {
 }
 
 export interface DBWebsiteHomePageContentFooter {
-    integrityPolicy: string;
+    integrityPolicy: string; //URL to integritypolicy
+    integrityPolicyDescription: string;
     contactName?: string;
     contactEmail: string;
     contactPhone?: string;
+    adressTitle?: string;
+    contactTitle?: string;
     contactAddress1: string;
     contactAddress2: string;
     mapImage: string; // url to storage
 }
+export interface DBWebsiteSpeakersKey {
+    [key: string]: DBWebsiteSpeaker
+}
 
+export interface DBWebsiteSpeaker {
+    speakerName?: string,
+    speakerDescription?: string,
+    speakerImage?: string,
+    speakerPitch?: string,
+    speakerTitle?: string,
+    speakerTitleDescription?: string,
+    speakerID: string,
+}
 
+export interface DBWebsiteOneParticipant {
+    image?: string,
+    name?: string,
+    title?: string,
+    organization?: string,
+    id: string;
+}
+
+export interface DBWebsiteParticipantKey {
+    title: string,
+    [key: string]: string | DBWebsiteOneParticipant
+}
+
+export interface EventSchedule {
+    scheduleName: string,
+    [anyStringWithWhatHappensThatTime: string]: string
+}
+
+export interface DBWebsiteOrganizersKey {
+    title: string,
+    [logoOfOrganizer: string]: string | OrganizerObject
+}
+
+export interface OrganizerObject {
+    logo: string,
+}
 export interface DBWebsiteHomePageContent {
     header: StandardWebPageContentHeader,
+    speakers: DBWebsiteSpeakersKey,
+    participants: DBWebsiteParticipantKey,
+    organizers: DBWebsiteOrganizersKey,
+    eventSchedule: EventSchedule,
     pitchCards: DBWebsitePitchCardKey,
     quillContent: string,
     button: DBWebsiteHomePageContentButton,
