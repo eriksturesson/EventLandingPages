@@ -1,15 +1,10 @@
 //import { BrowserRouter, Link, Route } from "react-router-dom";
-import ArrangerandeKlubbar from "./ArrangerandeKlubbar";
+import ArrangerandeKlubbar from './ArrangerandeKlubbar';
 //import { Navbar, Nav, Container } from 'react-bootstrap';
 //import arrangerandeKlubbarHTML from "../"
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
-    Link
-} from "react-router-dom";
-import Home from './Home'
-import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Home from './Home';
+import React from 'react';
 
 /*
             <div className="right-menu-in-nav" id="reactNavbar">
@@ -28,22 +23,23 @@ import React from "react";
 */
 
 const NavWrapper = ({ websiteID }: { websiteID: string }): JSX.Element => {
-
-
-
-    return (
-
-        <div className="eriks-nav-wrapper">
-            <div className="right-menu-in-nav">
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="./tidigareprogram">Föregående år</a></li>
-                    <li><a href="./arrangerandeklubbar">Arrangörer</a></li>
-                </ul>
-            </div>
-        </div>
-    );
-
-}
+   return (
+      <div className="eriks-nav-wrapper">
+         <div className="right-menu-in-nav">
+            <ul>
+               <li>
+                  <a href="/">Home</a>
+               </li>
+               <li>
+                  <a href="./tidigareprogram">Föregående år</a>
+               </li>
+               <li>
+                  <a href="./arrangerandeklubbar">Arrangörer</a>
+               </li>
+            </ul>
+         </div>
+      </div>
+   );
+};
 
 export default NavWrapper;
