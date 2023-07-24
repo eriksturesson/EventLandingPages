@@ -22,6 +22,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+package-lock.json
+
 # Firebase
 src/components/utilsAndInterfaces/config.tsx
 src/components/utilsAndInterfaces/config.jsx
@@ -29,4 +31,3 @@ customStyles.css
 .firebaserc
 *.log
 storage.rules
-firebase.json

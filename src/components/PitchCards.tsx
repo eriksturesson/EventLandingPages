@@ -148,7 +148,6 @@ export function PitchCardsComponent({
       let pitchCards: DBWebsiteHomePageContentPitchCards[] = Object.values(pitchCardsDB);
       pitchCards.sort((a, b) => a.order - b.order);
 
-      update(db, updates);
       for (let i = 0; i < pitchCards.length; i++) {
          pitchCardsContent.push(
             <OnePitchCard
