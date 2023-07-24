@@ -86,7 +86,7 @@ export function HeaderComponent({
    if (videoOrImage === video && video !== null) {
       headerContent = (
          <>
-            <video autoPlay muted loop id="myVideo">
+            <video autoPlay muted loop className="video-container">
                <source src={video} type={`video/mp4`} />
                {/*<source src={rotaryVideoWebm} type="video/webm" />*/}
                Your browser does not support the video tag.
@@ -103,21 +103,18 @@ export function HeaderComponent({
       <>
          {adminEditor ? <HeaderLogoUpload /> : <img id="header-logo" src={logo} alt="headerImage" />}
          <div className="header-container">
-            <div className="black-layer">
-               {headerContent}
-
-               {/* Content on top of the screen over the video or image */}
-               <div className="box-text-over-video">
-                  <h1 className="text-over-video">{headerTitle}</h1>
-                  <h3 className="text-over-video">{headerDescription}</h3>
-                  {/*<h2 class="text-over-video">VI AVVAKTAR DATUM &#8226; ANMÄL DIG OCH FÅ VIP-INBJUDAN</h2> */}
-                  <h2 className="text-over-video">
-                     {time} &#8226; {location}
-                  </h2>
-                  <p>
-                     <img className="move-arrow" src={arrowDown}></img>
-                  </p>
-               </div>
+            <div className="black-layer">{headerContent}</div>
+            {/* Content on top of the screen over the video or image */}
+            <div className="box-text-over-video">
+               <h1 className="text-over-video">{headerTitle}</h1>
+               <h3 className="text-over-video">{headerDescription}</h3>
+               {/*<h2 class="text-over-video">VI AVVAKTAR DATUM &#8226; ANMÄL DIG OCH FÅ VIP-INBJUDAN</h2> */}
+               <h2 className="text-over-video">
+                  {time} &#8226; {location}
+               </h2>
+               <p>
+                  <img className="move-arrow" src={arrowDown}></img>
+               </p>
             </div>
          </div>
 

@@ -70,13 +70,6 @@ body {
 }
 
 /* Style the video: 100% width and height to cover the entire window */
-#myVideo {
-   position: relative;
-   right: 0;
-   top: 0;
-   width: 100%;
-   max-height: 90%;
-}
 
 /* ROTARYKNAPP ENLIGT RIKTLINJER
   Default and click states
