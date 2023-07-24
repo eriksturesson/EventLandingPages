@@ -12,6 +12,11 @@ import { HeaderComponent } from './Header';
 import { PitchCardsComponent } from './PitchCards';
 import { DBWebsiteHomePageContent } from './utilsAndInterfaces/interfaces';
 import { QuillComponent, ShowQuillContent } from './Quill';
+import { SpeakersComponent } from './Speakers';
+import { ParticipantComponent } from './Participants';
+import { OrganizersComponent } from './Organizers';
+import { Footer } from './Footer';
+import { ScheduleComponent } from './Schedule';
 
 function testonload() {
    alert('testar onload i html-filen, då ska denna funktion köras');
@@ -81,9 +86,13 @@ const Home = ({ websiteID }: { websiteID: string }): JSX.Element => {
          <HeaderComponent header={homepageContent.header} />
          <RegisterButtonComponent buttonContent={homepageContent.button} />
          <PitchCardsComponent pitchCardsDB={homepageContent.pitchCards} />
-         <RegisterButtonComponent buttonContent={homepageContent.button} />
+         <SpeakersComponent DBSpeakers={homepageContent.speakers} />
+         <ScheduleComponent schedule={homepageContent.eventSchedule} />
          <ShowQuillContent quillContent={homepageContent.quillContent} />
+         <ParticipantComponent participants={homepageContent.participants} />
+         <OrganizersComponent organizers={homepageContent.organizers} />
          <RegisterButtonComponent buttonContent={homepageContent.button} />
+         <Footer footerContent={homepageContent.footer} />
       </div>
    );
 };

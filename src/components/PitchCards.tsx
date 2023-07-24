@@ -79,7 +79,7 @@ export function OnePitchCard({
    };
 
    return (
-      <div className="pitchcard-container" id={id}>
+      <Box className="pitchcard-container" id={id}>
          <Box className="pitchcard-box">
             {adminEditor && id && !newCard ? (
                <Box
@@ -128,7 +128,7 @@ export function OnePitchCard({
             )}
             {adminEditor ? <SaveTextsButton onSave={handleSaveTexts} /> : null}
          </Box>
-      </div>
+      </Box>
    );
 }
 

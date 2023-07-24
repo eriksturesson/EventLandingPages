@@ -152,7 +152,7 @@ export const Admin = ({ user, websiteID }: { user: User | null; websiteID: strin
                <EditRegisterButtonComponent buttonContent={homepageContent.button} websiteID={websiteID} />
             </Box>
             <Box id="editHeader">
-               <HeaderComponent adminEditor={true} header={homepageContent.header} buttonContent={homepageContent.button} />
+               <HeaderComponent adminEditor={true} header={homepageContent.header} />
             </Box>
             <Box id="editPitchCards" alignContent={'center'}>
                <PitchCardsComponent adminEdit={true} pitchCardsDB={homepageContent.pitchCards} />
