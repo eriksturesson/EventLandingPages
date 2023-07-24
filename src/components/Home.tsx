@@ -23,6 +23,16 @@ export const initialState: DBWebsiteHomePageContent = {
       video: '',
       image: '',
    },
+   speakers: {},
+   participants: {
+      title: 'Deltagare',
+   },
+   eventSchedule: {
+      scheduleName: 'Kvällens upplägg',
+   },
+   organizers: {
+      title: 'Arrangörer',
+   },
    pitchCards: {
       myHardodedKey: {
          image: '', // url to storage
@@ -34,17 +44,19 @@ export const initialState: DBWebsiteHomePageContent = {
    },
    quillContent: '',
    button: {
-      formLink:
-         "link to form here (use 'https://' to link outside the webpage)",
+      formLink: "link to form here (use 'https://' to link outside the webpage)",
       buttonText: 'initial text',
       buttonInfo: 'inital info',
       buttonColor: 'green',
    },
    footer: {
       integrityPolicy: '',
+      integrityPolicyDescription: '',
+      contactTitle: '',
       contactName: '',
       contactEmail: '',
       contactPhone: '',
+      adressTitle: '',
       contactAddress1: '',
       contactAddress2: '',
       mapImage: '',
@@ -53,20 +65,14 @@ export const initialState: DBWebsiteHomePageContent = {
 };
 
 const Home = ({ websiteID }: { websiteID: string }): JSX.Element => {
-   const [homepageContent, setProgramContent] =
-      useState<DBWebsiteHomePageContent>(initialState);
+   const [homepageContent, setProgramContent] = useState<DBWebsiteHomePageContent>(initialState);
    //let databaseContent = document.getElementByClassName('DBContent');
    useEffect(() => {
       // READ DATA WHEN UPDATED TO UPDATE PROGRAM CONTENT
-      let readContentFromDatabaseToIndex = ref(
-         db,
-         `websites/${websiteID}/homepageContent`
-      );
+      let readContentFromDatabaseToIndex = ref(db, `websites/${websiteID}/homepageContent`);
 
       onValue(readContentFromDatabaseToIndex, (snapshot) => {
-         let programContentFromDB: DBWebsiteHomePageContent = snapshot.val()
-            ? snapshot.val()
-            : '';
+         let programContentFromDB: DBWebsiteHomePageContent = snapshot.val() ? snapshot.val() : '';
          setProgramContent(programContentFromDB);
       });
    }, []);

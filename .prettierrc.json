@@ -7,5 +7,5 @@
    "quoteProps": "as-needed",
    "bracketSpacing": true,
    "jsxSingleQuote": false,
-   "printWidth": 80
+   "printWidth": 125
 }

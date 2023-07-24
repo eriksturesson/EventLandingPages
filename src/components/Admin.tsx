@@ -9,14 +9,14 @@ import Home, { initialState } from './Home';
 import Button from '@mui/material/Button';
 import { TextareaAutosize } from '@mui/base';
 import NavWrapper from './NavWrapper';
-import Footer from './Footer';
+import { Footer } from './Footer';
 import { EditRegisterButtonComponent } from './RegisterButton';
-import {
-   DBWebsite,
-   DBWebsiteHomePageContent,
-} from './utilsAndInterfaces/interfaces';
+import { DBWebsite, DBWebsiteHomePageContent } from './utilsAndInterfaces/interfaces';
 import { Box } from '@mui/material';
 import { PitchCardsComponent } from './PitchCards';
+import { HeaderComponent } from './Header';
+import { OrganizersComponent } from './Organizers';
+import { ScheduleComponent } from './Schedule';
 // Get user data //
 
 var name, email: string | null, photoUrl, uid: string, emailVerified;
@@ -46,31 +46,20 @@ function editTextContent(edit_id: string, showing_id: string) {
    const str = String(edit_id);
    const inputID = str.replace('button', '');
 
-   const currentInner = (document.getElementById(showing_id) as HTMLElement)
-      .innerHTML;
-   const currentOuter = (document.getElementById(showing_id) as HTMLElement)
-      .outerHTML;
+   const currentInner = (document.getElementById(showing_id) as HTMLElement).innerHTML;
+   const currentOuter = (document.getElementById(showing_id) as HTMLElement).outerHTML;
 
    if (currentInner.includes('strong')) {
-      let currentTextToEdit = (
-         document.getElementById(inputID) as HTMLInputElement
-      ).value;
-      (document.getElementById(showing_id) as HTMLElement).innerHTML =
-         '<strong>' + currentTextToEdit + '</stong>';
+      let currentTextToEdit = (document.getElementById(inputID) as HTMLInputElement).value;
+      (document.getElementById(showing_id) as HTMLElement).innerHTML = '<strong>' + currentTextToEdit + '</stong>';
       console.log(currentTextToEdit);
    } else if (currentOuter.includes('</p>')) {
-      let currentTextToEdit = (
-         document.getElementById(inputID) as HTMLInputElement
-      ).value;
-      (document.getElementById(showing_id) as HTMLElement).innerHTML =
-         '"' + currentTextToEdit + '"';
+      let currentTextToEdit = (document.getElementById(inputID) as HTMLInputElement).value;
+      (document.getElementById(showing_id) as HTMLElement).innerHTML = '"' + currentTextToEdit + '"';
       console.log(currentTextToEdit);
    } else {
-      let currentTextToEdit = (
-         document.getElementById(inputID) as HTMLInputElement
-      ).value;
-      (document.getElementById(showing_id) as HTMLElement).innerHTML =
-         currentTextToEdit;
+      let currentTextToEdit = (document.getElementById(inputID) as HTMLInputElement).value;
+      (document.getElementById(showing_id) as HTMLElement).innerHTML = currentTextToEdit;
       console.log(currentTextToEdit);
    }
 }
@@ -78,9 +67,7 @@ function editTextContent(edit_id: string, showing_id: string) {
 // SAVE TO DATABASE
 
 function saveDataToFirebase() {
-   let adminJSTextContent = (
-      document.getElementById('adminTextContent') as HTMLElement
-   ).innerHTML;
+   let adminJSTextContent = (document.getElementById('adminTextContent') as HTMLElement).innerHTML;
    console.log(adminJSTextContent);
 
    let currentdate = new Date();
@@ -116,9 +103,7 @@ function loadDBContent(): JSX.Element {
    // READ DATA WHEN UPDATED TO UPDATE INDEX.HTML PROGRAM CONTENT
 
    let readContentFromDatabaseRef = ref(db, 'Program/ProgramContent');
-   let updateAdminWebsiteContent = document.getElementById(
-      'readDatabaseContentForAdmin'
-   );
+   let updateAdminWebsiteContent = document.getElementById('readDatabaseContentForAdmin');
    //let databaseContent = document.getElementByClassName('DBContent');
    let data: string = '';
    //if ((document.getElementById("firstProgramHeader") as HTMLInputElement).value == undefined) {
@@ -138,26 +123,14 @@ function loadDBContent(): JSX.Element {
    //}
 }
 
-export const Admin = ({
-   user,
-   websiteID,
-}: {
-   user: User | null;
-   websiteID: string;
-}): JSX.Element => {
-   const [homepageContent, setProgramContent] =
-      useState<DBWebsiteHomePageContent>(initialState);
+export const Admin = ({ user, websiteID }: { user: User | null; websiteID: string }): JSX.Element => {
+   const [homepageContent, setProgramContent] = useState<DBWebsiteHomePageContent>(initialState);
    //let databaseContent = document.getElementByClassName('DBContent');
    useEffect(() => {
       // READ DATA WHEN UPDATED TO UPDATE INDEX.HTML PROGRAM CONTENT
-      let readContentFromDatabaseToIndex = ref(
-         db,
-         `websites/${websiteID}/homepageContent`
-      );
+      let readContentFromDatabaseToIndex = ref(db, `websites/${websiteID}/homepageContent`);
       onValue(readContentFromDatabaseToIndex, (snapshot) => {
-         let programContentFromDB: DBWebsiteHomePageContent = snapshot.val()
-            ? snapshot.val()
-            : '';
+         let programContentFromDB: DBWebsiteHomePageContent = snapshot.val() ? snapshot.val() : '';
          if (programContentFromDB) setProgramContent(programContentFromDB);
       });
    }, [homepageContent]);
@@ -174,30 +147,32 @@ export const Admin = ({
          <br />
          <Box className="adminEdit" id="adminEditWrapper">
             <Box id="changeOrCreateNewPageToEdit"></Box>
+
             <Box id="editRegisterButton">
-               <EditRegisterButtonComponent
-                  buttonContent={homepageContent.button}
-                  websiteID={websiteID}
-               />
+               <EditRegisterButtonComponent buttonContent={homepageContent.button} websiteID={websiteID} />
             </Box>
-            <Box id="editHeader">{/*Video component */}</Box>
+            <Box id="editHeader">
+               <HeaderComponent adminEditor={true} header={homepageContent.header} buttonContent={homepageContent.button} />
+            </Box>
             <Box id="editPitchCards" alignContent={'center'}>
-               <PitchCardsComponent
-                  adminEdit={true}
-                  pitchCardsDB={homepageContent.pitchCards}
-               />
+               <PitchCardsComponent adminEdit={true} pitchCardsDB={homepageContent.pitchCards} />
             </Box>
             <Box id="speakers">{/*Box for speaker(s) at the event*/}</Box>
+            <Box id="schedule-box">
+               <ScheduleComponent schedule={homepageContent.eventSchedule} />
+            </Box>
             <Box id="participants" alignContent={'center'}>
                {/*Box for participants / organizers etc at the event*/}
             </Box>
             <Box id="myQuillComponent">
-               <QuillComponent
-                  websiteID={websiteID}
-                  quillContent={homepageContent.quillContent}
-               />
+               <QuillComponent websiteID={websiteID} quillContent={homepageContent.quillContent} />
             </Box>
-            <Box id="editFooter"></Box>
+            <Box id="organizers">
+               <OrganizersComponent organizers={homepageContent.organizers} />
+            </Box>
+            <Box id="editFooter">
+               <Footer footerContent={homepageContent.footer} />
+            </Box>
          </Box>
          <Box>
             <h1>Detta syns nu på webbsidan:</h1>
@@ -205,7 +180,6 @@ export const Admin = ({
          <Box id="readDatabaseContentForAdmin" className="DBContent">
             <NavWrapper websiteID={websiteID} />
             <Home websiteID={websiteID} />
-            <Footer websiteID={websiteID} />
          </Box>
       </>
    );

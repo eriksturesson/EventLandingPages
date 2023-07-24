@@ -4,21 +4,11 @@ import visningsbild3 from '../assets/DSC02755.JPG';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import DeleteIcon from '@mui/icons-material/Delete';
 import react, { useState } from 'react';
-import {
-   DBWebsiteHomePageContentPitchCards,
-   DBWebsitePitchCardKey,
-} from './utilsAndInterfaces/interfaces';
+import { DBWebsiteHomePageContentPitchCards, DBWebsitePitchCardKey } from './utilsAndInterfaces/interfaces';
 import { Box, Button, Divider, Stack, SvgIcon, TextField } from '@mui/material';
 import { deleteObject, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { db, devSettings, storage } from './utilsAndInterfaces/firebase';
-import {
-   child,
-   push,
-   ref as dbRef,
-   set,
-   update,
-   onChildAdded,
-} from 'firebase/database';
+import { child, push, ref as dbRef, set, update, onChildAdded } from 'firebase/database';
 import { WEBSITE_ID } from '../App';
 
 export function OnePitchCard({
@@ -57,15 +47,12 @@ export function OnePitchCard({
       console.log('id: ' + id);
       console.log('title: ' + title);
       console.log('description: ' + description);
-      update(
-         dbRef(db, `websites/${WEBSITE_ID}/homepageContent/pitchCards/${id}`),
-         {
-            title: title,
-            description: description,
-            id: id,
-            order: order,
-         }
-      );
+      update(dbRef(db, `websites/${WEBSITE_ID}/homepageContent/pitchCards/${id}`), {
+         title: title,
+         description: description,
+         id: id,
+         order: order,
+      });
 
       console.log('Saved title and description');
    };
@@ -73,10 +60,7 @@ export function OnePitchCard({
    const removePitchCard = (id: string, imgStorageRef: string) => {
       return () => {
          //Remove from db
-         const pitchCardsRef = dbRef(
-            db,
-            `websites/${WEBSITE_ID}/homepageContent/pitchCards/${id}`
-         );
+         const pitchCardsRef = dbRef(db, `websites/${WEBSITE_ID}/homepageContent/pitchCards/${id}`);
          set(pitchCardsRef, null);
          // Create a reference to the file to delete from Storage
          const pitchCardImgRefInStorage = ref(storage, imgStorageRef);
@@ -136,19 +120,9 @@ export function OnePitchCard({
                <img className="visningsbilder" alt="visningsbild1" src={img} />
             )}
             {adminEditor ? <PitchCardFileUpload cardOrderNr={order} /> : null}
+            {adminEditor ? <EditPitchardTitle onChange={handleTitleChange} initText={title} /> : <h1>{title}</h1>}
             {adminEditor ? (
-               <EditPitchardTitle
-                  onChange={handleTitleChange}
-                  initText={title}
-               />
-            ) : (
-               <h1>{title}</h1>
-            )}
-            {adminEditor ? (
-               <EditPitchardDescription
-                  onChange={handleDescriptionChange}
-                  initText={description}
-               />
+               <EditPitchardDescription onChange={handleDescriptionChange} initText={description} />
             ) : (
                <p>{description}</p>
             )}
@@ -171,10 +145,10 @@ export function PitchCardsComponent({
 
    // Sort the pitchCards array based on the "order" property
    if (pitchCardsDB) {
-      let pitchCards: DBWebsiteHomePageContentPitchCards[] =
-         Object.values(pitchCardsDB);
+      let pitchCards: DBWebsiteHomePageContentPitchCards[] = Object.values(pitchCardsDB);
       pitchCards.sort((a, b) => a.order - b.order);
 
+      update(db, updates);
       for (let i = 0; i < pitchCards.length; i++) {
          pitchCardsContent.push(
             <OnePitchCard
@@ -244,88 +218,44 @@ export function PitchCardsComponent({
    }
 }
 
-export function PitchCardFileUpload({
-   cardOrderNr,
-}: {
-   cardOrderNr: number;
-}): JSX.Element {
+export function PitchCardFileUpload({ cardOrderNr }: { cardOrderNr: number }): JSX.Element {
    const [file, setFile] = useState();
    function handleChange(event: any) {
       //setFile(event.target.files[0])
-      let randomkey = push(
-         child(dbRef(db), `websites/${WEBSITE_ID}/homepageContent/pitchCards/`)
-      ).key;
-      const pitchCardRef = ref(
-         storage,
-         `websites/${WEBSITE_ID}/homepageContent/pitchCards/${randomkey}`
-      );
-      console.log(
-         'storage.app.options.storageBucket',
-         storage.app.options.storageBucket
-      );
-      console.log(
-         'storage.app.options.databaseURL',
-         storage.app.options.databaseURL
-      );
-      console.log(
-         'storage.app.options.storageBucket',
-         storage.app.options.storageBucket
-      );
+      let randomkey = push(child(dbRef(db), `websites/${WEBSITE_ID}/homepageContent/pitchCards/`)).key;
+      const pitchCardRef = ref(storage, `websites/${WEBSITE_ID}/homepageContent/pitchCards/${randomkey}`);
+      console.log('storage.app.options.storageBucket', storage.app.options.storageBucket);
+      console.log('storage.app.options.databaseURL', storage.app.options.databaseURL);
+      console.log('storage.app.options.storageBucket', storage.app.options.storageBucket);
 
       // 'file' comes from the Blob or File API
       uploadBytes(pitchCardRef, event.target.files[0]).then((snapshot) => {
          console.log('Uploaded a blob or file!');
          console.log('snapshot.ref.fullPath', snapshot.ref.fullPath);
-         let startURL =
-            devSettings === 'PRODUCTION'
-               ? `gs://`
-               : `http://127.0.0.1:9199/v0/b/`;
+         let startURL = devSettings === 'PRODUCTION' ? `gs://` : `http://127.0.0.1:9199/v0/b/`;
          //http://127.0.0.1:9199/v0/b/stockholm-city-affarsnatverk.appspot.com/o/websites%2F-N_r3h15dd1OQXZWLKfT%2FhomepageContent%2FpitchCards%2F-N_r9mmYWHD0KBuSellp?alt=media&token=a874d060-2012-488e-ab23-8de5239b722c
-         update(
-            dbRef(
-               db,
-               `/websites/${WEBSITE_ID}/homepageContent/pitchCards/` + randomkey
-            ),
-            {
-               image: `${startURL}${
-                  storage.app.options.storageBucket
-               }/o/${encodeURIComponent(
-                  snapshot.ref.fullPath
-               )}?alt=media&token=${snapshot.metadata.downloadTokens}`, //pitchCardRef.fullPath, // url to storage
-               //title: string;
-               //description: string;
-               id: randomkey,
-               order: cardOrderNr,
-            }
-         );
+         update(dbRef(db, `/websites/${WEBSITE_ID}/homepageContent/pitchCards/` + randomkey), {
+            image: `${startURL}${storage.app.options.storageBucket}/o/${encodeURIComponent(
+               snapshot.ref.fullPath
+            )}?alt=media&token=${snapshot.metadata.downloadTokens}`, //pitchCardRef.fullPath, // url to storage
+            //title: string;
+            //description: string;
+            id: randomkey,
+            order: cardOrderNr,
+         });
       });
    }
    return (
       <Box>
-         <Button
-            className="uploadImageButton"
-            variant="contained"
-            component="label"
-         >
+         <Button className="uploadImageButton" variant="contained" component="label">
             Upload new image
-            <input
-               hidden
-               accept="image/*"
-               type="file"
-               onChange={handleChange}
-            />
+            <input hidden accept="image/*" type="file" onChange={handleChange} />
          </Button>
       </Box>
    );
 }
 
-export function EditPitchardTitle({
-   initText,
-   onChange,
-}: {
-   initText: string;
-   onChange: any;
-}): JSX.Element {
+export function EditPitchardTitle({ initText, onChange }: { initText: string; onChange: any }): JSX.Element {
    return (
       <Box style={{ paddingBottom: '2rem', width: '100%' }}>
          <TextField
@@ -342,13 +272,7 @@ export function EditPitchardTitle({
    );
 }
 
-export function EditPitchardDescription({
-   initText,
-   onChange,
-}: {
-   initText: string;
-   onChange: any;
-}): JSX.Element {
+export function EditPitchardDescription({ initText, onChange }: { initText: string; onChange: any }): JSX.Element {
    return (
       <Box style={{ paddingBottom: '2rem', width: '100%' }}>
          <TextField
@@ -367,9 +291,7 @@ export function EditPitchardDescription({
 
 export function SaveTextsButton({ onSave }: { onSave: any }): JSX.Element {
    return (
-      <Box
-         style={{ paddingBottom: '2rem', textAlign: 'center', width: '100%' }}
-      >
+      <Box style={{ paddingBottom: '2rem', textAlign: 'center', width: '100%' }}>
          <Button onClick={onSave} variant="contained" color="primary">
             Save texts
          </Button>

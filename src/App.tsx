@@ -7,7 +7,6 @@ import { Admin } from './components/Admin';
 import { Login } from './components/Login';
 import ArrangerandeKlubbar from './components/ArrangerandeKlubbar';
 import TidigareProgram from './components/TidigareProgram';
-import Footer from './components/Footer';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { auth } from './components/utilsAndInterfaces/firebase';
@@ -74,7 +73,6 @@ const App = (): JSX.Element => {
          <>
             <NavWrapper websiteID={websiteID} />
             <TidigareProgram />
-            <Footer websiteID={websiteID} />
          </>
       );
    } else if (page.includes('arrangerandeklubbar')) {
@@ -82,7 +80,6 @@ const App = (): JSX.Element => {
          <>
             <NavWrapper websiteID={websiteID} />
             <ArrangerandeKlubbar />
-            <Footer websiteID={websiteID} />
          </>
       );
    } else if (page.includes('admin') || page.includes('login')) {
@@ -97,7 +94,6 @@ const App = (): JSX.Element => {
          <>
             <NavWrapper websiteID={websiteID} />
             <Home websiteID={websiteID} />
-            <Footer websiteID={websiteID} />
          </>
       );
    }
