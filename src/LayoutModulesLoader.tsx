@@ -14,19 +14,27 @@ interface ContentData {
    pageId: string;
 }
 
+interface Props {
+   contentData: ContentData;
+}
+
+interface Modules {
+   [component: string]: React.FC<{ content: Content }>;
+}
+
 // Object for mapping each component in the JSX
-const modules: {
-   [component: string]: ({ content }: { content: Content }) => JSX.Element;
-} = {
+const modules: Modules = {
    DummyComponent1: DummyComponent1,
    DummyComponent2: DummyComponent2,
 };
 
-export function LayoutModulesLoader(props: { contentData: ContentData }) {
+export const LayoutModulesLoader: React.FC<Props> = function (props) {
    return (
       <>
          {props.contentData.layoutItems.map((module, i) => {
             const Component = modules[module.name];
+
+            console.log(module);
 
             if (!Component) {
                console.error(
@@ -44,4 +52,4 @@ export function LayoutModulesLoader(props: { contentData: ContentData }) {
          })}
       </>
    );
-}
+};
