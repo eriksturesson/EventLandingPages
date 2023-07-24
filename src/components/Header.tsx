@@ -4,10 +4,54 @@ import rotaryVideomp4 from '../assets/VideoStockholmCityAffarsnatverk_Trim_min.m
 import rotaryVideoWebm from '../assets/VideoStockholmCityAffarsnatverk_Trim_min.webm';
 import arrowDown from '../assets/baseline_keyboard_arrow_down_white_18dp.png';
 import { DBWebsiteHomePageContentButton, StandardWebPageContentHeader } from "./utilsAndInterfaces/interfaces";
-import { Button } from "@mui/base";
 import { RegisterButtonComponent } from "./RegisterButton";
+import { Box, Divider, Button } from "@mui/material";
+import { ref, uploadBytes } from "firebase/storage";
+import { ref as dbRef, update } from "firebase/database";
+import { db, devSettings, storage } from "./utilsAndInterfaces/firebase";
+import { WEBSITE_ID } from "../App";
 
-export function HeaderComponent({ adminEdit, header, buttonContent }: { adminEdit?: true, header: StandardWebPageContentHeader, buttonContent: DBWebsiteHomePageContentButton }): JSX.Element {
+export function HeaderLogoUpload(): JSX.Element {
+    function handleChange(event: any) {
+        //setFile(event.target.files[0])
+        const pitchCardRef = ref(storage, `websites/${WEBSITE_ID}/homepageContent/pitchCards/logo`);
+
+        // 'file' comes from the Blob or File API
+        uploadBytes(pitchCardRef, event.target.files[0]).then((snapshot) => {
+            console.log('Uploaded a blob or file!');
+            console.log("snapshot.ref.fullPath", snapshot.ref.fullPath)
+            let startURL = devSettings === "PRODUCTION" ? `gs://` : `http://127.0.0.1:9199/v0/b/`
+            //http://127.0.0.1:9199/v0/b/stockholm-city-affarsnatverk.appspot.com/o/websites%2F-N_r3h15dd1OQXZWLKfT%2FhomepageContent%2FpitchCards%2F-N_r9mmYWHD0KBuSellp?alt=media&token=a874d060-2012-488e-ab23-8de5239b722c
+            update(dbRef(db, `/websites/${WEBSITE_ID}/homepageContent/header/`), {
+                logo: `${startURL}${storage.app.options.storageBucket}/o/${encodeURIComponent(snapshot.ref.fullPath)}?alt=media&token=${snapshot.metadata.downloadTokens}`, //pitchCardRef.fullPath, // url to storage
+            });
+        });
+
+
+    }
+    return (
+        <Box>
+
+            <Button className="uploadImageButton" variant="contained" component="label">
+                Upload new image
+                <input hidden accept="image/*" type="file" onChange={handleChange} />
+            </Button>
+        </Box>
+    );
+}
+
+export function EditHeaderComponent(): JSX.Element {
+    return (
+        <>
+            <Divider><h2>Edit Header</h2></Divider>
+            <Divider><h3>Edit Header Logo</h3></Divider>
+            <Divider><h3>Edit Header Video</h3></Divider>
+        </>
+
+    )
+}
+
+export function HeaderComponent({ adminEditor, header, buttonContent }: { adminEditor?: true, header: StandardWebPageContentHeader, buttonContent: DBWebsiteHomePageContentButton }): JSX.Element {
     let logo = header?.logo ? header.logo : rotaryLogo
     let video = header?.video ? header.video : rotaryVideomp4
     let image = header?.image ? header.image : null
@@ -38,7 +82,7 @@ export function HeaderComponent({ adminEdit, header, buttonContent }: { adminEdi
 
     return (
         <>
-            {logo ? <img id="header-logo" src={logo} alt="headerImage" /> : null}
+            {adminEditor ? <HeaderLogoUpload /> : <img id="header-logo" src={logo} alt="headerImage" />}
             <div className="header-container">
                 <div className="black-layer">
 
