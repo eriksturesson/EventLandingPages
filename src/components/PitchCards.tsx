@@ -14,8 +14,8 @@ import { deleteObject, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { db, devSettings, storage } from './utilsAndInterfaces/firebase';
 import { child, push, ref as dbRef, set, update, onChildAdded } from 'firebase/database';
 import { WEBSITE_ID } from '../App';
-import { EditText, SaveTextsButton } from '../functions/textEdits';
-import { ImageCardFileUpload } from '../functions/FileUploads';
+import { EditText, SaveTextsButton } from './reusableComponents/TextEdits';
+import { ImageCardFileUpload } from './reusableComponents/FileUploads';
 
 interface OnePitchCardProps {
    adminEditor?: boolean;

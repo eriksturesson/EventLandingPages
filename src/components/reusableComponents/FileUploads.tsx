@@ -3,12 +3,12 @@ import {
    DBWebsiteHomePageContentPitchCards,
    DBWebsiteOneParticipant,
    DBWebsiteParticipantKey,
-} from '../components/utilsAndInterfaces/interfaces';
+} from '../utilsAndInterfaces/interfaces';
 import ImageIcon from '@mui/icons-material/Image';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { child, push, update, ref as dbRef, set } from 'firebase/database';
-import { db, devSettings, storage } from '../components/utilsAndInterfaces/firebase';
-import { WEBSITE_ID } from '../App';
+import { db, devSettings, storage } from '../utilsAndInterfaces/firebase';
+import { WEBSITE_ID } from '../../App';
 import { useState } from 'react';
 import { Box, Button, Divider, SvgIcon, TextField } from '@mui/material';
 

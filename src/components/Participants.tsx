@@ -11,8 +11,8 @@ import { db, devSettings, storage } from './utilsAndInterfaces/firebase';
 import { WEBSITE_ID } from '../App';
 import { useState } from 'react';
 import { Box, Button, Divider, SvgIcon, TextField } from '@mui/material';
-import { ImageCardFileUpload } from '../functions/FileUploads';
-import { EditText, SaveTextsButton } from '../functions/textEdits';
+import { ImageCardFileUpload } from './reusableComponents/FileUploads';
+import { EditText, SaveTextsButton } from './reusableComponents/TextEdits';
 
 interface OneParticipantComponentProps {
    newCard?: true;
