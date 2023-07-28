@@ -69,6 +69,7 @@ export interface DBWebsiteOneParticipant {
    title?: string;
    organization?: string;
    id: string;
+   order: number;
 }
 
 export interface DBWebsiteParticipantKey {

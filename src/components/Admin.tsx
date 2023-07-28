@@ -155,7 +155,7 @@ export const Admin = ({ user, websiteID }: { user: User | null; websiteID: strin
                <HeaderComponent adminEditor={true} header={homepageContent.header} />
             </Box>
             <Box id="editPitchCards" alignContent={'center'}>
-               <PitchCardsComponent adminEdit={true} pitchCardsDB={homepageContent.pitchCards} />
+               <PitchCardsComponent adminEditor={true} pitchCardsDB={homepageContent.pitchCards} />
             </Box>
             <Box id="speakers">{/*Box for speaker(s) at the event*/}</Box>
             <Box id="schedule-box">

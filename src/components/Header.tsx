@@ -11,6 +11,35 @@ import { ref as dbRef, update } from 'firebase/database';
 import { db, devSettings, storage } from './utilsAndInterfaces/firebase';
 import { WEBSITE_ID } from '../App';
 
+export function HeaderVideoOrImageUpload(): JSX.Element {
+   function handleChange(event: any) {
+      //setFile(event.target.files[0])
+      const videoOrImgHeader = ref(storage, `websites/${WEBSITE_ID}/homepageContent/videoOrImgHeader`);
+
+      // 'file' comes from the Blob or File API
+      uploadBytes(videoOrImgHeader, event.target.files[0]).then((snapshot) => {
+         console.log('Uploaded a blob or file!');
+         console.log('snapshot.ref.fullPath', snapshot.ref.fullPath);
+         console.log('fileEnding:', snapshot.metadata.contentType);
+         let startURL = devSettings === 'PRODUCTION' ? `gs://` : `http://127.0.0.1:9199/v0/b/`;
+         //http://127.0.0.1:9199/v0/b/stockholm-city-affarsnatverk.appspot.com/o/websites%2F-N_r3h15dd1OQXZWLKfT%2FhomepageContent%2FpitchCards%2F-N_r9mmYWHD0KBuSellp?alt=media&token=a874d060-2012-488e-ab23-8de5239b722c
+         update(dbRef(db, `/websites/${WEBSITE_ID}/homepageContent/header/`), {
+            logo: `${startURL}${storage.app.options.storageBucket}/o/${encodeURIComponent(
+               snapshot.ref.fullPath
+            )}?alt=media&token=${snapshot.metadata.downloadTokens}`, //pitchCardRef.fullPath, // url to storage
+         });
+      });
+   }
+   return (
+      <Box sx={{ textAlign: 'center' }}>
+         <Button className="uploadImageButton" variant="contained" component="label">
+            Upload new image
+            <input hidden accept="video/*,image/*" type="file" onChange={handleChange} />
+         </Button>
+      </Box>
+   );
+}
+
 export function HeaderLogoUpload(): JSX.Element {
    function handleChange(event: any) {
       //setFile(event.target.files[0])
@@ -30,10 +59,10 @@ export function HeaderLogoUpload(): JSX.Element {
       });
    }
    return (
-      <Box>
+      <Box sx={{ textAlign: 'center' }}>
          <Button className="uploadImageButton" variant="contained" component="label">
             Upload new image
-            <input hidden accept="image/*" type="file" onChange={handleChange} />
+            <input hidden accept="video/*,image/*" type="file" onChange={handleChange} />
          </Button>
       </Box>
    );
@@ -100,8 +129,24 @@ export function HeaderComponent({
    }
 
    return (
-      <>
-         {adminEditor ? <HeaderLogoUpload /> : <img id="header-logo" src={logo} alt="headerImage" />}
+      <Box>
+         {adminEditor ? (
+            <Divider>
+               <h1>Edit Header img/video and logo</h1>
+            </Divider>
+         ) : null}
+         {adminEditor ? (
+            <Divider>
+               <h2>Edit Logo</h2>
+            </Divider>
+         ) : null}
+         <img id="header-logo" src={logo} alt="headerImage" />
+         {adminEditor ? <HeaderLogoUpload /> : null}
+         {adminEditor ? (
+            <Divider>
+               <h2>Edit img/video</h2>
+            </Divider>
+         ) : null}
          <div className="header-container">
             <div className="black-layer">{headerContent}</div>
             {/* Content on top of the screen over the video or image */}
@@ -129,6 +174,6 @@ export function HeaderComponent({
             <img id="header-logo" alt="headerlogo" src={logo} />
             {headerContent}
     */}
-      </>
+      </Box>
    );
 }

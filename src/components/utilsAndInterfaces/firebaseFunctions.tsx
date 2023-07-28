@@ -1,14 +1,5 @@
 import { db } from './firebase';
-import {
-   push,
-   ref,
-   child,
-   update,
-   get,
-   onValue,
-   remove,
-   set,
-} from 'firebase/database';
+import { push, ref, child, update, get, onValue, remove, set } from 'firebase/database';
 
 interface FirebaseArgs {
    ref?: string;
@@ -57,10 +48,7 @@ export async function readAndWriteToFirebase(args: FirebaseArgs) {
          let myRef = ref(db as any, args.ref ? args.ref : '');
          return await get(myRef)
             .then((snapshot) => {
-               if (
-                  snapshot.exists() &&
-                  (snapshot.val() || snapshot.val() === false)
-               ) {
+               if (snapshot.exists() && (snapshot.val() || snapshot.val() === false)) {
                   return snapshot.val();
                } else {
                   console.error('No data available');

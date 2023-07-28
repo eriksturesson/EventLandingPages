@@ -4,22 +4,20 @@ import visningsbild3 from '../assets/DSC02755.JPG';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import DeleteIcon from '@mui/icons-material/Delete';
 import react, { useState } from 'react';
-import { DBWebsiteHomePageContentPitchCards, DBWebsitePitchCardKey } from './utilsAndInterfaces/interfaces';
+import {
+   DBWebsiteHomePageContent,
+   DBWebsiteHomePageContentPitchCards,
+   DBWebsitePitchCardKey,
+} from './utilsAndInterfaces/interfaces';
 import { Box, Button, Divider, Stack, SvgIcon, TextField } from '@mui/material';
 import { deleteObject, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { db, devSettings, storage } from './utilsAndInterfaces/firebase';
 import { child, push, ref as dbRef, set, update, onChildAdded } from 'firebase/database';
 import { WEBSITE_ID } from '../App';
+import { EditText, SaveTextsButton } from '../functions/textEdits';
+import { ImageCardFileUpload } from '../functions/FileUploads';
 
-export function OnePitchCard({
-   adminEditor,
-   img,
-   order,
-   initTitle,
-   initDescription,
-   newCard,
-   id,
-}: {
+interface OnePitchCardProps {
    adminEditor?: boolean;
    img: string;
    order: number;
@@ -27,7 +25,9 @@ export function OnePitchCard({
    initDescription: string;
    newCard?: true;
    id?: string;
-}): JSX.Element {
+}
+export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
+   const { adminEditor, img, order, initTitle, initDescription, newCard, id } = props;
    const [title, setTitle] = useState(initTitle);
    const [description, setDescription] = useState(initDescription);
 
@@ -119,27 +119,23 @@ export function OnePitchCard({
             ) : (
                <img className="visningsbilder" alt="visningsbild1" src={img} />
             )}
-            {adminEditor ? <PitchCardFileUpload cardOrderNr={order} /> : null}
-            {adminEditor ? <EditPitchardTitle onChange={handleTitleChange} initText={title} /> : <h1>{title}</h1>}
-            {adminEditor ? (
-               <EditPitchardDescription onChange={handleDescriptionChange} initText={description} />
-            ) : (
-               <p>{description}</p>
-            )}
+            {adminEditor ? <ImageCardFileUpload sectionName={'pitchCards'} cardOrderNr={order} /> : null}
+            {adminEditor ? <EditText onChange={handleTitleChange} initText={title} /> : <h1>{title}</h1>}
+            {adminEditor ? <EditText onChange={handleDescriptionChange} initText={description} /> : <p>{description}</p>}
             {adminEditor ? <SaveTextsButton onSave={handleSaveTexts} /> : null}
          </Box>
       </Box>
    );
 }
 
-export function PitchCardsComponent({
-   pitchCardsDB,
-   adminEdit,
-}: {
+interface PitchCardsComponentProps {
+   adminEditor?: boolean;
    pitchCardsDB: DBWebsitePitchCardKey;
-   adminEdit?: boolean;
-}): JSX.Element {
-   const [adminEditor, setadminEditor] = useState(adminEdit);
+}
+
+export function PitchCardsComponent(props: PitchCardsComponentProps): JSX.Element {
+   let { pitchCardsDB } = props;
+   const [adminEditor, setadminEditor] = useState(props.adminEditor);
 
    let pitchCardsContent: JSX.Element[] = [];
 
@@ -163,9 +159,11 @@ export function PitchCardsComponent({
 
       return (
          <>
-            <Divider>
-               <h2>Edit pitchcards</h2>
-            </Divider>
+            {adminEditor ? (
+               <Divider>
+                  <h2>Edit pitchcards</h2>
+               </Divider>
+            ) : null}
             <Box className="wrapperOfImagesWithPitch">
                {pitchCardsContent}
                {/* Below is to always make it available to add one more pitchCards */}
@@ -215,85 +213,4 @@ export function PitchCardsComponent({
          </Box>
       );
    }
-}
-
-export function PitchCardFileUpload({ cardOrderNr }: { cardOrderNr: number }): JSX.Element {
-   const [file, setFile] = useState();
-   function handleChange(event: any) {
-      //setFile(event.target.files[0])
-      let randomkey = push(child(dbRef(db), `websites/${WEBSITE_ID}/homepageContent/pitchCards/`)).key;
-      const pitchCardRef = ref(storage, `websites/${WEBSITE_ID}/homepageContent/pitchCards/${randomkey}`);
-      console.log('storage.app.options.storageBucket', storage.app.options.storageBucket);
-      console.log('storage.app.options.databaseURL', storage.app.options.databaseURL);
-      console.log('storage.app.options.storageBucket', storage.app.options.storageBucket);
-
-      // 'file' comes from the Blob or File API
-      uploadBytes(pitchCardRef, event.target.files[0]).then((snapshot) => {
-         console.log('Uploaded a blob or file!');
-         console.log('snapshot.ref.fullPath', snapshot.ref.fullPath);
-         let startURL = devSettings === 'PRODUCTION' ? `gs://` : `http://127.0.0.1:9199/v0/b/`;
-         //http://127.0.0.1:9199/v0/b/stockholm-city-affarsnatverk.appspot.com/o/websites%2F-N_r3h15dd1OQXZWLKfT%2FhomepageContent%2FpitchCards%2F-N_r9mmYWHD0KBuSellp?alt=media&token=a874d060-2012-488e-ab23-8de5239b722c
-         update(dbRef(db, `/websites/${WEBSITE_ID}/homepageContent/pitchCards/` + randomkey), {
-            image: `${startURL}${storage.app.options.storageBucket}/o/${encodeURIComponent(
-               snapshot.ref.fullPath
-            )}?alt=media&token=${snapshot.metadata.downloadTokens}`, //pitchCardRef.fullPath, // url to storage
-            //title: string;
-            //description: string;
-            id: randomkey,
-            order: cardOrderNr,
-         });
-      });
-   }
-   return (
-      <Box>
-         <Button className="uploadImageButton" variant="contained" component="label">
-            Upload new image
-            <input hidden accept="image/*" type="file" onChange={handleChange} />
-         </Button>
-      </Box>
-   );
-}
-
-export function EditPitchardTitle({ initText, onChange }: { initText: string; onChange: any }): JSX.Element {
-   return (
-      <Box style={{ paddingBottom: '2rem', width: '100%' }}>
-         <TextField
-            id="outlined-textarea"
-            label="Header"
-            placeholder="Placeholder"
-            multiline
-            defaultValue={initText}
-            style={{ width: '100%' }}
-            InputLabelProps={{ shrink: true }}
-            onChange={onChange}
-         />
-      </Box>
-   );
-}
-
-export function EditPitchardDescription({ initText, onChange }: { initText: string; onChange: any }): JSX.Element {
-   return (
-      <Box style={{ paddingBottom: '2rem', width: '100%' }}>
-         <TextField
-            id="outlined-multiline-static"
-            label="Text content"
-            multiline
-            rows={10}
-            defaultValue={initText}
-            style={{ width: '100%' }}
-            InputLabelProps={{ shrink: true }}
-            onChange={onChange}
-         />
-      </Box>
-   );
-}
-
-export function SaveTextsButton({ onSave }: { onSave: any }): JSX.Element {
-   return (
-      <Box style={{ paddingBottom: '2rem', textAlign: 'center', width: '100%' }}>
-         <Button onClick={onSave} variant="contained" color="primary">
-            Save texts
-         </Button>
-      </Box>
-   );
 }
