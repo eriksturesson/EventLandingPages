@@ -12,7 +12,6 @@ import { useState, useEffect } from 'react';
 import { auth } from './components/utilsAndInterfaces/firebase';
 import { handleWebSiteID } from './components/utilsAndInterfaces/handleWebsiteID';
 import { LoadingSpinner } from './components/Loading';
-import { LayoutModulesLoader } from './LayoutModulesLoader';
 export let WEBSITE_ID = '';
 const App = (): JSX.Element => {
    const [logedIn, setLogedIn] = useState<boolean | null>(null);
@@ -38,6 +37,7 @@ const App = (): JSX.Element => {
          setWebsiteID(id);
       });
    }, [websiteID]);
+
    console.log('websiteID at upstart', websiteID);
    console.log('logedIn at upstart', logedIn);
    if (websiteID === '' || logedIn === null) return <LoadingSpinner />;
@@ -45,30 +45,7 @@ const App = (): JSX.Element => {
    let page = window.location.href;
    console.log('page', page);
    console.log('logedIn', logedIn);
-   if (page.includes('layout-modules')) {
-      // For testing layout models, calling component with dummy data.
-      // contentData is supposed to be the fetch data object from firebase.
-      // The array provides the order of the items.
-      return (
-         <>
-            <LayoutModulesLoader
-               contentData={{
-                  layoutItems: [
-                     {
-                        name: 'DummyComponent1',
-                        content: 'This is some content.',
-                     },
-                     {
-                        name: 'DummyComponent2',
-                        content: 'This is also some content.',
-                     },
-                  ],
-                  pageId: 'lkjdsalkjdalkj',
-               }}
-            />
-         </>
-      );
-   } else if (page.includes('tidigareprogram')) {
+   if (page.includes('tidigareprogram')) {
       return (
          <>
             <NavWrapper websiteID={websiteID} />
@@ -83,11 +60,7 @@ const App = (): JSX.Element => {
          </>
       );
    } else if (page.includes('admin') || page.includes('login')) {
-      let element: JSX.Element = logedIn ? (
-         <Admin websiteID={websiteID} user={userOrNull} />
-      ) : (
-         <Login />
-      );
+      let element: JSX.Element = logedIn ? <Admin websiteID={websiteID} user={userOrNull} /> : <Login />;
       return element;
    } else {
       return (

@@ -1,9 +1,5 @@
 import { deleteObject, ref, uploadBytes } from 'firebase/storage';
-import {
-   DBWebsiteHomePageContentPitchCards,
-   DBWebsiteOneParticipant,
-   DBWebsiteParticipantKey,
-} from '../utilsAndInterfaces/interfaces';
+import { DBHomePageContentPitchCards, DBOneParticipant, DBParticipantKey } from '../utilsAndInterfaces/dbInterfaces';
 import ImageIcon from '@mui/icons-material/Image';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { child, push, update, ref as dbRef, set } from 'firebase/database';

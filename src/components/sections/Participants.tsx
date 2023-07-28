@@ -1,26 +1,24 @@
 import { deleteObject, ref, uploadBytes } from 'firebase/storage';
-import {
-   DBWebsiteHomePageContentPitchCards,
-   DBWebsiteOneParticipant,
-   DBWebsiteParticipantKey,
-} from './utilsAndInterfaces/interfaces';
+import { DBHomePageContentPitchCards, DBOneParticipant, DBParticipantKey } from '../utilsAndInterfaces/dbInterfaces';
 import ImageIcon from '@mui/icons-material/Image';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { child, push, update, ref as dbRef, set } from 'firebase/database';
-import { db, devSettings, storage } from './utilsAndInterfaces/firebase';
-import { WEBSITE_ID } from '../App';
+import { db, devSettings, storage } from '../utilsAndInterfaces/firebase';
+import { WEBSITE_ID } from '../../App';
 import { useState } from 'react';
 import { Box, Button, Divider, SvgIcon, TextField } from '@mui/material';
-import { ImageCardFileUpload } from './reusableComponents/FileUploads';
-import { EditText, SaveTextsButton } from './reusableComponents/TextEdits';
+import { ImageCardFileUpload } from '../reusableComponents/FileUploads';
+import { EditText, SaveTextsButton } from '../reusableComponents/TextEdits';
 
-interface OneParticipantComponentProps {
+export function OneParticipant({
+   newCard,
+   adminEditor,
+   oneParticipant,
+}: {
    newCard?: true;
-   adminEditor?: true;
-   oneParticipant: DBWebsiteOneParticipant;
-}
-export function OneParticipant(props: OneParticipantComponentProps): JSX.Element {
-   const { oneParticipant, newCard, adminEditor } = props;
+   adminEditor: boolean;
+   oneParticipant: DBOneParticipant;
+}): JSX.Element {
    const { id, order, image } = oneParticipant;
    const [name, setName] = useState(oneParticipant.name);
    const [title, setTitle] = useState(oneParticipant.title);
@@ -124,13 +122,11 @@ export function OneParticipant(props: OneParticipantComponentProps): JSX.Element
 }
 
 interface ParticipantComponentProps {
-   adminEditor?: true;
-   participants: DBWebsiteParticipantKey;
+   adminEditor: boolean;
+   participants: DBParticipantKey;
 }
-export function ParticipantComponent(props: ParticipantComponentProps): JSX.Element {
-   const { participants } = props;
-   const [adminEditor, setadminEditor] = useState(props.adminEditor);
-
+export function ParticipantComponent({ props }: { props: ParticipantComponentProps }): JSX.Element {
+   const { participants, adminEditor } = props;
    let newAdminImg = '';
    {
       adminEditor
@@ -142,7 +138,9 @@ export function ParticipantComponent(props: ParticipantComponentProps): JSX.Elem
       for (let participant of Object.keys(participants)) {
          let participantObject = participants[participant];
          if (participantObject !== participants.title) {
-            allParticipants.push(<OneParticipant oneParticipant={participantObject as DBWebsiteOneParticipant} />);
+            allParticipants.push(
+               <OneParticipant adminEditor={adminEditor} oneParticipant={participantObject as DBOneParticipant} />
+            );
          }
       }
 
@@ -168,7 +166,7 @@ export function ParticipantComponent(props: ParticipantComponentProps): JSX.Elem
                            id: 'randomKey',
                            title: 'Tester',
                            organization: 'Testers AB',
-                        } as DBWebsiteOneParticipant
+                        } as DBOneParticipant
                      }
                   />
                ) : null}
@@ -190,7 +188,7 @@ export function ParticipantComponent(props: ParticipantComponentProps): JSX.Elem
                         id: 'randomKey',
                         title: 'Tester',
                         organization: 'Testers AB',
-                     } as DBWebsiteOneParticipant
+                     } as DBOneParticipant
                   }
                />
             ) : null}

@@ -1,7 +1,7 @@
 import { ref, get, set, push, child } from 'firebase/database';
 import { v4 as uuidv4 } from 'uuid';
 import { db } from './firebase';
-import { DBWebsitesIDs } from './interfaces';
+import { DBWebsitesIDs } from './dbInterfaces';
 
 async function createNewWebsiteID(thisLocationsHostName: string) {
    //let newWebsiteID = uuidv4()
@@ -34,9 +34,7 @@ export async function handleWebSiteID(): Promise<string> {
             let data: DBWebsitesIDs = snapshot.val();
             let arrayOfWebsiteIDs = Object.keys(data);
             for (let websiteIDInDB of arrayOfWebsiteIDs) {
-               if (
-                  data[websiteIDInDB].websiteHostName === thisLocationsHostName
-               ) {
+               if (data[websiteIDInDB].websiteHostName === thisLocationsHostName) {
                   websiteID = websiteIDInDB;
                   console.log(websiteIDInDB, 'websiteIDInDB');
                   return websiteID;
@@ -44,12 +42,8 @@ export async function handleWebSiteID(): Promise<string> {
             }
             if (websiteID === '') {
                //If websiteID is still "" after loop, the hostname is not in DB, create new websiteID
-               console.log(
-                  'websiteIdsRooot exis but not an ID for this hostname, creating new websit'
-               );
-               let newWebsiteID = await createNewWebsiteID(
-                  thisLocationsHostName
-               );
+               console.log('websiteIdsRooot exis but not an ID for this hostname, creating new websit');
+               let newWebsiteID = await createNewWebsiteID(thisLocationsHostName);
                return newWebsiteID;
             }
 

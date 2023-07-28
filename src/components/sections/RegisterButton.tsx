@@ -11,54 +11,38 @@ import {
    TextField,
    ThemeProvider,
 } from '@mui/material';
-import { DBWebsiteHomePageContentButton } from './utilsAndInterfaces/interfaces';
+import { DBHomePageContentButton } from '../utilsAndInterfaces/dbInterfaces';
 import SaveIcon from '@mui/icons-material/Save';
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import { onValue, ref, set, update } from 'firebase/database';
-import { db } from './utilsAndInterfaces/firebase';
-import { initialState } from './Home';
-import { readAndWriteToFirebase } from './utilsAndInterfaces/firebaseFunctions';
+import { db } from '../utilsAndInterfaces/firebase';
+import { initialState } from '../Home';
+import { readAndWriteToFirebase } from '../utilsAndInterfaces/firebaseFunctions';
 import { valueToPercent } from '@mui/base';
-import { eriksTheme } from './myColorTheme';
+import { eriksTheme } from '../myColorTheme';
 export let customColor: string = '';
-export function RegisterButtonComponent({
-   buttonContent,
-}: {
-   buttonContent: DBWebsiteHomePageContentButton;
-}): JSX.Element {
+export function RegisterButtonComponent({ buttonContent }: { buttonContent: DBHomePageContentButton }): JSX.Element {
    let formLink =
       buttonContent && buttonContent.formLink
          ? buttonContent.formLink
          : 'https://9c831b73.sibforms.com/serve/MUIEAL41dyIw4oNTgGbL1IM7tpycWXBQTiZ3tUsgtJcTF3Eur522V2Zw98_DWJZ30w2O3z-WpTN7mutUIspI7JTSJ9dBrIy9b9ZVnGyrHURAzGyhNMS34JH6xhdUlyWNQpU2sVbE9-xcdpzV5vuZlYtMa_IJw7U_3L96rZkcyDUsfiW4umx_iAGXTAKLnMWWT6SGWiJTLVrrLzqx';
-   let buttonText =
-      buttonContent && buttonContent.buttonText
-         ? buttonContent.buttonText
-         : 'Anmälan';
+   let buttonText = buttonContent && buttonContent.buttonText ? buttonContent.buttonText : 'Anmälan';
    let buttonInfo =
       buttonContent && buttonContent.buttonInfo
          ? buttonContent.buttonInfo
          : 'Du måste vara Rotarian eller gäst till en Rotarian för att anmäla dig.';
-   let buttonColor =
-      buttonContent && buttonContent.buttonColor
-         ? buttonContent.buttonColor
-         : 'green';
+   let buttonColor = buttonContent && buttonContent.buttonColor ? buttonContent.buttonColor : 'green';
    if (buttonColor === 'green') buttonColor = 'success';
    else if (buttonColor === 'red') buttonColor = 'error';
    else if (buttonColor === 'blue') buttonColor = 'neutral';
    else {
-      console.error(
-         'Error: buttonColor is not supported. It is: ' + buttonColor
-      );
+      console.error('Error: buttonColor is not supported. It is: ' + buttonColor);
    }
    return (
       <Box textAlign="center" className="knapp-sektion">
          <div className="rotaryknapp">
             <ThemeProvider theme={eriksTheme}>
-               <Button
-                  color={buttonColor as any}
-                  href={formLink}
-                  variant="contained"
-               >
+               <Button color={buttonColor as any} href={formLink} variant="contained">
                   {buttonText}
                </Button>
             </ThemeProvider>
@@ -68,12 +52,12 @@ export function RegisterButtonComponent({
    );
 }
 
-async function saveButtonDataToDB(
-   homepageButtonContent: DBWebsiteHomePageContentButton,
-   websiteID: string
-): Promise<string> {
-   if (!homepageButtonContent.buttonColor)
-      homepageButtonContent.buttonColor = initialState.button.buttonColor;
+async function saveButtonDataToDB(homepageButtonContent: DBHomePageContentButton, websiteID: string): Promise<string> {
+   if (!homepageButtonContent.buttonColor) {
+      // Temporarily disabled while implementing Sections in Home
+      // homepageButtonContent.buttonColor = initialState.button.buttonColor;
+      homepageButtonContent.buttonColor = 'blue';
+   }
    await readAndWriteToFirebase({
       method: 'update',
       ref: `websites/${websiteID}/homepageContent/button/`,
@@ -82,10 +66,7 @@ async function saveButtonDataToDB(
    return `homePageContentButton saved to database`;
 }
 
-function handleButtonColorChange(
-   event: SelectChangeEvent<string>,
-   websiteID: ReactNode
-): void {
+function handleButtonColorChange(event: SelectChangeEvent<string>, websiteID: ReactNode): void {
    update(ref(db, `websites/${websiteID}/homepageContent/button/`), {
       buttonColor: event.target.value,
    });
@@ -95,13 +76,12 @@ export function EditRegisterButtonComponent({
    buttonContent,
    websiteID,
 }: {
-   buttonContent: DBWebsiteHomePageContentButton;
+   buttonContent: DBHomePageContentButton;
    websiteID: string;
 }): JSX.Element {
    // Create state variables for each input field
 
-   const [homepageButtonContent, setHomepageButtonContent] =
-      useState<DBWebsiteHomePageContentButton>(buttonContent);
+   const [homepageButtonContent, setHomepageButtonContent] = useState<DBHomePageContentButton>(buttonContent);
    //const [formLink, setFormLink] = useState(homepageButtonContent && homepageButtonContent.formLink ? homepageButtonContent.formLink : initialState.button.formLink);
    /*
      const [buttonText, setButtonText] = useState(homepageButtonContent && homepageButtonContent.buttonText ? homepageButtonContent.buttonText : initialState.button.buttonText);
@@ -112,7 +92,7 @@ export function EditRegisterButtonComponent({
          // READ DATA WHEN UPDATED TO UPDATE INDEX.HTML PROGRAM CONTENT
          let readButtonContentFromDatabaseToIndex = ref(db, `websites/${websiteID}/homepageContent/button`);
          onValue(readButtonContentFromDatabaseToIndex, (snapshot) => {
-             let buttonContentFromDB: DBWebsiteHomePageContentButton = snapshot.val() ? snapshot.val() : "";
+             let buttonContentFromDB: DBHomePageContentButton = snapshot.val() ? snapshot.val() : "";
              setHomepageButtonContent(buttonContentFromDB)
          });
      }, [homepageButtonContent]);
@@ -121,13 +101,9 @@ export function EditRegisterButtonComponent({
 
    useEffect(() => {
       // READ DATA WHEN UPDATED TO UPDATE INDEX.HTML PROGRAM CONTENT
-      let readButtonContentFromDatabase = ref(
-         db,
-         `websites/${websiteID}/homepageContent/button/`
-      );
+      let readButtonContentFromDatabase = ref(db, `websites/${websiteID}/homepageContent/button/`);
       onValue(readButtonContentFromDatabase, (snapshot) => {
-         let buttonContentFromDB: DBWebsiteHomePageContentButton =
-            snapshot.val() ? snapshot.val() : '';
+         let buttonContentFromDB: DBHomePageContentButton = snapshot.val() ? snapshot.val() : '';
          setHomepageButtonContent(buttonContentFromDB);
       });
    }, []);
@@ -165,9 +141,7 @@ export function EditRegisterButtonComponent({
             textAlign="center"
          >
             <FormControl fullWidth>
-               <InputLabel id="demo-simple-select-label">
-                  Button Color
-               </InputLabel>
+               <InputLabel id="demo-simple-select-label">Button Color</InputLabel>
                <Select
                   labelId="demo-simple-select-label"
                   variant="filled"
@@ -198,9 +172,7 @@ export function EditRegisterButtonComponent({
             noValidate
             autoComplete="off"
             //onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleButtonChange(e, websiteID)}
-            onSubmit={() =>
-               saveButtonDataToDB(homepageButtonContent, websiteID)
-            }
+            onSubmit={() => saveButtonDataToDB(homepageButtonContent, websiteID)}
          >
             <TextField
                name="formLink"

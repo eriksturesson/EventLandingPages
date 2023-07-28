@@ -1,21 +1,17 @@
-import visningsbild1 from '../assets/DSC01125.JPG';
-import visningsbild2 from '../assets/DSC01286.JPG';
-import visningsbild3 from '../assets/DSC02755.JPG';
+import visningsbild1 from '../../assets/DSC01125.JPG';
+import visningsbild2 from '../../assets/DSC01286.JPG';
+import visningsbild3 from '../../assets/DSC02755.JPG';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import DeleteIcon from '@mui/icons-material/Delete';
 import react, { useState } from 'react';
-import {
-   DBWebsiteHomePageContent,
-   DBWebsiteHomePageContentPitchCards,
-   DBWebsitePitchCardKey,
-} from './utilsAndInterfaces/interfaces';
+import { DBHomePageContent, DBHomePageContentPitchCards, DBPitchCardKey } from '../utilsAndInterfaces/dbInterfaces';
 import { Box, Button, Divider, Stack, SvgIcon, TextField } from '@mui/material';
 import { deleteObject, getStorage, ref, uploadBytes } from 'firebase/storage';
-import { db, devSettings, storage } from './utilsAndInterfaces/firebase';
+import { db, devSettings, storage } from '../utilsAndInterfaces/firebase';
 import { child, push, ref as dbRef, set, update, onChildAdded } from 'firebase/database';
-import { WEBSITE_ID } from '../App';
-import { EditText, SaveTextsButton } from './reusableComponents/TextEdits';
-import { ImageCardFileUpload } from './reusableComponents/FileUploads';
+import { WEBSITE_ID } from '../../App';
+import { EditText, SaveTextsButton } from '../reusableComponents/TextEdits';
+import { ImageCardFileUpload } from '../reusableComponents/FileUploads';
 
 interface OnePitchCardProps {
    adminEditor?: boolean;
@@ -130,7 +126,7 @@ export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
 
 interface PitchCardsComponentProps {
    adminEditor?: boolean;
-   pitchCardsDB: DBWebsitePitchCardKey;
+   pitchCardsDB: DBPitchCardKey;
 }
 
 export function PitchCardsComponent(props: PitchCardsComponentProps): JSX.Element {
@@ -141,7 +137,7 @@ export function PitchCardsComponent(props: PitchCardsComponentProps): JSX.Elemen
 
    // Sort the pitchCards array based on the "order" property
    if (pitchCardsDB) {
-      let pitchCards: DBWebsiteHomePageContentPitchCards[] = Object.values(pitchCardsDB);
+      let pitchCards: DBHomePageContentPitchCards[] = Object.values(pitchCardsDB);
       pitchCards.sort((a, b) => a.order - b.order);
 
       for (let i = 0; i < pitchCards.length; i++) {

@@ -1,8 +1,8 @@
 import React from 'react';
-import kartbild from '../assets/Rotary Karta till Stockholm City Affärsnätverk.png'; // relative path to image
-import { DBWebsiteHomePageContentFooter } from './utilsAndInterfaces/interfaces';
+import kartbild from '../../assets/Rotary Karta till Stockholm City Affärsnätverk.png'; // relative path to image
+import { DBHomePageContentFooter } from '../utilsAndInterfaces/dbInterfaces';
 
-export function Footer({ footerContent }: { footerContent: DBWebsiteHomePageContentFooter }): JSX.Element {
+export function Footer({ footerContent }: { footerContent: DBHomePageContentFooter }): JSX.Element {
    if (footerContent) {
       return (
          <div>

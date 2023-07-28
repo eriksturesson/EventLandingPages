@@ -1,15 +1,21 @@
 import React from 'react';
-import rotaryLogo from '../assets/Logga stockholm city affarsnatverk 2020-12-28.png';
-import rotaryVideomp4 from '../assets/VideoStockholmCityAffarsnatverk_Trim_min.mp4';
-import rotaryVideoWebm from '../assets/VideoStockholmCityAffarsnatverk_Trim_min.webm';
-import arrowDown from '../assets/baseline_keyboard_arrow_down_white_18dp.png';
-import { DBWebsiteHomePageContentButton, StandardWebPageContentHeader } from './utilsAndInterfaces/interfaces';
+import rotaryLogo from '../../assets/Logga stockholm city affarsnatverk 2020-12-28.png';
+import rotaryVideomp4 from '../../assets/VideoStockholmCityAffarsnatverk_Trim_min.mp4';
+import rotaryVideoWebm from '../../assets/VideoStockholmCityAffarsnatverk_Trim_min.webm';
+import arrowDown from '../../assets/baseline_keyboard_arrow_down_white_18dp.png';
+import {
+   DBFullScreenMedia,
+   DBHomePageContentButton,
+
+   // StandardWebPageContentHeader,
+} from '../utilsAndInterfaces/dbInterfaces';
+import { SectionContent, SectionProps } from '../utilsAndInterfaces/sectionInterfaces';
 import { RegisterButtonComponent } from './RegisterButton';
 import { Box, Divider, Button } from '@mui/material';
 import { ref, uploadBytes } from 'firebase/storage';
 import { ref as dbRef, update } from 'firebase/database';
-import { db, devSettings, storage } from './utilsAndInterfaces/firebase';
-import { WEBSITE_ID } from '../App';
+import { db, devSettings, storage } from '../utilsAndInterfaces/firebase';
+import { WEBSITE_ID } from '../../App';
 
 export function HeaderVideoOrImageUpload(): JSX.Element {
    function handleChange(event: any) {
@@ -84,23 +90,19 @@ export function EditHeaderComponent(): JSX.Element {
    );
 }
 
-export function HeaderComponent({
-   adminEditor,
-   header,
-}: {
-   adminEditor?: true;
-   header: StandardWebPageContentHeader;
-}): JSX.Element {
-   let logo = header?.logo ? header.logo : rotaryLogo;
-   let video = header?.video ? header.video : rotaryVideomp4;
-   let image = header?.image ? header.image : null;
+export function HeaderComponent(props: SectionProps): JSX.Element {
+   const { adminEditor } = props;
+   const content = props.data.content as DBFullScreenMedia;
+   let logo = content?.logo ? content.logo : rotaryLogo;
+   let video = content?.video ? content.video : rotaryVideomp4;
+   let image = content?.image ? content.image : null;
    let videoOrImage = video ? video : image ? image : null;
-   let headerTitle = header?.title ? header.title : 'Stockholm City Affärsnätverk';
-   let headerDescription = header?.description
-      ? header.description
+   let headerTitle = content?.title ? content.title : 'Stockholm City Affärsnätverk';
+   let headerDescription = content?.description
+      ? content.description
       : 'Lär känna techbranschens ledare och nyckelpersoner. En katalysator för ert företags tillväxt och lönsamhet.';
-   let time = header?.time ? header.time : 'ONS 6 SEP KL.18.00 - 21.00';
-   let location = header?.location ? header.location : 'M / S VINDHEM, SKEPPSBRON - KAJPLATS 101';
+   let time = content?.time ? content.time : 'ONS 6 SEP KL.18.00 - 21.00';
+   let location = content?.location ? content.location : 'M / S VINDHEM, SKEPPSBRON - KAJPLATS 101';
    let headerContent: JSX.Element = <></>;
 
    let videoExtension =

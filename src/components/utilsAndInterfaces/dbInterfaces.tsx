@@ -1,4 +1,6 @@
-export interface StandardWebPageContentHeaderMetaData {
+import { SectionIDs } from './sectionInterfaces';
+
+export interface DBFullScreenMediaMetaData {
    metaDescription: string;
    metaKeywords: string;
    metaTitle: string;
@@ -7,8 +9,8 @@ export interface StandardWebPageContentHeaderMetaData {
    metaRobots: string;
 }
 
-export interface StandardWebPageContentHeader {
-   metaData?: StandardWebPageContentHeaderMetaData;
+export interface DBFullScreenMedia {
+   metaData?: DBFullScreenMediaMetaData;
    title?: string;
    description?: string;
    time?: string;
@@ -18,7 +20,7 @@ export interface StandardWebPageContentHeader {
    image: string; // url to storage
 }
 
-export interface DBWebsiteHomePageContentPitchCards {
+export interface DBHomePageContentPitchCards {
    image: string; // url to storage
    title: string;
    description: string;
@@ -26,18 +28,18 @@ export interface DBWebsiteHomePageContentPitchCards {
    id: string;
 }
 
-export interface DBWebsitePitchCardKey {
-   [key: string]: DBWebsiteHomePageContentPitchCards;
+export interface DBPitchCardKey {
+   [key: string]: DBHomePageContentPitchCards;
 }
 
-export interface DBWebsiteHomePageContentButton {
+export interface DBHomePageContentButton {
    formLink: string;
    buttonText: string;
    buttonInfo: string;
    buttonColor?: string;
 }
 
-export interface DBWebsiteHomePageContentFooter {
+export interface DBHomePageContentFooter {
    integrityPolicy: string; //URL to integritypolicy
    integrityPolicyDescription: string;
    contactName?: string;
@@ -49,11 +51,11 @@ export interface DBWebsiteHomePageContentFooter {
    contactAddress2: string;
    mapImage: string; // url to storage
 }
-export interface DBWebsiteSpeakersKey {
-   [key: string]: DBWebsiteSpeaker;
+export interface DBSpeakersKey {
+   [key: string]: DBSpeaker;
 }
 
-export interface DBWebsiteSpeaker {
+export interface DBSpeaker {
    speakerName?: string;
    speakerDescription?: string;
    speakerImage?: string;
@@ -63,7 +65,7 @@ export interface DBWebsiteSpeaker {
    speakerID: string;
 }
 
-export interface DBWebsiteOneParticipant {
+export interface DBOneParticipant {
    image?: string;
    name?: string;
    title?: string;
@@ -72,9 +74,9 @@ export interface DBWebsiteOneParticipant {
    order: number;
 }
 
-export interface DBWebsiteParticipantKey {
+export interface DBParticipantKey {
    title: string;
-   [key: string]: string | DBWebsiteOneParticipant;
+   [key: string]: string | DBOneParticipant;
 }
 
 export interface EventSchedule {
@@ -82,7 +84,7 @@ export interface EventSchedule {
    [anyStringWithWhatHappensThatTime: string]: string;
 }
 
-export interface DBWebsiteOrganizersKey {
+export interface DBOrganizersKey {
    title: string;
    [logoOfOrganizer: string]: string | OrganizerObject;
 }
@@ -90,35 +92,61 @@ export interface DBWebsiteOrganizersKey {
 export interface OrganizerObject {
    logo: string;
 }
-export interface DBWebsiteHomePageContent {
-   header: StandardWebPageContentHeader;
-   speakers: DBWebsiteSpeakersKey;
-   participants: DBWebsiteParticipantKey;
-   organizers: DBWebsiteOrganizersKey;
-   eventSchedule: EventSchedule;
-   pitchCards: DBWebsitePitchCardKey;
-   quillContent: string;
-   button: DBWebsiteHomePageContentButton;
-   footer: DBWebsiteHomePageContentFooter;
+
+export interface QuillObject {
+   text: string;
    timestamp: string;
 }
+export interface DBHomePageContent {
+   fullScreenMedia: DBFullScreenMedia;
+   speakers: DBSpeakersKey;
+   participants: DBParticipantKey;
+   organizers: DBOrganizersKey;
+   eventSchedule: EventSchedule;
+   pitchCards: DBPitchCardKey;
+   quillContent: QuillObject;
+   button: DBHomePageContentButton;
+   footer: DBHomePageContentFooter;
+   // timestamp: string;
+}
 
-export interface DBWebsiteAdminPageContent {}
+export type Content =
+   | DBFullScreenMedia
+   | DBSpeakersKey
+   | DBParticipantKey
+   | DBOrganizersKey
+   | EventSchedule
+   | DBPitchCardKey
+   | QuillObject
+   | DBHomePageContentButton
+   | DBHomePageContentFooter;
 
-export interface DBWebsiteSubPageContent {
-   header: StandardWebPageContentHeader;
+export interface DBAdminPageContent {}
+
+export interface DBSubPageContent {
+   header: DBFullScreenMedia;
    quillContent: string;
 }
 
-export interface DBWebsite {
+export type SectionTypes =
+   | 'DBFullScreenMedia'
+   | 'footer'
+   | 'speakers'
+   | 'participants'
+   | 'organizers'
+   | 'quillContent'
+   | 'callToActionButton'
+   | 'footer';
+
+export interface DB {
    websiteHostName: string;
-   homepageContent: DBWebsiteHomePageContent;
-   adminpageContent: DBWebsiteAdminPageContent;
-   subpages: DBWebsiteSubPageContent[];
+   homepageContent: SectionIDs;
+   adminpageContent: DBAdminPageContent;
+   subpages: DBSubPageContent[];
 }
 
-export interface DBWebsites {
-   [websiteID: string]: DBWebsite;
+export interface DBs {
+   [websiteID: string]: DB;
 }
 export interface DBAdminUsers {
    [userID: string]: {
@@ -143,7 +171,7 @@ export interface DBWebsitesIDs {
    };
 }
 export interface DB {
-   websites: DBWebsite;
+   websites: DB;
    websitesIds: DBWebsitesIDs;
    users: DBUsers;
    adminUsers: DBAdminUsers;

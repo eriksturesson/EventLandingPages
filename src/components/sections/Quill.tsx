@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import 'react-quill/dist/quill.snow.css';
 import { Button, Divider } from '@mui/material';
 import { ref, set } from 'firebase/database';
-import { auth, db } from './utilsAndInterfaces/firebase';
+import { auth, db } from '../utilsAndInterfaces/firebase';
 import SaveIcon from '@mui/icons-material/Save';
 import parse from 'html-react-parser';
 
@@ -40,23 +40,13 @@ function saveQuillToDB(data: any, websiteID: string) {
    }
 }
 
-export function ShowQuillContent({
-   quillContent,
-}: {
-   quillContent: string;
-}): JSX.Element {
+export function ShowQuillContent({ quillContent }: { quillContent: string }): JSX.Element {
    const [value, setValue] = useState(quillContent);
    let quillContentToHTML = quillContent ? parse(quillContent) : <></>;
    return <>{quillContentToHTML}</>;
 }
 
-export function QuillComponent({
-   websiteID,
-   quillContent,
-}: {
-   websiteID: string;
-   quillContent: string;
-}): JSX.Element {
+export function QuillComponent({ websiteID, quillContent }: { websiteID: string; quillContent: string }): JSX.Element {
    const [value, setValue] = useState(quillContent);
    useEffect(() => {
       //QUILL Renders somehow before the initiation (so no text is visible in the quil editor from start even if there is text in the db) so useEffect is needed to put our quillContent to the quill editor
@@ -68,12 +58,7 @@ export function QuillComponent({
             <h2>Edit Texts on your webpage</h2>
          </Divider>
          <div className="myquillComponent">
-            <ReactQuill
-               theme="snow"
-               value={value}
-               defaultValue={value}
-               onChange={setValue}
-            />
+            <ReactQuill theme="snow" value={value} defaultValue={value} onChange={setValue} />
             <div
                style={{
                   justifyContent: 'center',
@@ -81,11 +66,7 @@ export function QuillComponent({
                   marginTop: '1rem',
                }}
             >
-               <Button
-                  variant="contained"
-                  onClick={() => saveQuillToDB(value, websiteID)}
-                  endIcon={<SaveIcon />}
-               >
+               <Button variant="contained" onClick={() => saveQuillToDB(value, websiteID)} endIcon={<SaveIcon />}>
                   Save
                </Button>
             </div>

@@ -4,19 +4,32 @@ import { Database, ref, onValue, set } from 'firebase/database';
 import { User, onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from './utilsAndInterfaces/firebase';
 import ReactQuill, { Quill } from 'react-quill';
-import { QuillComponent } from './Quill';
-import Home, { initialState } from './Home';
+import { QuillComponent } from './sections/Quill';
+import Home from './Home';
 import Button from '@mui/material/Button';
 import { TextareaAutosize } from '@mui/base';
 import NavWrapper from './NavWrapper';
-import { Footer } from './Footer';
-import { EditRegisterButtonComponent } from './RegisterButton';
-import { DBWebsite, DBWebsiteHomePageContent } from './utilsAndInterfaces/interfaces';
+import { Footer } from './sections/Footer';
+import { EditRegisterButtonComponent } from './sections/RegisterButton';
+import {
+   DB,
+   DBFullScreenMedia,
+   DBHomePageContent,
+   DBHomePageContentButton,
+   DBHomePageContentFooter,
+   DBOrganizersKey,
+   DBParticipantKey,
+   DBPitchCardKey,
+   DBSpeakersKey,
+   EventSchedule,
+   QuillObject,
+} from './utilsAndInterfaces/dbInterfaces';
 import { Box } from '@mui/material';
-import { PitchCardsComponent } from './PitchCards';
-import { HeaderComponent } from './Header';
-import { OrganizersComponent } from './Organizers';
-import { ScheduleComponent } from './Schedule';
+import { PitchCardsComponent } from './sections/PitchCards';
+import { HeaderComponent } from './sections/Header';
+import { OrganizersComponent } from './sections/Organizers';
+import { ScheduleComponent } from './sections/Schedule';
+import { SectionContent, SectionIDs } from './utilsAndInterfaces/sectionInterfaces';
 // Get user data //
 
 var name, email: string | null, photoUrl, uid: string, emailVerified;
@@ -123,6 +136,73 @@ function loadDBContent(): JSX.Element {
    //}
 }
 
+// Temporary initialState while implementing Sections in Home.tsx
+interface DBWebsiteHomePageContent {
+   fullScreenMedia: SectionContent;
+   speakers: DBSpeakersKey;
+   participants: DBParticipantKey;
+   organizers: DBOrganizersKey;
+   eventSchedule: EventSchedule;
+   pitchCards: DBPitchCardKey;
+   quillContent: string;
+   button: DBHomePageContentButton;
+   footer: DBHomePageContentFooter;
+   timestamp: string;
+}
+const initialState: DBWebsiteHomePageContent = {
+   fullScreenMedia: {
+      id: 'uionsgrngnen',
+      sectionName: 'DBFullScreenMedia',
+      order: '0',
+      createdAt: new Date(Date.now()),
+      updatedAt: new Date(Date.now()),
+      content: {
+         logo: '',
+         video: '',
+         image: '',
+      } as DBFullScreenMedia,
+   },
+   speakers: {},
+   participants: {
+      title: 'Deltagare',
+   },
+   eventSchedule: {
+      scheduleName: 'Kvällens upplägg',
+   },
+   organizers: {
+      title: 'Arrangörer',
+   },
+   pitchCards: {
+      myHardodedKey: {
+         image: '', // url to storage
+         title: '',
+         description: '',
+         order: 0,
+         id: 'randomKey',
+      },
+   },
+   quillContent: '',
+   button: {
+      formLink: "link to form here (use 'https://' to link outside the webpage)",
+      buttonText: 'initial text',
+      buttonInfo: 'inital info',
+      buttonColor: 'green',
+   },
+   footer: {
+      integrityPolicy: '',
+      integrityPolicyDescription: '',
+      contactTitle: '',
+      contactName: '',
+      contactEmail: '',
+      contactPhone: '',
+      adressTitle: '',
+      contactAddress1: '',
+      contactAddress2: '',
+      mapImage: '',
+   },
+   timestamp: '',
+};
+
 export const Admin = ({ user, websiteID }: { user: User | null; websiteID: string }): JSX.Element => {
    const [homepageContent, setProgramContent] = useState<DBWebsiteHomePageContent>(initialState);
    //let databaseContent = document.getElementByClassName('DBContent');
@@ -152,7 +232,7 @@ export const Admin = ({ user, websiteID }: { user: User | null; websiteID: strin
                <EditRegisterButtonComponent buttonContent={homepageContent.button} websiteID={websiteID} />
             </Box>
             <Box id="editHeader">
-               <HeaderComponent adminEditor={true} header={homepageContent.header} />
+               <HeaderComponent adminEditor={true} data={homepageContent.fullScreenMedia} />
             </Box>
             <Box id="editPitchCards" alignContent={'center'}>
                <PitchCardsComponent adminEditor={true} pitchCardsDB={homepageContent.pitchCards} />
