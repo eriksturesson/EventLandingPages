@@ -14,10 +14,12 @@ export function OneParticipant({
    newCard,
    adminEditor,
    oneParticipant,
+   sectionID,
 }: {
    newCard?: true;
    adminEditor: boolean;
    oneParticipant: DBOneParticipant;
+   sectionID: string;
 }): JSX.Element {
    const { id, order, image } = oneParticipant;
    const [name, setName] = useState(oneParticipant.name);
@@ -45,7 +47,7 @@ export function OneParticipant({
       console.log('name: ' + name);
       console.log('title: ' + title);
       console.log('organisation: ' + organisation);
-      update(dbRef(db, `websites/${WEBSITE_ID}/homepageContent/participants/${id}`), {
+      update(dbRef(db, `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/${id}`), {
          name: name,
          title: title,
          organisation: organisation,
@@ -59,7 +61,7 @@ export function OneParticipant({
    const removeParticipantCard = (id: string, imgStorageRef: string) => {
       return () => {
          //Remove from db
-         const participantCardsRef = dbRef(db, `websites/${WEBSITE_ID}/homepageContent/pitchCards/${id}`);
+         const participantCardsRef = dbRef(db, `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/${id}`);
          set(participantCardsRef, null);
          // Create a reference to the file to delete from Storage
          const participantImgRefInStorage = ref(storage, imgStorageRef);
@@ -98,7 +100,9 @@ export function OneParticipant({
                   />
                </Box>
             ) : null}
-            {adminEditor && newCard ? <ImageCardFileUpload cardOrderNr={order} sectionName={'participants'} /> : null}
+            {adminEditor && newCard ? (
+               <ImageCardFileUpload cardOrderNr={order} sectionName={'participants'} sectionID={sectionID} />
+            ) : null}
             <img className="participant-image" src={oneParticipant.image} />
             {adminEditor ? (
                <EditText onChange={handleTitleChange} initText={name ? name : 'Test Testersson'} />
@@ -124,9 +128,10 @@ export function OneParticipant({
 interface ParticipantComponentProps {
    adminEditor: boolean;
    participants: DBParticipantKey;
+   sectionID: string;
 }
 export function ParticipantComponent({ props }: { props: ParticipantComponentProps }): JSX.Element {
-   const { participants, adminEditor } = props;
+   const { participants, adminEditor, sectionID } = props;
    let newAdminImg = '';
    {
       adminEditor
@@ -139,7 +144,11 @@ export function ParticipantComponent({ props }: { props: ParticipantComponentPro
          let participantObject = participants[participant];
          if (participantObject !== participants.title) {
             allParticipants.push(
-               <OneParticipant adminEditor={adminEditor} oneParticipant={participantObject as DBOneParticipant} />
+               <OneParticipant
+                  adminEditor={adminEditor}
+                  sectionID={sectionID}
+                  oneParticipant={participantObject as DBOneParticipant}
+               />
             );
          }
       }
@@ -157,6 +166,7 @@ export function ParticipantComponent({ props }: { props: ParticipantComponentPro
                {adminEditor ? (
                   <OneParticipant
                      adminEditor={adminEditor}
+                     sectionID={sectionID}
                      newCard={true}
                      oneParticipant={
                         {
@@ -180,6 +190,7 @@ export function ParticipantComponent({ props }: { props: ParticipantComponentPro
                <OneParticipant
                   adminEditor={adminEditor}
                   newCard={true}
+                  sectionID={sectionID}
                   oneParticipant={
                      {
                         order: participants ? Object.keys(participants).length + 1 : 1,

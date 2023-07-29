@@ -21,15 +21,13 @@ import {
    DBParticipantKey,
    DBPitchCardKey,
    DBSpeakersKey,
-   EventSchedule,
    QuillObject,
 } from './interfaces/dbInterfaces';
 import { Box } from '@mui/material';
 import { PitchCardsComponent } from './sections/PitchCards';
 import { HeaderComponent } from './sections/Header';
 import { OrganizersComponent } from './sections/Organizers';
-import { ScheduleComponent } from './sections/Schedule';
-import { SectionContent, SectionIDs } from './utils/sectionInterfaces';
+import { SectionContent, SectionIDs } from './interfaces/sectionInterfaces';
 // Get user data //
 
 var name, email: string | null, photoUrl, uid: string, emailVerified;
@@ -142,7 +140,6 @@ interface DBWebsiteHomePageContent {
    speakers: DBSpeakersKey;
    participants: DBParticipantKey;
    organizers: DBOrganizersKey;
-   eventSchedule: EventSchedule;
    pitchCards: DBPitchCardKey;
    quillContent: string;
    button: DBHomePageContentButton;
@@ -152,7 +149,7 @@ interface DBWebsiteHomePageContent {
 const initialState: DBWebsiteHomePageContent = {
    fullScreenMedia: {
       id: 'uionsgrngnen',
-      sectionName: 'DBFullScreenMedia',
+      sectionName: 'fullScreenMedia',
       order: '0',
       createdAt: new Date(Date.now()),
       updatedAt: new Date(Date.now()),
@@ -165,9 +162,6 @@ const initialState: DBWebsiteHomePageContent = {
    speakers: {},
    participants: {
       title: 'Deltagare',
-   },
-   eventSchedule: {
-      scheduleName: 'Kvällens upplägg',
    },
    organizers: {
       title: 'Arrangörer',
@@ -229,23 +223,32 @@ export const Admin = ({ user, websiteID }: { user: User | null; websiteID: strin
             <Box id="changeOrCreateNewPageToEdit"></Box>
 
             <Box id="editRegisterButton">
-               <EditRegisterButtonComponent buttonContent={homepageContent.button} websiteID={websiteID} />
+               <EditRegisterButtonComponent
+                  sectionID={'wontWorkButtonSectionID'}
+                  buttonContent={homepageContent.button}
+                  websiteID={websiteID}
+               />
             </Box>
             <Box id="editHeader">
                <HeaderComponent adminEditor={true} data={homepageContent.fullScreenMedia} />
             </Box>
             <Box id="editPitchCards" alignContent={'center'}>
-               <PitchCardsComponent adminEditor={true} pitchCardsDB={homepageContent.pitchCards} />
+               <PitchCardsComponent
+                  sectionID={'wontWorkPitchCardSectionID'}
+                  adminEditor={true}
+                  pitchCardsDB={homepageContent.pitchCards}
+               />
             </Box>
             <Box id="speakers">{/*Box for speaker(s) at the event*/}</Box>
-            <Box id="schedule-box">
-               <ScheduleComponent schedule={homepageContent.eventSchedule} />
-            </Box>
             <Box id="participants" alignContent={'center'}>
                {/*Box for participants / organizers etc at the event*/}
             </Box>
             <Box id="myQuillComponent">
-               <QuillComponent websiteID={websiteID} quillContent={homepageContent.quillContent} />
+               <QuillComponent
+                  sectionID={'wontWorkQuillSectionID'}
+                  websiteID={websiteID}
+                  quillContent={homepageContent.quillContent}
+               />
             </Box>
             <Box id="organizers">
                <OrganizersComponent organizers={homepageContent.organizers} />

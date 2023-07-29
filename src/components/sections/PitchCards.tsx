@@ -21,9 +21,10 @@ interface OnePitchCardProps {
    initDescription: string;
    newCard?: true;
    id?: string;
+   sectionID: string;
 }
 export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
-   const { adminEditor, img, order, initTitle, initDescription, newCard, id } = props;
+   const { adminEditor, img, order, initTitle, initDescription, newCard, id, sectionID } = props;
    const [title, setTitle] = useState(initTitle);
    const [description, setDescription] = useState(initDescription);
 
@@ -43,7 +44,7 @@ export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
       console.log('id: ' + id);
       console.log('title: ' + title);
       console.log('description: ' + description);
-      update(dbRef(db, `websites/${WEBSITE_ID}/homepageContent/pitchCards/${id}`), {
+      update(dbRef(db, `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/${id}`), {
          title: title,
          description: description,
          id: id,
@@ -56,7 +57,7 @@ export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
    const removePitchCard = (id: string, imgStorageRef: string) => {
       return () => {
          //Remove from db
-         const pitchCardsRef = dbRef(db, `websites/${WEBSITE_ID}/homepageContent/pitchCards/${id}`);
+         const pitchCardsRef = dbRef(db, `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/${id}`);
          set(pitchCardsRef, null);
          // Create a reference to the file to delete from Storage
          const pitchCardImgRefInStorage = ref(storage, imgStorageRef);
@@ -115,7 +116,9 @@ export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
             ) : (
                <img className="visningsbilder" alt="visningsbild1" src={img} />
             )}
-            {adminEditor ? <ImageCardFileUpload sectionName={'pitchCards'} cardOrderNr={order} /> : null}
+            {adminEditor ? (
+               <ImageCardFileUpload sectionID={sectionID} sectionName={'pitchCards'} cardOrderNr={order} />
+            ) : null}
             {adminEditor ? <EditText onChange={handleTitleChange} initText={title} /> : <h1>{title}</h1>}
             {adminEditor ? <EditText onChange={handleDescriptionChange} initText={description} /> : <p>{description}</p>}
             {adminEditor ? <SaveTextsButton onSave={handleSaveTexts} /> : null}
@@ -127,10 +130,11 @@ export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
 interface PitchCardsComponentProps {
    adminEditor?: boolean;
    pitchCardsDB: DBPitchCardKey;
+   sectionID: string;
 }
 
 export function PitchCardsComponent(props: PitchCardsComponentProps): JSX.Element {
-   let { pitchCardsDB } = props;
+   let { pitchCardsDB, sectionID } = props;
    const [adminEditor, setadminEditor] = useState(props.adminEditor);
 
    let pitchCardsContent: JSX.Element[] = [];
@@ -144,6 +148,7 @@ export function PitchCardsComponent(props: PitchCardsComponentProps): JSX.Elemen
          pitchCardsContent.push(
             <OnePitchCard
                id={pitchCards[i].id}
+               sectionID={sectionID}
                adminEditor={adminEditor}
                order={pitchCards[i].order}
                img={pitchCards[i].image}
@@ -166,6 +171,7 @@ export function PitchCardsComponent(props: PitchCardsComponentProps): JSX.Elemen
                {adminEditor ? (
                   <OnePitchCard
                      adminEditor={adminEditor}
+                     sectionID={sectionID}
                      newCard={true}
                      order={pitchCardsContent.length + 1}
                      img={''}
@@ -181,6 +187,7 @@ export function PitchCardsComponent(props: PitchCardsComponentProps): JSX.Elemen
          <Box className="wrapperOfImagesWithPitch">
             <OnePitchCard
                adminEditor={adminEditor}
+               sectionID={sectionID}
                order={1}
                img={visningsbild1}
                initTitle={'About Rotary'}
@@ -190,6 +197,7 @@ export function PitchCardsComponent(props: PitchCardsComponentProps): JSX.Elemen
             />
             <OnePitchCard
                adminEditor={adminEditor}
+               sectionID={sectionID}
                order={2}
                img={visningsbild2}
                initTitle={'Stockholm City Affärsnätverk'}
@@ -199,6 +207,7 @@ export function PitchCardsComponent(props: PitchCardsComponentProps): JSX.Elemen
             />
             <OnePitchCard
                adminEditor={adminEditor}
+               sectionID={sectionID}
                order={3}
                img={visningsbild3}
                initTitle={'Hur går jag med i Rotary?'}

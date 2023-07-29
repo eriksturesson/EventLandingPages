@@ -10,7 +10,7 @@ export interface SectionContent {
 }
 
 export interface SectionIDs {
-   [firebaseID: string]: SectionContent;
+   [sectionID: string]: SectionContent;
 }
 
 export interface SectionProps {
@@ -19,11 +19,12 @@ export interface SectionProps {
 }
 
 export type SectionTypes =
-   | 'DBFullScreenMedia'
+   | 'fullScreenMedia'
    | 'footer'
    | 'speakers'
    | 'participants'
    | 'organizers'
    | 'quillContent'
+   | 'pitchCards'
    | 'callToActionButton'
    | 'footer';

@@ -1,5 +1,5 @@
 import { Content } from './components/interfaces/dbInterfaces';
-import { SectionContent, SectionIDs, SectionProps } from './components/utils/sectionInterfaces';
+import { SectionContent, SectionIDs, SectionProps } from './components/interfaces/sectionInterfaces';
 import { HeaderComponent } from './components/sections/Header';
 import { SpeakersComponent } from './components/sections/Speakers';
 import { Footer } from './components/sections/Footer';
@@ -13,7 +13,7 @@ interface Sections {
 
 // Object for mapping each component in the JSX
 const components: Sections = {
-   DBFullScreenMedia: HeaderComponent,
+   fullScreenMedia: HeaderComponent,
    speakers: SpeakersComponent,
    // footer: Footer,
    // participants: ParticipantComponent,

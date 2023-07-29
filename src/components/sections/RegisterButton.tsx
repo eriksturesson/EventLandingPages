@@ -52,7 +52,11 @@ export function RegisterButtonComponent({ buttonContent }: { buttonContent: DBHo
    );
 }
 
-async function saveButtonDataToDB(homepageButtonContent: DBHomePageContentButton, websiteID: string): Promise<string> {
+async function saveButtonDataToDB(
+   homepageButtonContent: DBHomePageContentButton,
+   websiteID: string,
+   sectionID: string
+): Promise<string> {
    if (!homepageButtonContent.buttonColor) {
       // Temporarily disabled while implementing Sections in Home
       // homepageButtonContent.buttonColor = initialState.button.buttonColor;
@@ -60,14 +64,14 @@ async function saveButtonDataToDB(homepageButtonContent: DBHomePageContentButton
    }
    await readAndWriteToFirebase({
       method: 'update',
-      ref: `websites/${websiteID}/homepageContent/button/`,
+      ref: `websites/${websiteID}/homepageContent/${sectionID}/content/`,
       data: homepageButtonContent,
    });
    return `homePageContentButton saved to database`;
 }
 
-function handleButtonColorChange(event: SelectChangeEvent<string>, websiteID: ReactNode): void {
-   update(ref(db, `websites/${websiteID}/homepageContent/button/`), {
+function handleButtonColorChange(event: SelectChangeEvent<string>, websiteID: ReactNode, sectionID: string): void {
+   update(ref(db, `websites/${websiteID}/homepageContent/${sectionID}/content/`), {
       buttonColor: event.target.value,
    });
 }
@@ -75,9 +79,11 @@ function handleButtonColorChange(event: SelectChangeEvent<string>, websiteID: Re
 export function EditRegisterButtonComponent({
    buttonContent,
    websiteID,
+   sectionID,
 }: {
    buttonContent: DBHomePageContentButton;
    websiteID: string;
+   sectionID: string;
 }): JSX.Element {
    // Create state variables for each input field
 
@@ -101,7 +107,7 @@ export function EditRegisterButtonComponent({
 
    useEffect(() => {
       // READ DATA WHEN UPDATED TO UPDATE INDEX.HTML PROGRAM CONTENT
-      let readButtonContentFromDatabase = ref(db, `websites/${websiteID}/homepageContent/button/`);
+      let readButtonContentFromDatabase = ref(db, `websites/${websiteID}/homepageContent/${sectionID}/content/`);
       onValue(readButtonContentFromDatabase, (snapshot) => {
          let buttonContentFromDB: DBHomePageContentButton = snapshot.val() ? snapshot.val() : '';
          setHomepageButtonContent(buttonContentFromDB);
@@ -172,7 +178,7 @@ export function EditRegisterButtonComponent({
             noValidate
             autoComplete="off"
             //onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleButtonChange(e, websiteID)}
-            onSubmit={() => saveButtonDataToDB(homepageButtonContent, websiteID)}
+            onSubmit={() => saveButtonDataToDB(homepageButtonContent, websiteID, sectionID)}
          >
             <TextField
                name="formLink"

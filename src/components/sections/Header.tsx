@@ -9,70 +9,14 @@ import {
 
    // StandardWebPageContentHeader,
 } from '../interfaces/dbInterfaces';
-import { SectionContent, SectionProps } from '../utils/sectionInterfaces';
+import { SectionContent, SectionProps, SectionTypes } from '../interfaces/sectionInterfaces';
 import { RegisterButtonComponent } from './RegisterButton';
 import { Box, Divider, Button } from '@mui/material';
 import { ref, uploadBytes } from 'firebase/storage';
 import { ref as dbRef, update } from 'firebase/database';
 import { db, devSettings, storage } from '../utils/firebase';
 import { WEBSITE_ID } from '../../App';
-
-export function HeaderVideoOrImageUpload(): JSX.Element {
-   function handleChange(event: any) {
-      //setFile(event.target.files[0])
-      const videoOrImgHeader = ref(storage, `websites/${WEBSITE_ID}/homepageContent/videoOrImgHeader`);
-
-      // 'file' comes from the Blob or File API
-      uploadBytes(videoOrImgHeader, event.target.files[0]).then((snapshot) => {
-         console.log('Uploaded a blob or file!');
-         console.log('snapshot.ref.fullPath', snapshot.ref.fullPath);
-         console.log('fileEnding:', snapshot.metadata.contentType);
-         let startURL = devSettings === 'PRODUCTION' ? `gs://` : `http://127.0.0.1:9199/v0/b/`;
-         //http://127.0.0.1:9199/v0/b/stockholm-city-affarsnatverk.appspot.com/o/websites%2F-N_r3h15dd1OQXZWLKfT%2FhomepageContent%2FpitchCards%2F-N_r9mmYWHD0KBuSellp?alt=media&token=a874d060-2012-488e-ab23-8de5239b722c
-         update(dbRef(db, `/websites/${WEBSITE_ID}/homepageContent/header/`), {
-            logo: `${startURL}${storage.app.options.storageBucket}/o/${encodeURIComponent(
-               snapshot.ref.fullPath
-            )}?alt=media&token=${snapshot.metadata.downloadTokens}`, //pitchCardRef.fullPath, // url to storage
-         });
-      });
-   }
-   return (
-      <Box sx={{ textAlign: 'center' }}>
-         <Button className="uploadImageButton" variant="contained" component="label">
-            Upload new image
-            <input hidden accept="video/*,image/*" type="file" onChange={handleChange} />
-         </Button>
-      </Box>
-   );
-}
-
-export function HeaderLogoUpload(): JSX.Element {
-   function handleChange(event: any) {
-      //setFile(event.target.files[0])
-      const pitchCardRef = ref(storage, `websites/${WEBSITE_ID}/homepageContent/pitchCards/logo`);
-
-      // 'file' comes from the Blob or File API
-      uploadBytes(pitchCardRef, event.target.files[0]).then((snapshot) => {
-         console.log('Uploaded a blob or file!');
-         console.log('snapshot.ref.fullPath', snapshot.ref.fullPath);
-         let startURL = devSettings === 'PRODUCTION' ? `gs://` : `http://127.0.0.1:9199/v0/b/`;
-         //http://127.0.0.1:9199/v0/b/stockholm-city-affarsnatverk.appspot.com/o/websites%2F-N_r3h15dd1OQXZWLKfT%2FhomepageContent%2FpitchCards%2F-N_r9mmYWHD0KBuSellp?alt=media&token=a874d060-2012-488e-ab23-8de5239b722c
-         update(dbRef(db, `/websites/${WEBSITE_ID}/homepageContent/header/`), {
-            logo: `${startURL}${storage.app.options.storageBucket}/o/${encodeURIComponent(
-               snapshot.ref.fullPath
-            )}?alt=media&token=${snapshot.metadata.downloadTokens}`, //pitchCardRef.fullPath, // url to storage
-         });
-      });
-   }
-   return (
-      <Box sx={{ textAlign: 'center' }}>
-         <Button className="uploadImageButton" variant="contained" component="label">
-            Upload new image
-            <input hidden accept="video/*,image/*" type="file" onChange={handleChange} />
-         </Button>
-      </Box>
-   );
-}
+import { ImageCardFileUpload } from '../smallComponents/FileUploads';
 
 export function EditHeaderComponent(): JSX.Element {
    return (
@@ -91,8 +35,10 @@ export function EditHeaderComponent(): JSX.Element {
 }
 
 export function HeaderComponent(props: SectionProps): JSX.Element {
-   const { adminEditor } = props;
-   const content = props.data.content as DBFullScreenMedia;
+   const { adminEditor, data } = props;
+   const { sectionName, id, order, createdAt, updatedAt } = data;
+   const content = data.content as DBFullScreenMedia;
+
    let logo = content?.logo ? content.logo : rotaryLogo;
    let video = content?.video ? content.video : rotaryVideomp4;
    let image = content?.image ? content.image : null;
@@ -143,7 +89,7 @@ export function HeaderComponent(props: SectionProps): JSX.Element {
             </Divider>
          ) : null}
          <img id="header-logo" src={logo} alt="headerImage" />
-         {adminEditor ? <HeaderLogoUpload /> : null}
+         {adminEditor ? <ImageCardFileUpload cardOrderNr={1} sectionID={id} sectionName={'fullScreenMedia'} /> : null}
          {adminEditor ? (
             <Divider>
                <h2>Edit img/video</h2>

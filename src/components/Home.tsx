@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { getDatabase, ref, set, onValue, child, get } from 'firebase/database';
 import { db } from './utils/firebase';
 import { DBFullScreenMedia, DBHomePageContent, DBSpeaker, DBSpeakersKey } from './interfaces/dbInterfaces';
-import { SectionIDs } from './utils/sectionInterfaces';
+import { SectionIDs } from './interfaces/sectionInterfaces';
 import { SectionLoader } from '../SectionLoader';
 
 import TestImage from '../assets/DSC02755.JPG';
@@ -15,7 +15,7 @@ function testonload() {
 export const initialState: SectionIDs = {
    uionsgrngnen: {
       id: 'uionsgrngnen',
-      sectionName: 'DBFullScreenMedia',
+      sectionName: 'fullScreenMedia',
       order: '0',
       createdAt: new Date(Date.now()),
       updatedAt: new Date(Date.now()),

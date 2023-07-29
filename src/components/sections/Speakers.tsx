@@ -1,4 +1,4 @@
-import { SectionContent, SectionProps } from '../utils/sectionInterfaces';
+import { SectionContent, SectionProps } from '../interfaces/sectionInterfaces';
 import { DBSpeaker, DBSpeakersKey } from '../interfaces/dbInterfaces';
 
 export function SpeakersComponent(props: SectionProps): JSX.Element {

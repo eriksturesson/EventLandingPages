@@ -79,11 +79,6 @@ export interface DBParticipantKey {
    [key: string]: string | DBOneParticipant;
 }
 
-export interface EventSchedule {
-   scheduleName: string;
-   [anyStringWithWhatHappensThatTime: string]: string;
-}
-
 export interface DBOrganizersKey {
    title: string;
    [logoOfOrganizer: string]: string | OrganizerObject;
@@ -102,7 +97,6 @@ export interface DBHomePageContent {
    speakers: DBSpeakersKey;
    participants: DBParticipantKey;
    organizers: DBOrganizersKey;
-   eventSchedule: EventSchedule;
    pitchCards: DBPitchCardKey;
    quillContent: QuillObject;
    button: DBHomePageContentButton;
@@ -115,7 +109,6 @@ export type Content =
    | DBSpeakersKey
    | DBParticipantKey
    | DBOrganizersKey
-   | EventSchedule
    | DBPitchCardKey
    | QuillObject
    | DBHomePageContentButton
@@ -127,16 +120,6 @@ export interface DBSubPageContent {
    header: DBFullScreenMedia;
    quillContent: string;
 }
-
-export type SectionTypes =
-   | 'DBFullScreenMedia'
-   | 'footer'
-   | 'speakers'
-   | 'participants'
-   | 'organizers'
-   | 'quillContent'
-   | 'callToActionButton'
-   | 'footer';
 
 export interface DB {
    websiteHostName: string;

@@ -7,7 +7,7 @@ import { auth, db } from '../utils/firebase';
 import SaveIcon from '@mui/icons-material/Save';
 import parse from 'html-react-parser';
 
-function saveQuillToDB(data: any, websiteID: string) {
+function saveQuillToDB(data: any, websiteID: string, sectionID: string) {
    console.log(data);
    let currentdate = new Date();
    let timeSavedData =
@@ -25,8 +25,8 @@ function saveQuillToDB(data: any, websiteID: string) {
    console.log(timeSavedData);
 
    // Insert text to database
-   set(ref(db, `websites/${websiteID}/homepageContent`), {
-      quillContent: data,
+   set(ref(db, `websites/${websiteID}/homepageContent/${sectionID}/content/quillContent`), {
+      text: data,
       timestamp: timeSavedData,
    });
 
@@ -46,7 +46,15 @@ export function ShowQuillContent({ quillContent }: { quillContent: string }): JS
    return <>{quillContentToHTML}</>;
 }
 
-export function QuillComponent({ websiteID, quillContent }: { websiteID: string; quillContent: string }): JSX.Element {
+export function QuillComponent({
+   websiteID,
+   quillContent,
+   sectionID,
+}: {
+   websiteID: string;
+   quillContent: string;
+   sectionID: string;
+}): JSX.Element {
    const [value, setValue] = useState(quillContent);
    useEffect(() => {
       //QUILL Renders somehow before the initiation (so no text is visible in the quil editor from start even if there is text in the db) so useEffect is needed to put our quillContent to the quill editor
@@ -66,7 +74,7 @@ export function QuillComponent({ websiteID, quillContent }: { websiteID: string;
                   marginTop: '1rem',
                }}
             >
-               <Button variant="contained" onClick={() => saveQuillToDB(value, websiteID)} endIcon={<SaveIcon />}>
+               <Button variant="contained" onClick={() => saveQuillToDB(value, websiteID, sectionID)} endIcon={<SaveIcon />}>
                   Save
                </Button>
             </div>
