@@ -4,14 +4,14 @@ import visningsbild3 from '../../assets/DSC02755.JPG';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import DeleteIcon from '@mui/icons-material/Delete';
 import react, { useState } from 'react';
-import { DBHomePageContent, DBHomePageContentPitchCards, DBPitchCardKey } from '../utilsAndInterfaces/dbInterfaces';
+import { DBHomePageContent, DBHomePageContentPitchCards, DBPitchCardKey } from '../interfaces/dbInterfaces';
 import { Box, Button, Divider, Stack, SvgIcon, TextField } from '@mui/material';
 import { deleteObject, getStorage, ref, uploadBytes } from 'firebase/storage';
-import { db, devSettings, storage } from '../utilsAndInterfaces/firebase';
+import { db, devSettings, storage } from '../utils/firebase';
 import { child, push, ref as dbRef, set, update, onChildAdded } from 'firebase/database';
 import { WEBSITE_ID } from '../../App';
-import { EditText, SaveTextsButton } from '../reusableComponents/TextEdits';
-import { ImageCardFileUpload } from '../reusableComponents/FileUploads';
+import { EditText, SaveTextsButton } from '../smallComponents/TextEdits';
+import { ImageCardFileUpload } from '../smallComponents/FileUploads';
 
 interface OnePitchCardProps {
    adminEditor?: boolean;

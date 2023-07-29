@@ -1,4 +1,4 @@
-import { EventSchedule } from '../utilsAndInterfaces/dbInterfaces';
+import { EventSchedule } from '../interfaces/dbInterfaces';
 
 export function ScheduleComponent({ schedule }: { schedule: EventSchedule }): JSX.Element {
    if (schedule && Object.keys(schedule).length > 0) {

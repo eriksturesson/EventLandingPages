@@ -1,6 +1,6 @@
 // alert('Dubbelkoll av Erik vid utveckling. Om rutan popar upp så funkar mitt javascript samt jquery.');
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from './utilsAndInterfaces/firebase';
+import { auth } from './utils/firebase';
 import React from 'react';
 
 // CREATE NEW ACCOUNT //
@@ -25,11 +25,8 @@ import React from 'react';
     }
   */
 function loginFunction() {
-   let accountEmailValue = (
-      document.getElementById('accountemail') as HTMLInputElement
-   ).value;
-   let passwordValue = (document.getElementById('pass') as HTMLInputElement)
-      .value;
+   let accountEmailValue = (document.getElementById('accountemail') as HTMLInputElement).value;
+   let passwordValue = (document.getElementById('pass') as HTMLInputElement).value;
 
    // SIGN IN USER //
    signInWithEmailAndPassword(auth, accountEmailValue, passwordValue)
@@ -61,8 +58,7 @@ function getUserData() {
       // you have one. Use User.getToken() instead.
    }
 
-   (document.getElementById('testgetuser')! as HTMLElement).innerHTML =
-      'Name: ' + name + '<br>' + 'uid: ' + uid + '<br>';
+   (document.getElementById('testgetuser')! as HTMLElement).innerHTML = 'Name: ' + name + '<br>' + 'uid: ' + uid + '<br>';
    console.log(name);
    console.log(email);
    console.log(uid);

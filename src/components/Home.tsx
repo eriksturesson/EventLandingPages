@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
 import { getDatabase, ref, set, onValue, child, get } from 'firebase/database';
-import { db } from './utilsAndInterfaces/firebase';
-import { DBFullScreenMedia, DBHomePageContent, DBSpeaker, DBSpeakersKey } from './utilsAndInterfaces/dbInterfaces';
-import { SectionIDs } from './utilsAndInterfaces/sectionInterfaces';
+import { db } from './utils/firebase';
+import { DBFullScreenMedia, DBHomePageContent, DBSpeaker, DBSpeakersKey } from './interfaces/dbInterfaces';
+import { SectionIDs } from './utils/sectionInterfaces';
 import { SectionLoader } from '../SectionLoader';
 
 import TestImage from '../assets/DSC02755.JPG';

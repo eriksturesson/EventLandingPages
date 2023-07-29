@@ -1,5 +1,5 @@
-import { Content } from './components/utilsAndInterfaces/dbInterfaces';
-import { SectionContent, SectionIDs, SectionProps } from './components/utilsAndInterfaces/sectionInterfaces';
+import { Content } from './components/interfaces/dbInterfaces';
+import { SectionContent, SectionIDs, SectionProps } from './components/utils/sectionInterfaces';
 import { HeaderComponent } from './components/sections/Header';
 import { SpeakersComponent } from './components/sections/Speakers';
 import { Footer } from './components/sections/Footer';

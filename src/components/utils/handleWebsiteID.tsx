@@ -1,7 +1,7 @@
 import { ref, get, set, push, child } from 'firebase/database';
 import { v4 as uuidv4 } from 'uuid';
 import { db } from './firebase';
-import { DBWebsitesIDs } from './dbInterfaces';
+import { DBWebsitesIDs } from '../interfaces/dbInterfaces';
 
 async function createNewWebsiteID(thisLocationsHostName: string) {
    //let newWebsiteID = uuidv4()

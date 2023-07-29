@@ -1,4 +1,4 @@
-import { SectionTypes, Content } from './dbInterfaces';
+import { Content } from './dbInterfaces';
 
 export interface SectionContent {
    sectionName: SectionTypes;
@@ -17,3 +17,13 @@ export interface SectionProps {
    data: SectionContent;
    adminEditor: boolean;
 }
+
+export type SectionTypes =
+   | 'DBFullScreenMedia'
+   | 'footer'
+   | 'speakers'
+   | 'participants'
+   | 'organizers'
+   | 'quillContent'
+   | 'callToActionButton'
+   | 'footer';

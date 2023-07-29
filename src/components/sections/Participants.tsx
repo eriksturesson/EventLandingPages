@@ -1,14 +1,14 @@
 import { deleteObject, ref, uploadBytes } from 'firebase/storage';
-import { DBHomePageContentPitchCards, DBOneParticipant, DBParticipantKey } from '../utilsAndInterfaces/dbInterfaces';
+import { DBHomePageContentPitchCards, DBOneParticipant, DBParticipantKey } from '../interfaces/dbInterfaces';
 import ImageIcon from '@mui/icons-material/Image';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { child, push, update, ref as dbRef, set } from 'firebase/database';
-import { db, devSettings, storage } from '../utilsAndInterfaces/firebase';
+import { db, devSettings, storage } from '../utils/firebase';
 import { WEBSITE_ID } from '../../App';
 import { useState } from 'react';
 import { Box, Button, Divider, SvgIcon, TextField } from '@mui/material';
-import { ImageCardFileUpload } from '../reusableComponents/FileUploads';
-import { EditText, SaveTextsButton } from '../reusableComponents/TextEdits';
+import { ImageCardFileUpload } from '../smallComponents/FileUploads';
+import { EditText, SaveTextsButton } from '../smallComponents/TextEdits';
 
 export function OneParticipant({
    newCard,

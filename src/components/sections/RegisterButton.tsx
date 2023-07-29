@@ -11,13 +11,13 @@ import {
    TextField,
    ThemeProvider,
 } from '@mui/material';
-import { DBHomePageContentButton } from '../utilsAndInterfaces/dbInterfaces';
+import { DBHomePageContentButton } from '../interfaces/dbInterfaces';
 import SaveIcon from '@mui/icons-material/Save';
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import { onValue, ref, set, update } from 'firebase/database';
-import { db } from '../utilsAndInterfaces/firebase';
+import { db } from '../utils/firebase';
 import { initialState } from '../Home';
-import { readAndWriteToFirebase } from '../utilsAndInterfaces/firebaseFunctions';
+import { readAndWriteToFirebase } from '../utils/firebaseFunctions';
 import { valueToPercent } from '@mui/base';
 import { eriksTheme } from '../myColorTheme';
 export let customColor: string = '';

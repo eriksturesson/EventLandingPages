@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { db } from './utilsAndInterfaces/firebase';
+import { db } from './utils/firebase';
 import { Database, ref, onValue, set } from 'firebase/database';
 import { User, onAuthStateChanged, signOut } from 'firebase/auth';
-import { auth } from './utilsAndInterfaces/firebase';
+import { auth } from './utils/firebase';
 import ReactQuill, { Quill } from 'react-quill';
 import { QuillComponent } from './sections/Quill';
 import Home from './Home';
@@ -23,13 +23,13 @@ import {
    DBSpeakersKey,
    EventSchedule,
    QuillObject,
-} from './utilsAndInterfaces/dbInterfaces';
+} from './interfaces/dbInterfaces';
 import { Box } from '@mui/material';
 import { PitchCardsComponent } from './sections/PitchCards';
 import { HeaderComponent } from './sections/Header';
 import { OrganizersComponent } from './sections/Organizers';
 import { ScheduleComponent } from './sections/Schedule';
-import { SectionContent, SectionIDs } from './utilsAndInterfaces/sectionInterfaces';
+import { SectionContent, SectionIDs } from './utils/sectionInterfaces';
 // Get user data //
 
 var name, email: string | null, photoUrl, uid: string, emailVerified;

@@ -8,13 +8,13 @@ import {
    DBHomePageContentButton,
 
    // StandardWebPageContentHeader,
-} from '../utilsAndInterfaces/dbInterfaces';
-import { SectionContent, SectionProps } from '../utilsAndInterfaces/sectionInterfaces';
+} from '../interfaces/dbInterfaces';
+import { SectionContent, SectionProps } from '../utils/sectionInterfaces';
 import { RegisterButtonComponent } from './RegisterButton';
 import { Box, Divider, Button } from '@mui/material';
 import { ref, uploadBytes } from 'firebase/storage';
 import { ref as dbRef, update } from 'firebase/database';
-import { db, devSettings, storage } from '../utilsAndInterfaces/firebase';
+import { db, devSettings, storage } from '../utils/firebase';
 import { WEBSITE_ID } from '../../App';
 
 export function HeaderVideoOrImageUpload(): JSX.Element {

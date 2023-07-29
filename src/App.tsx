@@ -9,8 +9,8 @@ import ArrangerandeKlubbar from './components/ArrangerandeKlubbar';
 import TidigareProgram from './components/TidigareProgram';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { auth } from './components/utilsAndInterfaces/firebase';
-import { handleWebSiteID } from './components/utilsAndInterfaces/handleWebsiteID';
+import { auth } from './components/utils/firebase';
+import { handleWebSiteID } from './components/utils/handleWebsiteID';
 import { LoadingSpinner } from './components/Loading';
 export let WEBSITE_ID = '';
 const App = (): JSX.Element => {

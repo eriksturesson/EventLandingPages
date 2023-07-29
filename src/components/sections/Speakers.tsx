@@ -1,5 +1,5 @@
-import { SectionContent, SectionProps } from '../utilsAndInterfaces/sectionInterfaces';
-import { DBSpeaker, DBSpeakersKey } from '../utilsAndInterfaces/dbInterfaces';
+import { SectionContent, SectionProps } from '../utils/sectionInterfaces';
+import { DBSpeaker, DBSpeakersKey } from '../interfaces/dbInterfaces';
 
 export function SpeakersComponent(props: SectionProps): JSX.Element {
    const DBSpeakers = props.data.content as DBSpeakersKey;

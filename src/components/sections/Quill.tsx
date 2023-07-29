@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import 'react-quill/dist/quill.snow.css';
 import { Button, Divider } from '@mui/material';
 import { ref, set } from 'firebase/database';
-import { auth, db } from '../utilsAndInterfaces/firebase';
+import { auth, db } from '../utils/firebase';
 import SaveIcon from '@mui/icons-material/Save';
 import parse from 'html-react-parser';
 

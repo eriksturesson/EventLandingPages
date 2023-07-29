@@ -1,4 +1,4 @@
-import { DBOrganizersKey, OrganizerObject } from '../utilsAndInterfaces/dbInterfaces';
+import { DBOrganizersKey, OrganizerObject } from '../interfaces/dbInterfaces';
 
 export function OneOrganizer({ organizer }: { organizer: OrganizerObject }): JSX.Element {
    return <img className="organizer-logo" src={organizer?.logo} />;
