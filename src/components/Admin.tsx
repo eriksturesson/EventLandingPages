@@ -143,7 +143,7 @@ interface DBWebsiteHomePageContent {
    pitchCards: DBPitchCardKey;
    quillContent: string;
    button: DBHomePageContentButton;
-   footer: DBHomePageContentFooter;
+   footer: SectionContent;
    timestamp: string;
 }
 const initialState: DBWebsiteHomePageContent = {
@@ -183,16 +183,24 @@ const initialState: DBWebsiteHomePageContent = {
       buttonColor: 'green',
    },
    footer: {
-      integrityPolicy: '',
-      integrityPolicyDescription: '',
-      contactTitle: '',
-      contactName: '',
-      contactEmail: '',
-      contactPhone: '',
-      adressTitle: '',
-      contactAddress1: '',
-      contactAddress2: '',
-      mapImage: '',
+      sectionName: 'footer',
+      id: '5ölk45ölköl',
+      order: '0',
+      createdAt: new Date(Date.now()),
+      updatedAt: new Date(Date.now()),
+      content: {
+         integrityPolicy: 'integrityPolicy',
+         integrityPolicyDescription:
+            'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum debitis pariatur minus saepe ullam labore quo corrupti tempore eius rem hic repellendus provident beatae, quas laudantium! Fuga aut rerum cupiditate!',
+         contactName: 'contactName',
+         contactEmail: 'contactEmail',
+         contactPhone: 'contactPhone',
+         adressTitle: 'adressTitle',
+         contactTitle: 'contactTitle',
+         contactAddress1: 'contactAddress1',
+         contactAddress2: 'contactAddress2',
+         mapImage: 'mapImage', // url to storage
+      } as DBHomePageContentFooter,
    },
    timestamp: '',
 };
@@ -254,7 +262,7 @@ export const Admin = ({ user, websiteID }: { user: User | null; websiteID: strin
                <OrganizersComponent organizers={homepageContent.organizers} />
             </Box>
             <Box id="editFooter">
-               <Footer footerContent={homepageContent.footer} />
+               <Footer adminEditor={true} data={homepageContent.footer} />
             </Box>
          </Box>
          <Box>

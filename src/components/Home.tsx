@@ -43,6 +43,26 @@ export const initialState: SectionIDs = {
          } as DBSpeaker,
       } as DBSpeakersKey,
    },
+   lk45lköölkölk: {
+      sectionName: 'footer',
+      id: '5ölk45ölköl',
+      order: '0',
+      createdAt: new Date(Date.now()),
+      updatedAt: new Date(Date.now()),
+      content: {
+         integrityPolicy: 'integrityPolicy',
+         integrityPolicyDescription:
+            'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum debitis pariatur minus saepe ullam labore quo corrupti tempore eius rem hic repellendus provident beatae, quas laudantium! Fuga aut rerum cupiditate!',
+         contactName: 'contactName',
+         contactEmail: 'contactEmail',
+         contactPhone: 'contactPhone',
+         adressTitle: 'adressTitle',
+         contactTitle: 'contactTitle',
+         contactAddress1: 'contactAddress1',
+         contactAddress2: 'contactAddress2',
+         mapImage: 'mapImage', // url to storage
+      },
+   },
 };
 
 const Home = ({ websiteID }: { websiteID: string }): JSX.Element => {

@@ -15,7 +15,7 @@ interface Sections {
 const components: Sections = {
    fullScreenMedia: HeaderComponent,
    speakers: SpeakersComponent,
-   // footer: Footer,
+   footer: Footer,
    // participants: ParticipantComponent,
    // organizers: OrganizersComponent,
    // quillContent: ShowQuillContent,
