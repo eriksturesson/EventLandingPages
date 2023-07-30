@@ -8,7 +8,6 @@ export function Footer(props: SectionProps): JSX.Element {
    const { data, adminEditor } = props;
    const { sectionName, sectionID, sectionOrder, createdAt, updatedAt } = data;
    const content = data.content as DBHomePageContentFooter;
-
    if (content) {
       return (
          <div>
