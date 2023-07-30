@@ -15,21 +15,24 @@ export interface DBFullScreenMedia {
    description?: string;
    time?: string;
    location?: string;
-   logo: string; // url to storage
-   video: string; // url to storage
-   image: string; // url to storage
+   logo?: string; // url to storage
+   video?: string; // url to storage
+   image?: string; // url to storage
 }
 
 export interface DBHomePageContentPitchCards {
-   image: string; // url to storage
-   title: string;
-   description: string;
+   image?: string; // url to storage
+   title?: string;
+   description?: string;
    order: number;
-   id: string;
+   id?: string;
 }
 
 export interface DBPitchCardKey {
-   [key: string]: DBHomePageContentPitchCards;
+   title?: string;
+   items?: {
+      [key: string]: DBHomePageContentPitchCards;
+   };
 }
 
 export interface DBHomePageContentButton {
@@ -52,7 +55,10 @@ export interface DBHomePageContentFooter {
    mapImage: string; // url to storage
 }
 export interface DBSpeakersKey {
-   [key: string]: DBSpeaker;
+   title?: string;
+   items?: {
+      [key: string]: DBSpeaker;
+   };
 }
 
 export interface DBSpeaker {
@@ -63,6 +69,7 @@ export interface DBSpeaker {
    speakerTitle?: string;
    speakerTitleDescription?: string;
    speakerID: string;
+   speakerOrder: number;
 }
 
 export interface DBOneParticipant {
@@ -75,32 +82,39 @@ export interface DBOneParticipant {
 }
 
 export interface DBParticipantKey {
-   title: string;
-   [key: string]: string | DBOneParticipant;
+   title?: string;
+   items?: {
+      [key: string]: DBOneParticipant;
+   };
 }
 
 export interface DBOrganizersKey {
-   title: string;
-   [logoOfOrganizer: string]: string | OrganizerObject;
+   title?: string;
+   items?: {
+      [id: string]: OrganizerObject;
+   };
 }
 
 export interface OrganizerObject {
    logo: string;
+   id: string;
+   order: number;
 }
 
-export interface QuillObject {
+export interface QuillContent {
    text: string;
-   timestamp: string;
+   timestamp: Date;
 }
+
 export interface DBHomePageContent {
-   fullScreenMedia: DBFullScreenMedia;
-   speakers: DBSpeakersKey;
-   participants: DBParticipantKey;
-   organizers: DBOrganizersKey;
-   pitchCards: DBPitchCardKey;
-   quillContent: QuillObject;
-   button: DBHomePageContentButton;
-   footer: DBHomePageContentFooter;
+   fullScreenMedia?: DBFullScreenMedia;
+   speakers?: DBSpeakersKey;
+   participants?: DBParticipantKey;
+   organizers?: DBOrganizersKey;
+   pitchCards?: DBPitchCardKey;
+   quillContent?: QuillContent;
+   callToActionButton?: DBHomePageContentButton;
+   footer?: DBHomePageContentFooter;
    // timestamp: string;
 }
 
@@ -110,9 +124,20 @@ export type Content =
    | DBParticipantKey
    | DBOrganizersKey
    | DBPitchCardKey
-   | QuillObject
+   | QuillContent
    | DBHomePageContentButton
    | DBHomePageContentFooter;
+
+export type InitContent = {
+   fullScreenMedia: DBFullScreenMedia;
+   speakers: DBSpeakersKey;
+   participants: DBParticipantKey;
+   organizers: DBOrganizersKey;
+   pitchCards: DBPitchCardKey;
+   quillContent: QuillContent;
+   callToActionButton: DBHomePageContentButton;
+   footer: DBHomePageContentFooter;
+};
 
 export interface DBAdminPageContent {}
 
@@ -146,7 +171,7 @@ export interface DBUsers {
    }; //Not done, maybe even not needed
 }
 
-export interface DBWebsitesIDs {
+export interface DBWebsiteIDs {
    [websiteID: string]: {
       websiteHostName: string;
       websiteID: string;
@@ -155,7 +180,7 @@ export interface DBWebsitesIDs {
 }
 export interface DB {
    websites: DB;
-   websitesIds: DBWebsitesIDs;
+   websiteIds: DBWebsiteIDs;
    users: DBUsers;
    adminUsers: DBAdminUsers;
 }

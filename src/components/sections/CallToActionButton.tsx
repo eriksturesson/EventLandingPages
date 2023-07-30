@@ -1,0 +1,248 @@
+import {
+   Box,
+   Button,
+   Divider,
+   FormControl,
+   InputLabel,
+   MenuItem,
+   OutlinedInput,
+   Select,
+   SelectChangeEvent,
+   TextField,
+   ThemeProvider,
+} from '@mui/material';
+import { DBHomePageContentButton } from '../interfaces/dbInterfaces';
+import SaveIcon from '@mui/icons-material/Save';
+import { ReactNode, useEffect, useRef, useState } from 'react';
+import { onValue, ref, set, update } from 'firebase/database';
+import { db } from '../utils/firebase';
+import { initialState } from '../utils/initData';
+import { readAndWriteToFirebase } from '../utils/firebaseFunctions';
+import { valueToPercent } from '@mui/base';
+import { eriksTheme } from '../myColorTheme';
+import { SectionProps } from '../interfaces/sectionInterfaces';
+import { WEBSITE_ID } from '../../App';
+export let customColor: string = '';
+export function RegisterButtonComponent({ buttonContent }: { buttonContent: DBHomePageContentButton }): JSX.Element {
+   let formLink =
+      buttonContent && buttonContent.formLink
+         ? buttonContent.formLink
+         : 'https://9c831b73.sibforms.com/serve/MUIEAL41dyIw4oNTgGbL1IM7tpycWXBQTiZ3tUsgtJcTF3Eur522V2Zw98_DWJZ30w2O3z-WpTN7mutUIspI7JTSJ9dBrIy9b9ZVnGyrHURAzGyhNMS34JH6xhdUlyWNQpU2sVbE9-xcdpzV5vuZlYtMa_IJw7U_3L96rZkcyDUsfiW4umx_iAGXTAKLnMWWT6SGWiJTLVrrLzqx';
+   let buttonText = buttonContent && buttonContent.buttonText ? buttonContent.buttonText : 'Anmälan';
+   let buttonInfo =
+      buttonContent && buttonContent.buttonInfo
+         ? buttonContent.buttonInfo
+         : 'Du måste vara Rotarian eller gäst till en Rotarian för att anmäla dig.';
+   let buttonColor = buttonContent && buttonContent.buttonColor ? buttonContent.buttonColor : 'green';
+   if (buttonColor === 'green') buttonColor = 'success';
+   else if (buttonColor === 'red') buttonColor = 'error';
+   else if (buttonColor === 'blue') buttonColor = 'neutral';
+   else {
+      console.error('Error: buttonColor is not supported. It is: ' + buttonColor);
+   }
+   return (
+      <Box textAlign="center" className="knapp-sektion">
+         <div className="rotaryknapp">
+            <ThemeProvider theme={eriksTheme}>
+               <Button color={buttonColor as any} href={formLink} variant="contained">
+                  {buttonText}
+               </Button>
+            </ThemeProvider>
+         </div>
+         <p>{buttonInfo}</p>
+      </Box>
+   );
+}
+
+async function saveButtonDataToDB(
+   homepageButtonContent: DBHomePageContentButton,
+   websiteID: string,
+   sectionID: string
+): Promise<string> {
+   if (!homepageButtonContent.buttonColor) {
+      // Temporarily disabled while implementing Sections in Home
+      // homepageButtonContent.buttonColor = initialState.button.buttonColor;
+      homepageButtonContent.buttonColor = 'blue';
+   }
+   await readAndWriteToFirebase({
+      method: 'update',
+      ref: `websites/${websiteID}/homepageContent/${sectionID}/content/`,
+      data: homepageButtonContent,
+   });
+   return `homePageContentButton saved to database`;
+}
+
+function handleButtonColorChange(event: SelectChangeEvent<string>, websiteID: ReactNode, sectionID: string): void {
+   update(ref(db, `websites/${websiteID}/homepageContent/${sectionID}/content/`), {
+      buttonColor: event.target.value,
+   });
+}
+
+export function CallToActionButtonComponent(props: SectionProps): JSX.Element {
+   const { data, adminEditor } = props;
+   const { sectionName, sectionID, sectionOrder, createdAt, updatedAt } = data;
+   const buttonContent = data.content as DBHomePageContentButton;
+   const [homepageButtonContent, setHomepageButtonContent] = useState<DBHomePageContentButton>(buttonContent);
+   if (adminEditor) {
+      useEffect(() => {
+         // READ DATA WHEN UPDATED TO UPDATE INDEX.HTML PROGRAM CONTENT
+         let readButtonContentFromDatabase = ref(db, `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/`);
+         onValue(readButtonContentFromDatabase, (snapshot) => {
+            let buttonContentFromDB: DBHomePageContentButton = snapshot.val() ? snapshot.val() : '';
+            setHomepageButtonContent(buttonContentFromDB);
+         });
+      }, []);
+
+      const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+         setHomepageButtonContent({
+            ...homepageButtonContent,
+            [event.target.name]: event.target.value,
+         });
+      };
+
+      const handleSelectChange = (event: SelectChangeEvent<HTMLSelectElement>) => {
+         setHomepageButtonContent({
+            ...homepageButtonContent,
+            [event.target.name]: event.target.value as string,
+         });
+      };
+
+      return (
+         <>
+            <Divider>
+               <h2>Edit botton</h2>
+            </Divider>
+            <RegisterButtonComponent buttonContent={buttonContent} />
+            <Box sx={{ padding: 4, textAlign: 'center' }}>
+               <h3>Edit register/call to action Button</h3>
+            </Box>
+            <Box
+               sx={{
+                  display: 'inline-flex',
+                  minWidth: '10rem',
+                  flexDirection: 'row',
+                  padding: '1rem',
+               }}
+               textAlign="center"
+            >
+               <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Button Color</InputLabel>
+                  <Select
+                     labelId="demo-simple-select-label"
+                     variant="filled"
+                     name="buttonColor"
+                     id="demo-simple-select"
+                     value={
+                        homepageButtonContent && homepageButtonContent.buttonColor
+                           ? (homepageButtonContent.buttonColor as any)
+                           : 'green'
+                     }
+                     label="Button Color"
+                     onChange={handleSelectChange}
+                  >
+                     <MenuItem value={'red'}>Red</MenuItem>
+                     <MenuItem value={'blue'}>Blue</MenuItem>
+                     <MenuItem value={'green'}>Green</MenuItem>
+                  </Select>
+               </FormControl>
+            </Box>
+            <Box
+               sx={{
+                  display: 'inline-flex',
+                  flexDirection: 'row',
+                  padding: '1rem',
+               }}
+               component="form"
+               textAlign="center"
+               noValidate
+               autoComplete="off"
+               //onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleButtonChange(e, websiteID)}
+               onSubmit={() => saveButtonDataToDB(homepageButtonContent, WEBSITE_ID, sectionID)}
+            >
+               <TextField
+                  name="formLink"
+                  id="formLinkField"
+                  label="Link to form"
+                  sx={{ padding: '1rem' }}
+                  variant="filled"
+                  InputLabelProps={{ shrink: true }}
+                  value={homepageButtonContent.formLink}
+                  //onChange={(e) => setFormLink(e.target.value)}
+                  onChange={handleChange}
+                  /*
+                onChange={(e) => setHomepageButtonContent({
+                    ...homepageButtonContent,
+                    formLink: e.target.value
+                })
+                }
+                */
+               />
+               <TextField
+                  name="buttonText"
+                  id="buttonTextField"
+                  label="Button text"
+                  sx={{ padding: '1rem' }}
+                  variant="filled"
+                  InputLabelProps={{ shrink: true }}
+                  value={homepageButtonContent.buttonText}
+                  //onChange={(e) => setButtonText(e.target.value)}
+                  onChange={handleChange}
+                  /*
+                onChange={(e) => setHomepageButtonContent({
+                    ...homepageButtonContent,
+                    buttonText: e.target.value
+                })
+                }
+                */
+               />
+
+               <TextField
+                  name="buttonInfo"
+                  id="buttonInfoField"
+                  sx={{ padding: '1rem' }}
+                  label="Button info"
+                  variant="filled"
+                  InputLabelProps={{ shrink: true }}
+                  value={homepageButtonContent.buttonInfo}
+                  //onChange={(e) => setButtonInfo(e.target.value)}
+                  onChange={handleChange}
+                  /*
+                onChange={(e) => setHomepageButtonContent({
+                    ...homepageButtonContent,
+                    buttonInfo: e.target.value
+                })
+                }
+                */
+               />
+               <Button type="submit" variant="contained" endIcon={<SaveIcon />}>
+                  Save
+               </Button>
+            </Box>
+         </>
+      );
+   } else {
+      return (
+         <>
+            <RegisterButtonComponent buttonContent={buttonContent} />
+         </>
+      );
+   }
+}
+
+function REACT_EXAMPLEControlledComponent() {
+   const [inputValue, setInputValue] = useState('');
+
+   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setInputValue(event.target.value);
+   };
+
+   return (
+      <form>
+         <label>
+            Input Value:
+            <input type="text" value={inputValue} onChange={handleChange} />
+         </label>
+         <p>Input Value: {inputValue}</p>
+      </form>
+   );
+}

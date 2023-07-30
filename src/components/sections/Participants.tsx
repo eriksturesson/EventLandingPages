@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { Box, Button, Divider, SvgIcon, TextField } from '@mui/material';
 import { ImageCardFileUpload } from '../smallComponents/FileUploads';
 import { EditText, SaveTextsButton } from '../smallComponents/TextEdits';
+import { SectionProps } from '../interfaces/sectionInterfaces';
 
 export function OneParticipant({
    newCard,
@@ -125,13 +126,13 @@ export function OneParticipant({
    );
 }
 
-interface ParticipantComponentProps {
-   adminEditor: boolean;
-   participants: DBParticipantKey;
-   sectionID: string;
-}
-export function ParticipantComponent({ props }: { props: ParticipantComponentProps }): JSX.Element {
-   const { participants, adminEditor, sectionID } = props;
+export function ParticipantComponent(props: SectionProps): JSX.Element {
+   const { data, adminEditor } = props;
+   const { sectionName, sectionID, sectionOrder, createdAt, updatedAt } = data;
+   const content = data.content as DBParticipantKey;
+   const participants = content.items;
+   const title = content.title;
+
    let newAdminImg = '';
    {
       adminEditor
@@ -155,7 +156,7 @@ export function ParticipantComponent({ props }: { props: ParticipantComponentPro
 
       return (
          <>
-            <h1>{participants?.title}</h1>
+            <h1>{title}</h1>
             {adminEditor ? (
                <Divider>
                   <h2>Edit participants</h2>

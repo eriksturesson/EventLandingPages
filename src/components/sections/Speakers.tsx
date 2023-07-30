@@ -4,10 +4,11 @@ import { DBSpeaker, DBSpeakersKey } from '../interfaces/dbInterfaces';
 export function SpeakersComponent(props: SectionProps): JSX.Element {
    const DBSpeakers = props.data.content as DBSpeakersKey;
    console.log(Object.values(DBSpeakers));
-   if (DBSpeakers && Object.keys(DBSpeakers).length > 0) {
+   if (DBSpeakers && Object.keys(DBSpeakers).length > 0 && DBSpeakers.items) {
+      let items = DBSpeakers.items;
       return (
          <>
-            {Object.values(DBSpeakers).map((speaker, i) => {
+            {Object.values(items).map((speaker, i) => {
                return <OneSpeaker speaker={speaker} key={i} />;
             })}
          </>

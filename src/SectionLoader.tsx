@@ -5,7 +5,9 @@ import { SpeakersComponent } from './components/sections/Speakers';
 import { Footer } from './components/sections/Footer';
 import { ParticipantComponent } from './components/sections/Participants';
 import { OrganizersComponent } from './components/sections/Organizers';
-import { ShowQuillContent } from './components/sections/Quill';
+import { QuillComponent } from './components/sections/Quill';
+import { CallToActionButtonComponent } from './components/sections/CallToActionButton';
+import { PitchCardsComponent } from './components/sections/PitchCards';
 
 interface Sections {
    [component: string]: React.FC<SectionProps>;
@@ -15,11 +17,12 @@ interface Sections {
 const components: Sections = {
    fullScreenMedia: HeaderComponent,
    speakers: SpeakersComponent,
-   // footer: Footer,
-   // participants: ParticipantComponent,
-   // organizers: OrganizersComponent,
-   // quillContent: ShowQuillContent,
-   // callToActionButton: RegisterButtonComponent
+   footer: Footer,
+   participants: ParticipantComponent,
+   organizers: OrganizersComponent,
+   quillContent: QuillComponent,
+   pitchCards: PitchCardsComponent,
+   callToActionButton: CallToActionButtonComponent,
 };
 interface Props {
    data: SectionIDs;
@@ -28,10 +31,12 @@ interface Props {
 
 export const SectionLoader: React.FC<Props> = function (props) {
    const sections: SectionContent[] = Object.values(props.data);
-   console.log(sections);
+   console.log('sections', sections);
    return (
       <>
          {sections.map((section, i) => {
+            console.log('section:', section);
+            console.log('sectionName:', section.sectionName);
             const Component = components[section.sectionName];
             const sectionData = section.content;
             if (!Component) {

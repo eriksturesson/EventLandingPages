@@ -3,8 +3,8 @@ import { Content } from './dbInterfaces';
 export interface SectionContent {
    sectionName: SectionTypes;
    content: Content;
-   id: string;
-   order: string;
+   sectionID: string;
+   sectionOrder: string;
    createdAt: Date;
    updatedAt: Date;
 }
@@ -28,3 +28,15 @@ export type SectionTypes =
    | 'pitchCards'
    | 'callToActionButton'
    | 'footer';
+
+export const sectionTypes: SectionTypes[] = [
+   'fullScreenMedia',
+   'footer',
+   'speakers',
+   'participants',
+   'organizers',
+   'quillContent',
+   'pitchCards',
+   'callToActionButton',
+   'footer',
+];

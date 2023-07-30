@@ -1,6 +1,7 @@
 import visningsbild1 from '../../assets/DSC01125.JPG';
 import visningsbild2 from '../../assets/DSC01286.JPG';
 import visningsbild3 from '../../assets/DSC02755.JPG';
+import speakerImgExample1 from '../../assets/speakerImgExample1.jpg';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import DeleteIcon from '@mui/icons-material/Delete';
 import react, { useState } from 'react';
@@ -12,6 +13,7 @@ import { child, push, ref as dbRef, set, update, onChildAdded } from 'firebase/d
 import { WEBSITE_ID } from '../../App';
 import { EditText, SaveTextsButton } from '../smallComponents/TextEdits';
 import { ImageCardFileUpload } from '../smallComponents/FileUploads';
+import { SectionProps } from '../interfaces/sectionInterfaces';
 
 interface OnePitchCardProps {
    adminEditor?: boolean;
@@ -127,37 +129,52 @@ export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
    );
 }
 
-interface PitchCardsComponentProps {
-   adminEditor?: boolean;
-   pitchCardsDB: DBPitchCardKey;
-   sectionID: string;
-}
+export function PitchCardsComponent(props: SectionProps): JSX.Element {
+   const { data } = props;
+   const { sectionName, sectionID, sectionOrder, createdAt, updatedAt } = data;
+   const content = data.content as DBPitchCardKey;
+   const pitchCardsDB = content.items;
 
-export function PitchCardsComponent(props: PitchCardsComponentProps): JSX.Element {
-   let { pitchCardsDB, sectionID } = props;
    const [adminEditor, setadminEditor] = useState(props.adminEditor);
+   const [title, setTitle] = useState(content.title);
 
+   const handlePitchCardSectionTitleChange = (event: any) => {
+      let text: string = event.target.value;
+      setTitle(text);
+   };
+
+   const handleSavePitchCardSectionTitle = () => {
+      // Perform your save logic here, e.g., make an API call to save the data
+      console.log('Saving pitchCardSectionTitle to db');
+      update(dbRef(db, `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/`), {
+         title: title,
+      });
+
+      console.log('Saved title and description');
+   };
    let pitchCardsContent: JSX.Element[] = [];
 
    // Sort the pitchCards array based on the "order" property
    if (pitchCardsDB) {
-      let pitchCards: DBHomePageContentPitchCards[] = Object.values(pitchCardsDB);
-      pitchCards.sort((a, b) => a.order - b.order);
+      if (pitchCardsDB.title) delete pitchCardsDB.title;
+      let pitchCards: DBHomePageContentPitchCards[] = Object.values(pitchCardsDB as any);
+      if (pitchCards) {
+         pitchCards.sort((a, b) => a.order - b.order);
 
-      for (let i = 0; i < pitchCards.length; i++) {
-         pitchCardsContent.push(
-            <OnePitchCard
-               id={pitchCards[i].id}
-               sectionID={sectionID}
-               adminEditor={adminEditor}
-               order={pitchCards[i].order}
-               img={pitchCards[i].image}
-               initTitle={pitchCards[i].title}
-               initDescription={pitchCards[i].description}
-            />
-         );
+         for (let i = 0; i < pitchCards.length; i++) {
+            pitchCardsContent.push(
+               <OnePitchCard
+                  id={pitchCards[i].id}
+                  sectionID={sectionID}
+                  adminEditor={adminEditor}
+                  order={pitchCards[i].order}
+                  img={pitchCards[i].image ? (pitchCards[i].image as string) : ({ speakerImgExample1 } as unknown as string)}
+                  initTitle={pitchCards[i].title ? (pitchCards[i].title as string) : 'Example title'}
+                  initDescription={pitchCards[i].description ? (pitchCards[i].description as string) : 'Example description'}
+               />
+            );
+         }
       }
-
       return (
          <>
             {adminEditor ? (
@@ -165,6 +182,15 @@ export function PitchCardsComponent(props: PitchCardsComponentProps): JSX.Elemen
                   <h2>Edit pitchcards</h2>
                </Divider>
             ) : null}
+            {adminEditor ? (
+               <EditText
+                  onChange={handlePitchCardSectionTitleChange}
+                  initText={title ? title : '<h2>Example title of pitchCards</h2>'}
+               />
+            ) : (
+               <h1>{title}</h1>
+            )}
+            {adminEditor ? <SaveTextsButton onSave={handleSavePitchCardSectionTitle} /> : null}
             <Box className="wrapperOfImagesWithPitch">
                {pitchCardsContent}
                {/* Below is to always make it available to add one more pitchCards */}

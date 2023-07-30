@@ -1,28 +1,34 @@
 import React from 'react';
 import kartbild from '../../assets/Rotary Karta till Stockholm City Affärsnätverk.png'; // relative path to image
 import { DBHomePageContentFooter } from '../interfaces/dbInterfaces';
+import { SectionProps } from '../interfaces/sectionInterfaces';
+import mapImageExample from '../../assets/mapImageExample.png';
 
-export function Footer({ footerContent }: { footerContent: DBHomePageContentFooter }): JSX.Element {
-   if (footerContent) {
+export function Footer(props: SectionProps): JSX.Element {
+   const { data, adminEditor } = props;
+   const { sectionName, sectionID, sectionOrder, createdAt, updatedAt } = data;
+   const content = data.content as DBHomePageContentFooter;
+
+   if (content) {
       return (
          <div>
             <div id="endwrapper">
                <div id="kontaktinfo">
-                  <h2>{footerContent?.adressTitle}</h2>
-                  <p>{footerContent?.contactAddress1}</p>
-                  <p>{footerContent?.contactAddress2}</p>
-                  <h2>{footerContent?.contactTitle}</h2>
-                  <p>{footerContent?.contactName}</p>
-                  <p>{footerContent?.contactPhone}</p>
-                  <p>{footerContent?.contactEmail}</p>
+                  <h2>{content?.adressTitle}</h2>
+                  <p>{content?.contactAddress1}</p>
+                  <p>{content?.contactAddress2}</p>
+                  <h2>{content?.contactTitle}</h2>
+                  <p>{content?.contactName}</p>
+                  <p>{content?.contactPhone}</p>
+                  <p>{content?.contactEmail}</p>
                </div>
                <div id="karta">
-                  <img id="kartbild" alt="karta" src={footerContent.mapImage} />
+                  <img id="kartbild" alt="karta" src={content.mapImage ? content.mapImage : mapImageExample} />
                </div>
             </div>
 
             <div id="footer">
-               <a href={footerContent?.integrityPolicy}>{footerContent?.integrityPolicyDescription}</a>
+               <a href={content?.integrityPolicy}>{content?.integrityPolicyDescription}</a>
             </div>
          </div>
       );

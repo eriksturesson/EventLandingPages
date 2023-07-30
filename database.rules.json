@@ -19,12 +19,16 @@
       "websites": {
          "$website_id": {
             ".read": true,
-            ".write": "auth.uid != null"
+            ".write": true
          }
       },
-      "websitesIds": {
+      "websiteIds": {
+         ".read": true,
+         ".write": true
+      },
+      "setupImages": {
          ".read": true,
          ".write": true
       }
-   }
+      }
 }

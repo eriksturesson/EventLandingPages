@@ -10,7 +10,7 @@ import {
    // StandardWebPageContentHeader,
 } from '../interfaces/dbInterfaces';
 import { SectionContent, SectionProps, SectionTypes } from '../interfaces/sectionInterfaces';
-import { RegisterButtonComponent } from './RegisterButton';
+import { RegisterButtonComponent } from './CallToActionButton';
 import { Box, Divider, Button } from '@mui/material';
 import { ref, uploadBytes } from 'firebase/storage';
 import { ref as dbRef, update } from 'firebase/database';
@@ -36,7 +36,8 @@ export function EditHeaderComponent(): JSX.Element {
 
 export function HeaderComponent(props: SectionProps): JSX.Element {
    const { adminEditor, data } = props;
-   const { sectionName, id, order, createdAt, updatedAt } = data;
+   const { sectionName, sectionID, sectionOrder, createdAt, updatedAt } = data;
+
    const content = data.content as DBFullScreenMedia;
 
    let logo = content?.logo ? content.logo : rotaryLogo;
@@ -89,7 +90,7 @@ export function HeaderComponent(props: SectionProps): JSX.Element {
             </Divider>
          ) : null}
          <img id="header-logo" src={logo} alt="headerImage" />
-         {adminEditor ? <ImageCardFileUpload cardOrderNr={1} sectionID={id} sectionName={'fullScreenMedia'} /> : null}
+         {adminEditor ? <ImageCardFileUpload cardOrderNr={1} sectionID={sectionID} sectionName={'fullScreenMedia'} /> : null}
          {adminEditor ? (
             <Divider>
                <h2>Edit img/video</h2>
