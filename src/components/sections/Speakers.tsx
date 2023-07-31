@@ -27,14 +27,14 @@ export function SpeakersComponent(props: SectionProps): JSX.Element {
 export function OneSpeaker({ speaker }: { speaker: DBSpeaker }): JSX.Element {
    return (
       <div className="speaker">
-         <h1 className="speaker-description">{speaker?.speakerTitle}</h1>
-         <h2 className="speaker-description">{speaker?.speakerTitleDescription}</h2>
+         <h1 className="speaker-description">{speaker?.title}</h1>
+         <h2 className="speaker-description">{speaker?.titleDescription}</h2>
 
-         <img className="speaker-image" src={speaker?.speakerImage} />
+         <img className="speaker-image" src={speaker?.image} />
          <br></br>
-         <h1 className="speaker-description">{speaker?.speakerName}</h1>
-         <h2 className="speaker-description">{speaker?.speakerDescription}</h2>
-         <h3 className="speaker-description">{speaker?.speakerPitch}</h3>
+         <h1 className="speaker-description">{speaker?.fullName}</h1>
+         <h2 className="speaker-description">{speaker?.description}</h2>
+         <h3 className="speaker-description">{speaker?.pitch}</h3>
       </div>
    );
 }

@@ -8,6 +8,7 @@ import { OrganizersComponent } from './components/sections/Organizers';
 import { QuillComponent } from './components/sections/Quill';
 import { CallToActionButtonComponent } from './components/sections/CallToActionButton';
 import { PitchCardsComponent } from './components/sections/PitchCards';
+import { CreateSection } from './components/smallComponents/CreateSection';
 
 interface Sections {
    [component: string]: React.FC<SectionProps>;
@@ -30,22 +31,34 @@ interface Props {
 }
 
 export const SectionLoader: React.FC<Props> = function (props) {
-   const sections: SectionContent[] = Object.values(props.data);
+   const { adminEditor, data } = props;
+   const sections: SectionContent[] = Object.values(data);
    console.log('sections', sections);
-   return (
-      <>
-         {sections.map((section, i) => {
-            console.log('section:', section);
-            console.log('sectionName:', section.sectionName);
-            const Component = components[section.sectionName];
-            const sectionData = section.content;
-            if (!Component) {
-               console.error(`Failed to render module ${section.sectionName}. Check spelling.`);
-               return null;
-            }
+   if (sections) {
+      sections.sort((a, b) => a.sectionOrder - b.sectionOrder);
+      return (
+         <>
+            {sections.map((section, i) => {
+               console.log('section:', section);
+               console.log('sectionName:', section.sectionName);
+               const Component = components[section.sectionName];
+               const sectionData = section.content;
+               if (!Component) {
+                  console.error(`Failed to render module ${section.sectionName}. Check spelling.`);
+                  return null;
+               }
 
-            return <Component data={section} adminEditor={props.adminEditor} key={`${section.sectionName}-${i}`} />;
-         })}
-      </>
-   );
+               return (
+                  <>
+                     <Component data={section} adminEditor={props.adminEditor} key={`${section.sectionName}-${i}`} />
+                     {adminEditor ? <CreateSection sectionOrder={section.sectionOrder + 1} /> : null}
+                  </>
+               );
+            })}
+         </>
+      );
+   } else {
+      console.error('No sections found in SectionLoader');
+      return <CreateSection sectionOrder={1} />;
+   }
 };

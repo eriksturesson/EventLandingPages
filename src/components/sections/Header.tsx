@@ -90,7 +90,11 @@ export function HeaderComponent(props: SectionProps): JSX.Element {
             </Divider>
          ) : null}
          <img id="header-logo" src={logo} alt="headerImage" />
-         {adminEditor ? <ImageCardFileUpload cardOrderNr={1} sectionID={sectionID} sectionName={'fullScreenMedia'} /> : null}
+         {adminEditor ? (
+            <Box sx={{ textAlign: 'center' }}>
+               <ImageCardFileUpload cardOrderNr={1} sectionID={sectionID} sectionName={'fullScreenMedia'} />
+            </Box>
+         ) : null}
          {adminEditor ? (
             <Divider>
                <h2>Edit img/video</h2>

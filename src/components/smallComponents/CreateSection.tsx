@@ -31,38 +31,72 @@ const modalStyle = {
    p: 4,
 };
 
-export function BasicModal(sectionOrder: number) {
+export function CreateSection({ sectionOrder }: { sectionOrder: number }) {
    const [open, setOpen] = React.useState(false);
    const handleOpen = () => setOpen(true);
    const handleClose = () => setOpen(false);
 
    const allSections: JSX.Element[] = sectionTypes.map((sectionType: SectionTypes) => {
       return (
-         <Button onClick={() => storeNewSection(sectionType, sectionOrder)}>
-            {sectionType}
+         <Box sx={{ alignItems: 'center' }}>
+            <Button
+               sx={{
+                  backgroundColor: 'yellow',
+                  float: 'left',
+                  marginTop: '1rem',
+                  marginBottom: '1rem',
+                  marginLeft: '1rem',
+                  marginRight: '1rem',
+               }}
+               onClick={() => storeNewSection(sectionType, sectionOrder)}
+            >
+               {sectionType}
 
-            <AddCircleIcon />
-         </Button>
+               <AddCircleIcon />
+            </Button>
+         </Box>
       );
    });
    return (
-      <div>
-         <Button onClick={handleOpen}>Create Section</Button>
-         <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-createSection-title"
-            aria-describedby="modal-createSection-sectionTypes"
+      <Divider>
+         <Box
+            sx={{
+               borderRadius: '16px',
+               marginTop: '4rem',
+               marginBottom: '4rem',
+               marginLeft: '4rem',
+               marginRight: '4rem',
+               paddingLeft: '4rem',
+               paddingRight: '4rem',
+               background: 'lightGreen',
+               '&:hover': {
+                  border: '1px solid black',
+                  color: 'gray',
+                  backgroundColor: 'yellow',
+               },
+               textAlign: 'center',
+               border: 'solid 2px black',
+            }}
          >
-            <Box sx={modalStyle}>
-               <Typography id="modal-createSection-title" variant="h6" component="h2">
-                  Choose section to create:
-               </Typography>
-               <Box sx={{ mt: 2 }} id="modal-createSection-sectionTypes">
-                  {allSections}
+            <Button sx={{ type: 'large' }} onClick={handleOpen}>
+               <h2>Create new Section</h2>
+            </Button>
+            <Modal
+               open={open}
+               onClose={handleClose}
+               aria-labelledby="modal-createSection-title"
+               aria-describedby="modal-createSection-sectionTypes"
+            >
+               <Box sx={modalStyle}>
+                  <Typography id="modal-createSection-title" variant="h6" component="h2">
+                     Choose section to create:
+                  </Typography>
+                  <Box sx={{ mt: 2 }} id="modal-createSection-sectionTypes">
+                     {allSections}
+                  </Box>
                </Box>
-            </Box>
-         </Modal>
-      </div>
+            </Modal>
+         </Box>
+      </Divider>
    );
 }

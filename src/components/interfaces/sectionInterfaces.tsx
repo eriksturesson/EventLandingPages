@@ -4,7 +4,7 @@ export interface SectionContent {
    sectionName: SectionTypes;
    content: Content;
    sectionID: string;
-   sectionOrder: string;
+   sectionOrder: number;
    createdAt: Date;
    updatedAt: Date;
 }

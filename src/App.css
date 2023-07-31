@@ -340,7 +340,6 @@ p.speaker-description {
 .participant-box {
    display: table-cell;
    width: 30%;
-   height: 30rem;
    float: left;
    padding-bottom: 5rem;
    border: 2px;
@@ -396,7 +395,6 @@ p.speaker-description {
       margin-right: 0.1rem;
       margin-left: 0.1rem;
       width: 46%;
-      height: 250px;
    }
 }
 

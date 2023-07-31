@@ -62,14 +62,14 @@ export interface DBSpeakersKey {
 }
 
 export interface DBSpeaker {
-   speakerName?: string;
-   speakerDescription?: string;
-   speakerImage?: string;
-   speakerPitch?: string;
-   speakerTitle?: string;
-   speakerTitleDescription?: string;
-   speakerID: string;
-   speakerOrder: number;
+   fullName?: string;
+   description?: string;
+   image?: string;
+   pitch?: string;
+   title?: string;
+   titleDescription?: string;
+   id: string;
+   order: number;
 }
 
 export interface DBOneParticipant {
