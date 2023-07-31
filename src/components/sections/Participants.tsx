@@ -2,62 +2,35 @@ import { deleteObject, ref, uploadBytes } from 'firebase/storage';
 import { DBHomePageContentPitchCards, DBOneParticipant, DBParticipantKey } from '../interfaces/dbInterfaces';
 import ImageIcon from '@mui/icons-material/Image';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import addNewSpeakerExample from '../../assets/addNewSpeakerExample.png';
 import { child, push, update, ref as dbRef, set } from 'firebase/database';
 import { db, devSettings, storage } from '../utils/firebase';
 import { WEBSITE_ID } from '../../App';
 import { useState } from 'react';
 import { Box, Button, Divider, SvgIcon, TextField } from '@mui/material';
-import { ImageCardFileUpload } from '../smallComponents/FileUploads';
-import { EditText, SaveTextsButton } from '../smallComponents/TextEdits';
-import { SectionProps } from '../interfaces/sectionInterfaces';
+import { ImageButtonFileUpload, NewImgBoxFileUpload } from '../smallComponents/FileUploads';
+import { EditText, SaveTextsButton, handleStateTextChange } from '../smallComponents/TextEdits';
+import { SectionProps, SectionTypes } from '../interfaces/sectionInterfaces';
 
 export function OneParticipant({
    newCard,
    adminEditor,
    oneParticipant,
    sectionID,
+   sectionName,
 }: {
    newCard?: true;
    adminEditor: boolean;
    oneParticipant: DBOneParticipant;
    sectionID: string;
+   sectionName: SectionTypes;
 }): JSX.Element {
    const { id, order, image } = oneParticipant;
    const [name, setName] = useState(oneParticipant.name);
    const [title, setTitle] = useState(oneParticipant.title);
-   const [organisation, setOrganisation] = useState(oneParticipant.organization);
-
-   const handleNameChange = (event: any) => {
-      let text: string = event.target.value;
-      setName(text);
-   };
-
-   const handleTitleChange = (event: any) => {
-      let text: string = event.target.value;
-      setTitle(text);
-   };
-
-   const handleOrganisationChange = (event: any) => {
-      let text: string = event.target.value;
-      setOrganisation(text);
-   };
-
-   const handleSaveTexts = () => {
-      // Perform your save logic here, e.g., make an API call to save the data
-      console.log('Saving texts to db');
-      console.log('name: ' + name);
-      console.log('title: ' + title);
-      console.log('organisation: ' + organisation);
-      update(dbRef(db, `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/${id}`), {
-         name: name,
-         title: title,
-         organisation: organisation,
-         id: id,
-         order: order,
-      });
-
-      console.log('Saved title and description');
-   };
+   const [organization, setOrganization] = useState(oneParticipant.organization);
 
    const removeParticipantCard = (id: string, imgStorageRef: string) => {
       return () => {
@@ -102,25 +75,42 @@ export function OneParticipant({
                </Box>
             ) : null}
             {adminEditor && newCard ? (
-               <ImageCardFileUpload cardOrderNr={order} sectionName={'participants'} sectionID={sectionID} />
+               <NewImgBoxFileUpload sectionID={sectionID} cardOrderNr={order} sectionName={sectionName} />
             ) : null}
-            <img className="participant-image" src={oneParticipant.image} />
-            {adminEditor ? (
-               <EditText onChange={handleTitleChange} initText={name ? name : 'Test Testersson'} />
-            ) : (
-               <h2>{name}</h2>
-            )}
+            {!newCard ? <img className="participant-image" src={image} /> : null}
             {adminEditor ? (
                <>
-                  <EditText onChange={handleTitleChange} initText={title ? title : 'Tester'} />
-                  <EditText onChange={handleOrganisationChange} initText={organisation ? organisation : 'Testers AB'} />
+                  <EditText
+                     type={'header'}
+                     onChange={(event: any) => handleStateTextChange(setName, event)}
+                     initText={'name'}
+                     labelName={'Name'}
+                  />
+                  <EditText
+                     type={'description'}
+                     labelName={'Title'}
+                     onChange={(event: any) => handleStateTextChange(setTitle, event)}
+                     initText={title}
+                  />
+                  <EditText
+                     type={'description'}
+                     labelName={'Organization'}
+                     onChange={(event: any) => handleStateTextChange(setOrganization, event)}
+                     initText={organization}
+                  />
+                  <SaveTextsButton
+                     refBelowWebsiteID={`homepageContent/${sectionID}/content/${id}`}
+                     data={{ name: name, title: title, organisation: organization, id: id, order: order }}
+                  />
                </>
             ) : (
-               <h3>
-                  {oneParticipant.title} @ {oneParticipant.organization}
-               </h3>
+               <>
+                  <h2>{name}</h2>
+                  <h3>
+                     {oneParticipant.title} @ {oneParticipant.organization}
+                  </h3>
+               </>
             )}
-            {adminEditor ? <SaveTextsButton onSave={handleSaveTexts} /> : null}
          </Box>
       </>
    );
@@ -132,13 +122,11 @@ export function ParticipantComponent(props: SectionProps): JSX.Element {
    const content = data.content as DBParticipantKey;
    const participants = content.items;
    const title = content.title;
-
-   let newAdminImg = '';
-   {
-      adminEditor
-         ? (newAdminImg = `<div style={{width: "400px", height: "400px", backgroundColor: "grey"}}> ${ImageIcon}</div>`)
-         : null;
-   }
+   const [cardTitle, setCardTitle] = useState(title);
+   const handleCardTitleChange = (event: any) => {
+      let text: string = event.target.value;
+      setCardTitle(text);
+   };
    if (participants && Object.keys(participants).length > 0) {
       let allParticipants: JSX.Element[] = [];
       for (let participant of Object.keys(participants)) {
@@ -148,6 +136,7 @@ export function ParticipantComponent(props: SectionProps): JSX.Element {
                <OneParticipant
                   adminEditor={adminEditor}
                   sectionID={sectionID}
+                  sectionName={sectionName}
                   oneParticipant={participantObject as DBOneParticipant}
                />
             );
@@ -156,23 +145,32 @@ export function ParticipantComponent(props: SectionProps): JSX.Element {
 
       return (
          <>
-            <h1>{title}</h1>
             {adminEditor ? (
                <Divider>
                   <h2>Edit participants</h2>
                </Divider>
             ) : null}
+            {adminEditor ? (
+               <>
+                  <EditText initText={title ? title : 'Participants'} onChange={handleCardTitleChange} />
+                  <SaveTextsButton refBelowWebsiteID={`homepageContent/${sectionID}/content/`} data={{ title: cardTitle }} />
+               </>
+            ) : (
+               <h1>{title}</h1>
+            )}
+
             <div className="wrapper-participants">
                {allParticipants}
                {adminEditor ? (
                   <OneParticipant
                      adminEditor={adminEditor}
                      sectionID={sectionID}
+                     sectionName={sectionName}
                      newCard={true}
                      oneParticipant={
                         {
                            order: participants ? Object.keys(participants).length + 1 : 1,
-                           image: newAdminImg,
+                           image: addNewSpeakerExample,
                            name: 'Test Testersson',
                            id: 'randomKey',
                            title: 'Tester',
@@ -191,11 +189,12 @@ export function ParticipantComponent(props: SectionProps): JSX.Element {
                <OneParticipant
                   adminEditor={adminEditor}
                   newCard={true}
+                  sectionName={sectionName}
                   sectionID={sectionID}
                   oneParticipant={
                      {
                         order: participants ? Object.keys(participants).length + 1 : 1,
-                        image: newAdminImg,
+                        image: addNewSpeakerExample,
                         name: 'Test Testersson',
                         id: 'randomKey',
                         title: 'Tester',

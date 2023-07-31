@@ -16,7 +16,7 @@ import { ref, uploadBytes } from 'firebase/storage';
 import { ref as dbRef, update } from 'firebase/database';
 import { db, devSettings, storage } from '../utils/firebase';
 import { WEBSITE_ID } from '../../App';
-import { ImageCardFileUpload } from '../smallComponents/FileUploads';
+import { ImageButtonFileUpload } from '../smallComponents/FileUploads';
 
 export function EditHeaderComponent(): JSX.Element {
    return (
@@ -92,7 +92,7 @@ export function HeaderComponent(props: SectionProps): JSX.Element {
          <img id="header-logo" src={logo} alt="headerImage" />
          {adminEditor ? (
             <Box sx={{ textAlign: 'center' }}>
-               <ImageCardFileUpload cardOrderNr={1} sectionID={sectionID} sectionName={'fullScreenMedia'} />
+               <ImageButtonFileUpload cardOrderNr={1} sectionID={sectionID} sectionName={'fullScreenMedia'} />
             </Box>
          ) : null}
          {adminEditor ? (

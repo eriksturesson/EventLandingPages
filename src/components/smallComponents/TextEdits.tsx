@@ -1,16 +1,38 @@
 import { Box, Button, TextField } from '@mui/material';
+import { update, ref as dbRef } from 'firebase/database';
+import { db } from '../utils/firebase';
+import { WEBSITE_ID } from '../../App';
 
-export function EditText({ initText, onChange, rows }: { initText: string; onChange: any; rows?: number }): JSX.Element {
+export const handleSaveTexts = ({ refBelowWebsiteID, data }: { refBelowWebsiteID: string; data: object }) => {
+   // Perform your save logic here, e.g., make an API call to save the data
+   console.log('Saving texts to db');
+   update(dbRef(db, `websites/${WEBSITE_ID}/${refBelowWebsiteID}`), data);
+   console.log('Saved title and description');
+};
+
+export function EditText({
+   initText,
+   onChange,
+   type,
+   labelName,
+   rows,
+}: {
+   initText?: string;
+   onChange: any;
+   labelName?: string;
+   type?: 'header' | 'description';
+   rows?: number;
+}): JSX.Element {
    return (
-      <Box style={{ paddingBottom: '2rem', width: '100%' }}>
+      <Box style={{ paddingBottom: '2rem', width: '100%', alignContent: 'center' }}>
          <TextField
             id="outlined-textarea"
-            label="Header"
+            label={labelName ? labelName : type ? type : 'Header'}
             placeholder="Placeholder"
             rows={rows ? rows : 1}
             multiline
-            defaultValue={initText}
-            style={{ width: '100%' }}
+            defaultValue={initText ? initText : ''}
+            style={{ width: '100%', alignContent: 'center' }}
             InputLabelProps={{ shrink: true }}
             onChange={onChange}
          />
@@ -18,12 +40,17 @@ export function EditText({ initText, onChange, rows }: { initText: string; onCha
    );
 }
 
-export function SaveTextsButton({ onSave }: { onSave: any }): JSX.Element {
+export function SaveTextsButton({ refBelowWebsiteID, data }: { refBelowWebsiteID: string; data: object }): JSX.Element {
    return (
       <Box style={{ paddingBottom: '2rem', textAlign: 'center', width: '100%' }}>
-         <Button onClick={onSave} variant="contained" color="primary">
+         <Button onClick={() => handleSaveTexts({ refBelowWebsiteID, data })} variant="contained" color="primary">
             Save texts
          </Button>
       </Box>
    );
+}
+
+export function handleStateTextChange(setStateFunction: (word: string) => void, event: any) {
+   let text: string = event.target.value;
+   setStateFunction(text);
 }

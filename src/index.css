@@ -109,8 +109,8 @@ body {
    justify-content: center;
 }
 
-.uploadImageButton {
-   margin-top: -15rem !important;
+.pitchcard-box img {
+   margin-bottom: 2rem;
 }
 
 .visningsbilder {

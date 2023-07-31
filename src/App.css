@@ -348,6 +348,10 @@ p.speaker-description {
    overflow: hidden;
 }
 
+.participant-box img {
+   margin-bottom: 2rem;
+}
+
 @media only screen and (max-width: 1088px) {
    .participant-box {
       width: 45%;

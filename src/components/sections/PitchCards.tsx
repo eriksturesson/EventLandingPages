@@ -2,6 +2,7 @@ import visningsbild1 from '../../assets/DSC01125.JPG';
 import visningsbild2 from '../../assets/DSC01286.JPG';
 import visningsbild3 from '../../assets/DSC02755.JPG';
 import speakerImgExample1 from '../../assets/speakerImgExample1.jpg';
+import briefcaseExample from '../../assets/briefcaseExample.png';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import DeleteIcon from '@mui/icons-material/Delete';
 import react, { useState } from 'react';
@@ -12,8 +13,8 @@ import { db, devSettings, storage } from '../utils/firebase';
 import { child, push, ref as dbRef, set, update, onChildAdded } from 'firebase/database';
 import { WEBSITE_ID } from '../../App';
 import { EditText, SaveTextsButton } from '../smallComponents/TextEdits';
-import { ImageCardFileUpload } from '../smallComponents/FileUploads';
-import { SectionProps } from '../interfaces/sectionInterfaces';
+import { ImageButtonFileUpload, NewImgBoxFileUpload } from '../smallComponents/FileUploads';
+import { SectionProps, SectionTypes } from '../interfaces/sectionInterfaces';
 
 interface OnePitchCardProps {
    adminEditor?: boolean;
@@ -24,9 +25,66 @@ interface OnePitchCardProps {
    newCard?: true;
    id?: string;
    sectionID: string;
+   sectionName: SectionTypes;
 }
+
+const AddNewPitchCard = ({ sectionID, cardOrderNr }: { sectionID: string; cardOrderNr: number }): JSX.Element => {
+   return (
+      <Box
+         minHeight="10rem"
+         sx={{
+            textAlign: 'center',
+            width: '100%',
+            backgroundColor: 'grey',
+            position: 'relative',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            zIndex: 3,
+            marginBottom: '2rem',
+         }}
+      >
+         <Box
+            sx={{
+               textAlign: 'center',
+               position: 'absolute',
+               zIndex: 1,
+            }}
+         >
+            <SvgIcon component={AddPhotoAlternateIcon} fontSize="large" />
+            <br></br>
+            <ImageButtonFileUpload sectionID={sectionID} sectionName={'pitchCards'} cardOrderNr={cardOrderNr} />
+         </Box>
+         <img className="participant-image" src={briefcaseExample} />
+      </Box>
+   );
+   return (
+      <Box
+         minHeight="10rem"
+         sx={{
+            width: '100%',
+            position: 'relative',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            zIndex: 2,
+         }}
+      >
+         <SvgIcon
+            sx={{
+               textAlign: 'center',
+               position: 'absolute',
+               zIndex: 1,
+            }}
+            component={AddPhotoAlternateIcon}
+            fontSize="large"
+         />
+         <img className="participant-image" src={briefcaseExample} />
+      </Box>
+   );
+};
 export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
-   const { adminEditor, img, order, initTitle, initDescription, newCard, id, sectionID } = props;
+   const { adminEditor, img, order, initTitle, initDescription, newCard, id, sectionID, sectionName } = props;
    const [title, setTitle] = useState(initTitle);
    const [description, setDescription] = useState(initDescription);
 
@@ -38,22 +96,6 @@ export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
    const handleDescriptionChange = (event: any) => {
       let text: string = event.target.value;
       setDescription(text);
-   };
-
-   const handleSaveTexts = () => {
-      // Perform your save logic here, e.g., make an API call to save the data
-      console.log('Saving texts to db');
-      console.log('id: ' + id);
-      console.log('title: ' + title);
-      console.log('description: ' + description);
-      update(dbRef(db, `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/${id}`), {
-         title: title,
-         description: description,
-         id: id,
-         order: order,
-      });
-
-      console.log('Saved title and description');
    };
 
    const removePitchCard = (id: string, imgStorageRef: string) => {
@@ -103,27 +145,23 @@ export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
                </Box>
             ) : null}
 
-            {newCard ? (
-               <Box
-                  minHeight="10rem"
-                  sx={{
-                     opacity: '50%',
-                     textAlign: 'center',
-                     width: '100%',
-                     backgroundColor: 'grey',
-                  }}
-               >
-                  <SvgIcon component={AddPhotoAlternateIcon} fontSize="large" />
-               </Box>
+            {adminEditor && newCard ? (
+               <>
+                  <NewImgBoxFileUpload sectionID={sectionID} cardOrderNr={order} sectionName={sectionName} />
+
+                  {/*<AddNewPitchCard sectionID={sectionID} cardOrderNr={order} />*/}
+               </>
             ) : (
                <img className="visningsbilder" alt="visningsbild1" src={img} />
             )}
-            {adminEditor ? (
-               <ImageCardFileUpload sectionID={sectionID} sectionName={'pitchCards'} cardOrderNr={order} />
-            ) : null}
             {adminEditor ? <EditText onChange={handleTitleChange} initText={title} /> : <h1>{title}</h1>}
             {adminEditor ? <EditText onChange={handleDescriptionChange} initText={description} /> : <p>{description}</p>}
-            {adminEditor ? <SaveTextsButton onSave={handleSaveTexts} /> : null}
+            {adminEditor ? (
+               <SaveTextsButton
+                  refBelowWebsiteID={`homepageContent/${sectionID}/content/${id}`}
+                  data={{ title: title, description: description, id: id, order: order }}
+               />
+            ) : null}
          </Box>
       </Box>
    );
@@ -143,15 +181,6 @@ export function PitchCardsComponent(props: SectionProps): JSX.Element {
       setTitle(text);
    };
 
-   const handleSavePitchCardSectionTitle = () => {
-      // Perform your save logic here, e.g., make an API call to save the data
-      console.log('Saving pitchCardSectionTitle to db');
-      update(dbRef(db, `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/`), {
-         title: title,
-      });
-
-      console.log('Saved title and description');
-   };
    let pitchCardsContent: JSX.Element[] = [];
 
    // Sort the pitchCards array based on the "order" property
@@ -165,6 +194,7 @@ export function PitchCardsComponent(props: SectionProps): JSX.Element {
             pitchCardsContent.push(
                <OnePitchCard
                   id={pitchCards[i].id}
+                  sectionName={sectionName}
                   sectionID={sectionID}
                   adminEditor={adminEditor}
                   order={pitchCards[i].order}
@@ -190,13 +220,16 @@ export function PitchCardsComponent(props: SectionProps): JSX.Element {
             ) : (
                <h1>{title}</h1>
             )}
-            {adminEditor ? <SaveTextsButton onSave={handleSavePitchCardSectionTitle} /> : null}
+            {adminEditor ? (
+               <SaveTextsButton refBelowWebsiteID={`homepageContent/${sectionID}/content/`} data={{ title: title }} />
+            ) : null}
             <Box className="wrapperOfImagesWithPitch">
                {pitchCardsContent}
                {/* Below is to always make it available to add one more pitchCards */}
                {adminEditor ? (
                   <OnePitchCard
                      adminEditor={adminEditor}
+                     sectionName={sectionName}
                      sectionID={sectionID}
                      newCard={true}
                      order={pitchCardsContent.length + 1}
@@ -213,6 +246,7 @@ export function PitchCardsComponent(props: SectionProps): JSX.Element {
          <Box className="wrapperOfImagesWithPitch">
             <OnePitchCard
                adminEditor={adminEditor}
+               sectionName={sectionName}
                sectionID={sectionID}
                order={1}
                img={visningsbild1}
@@ -223,6 +257,7 @@ export function PitchCardsComponent(props: SectionProps): JSX.Element {
             />
             <OnePitchCard
                adminEditor={adminEditor}
+               sectionName={sectionName}
                sectionID={sectionID}
                order={2}
                img={visningsbild2}
@@ -233,6 +268,7 @@ export function PitchCardsComponent(props: SectionProps): JSX.Element {
             />
             <OnePitchCard
                adminEditor={adminEditor}
+               sectionName={sectionName}
                sectionID={sectionID}
                order={3}
                img={visningsbild3}
