@@ -1,0 +1,202 @@
+{
+   "websites": {
+      "myWebsiteID123456789": {
+         "homepageContent": {
+            "-NamF-T2Fe-BIb-0LrQq": {
+               "content": {
+                  "description": "This is the description of the event",
+                  "image": "http://localhost:3001[object Object]",
+                  "title": "Welcome to the event!"
+               },
+               "createdAt": "2023-08-01T17:58:08.435Z",
+               "sectionID": "-NamF-T2Fe-BIb-0LrQq",
+               "sectionName": "fullScreenMedia",
+               "sectionOrder": 0,
+               "updatedAt": "2023-08-01T17:58:08.435Z"
+            },
+            "-NamF-TQVEtqtU1N_oYo": {
+               "content": {
+                  "adressTitle": "Example adress title",
+                  "contactAddress1": "Example adress 1",
+                  "contactAddress2": "Example adress 2",
+                  "contactEmail": "example@example.com",
+                  "contactName": "Example contact name",
+                  "contactPhone": "+00 123 45 678",
+                  "contactTitle": "Example contact title",
+                  "integrityPolicy": "https://www.google.com/",
+                  "integrityPolicyDescription": "Our Integrity Policy",
+                  "mapImage": "http://localhost:3001/static/media/mapImageExample.d4ee5e1c10f876e3ab39.png"
+               },
+               "createdAt": "2023-08-01T17:58:08.459Z",
+               "sectionID": "-NamF-TQVEtqtU1N_oYo",
+               "sectionName": "footer",
+               "sectionOrder": 7,
+               "updatedAt": "2023-08-01T17:58:08.459Z"
+            },
+            "-NamF-To_0jC5ZDGxeWr": {
+               "content": {
+                  "items": {
+                     "speakerskey1": {
+                        "description": "With experience in ...",
+                        "fullName": "Jane Jones",
+                        "id": "speakerskey1",
+                        "image": "http://localhost:3001/static/media/speakerImgExample1.afc65f97e9cbc4a767fa.jpg",
+                        "order": 1,
+                        "pitch": "I am a speaker",
+                        "title": "CEO of Company X",
+                        "titleDescription": "I am the CEO of Company X"
+                     },
+                     "speakerskey2": {
+                        "description": "My name is Sofie Wattson and I am a speaker",
+                        "fullName": "Sofie Wattson",
+                        "id": "speakerskey2",
+                        "image": "http://localhost:3001/static/media/speakerImgExample2.602dd61a6e5300b45b89.jpg",
+                        "order": 2,
+                        "pitch": "I am a speaker",
+                        "title": "CEO of Company Y",
+                        "titleDescription": "I am the CEO of Company Y"
+                     },
+                     "speakerskey3": {
+                        "description": "My name is John Doe and I am a speaker",
+                        "fullName": "John Doe",
+                        "id": "speakerskey3",
+                        "image": "http://localhost:3001/static/media/speakerImgExample3.1768514f5305e1f56e70.jpg",
+                        "order": 3,
+                        "pitch": "I am a speaker",
+                        "title": "CEO of Company Z",
+                        "titleDescription": "I am the CEO of Company Z"
+                     }
+                  },
+                  "title": "Speakers"
+               },
+               "createdAt": "2023-08-01T17:58:08.484Z",
+               "sectionID": "-NamF-To_0jC5ZDGxeWr",
+               "sectionName": "speakers",
+               "sectionOrder": 2,
+               "updatedAt": "2023-08-01T17:58:08.484Z"
+            },
+            "-NamF-UJQGN9lk0-kurh": {
+               "content": {
+                  "items": {
+                     "participantskey1": {
+                        "id": "participantskey1",
+                        "image": "http://localhost:3001/static/media/speakerImgExample1.afc65f97e9cbc4a767fa.jpg",
+                        "name": "Jane Jones",
+                        "order": 1,
+                        "organization": "Company X",
+                        "title": "CEO"
+                     },
+                     "participantskey2": {
+                        "id": "participantskey2",
+                        "image": "http://localhost:3001/static/media/speakerImgExample2.602dd61a6e5300b45b89.jpg",
+                        "name": "Sofie Wattson",
+                        "order": 2,
+                        "organization": "Company Y",
+                        "title": "CEO"
+                     },
+                     "participantskey3": {
+                        "id": "participantskey3",
+                        "image": "http://localhost:3001/static/media/speakerImgExample3.1768514f5305e1f56e70.jpg",
+                        "name": "John Doe",
+                        "order": 3,
+                        "organization": "Company Z",
+                        "title": "CEO"
+                     }
+                  },
+                  "title": "Participants"
+               },
+               "createdAt": "2023-08-01T17:58:08.516Z",
+               "sectionID": "-NamF-UJQGN9lk0-kurh",
+               "sectionName": "participants",
+               "sectionOrder": 3,
+               "updatedAt": "2023-08-01T17:58:08.516Z"
+            },
+            "-NamF-Ug7haziqHkeKPA": {
+               "content": {
+                  "items": {
+                     "organizerskey1": {
+                        "id": "organizerskey1",
+                        "logo": "http://localhost:3001/static/media/speakerImgExample1.afc65f97e9cbc4a767fa.jpg",
+                        "order": 1
+                     },
+                     "organizerskey2": {
+                        "id": "organizerskey2",
+                        "logo": "http://localhost:3001/static/media/speakerImgExample2.602dd61a6e5300b45b89.jpg",
+                        "order": 2
+                     }
+                  },
+                  "title": "Organizers"
+               },
+               "createdAt": "2023-08-01T17:58:08.540Z",
+               "sectionID": "-NamF-Ug7haziqHkeKPA",
+               "sectionName": "organizers",
+               "sectionOrder": 4,
+               "updatedAt": "2023-08-01T17:58:08.540Z"
+            },
+            "-NamF-V2tor8DxXjBPq1": {
+               "content": { "text": "Example text from quill editor" },
+               "createdAt": "2023-08-01T17:58:08.563Z",
+               "sectionID": "-NamF-V2tor8DxXjBPq1",
+               "sectionName": "quillContent",
+               "sectionOrder": 5,
+               "updatedAt": "2023-08-01T17:58:08.563Z"
+            },
+            "-NamF-VRrOqmF_NLQouD": {
+               "content": {
+                  "items": {
+                     "pitchCardskey1": {
+                        "description": "This is the description of Pitch Card 1",
+                        "id": "pitchCardskey1",
+                        "image": "http://localhost:3001/static/media/speakerImgExample1.afc65f97e9cbc4a767fa.jpg",
+                        "order": 1,
+                        "title": "Pitch Card 1"
+                     },
+                     "pitchCardskey2": {
+                        "description": "This is the description of Pitch Card 2",
+                        "id": "pitchCardskey2",
+                        "image": "http://localhost:3001/static/media/speakerImgExample2.602dd61a6e5300b45b89.jpg",
+                        "order": 2,
+                        "title": "Pitch Card 2"
+                     },
+                     "pitchCardskey3": {
+                        "description": "This is the description of Pitch Card 3",
+                        "id": "pitchCardskey3",
+                        "image": "http://localhost:3001/static/media/speakerImgExample3.1768514f5305e1f56e70.jpg",
+                        "order": 3,
+                        "title": "Pitch Card 3"
+                     }
+                  },
+                  "title": "Pitch Cards"
+               },
+               "createdAt": "2023-08-01T17:58:08.588Z",
+               "sectionID": "-NamF-VRrOqmF_NLQouD",
+               "sectionName": "pitchCards",
+               "sectionOrder": 6,
+               "updatedAt": "2023-08-01T17:58:08.588Z"
+            },
+            "-NamF-Vn8SYgnUnKNM7F": {
+               "content": {
+                  "buttonColor": "green",
+                  "buttonInfo": "Extra example info below button",
+                  "buttonText": "Example button text",
+                  "formLink": "https://www.google.com/"
+               },
+               "createdAt": "2023-08-01T17:58:08.611Z",
+               "sectionID": "-NamF-Vn8SYgnUnKNM7F",
+               "sectionName": "callToActionButton",
+               "sectionOrder": 1,
+               "updatedAt": "2023-08-01T17:58:08.611Z"
+            }
+         }
+      }
+   },
+   "websiteIDs": {
+    "websites": {
+        "myWebsiteID123456789": {
+                "websiteHostName": "localhost",
+                "websiteID": "myWebsiteID123456789",
+                "created": "2023-08-01T17:58:08.484Z"
+        }
+   }
+}
+}

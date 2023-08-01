@@ -121,6 +121,7 @@ export function ImageButtonFileUpload(props: ParticipantCardFileUploadProps): JS
          //updateObject[`websites/${WEBSITE_ID}/homepageContent/${sectionID}/order/`] = `${sectionOrder}`;
          updateObject[`websites/${WEBSITE_ID}/homepageContent/${sectionID}/updatedAt/`] = new Date();
          updateObject[`websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/${randomkey}/`] = {
+            //Portential error: content/items has to be used
             image: `${startURL}${storage.app.options.storageBucket}/o/${encodeURIComponent(
                snapshot.ref.fullPath
             )}?alt=media&token=${snapshot.metadata.downloadTokens}`,

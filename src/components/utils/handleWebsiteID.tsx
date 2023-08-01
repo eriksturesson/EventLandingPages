@@ -32,14 +32,16 @@ async function uploadStandardImages() {
 */
 
 async function createFirstTimeSections(websiteID: string) {
+   let counter = 0;
    for (let section of sectionTypes) {
+      let sectionOrder = section === 'footer' ? Object.keys(sectionTypes).length : counter++;
       let sectionID = push(child(dbRef(db), `websites/${websiteID}/homepageContent/`)).key;
       //await uploadStandardImages(); //Does not work
       await set(dbRef(db, `websites/${websiteID}/homepageContent/${sectionID}/`), {
          sectionName: section,
-         content: initSectionDataOnNewCreation[section],
+         content: initSectionDataOnNewCreation[section as SectionTypes],
          sectionID: sectionID,
-         sectionOrder: sectionTypes.indexOf(section),
+         sectionOrder: sectionOrder,
          createdAt: new Date().toISOString(),
          updatedAt: new Date().toISOString(),
       })

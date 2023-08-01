@@ -1,6 +1,7 @@
 {
    "scripts": {
       "emulators": "firebase emulators:start & react-scripts start && fg",
+      "emulators-data": "firebase emulators:start --import=./EMULATORS_EXPORT/2023-08-01",
       "start": "react-scripts start",
       "build": "react-scripts build",
       "test": "react-scripts test",
