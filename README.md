@@ -13,11 +13,13 @@
 
 # How to set up:
 
-1. Create a Firebase Project
+1. A: Create a Firebase Project
 
    -  Create your firebase project at firebase.com
    -  Follow Firebase's own steps for deploying and setting up your project. Use `firebase init`. Install, when asked all these: `emulators`, `cloud functions`, `realtime database`, `storage` and `hosting`. Don't remove the `databaseRules` nor `firebase`.json.
-   -  Create a file `config.tsx` and copy paste your `firebaseConfig` from firebase and export the variable firebaseConfig. Put it here: `src\components\utilsAndInterfaces\config.tsx`. You find your firebaseConfig in the firebase console --> firebase settings --> General
+   -  Create a file `firebaseConfig.ts` and copy paste your `firebaseConfig` from firebase and export the variable firebaseConfig. Put it here: `src\components\utilsAndInterfaces\firebaseConfig.ts`. You find your firebaseConfig in the firebase console --> firebase settings --> General
+
+   B: Copy our database and storage rules from the root-folder `config`.
 
 2. Change the storage.rules files to fit the name of your storage bucket link:
 

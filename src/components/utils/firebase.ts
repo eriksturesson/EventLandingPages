@@ -1,7 +1,7 @@
 import { getAuth, connectAuthEmulator } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { getDatabase, connectDatabaseEmulator } from 'firebase/database';
-import { firebaseConfig } from './config';
+import { firebaseConfig } from './firebaseConfig';
 import { connectStorageEmulator, getStorage } from 'firebase/storage';
 export const devSettings: 'EMULATORS' | 'PRODUCTION' = 'EMULATORS';
 console.log('devSettings', devSettings);

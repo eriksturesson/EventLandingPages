@@ -1,0 +1,34 @@
+{
+   "rules": {
+      "Program": {
+         ".read": true,
+         ".write": "auth.uid != null"
+      },
+      "users": {
+         "$user_id": {
+            ".read": "$user_id === auth.uid",
+            ".write": "$user_id === auth.uid"
+         }
+      },
+      "adminUsers": {
+         "$user_id": {
+            ".read": "$user_id === auth.uid",
+            ".write": "$user_id === auth.uid"
+         }
+      },
+      "websites": {
+         "$website_id": {
+            ".read": true,
+            ".write": true
+         }
+      },
+      "websiteIds": {
+         ".read": true,
+         ".write": true
+      },
+      "setupImages": {
+         ".read": true,
+         ".write": true
+      }
+      }
+}
