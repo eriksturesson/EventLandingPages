@@ -1,5 +1,6 @@
 {
    "scripts": {
+      "emulators": "firebase emulators:start & react-scripts start && fg",
       "start": "react-scripts start",
       "build": "react-scripts build",
       "test": "react-scripts test",
