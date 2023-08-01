@@ -145,7 +145,7 @@ export const Admin = ({ user, websiteID }: { user: User | null; websiteID: strin
          let programContentFromDB: SectionIDs = snapshot.val() ? snapshot.val() : '';
          if (programContentFromDB) setProgramContent(programContentFromDB);
       });
-   }, [homepageContent]);
+   }, []);
 
    return (
       <>
