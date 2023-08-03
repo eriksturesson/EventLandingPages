@@ -53,7 +53,8 @@ p {
    opacity: 50%;
 }
 
-#header-logo {
+/* Not used */
+/* #header-logo {
    display: block;
    margin-top: 2rem;
    margin-bottom: 2rem;
@@ -61,44 +62,64 @@ p {
    margin-right: auto;
    width: 80%;
    max-height: 90%;
-}
+} */
 
 .header-container {
    width: 100%;
+   height: 100vh;
    position: relative;
    overflow: hidden;
+   padding: 0;
+   margin: 0;
 }
 
-video {
+/* video {
    position: absolute;
+      z-index: -100;
+   height: 100vw;
+   position: fixed;
+   right: 0;
+   bottom: 0;
+   min-width: 100%;
+   min-height: 100%;
+} */
+
+.top-image {
    z-index: -100;
-   width: 100%;
+   height: 100vh;
+   min-width: 100%;
 }
 
 .video-container {
    position: relative;
-   top: 0;
+   height: 100vh;
+   min-width: 100%;
+   /*    top: 0;
    right: 0;
    bottom: 0;
    left: 0;
    width: 100%;
-   overflow: hidden;
+   overflow: hidden; */
 }
 
 .black-layer {
-   box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.4);
+   background-color: rgba(0, 0, 0, 0.4);
+   /*  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.4);
    -webkit-box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.4);
-   -moz-box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.4);
+   -moz-box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.4); */
 }
 
 .box-text-over-video {
    position: absolute;
    top: 10rem;
-   left: 0;
+   width: 100%;
+   height: 100%;
+   /*    left: 0;
    right: 0;
-   bottom: 0;
+   bottom: 0; */
    z-index: 1;
    text-align: center;
+   padding: 4em;
 }
 
 @media only screen and (max-width: 900px) {
@@ -111,21 +132,12 @@ video {
    .box-text-over-video {
       top: 0rem;
    }
-}
-
-@media only screen and (max-width: 580px) {
    .box-text-over-video h3 {
       display: none;
    }
-}
-
-@media only screen and (max-width: 580px) {
    .box-text-over-video h2 {
       display: none;
    }
-}
-
-@media only screen and (max-width: 580px) {
    .box-text-over-video img {
       display: none;
    }
@@ -135,7 +147,8 @@ video {
    color: white;
 }
 
-.text-under-video {
+/* Not used */
+/* .text-under-video {
    background-color: white;
    width: 100%;
    height: 2, 5em;
@@ -147,7 +160,7 @@ video {
    .text-under-video {
       display: contents;
    }
-}
+} */
 
 .move-arrow {
    -webkit-animation: mover 1s infinite alternate;
