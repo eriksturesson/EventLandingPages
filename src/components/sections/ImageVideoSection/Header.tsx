@@ -43,23 +43,7 @@ export function HeaderComponent(props: SectionProps): JSX.Element {
    const location = useRef(initLocation);
 
    // const videoOrImage = video ? video : image ? image : null;
-   let videoOrImage = image; // used for testing only
-
-   let headerContent: JSX.Element = <></>;
-   if (videoOrImage === video && video !== null) {
-      headerContent = (
-         <>
-            <video autoPlay muted loop className="video-container">
-               <source src={video} type={`video/mp4`} />
-               Your browser does not support the video tag.
-            </video>
-         </>
-      );
-   } else if (videoOrImage === image && image !== null) {
-      headerContent = (
-         <img className="top-image" src={image} alt="headerImage" style={{ width: `${mediaSize}%`, height: 'auto' }}></img>
-      );
-   }
+   let videoOrImage = video; // used for testing only
 
    const textEditHandler = function () {
       const data = {
@@ -73,18 +57,41 @@ export function HeaderComponent(props: SectionProps): JSX.Element {
       setEditing(false);
    };
 
+   let headerContent: JSX.Element = <></>;
+   if (videoOrImage === video && video !== null) {
+      headerContent = (
+         <video autoPlay muted loop className="video-container" style={{ width: '100%' }}>
+            <source src={video} type={`video/mp4`} />
+            Your browser does not support the video tag.
+         </video>
+      );
+   } else if (videoOrImage === image && image !== null) {
+      headerContent = (
+         <img
+            /* className="top-image" */ src={image}
+            alt="headerImage"
+            style={{ width: '100%' /* removing styles from '.adminEdit img': */, filter: 'none', opacity: 1 }}
+         ></img>
+      );
+   }
+
    return (
-      <Box component="section">
+      <Stack
+         component="section"
+         alignItems="center"
+         justifyContent="space-between"
+         sx={adminEditor ? { minHeight: '100vh', maxHeight: '100vh' } : {}}
+      >
          {adminEditor && (
             <Divider>
                <h2>Edit img/video</h2>
             </Divider>
          )}
-         <Box className="header-container black-layer" sx={{ width: `${mediaSize}%`, height: 'auto' }}>
+         <Box className="header-container" sx={{ width: `${mediaSize}vw`, height: 'auto' }}>
             {headerContent}
             {isEditing && null}
 
-            <div className="box-text-over-video">
+            <div className="box-text-over-video black-layer" style={{ width: '100%' }}>
                <h1 className="text-over-video">{title.current}</h1>
                <h3 className="text-over-video">{description.current}</h3>
                <h2 className="text-over-video">
@@ -123,7 +130,7 @@ export function HeaderComponent(props: SectionProps): JSX.Element {
                   <ImageButtonFileUpload cardOrderNr={1} sectionID={sectionID} sectionName={'fullScreenMedia'} />
                   <Slider
                      aria-label="Always visible"
-                     defaultValue={mediaSize as number}
+                     defaultValue={mediaSize}
                      sx={{ width: '8em' }}
                      valueLabelDisplay="auto"
                      disabled={false}
@@ -135,6 +142,6 @@ export function HeaderComponent(props: SectionProps): JSX.Element {
                </Stack>
             </Stack>
          )}
-      </Box>
+      </Stack>
    );
 }
