@@ -17,7 +17,7 @@ export const initSectionDataOnNewCreation: InitContent = {
       video: rotaryVideomp4,
       time: 'ONS 6 SEP KL.18.00 - 21.00',
       location: 'M / S VINDHEM, SKEPPSBRON - KAJPLATS 101',
-      mediaSize: 'full',
+      mediaSize: 100,
    },
    speakers: {
       title: 'Speakers',
@@ -159,7 +159,7 @@ export const initialState: SectionIDs = {
          logo: '',
          video: '',
          image: '',
-         mediaSize: 'full',
+         mediaSize: 100,
       } as DBFullScreenMedia,
    },
    ugois8934ifre: {

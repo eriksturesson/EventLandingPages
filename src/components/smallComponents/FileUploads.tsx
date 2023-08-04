@@ -132,7 +132,7 @@ export function ImageButtonFileUpload(props: ParticipantCardFileUploadProps): JS
       });
    }
    return (
-      <Button variant="contained" component="label">
+      <Button variant="contained" sx={{ whiteSpace: 'nowrap', minWidth: 'max-content' }} /* component="label" */>
          Upload new image
          <input hidden accept="image/*" type="file" onChange={handleChange} />
       </Button>
