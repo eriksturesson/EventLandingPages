@@ -25,19 +25,17 @@ import React from 'react';
 const NavWrapper = ({ websiteID }: { websiteID: string }): JSX.Element => {
    return (
       <div className="eriks-nav-wrapper">
-         <div className="right-menu-in-nav">
-            <ul>
-               <li>
-                  <a href="/">Home</a>
-               </li>
-               <li>
-                  <a href="./tidigareprogram">Föregående år</a>
-               </li>
-               <li>
-                  <a href="./arrangerandeklubbar">Arrangörer</a>
-               </li>
-            </ul>
-         </div>
+         <ul className="right-menu-in-nav">
+            <li>
+               <a href="/">Home</a>
+            </li>
+            <li>
+               <a href="./tidigareprogram">Föregående år</a>
+            </li>
+            <li>
+               <a href="./arrangerandeklubbar">Arrangörer</a>
+            </li>
+         </ul>
       </div>
    );
 };
