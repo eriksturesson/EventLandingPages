@@ -2,59 +2,30 @@ import React, { MouseEventHandler, useRef, useState } from 'react';
 import arrowDown from '../../../assets/baseline_keyboard_arrow_down_white_18dp.png';
 import { DBFullScreenMedia } from '../../interfaces/dbInterfaces';
 import { SectionProps } from '../../interfaces/sectionInterfaces';
-import {
-   Box,
-   Container,
-   Divider,
-   FormControl,
-   MenuItem,
-   Select,
-   TextField,
-   Button,
-   Dialog,
-   DialogTitle,
-   DialogContent,
-   DialogActions,
-   Stack,
-   Slider,
-} from '@mui/material';
+import { Box, Divider, Button, Stack, Slider } from '@mui/material';
 import { ImageButtonFileUpload } from '../../smallComponents/FileUploads';
-import { EditText, handleSaveTexts, handleStateTextChange } from '../../smallComponents/TextEdits';
+import { handleSaveTexts, SaveTextsButton } from '../../smallComponents/TextEdits';
 import TextEditDialog from './TextEditDialog';
 
 export function HeaderComponent(props: SectionProps): JSX.Element {
    const { adminEditor, data } = props;
    const { sectionID, content } = data;
-   const {
-      video,
-      image,
-      mediaSize: initMediaSize,
-      title: initTitle,
-      description: initDesc,
-      time: initTime,
-      location: initLocation,
-   } = content as DBFullScreenMedia;
+   const { video, image, mediaSize: initMediaSize, title, description, time, location } = content as DBFullScreenMedia;
    const [isEditing, setEditing] = useState<boolean>(false);
    const [mediaSize, setMediaSize] = useState<number>(initMediaSize);
+   const [textFields, setTextFields] = useState({ title, description, time, location });
+   const refBelowWebsiteID = `homepageContent/${sectionID}/content/`;
 
-   const title = useRef(initTitle);
-   const description = useRef(initDesc);
-   const time = useRef(initTime);
-   const location = useRef(initLocation);
+   const videoOrImage = video ? video : image ? image : null;
+   // let videoOrImage = image; // used for testing only
 
-   // const videoOrImage = video ? video : image ? image : null;
-   let videoOrImage = video; // used for testing only
-
-   const textEditHandler = function () {
-      const data = {
-         title: title.current,
-         description: description.current,
-         time: time.current,
-         location: location.current,
-      };
-      handleSaveTexts({ refBelowWebsiteID: `homepageContent/${sectionID}/content/`, data });
+   const textEditHandler = function (data: any) {
+      console.log(data);
+      handleSaveTexts({ refBelowWebsiteID, data });
 
       setEditing(false);
+
+      setTextFields(data);
    };
 
    let headerContent: JSX.Element = <></>;
@@ -92,21 +63,15 @@ export function HeaderComponent(props: SectionProps): JSX.Element {
             {isEditing && null}
 
             <div className="box-text-over-video black-layer" style={{ width: '100%' }}>
-               <h1 className="text-over-video">{title.current}</h1>
-               <h3 className="text-over-video">{description.current}</h3>
+               <h1 className="text-over-video">{textFields.title}</h1>
+               <h3 className="text-over-video">{textFields.description}</h3>
                <h2 className="text-over-video">
-                  {time.current} {'•'} {location.current}
+                  {textFields.time} {'•'} {textFields.location}
                </h2>
                <p>
                   <img className="move-arrow" src={arrowDown}></img>
                </p>
-               {isEditing && (
-                  <TextEditDialog
-                     textFields={{ title, description, time, location }}
-                     onEditing={setEditing}
-                     onSubmit={textEditHandler}
-                  />
-               )}
+               {isEditing && <TextEditDialog textFields={textFields} onEditing={setEditing} onSubmit={textEditHandler} />}
             </div>
          </Box>
          {adminEditor && (
@@ -117,6 +82,7 @@ export function HeaderComponent(props: SectionProps): JSX.Element {
                sx={{
                   width: '100%',
                   marginTop: '1em',
+                  height: '2em',
                }}
             >
                <Button
@@ -131,7 +97,7 @@ export function HeaderComponent(props: SectionProps): JSX.Element {
                   <Slider
                      aria-label="Always visible"
                      defaultValue={mediaSize}
-                     sx={{ width: '8em' }}
+                     sx={{ width: '8em', flexShrink: 0 }}
                      valueLabelDisplay="auto"
                      disabled={false}
                      min={10}
@@ -139,6 +105,7 @@ export function HeaderComponent(props: SectionProps): JSX.Element {
                         setMediaSize(event.target.value);
                      }}
                   />
+                  <SaveTextsButton refBelowWebsiteID={refBelowWebsiteID} data={{ mediaSize }} />
                </Stack>
             </Stack>
          )}
