@@ -25,7 +25,7 @@ yarn-error.log*
 package-lock.json
 
 # Firebase
-src/components/utilsAndInterfaces/firebaseConfig.ts
+/src/components/utils/firebaseConfig.ts
 customStyles.css
 .firebaserc
 *.log
