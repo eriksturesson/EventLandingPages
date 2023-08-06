@@ -81,8 +81,10 @@ export function HeaderComponent(props: SectionProps): JSX.Element {
                justifyContent="center"
                sx={{
                   width: '100%',
-                  marginTop: '1em',
-                  height: '2em',
+                  height: '4em',
+                  backgroundColor: 'lightblue',
+                  padding: '1em',
+                  borderBottom: '2px solid blue',
                }}
             >
                <Button
