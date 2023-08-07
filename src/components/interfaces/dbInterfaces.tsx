@@ -145,7 +145,7 @@ export type InitContent = {
    quillContent: QuillContent;
    callToActionButton: DBHomePageContentButton;
    footer: DBHomePageContentFooter;
-   HeadingSection: HeadingSectionTypes;
+   //HeadingSection: HeadingSectionTypes;
 };
 
 export interface DBAdminPageContent {}
