@@ -209,7 +209,7 @@ export function ImageButtonFileUpload(props: ParticipantCardFileUploadProps): JS
    const { cardOrderNr, sectionName, sectionID } = props;
 
    return (
-      <Button variant="contained" component="label">
+      <Button variant="contained" sx={{ whiteSpace: 'nowrap', minWidth: 'max-content' }} /* component="label" */>
          Upload new image
          {/*<input hidden accept="image/*" type="file" onChange={(e) => handleFileUpload({ event: e, cardOrderNr: cardOrderNr, sectionName: sectionName, sectionID: sectionID })} />*/}
          <input

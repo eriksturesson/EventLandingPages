@@ -1,6 +1,6 @@
 import { Content } from './components/interfaces/dbInterfaces';
 import { SectionContent, SectionIDs, SectionProps } from './components/interfaces/sectionInterfaces';
-import { HeaderComponent } from './components/sections/Header';
+import { HeaderComponent } from './components/sections/ImageVideoSection/Header';
 import { SpeakersComponent } from './components/sections/Speakers';
 import { Footer } from './components/sections/Footer';
 import { ParticipantComponent } from './components/sections/Participants';
@@ -33,14 +33,14 @@ interface Props {
 export const SectionLoader: React.FC<Props> = function (props) {
    const { adminEditor, data } = props;
    const sections: SectionContent[] = Object.values(data);
-   console.log('sections', sections);
+   // console.log('sections', sections);
    if (sections) {
       sections.sort((a, b) => a.sectionOrder - b.sectionOrder);
       return (
          <>
             {sections.map((section, i) => {
-               console.log('section:', section);
-               console.log('sectionName:', section.sectionName);
+               // console.log('section:', section);
+               // console.log('sectionName:', section.sectionName);
                const Component = components[section.sectionName];
                const sectionData = section.content;
                if (!Component) {

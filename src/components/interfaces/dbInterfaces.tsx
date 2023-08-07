@@ -15,9 +15,9 @@ export interface DBFullScreenMedia {
    description?: string;
    time?: string;
    location?: string;
-   logo?: string; // url to storage
    video?: string; // url to storage
    image?: string; // url to storage
+   mediaSize: number;
 }
 
 export interface DBHomePageContentPitchCards {
