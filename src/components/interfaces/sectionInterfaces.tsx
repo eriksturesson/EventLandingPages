@@ -27,7 +27,8 @@ export type SectionTypes =
    | 'quillContent'
    | 'pitchCards'
    | 'callToActionButton'
-   | 'footer';
+   | 'footer'
+   | 'HeadingSection';
 
 export const sectionTypes: SectionTypes[] = [
    'fullScreenMedia',

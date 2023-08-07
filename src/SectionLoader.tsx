@@ -9,6 +9,7 @@ import { QuillComponent } from './components/sections/Quill';
 import { CallToActionButtonComponent } from './components/sections/CallToActionButton';
 import { PitchCardsComponent } from './components/sections/PitchCards';
 import { CreateSection } from './components/smallComponents/CreateSection';
+import HeadingSection from './components/sections/HeadingSection';
 
 interface Sections {
    [component: string]: React.FC<SectionProps>;
@@ -24,6 +25,7 @@ const components: Sections = {
    quillContent: QuillComponent,
    pitchCards: PitchCardsComponent,
    callToActionButton: CallToActionButtonComponent,
+   HeadingSection: HeadingSection,
 };
 interface Props {
    data: SectionIDs;
