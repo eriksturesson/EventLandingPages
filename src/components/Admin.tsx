@@ -24,11 +24,12 @@ import {
 } from './interfaces/dbInterfaces';
 import { Box } from '@mui/material';
 import { PitchCardsComponent } from './sections/PitchCards';
-import { HeaderComponent } from './sections/Header';
+import { HeaderComponent } from './sections/ImageVideoSection/Header';
 import { OrganizersComponent } from './sections/Organizers';
 import { SectionContent, SectionIDs } from './interfaces/sectionInterfaces';
 import { initialState } from './utils/initData';
 import { SectionLoader } from '../SectionLoader';
+import { LoadingSpinner } from './Loading';
 // Get user data //
 
 var name, email: string | null, photoUrl, uid: string, emailVerified;
@@ -136,16 +137,21 @@ function loadDBContent(): JSX.Element {
 }
 
 export const Admin = ({ user, websiteID }: { user: User | null; websiteID: string }): JSX.Element => {
-   const [homepageContent, setProgramContent] = useState<SectionIDs>(initialState);
+   const [homepageContent, setProgramContent] = useState<SectionIDs | null>(null);
    //let databaseContent = document.getElementByClassName('DBContent');
    useEffect(() => {
       // READ DATA WHEN UPDATED TO UPDATE INDEX.HTML PROGRAM CONTENT
       let readContentFromDatabaseToIndex = ref(db, `websites/${websiteID}/homepageContent`);
       onValue(readContentFromDatabaseToIndex, (snapshot) => {
          let programContentFromDB: SectionIDs = snapshot.val() ? snapshot.val() : '';
+
+         if (!programContentFromDB) return setProgramContent(initialState);
+
          if (programContentFromDB) setProgramContent(programContentFromDB);
       });
    }, []);
+
+   if (!homepageContent) return <LoadingSpinner />;
 
    return (
       <>

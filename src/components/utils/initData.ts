@@ -3,6 +3,8 @@ import speakerImgExample1 from '../../assets/speakerImgExample1.jpg';
 import speakerImgExample2 from '../../assets/speakerImgExample2.jpg';
 import speakerImgExample3 from '../../assets/speakerImgExample3.jpg';
 import fullscreenMediaExample1 from '../../assets/fullscreenMediaExample1.jpg';
+import rotaryLogo from '../../assets/Logga stockholm city affarsnatverk 2020-12-28.png';
+import rotaryVideomp4 from '../../assets/VideoStockholmCityAffarsnatverk_Trim_min.mp4';
 import mapImageExample from '../../assets/mapImageExample.png';
 import { SectionIDs } from '../interfaces/sectionInterfaces';
 import TestImage from '../../assets/DSC02755.JPG';
@@ -11,9 +13,11 @@ export const initSectionDataOnNewCreation: InitContent = {
    fullScreenMedia: {
       title: 'Welcome to the event!',
       description: 'This is the description of the event',
-      image: (window.location.origin + { fullscreenMediaExample1 }) as unknown as string,
-      //video: "",
-      //logo: "",
+      image: fullscreenMediaExample1,
+      video: rotaryVideomp4,
+      time: 'ONS 6 SEP KL.18.00 - 21.00',
+      location: 'M / S VINDHEM, SKEPPSBRON - KAJPLATS 101',
+      mediaSize: 100,
    },
    speakers: {
       title: 'Speakers',
@@ -155,6 +159,7 @@ export const initialState: SectionIDs = {
          logo: '',
          video: '',
          image: '',
+         mediaSize: 100,
       } as DBFullScreenMedia,
    },
    ugois8934ifre: {

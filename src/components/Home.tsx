@@ -6,13 +6,14 @@ import { DBFullScreenMedia, DBHomePageContent, DBSpeaker, DBSpeakersKey } from '
 import { SectionIDs } from './interfaces/sectionInterfaces';
 import { SectionLoader } from '../SectionLoader';
 import { initialState } from './utils/initData';
+import { LoadingSpinner } from './Loading';
 
 function testonload() {
    alert('testar onload i html-filen, då ska denna funktion köras');
 }
 
 const Home = ({ websiteID }: { websiteID: string }): JSX.Element => {
-   const [homepageContent, setProgramContent] = useState<SectionIDs>(initialState);
+   const [homepageContent, setProgramContent] = useState<SectionIDs | null>(null);
    let page = window.location.href;
    //let databaseContent = document.getElementByClassName('DBContent');
    useEffect(() => {
@@ -22,11 +23,13 @@ const Home = ({ websiteID }: { websiteID: string }): JSX.Element => {
       onValue(readContentFromDatabaseToIndex, (snapshot) => {
          let programContentFromDB: SectionIDs = snapshot.val() ? snapshot.val() : '';
 
-         if (!programContentFromDB) return;
+         if (!programContentFromDB) return setProgramContent(initialState);
 
          setProgramContent(programContentFromDB);
       });
    }, []);
+
+   if (!homepageContent) return <LoadingSpinner />;
 
    return <SectionLoader adminEditor={false} data={homepageContent} />;
 };
