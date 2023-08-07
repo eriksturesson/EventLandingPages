@@ -1,4 +1,4 @@
-import { deleteObject, ref, uploadBytes } from 'firebase/storage';
+import { deleteObject, ref, uploadBytes, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { DBHomePageContentPitchCards, DBOneParticipant, DBParticipantKey } from '../interfaces/dbInterfaces';
 import ImageIcon from '@mui/icons-material/Image';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -13,8 +13,10 @@ import { child, push, update, ref as dbRef, set } from 'firebase/database';
 import { db, devSettings, storage } from '../utils/firebase';
 import { WEBSITE_ID } from '../../App';
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { Box, Button, Divider, SvgIcon, TextField } from '@mui/material';
 import { SectionTypes } from '../interfaces/sectionInterfaces';
+import { readAndWriteToFirebase } from '../utils/firebaseFunctions';
 
 export interface ParticipantCardFileUploadProps {
    cardOrderNr: number;
@@ -102,9 +104,79 @@ export function NewImgBoxFileUpload(props: ImgCardFileUploadProps): JSX.Element 
    );
 }
 
-export function ImageButtonFileUpload(props: ParticipantCardFileUploadProps): JSX.Element {
-   const { cardOrderNr, sectionName, sectionID } = props;
-   function handleChange(event: any) {
+interface AdvancedFileUploadProps extends ParticipantCardFileUploadProps {
+   event: React.ChangeEvent<HTMLInputElement>;
+}
+
+export function advancedFileUpload(props: AdvancedFileUploadProps): void {
+   const { event, cardOrderNr, sectionName, sectionID } = props;
+   const file = event?.target?.files ? event.target.files[0] : null;
+   let randomKey = uuidv4();
+   if (file) {
+      const storageRef = ref(
+         storage,
+         `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/${randomKey}/items/${file.name}`
+      );
+      const uploadTask = uploadBytesResumable(storageRef, file);
+      // Register three observers:
+      // 1. 'state_changed' observer, called any time the state changes
+      // 2. Error observer, called on failure
+      // 3. Completion observer, called on successful completion
+      uploadTask.on(
+         'state_changed',
+         (snapshot) => {
+            // Observe state change events such as progress, pause, and resume
+            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+            switch (snapshot.state) {
+               case 'paused':
+                  console.log('Upload is paused');
+                  break;
+               case 'running':
+                  console.log('Upload is running');
+                  break;
+            }
+         },
+         (error) => {
+            // A full list of error codes is available at
+            // https://firebase.google.com/docs/storage/web/handle-errors
+            switch (error.code) {
+               case 'storage/unauthorized':
+                  // User doesn't have permission to access the object
+                  break;
+               case 'storage/canceled':
+                  // User canceled the upload
+                  break;
+
+               // ...
+
+               case 'storage/unknown':
+                  // Unknown error occurred, inspect error.serverResponse
+                  break;
+            }
+            console.error(error.code);
+         },
+         () => {
+            // Handle successful uploads on complete
+            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+               console.log('File available at', downloadURL);
+               readAndWriteToFirebase({
+                  method: 'update',
+                  ref: `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/items/${randomKey}/`,
+                  data: { image: downloadURL, cardOrderNr: cardOrderNr, id: randomKey },
+               });
+               return downloadURL;
+            });
+         }
+      );
+   }
+}
+
+function handleFileUpload(props: AdvancedFileUploadProps) {
+   const { event, cardOrderNr, sectionName, sectionID } = props;
+   if (event?.target?.files) {
       //setFile(event.target.files[0])
       let randomkey = push(child(dbRef(db), `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/`)).key;
       const pitchCardRef = ref(storage, `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/${randomkey}/image/`);
@@ -131,10 +203,24 @@ export function ImageButtonFileUpload(props: ParticipantCardFileUploadProps): JS
          update(dbRef(db), updateObject);
       });
    }
+}
+
+export function ImageButtonFileUpload(props: ParticipantCardFileUploadProps): JSX.Element {
+   const { cardOrderNr, sectionName, sectionID } = props;
+
    return (
       <Button variant="contained" component="label">
          Upload new image
-         <input hidden accept="image/*" type="file" onChange={handleChange} />
+         {/*<input hidden accept="image/*" type="file" onChange={(e) => handleFileUpload({ event: e, cardOrderNr: cardOrderNr, sectionName: sectionName, sectionID: sectionID })} />*/}
+         <input
+            hidden
+            accept="image/*"
+            type="file"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+               advancedFileUpload({ event: e, cardOrderNr: cardOrderNr, sectionName: sectionName, sectionID: sectionID })
+            }
+         />
+         ;
       </Button>
    );
 }
