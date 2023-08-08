@@ -36,9 +36,9 @@ export function CreateSection({ sectionOrder }: { sectionOrder: number }) {
    const handleOpen = () => setOpen(true);
    const handleClose = () => setOpen(false);
 
-   const allSections: JSX.Element[] = sectionTypes.map((sectionType: SectionTypes) => {
+   const allSections: JSX.Element[] = sectionTypes.map((sectionType: SectionTypes, i) => {
       return (
-         <Box sx={{ alignItems: 'center' }}>
+         <Box sx={{ alignItems: 'center' }} key={i}>
             <Button
                sx={{
                   backgroundColor: 'yellow',

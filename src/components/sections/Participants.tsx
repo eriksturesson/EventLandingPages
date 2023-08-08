@@ -13,6 +13,7 @@ import { Box, Button, Divider, SvgIcon, TextField } from '@mui/material';
 import { ImageButtonFileUpload, NewImgBoxFileUpload } from '../smallComponents/FileUploads';
 import { EditText, SaveTextsButton, handleStateTextChange } from '../smallComponents/TextEdits';
 import { SectionProps, SectionTypes } from '../interfaces/sectionInterfaces';
+import { PaidTwoTone } from '@mui/icons-material';
 
 export function OneParticipant({
    newCard,
@@ -138,6 +139,7 @@ export function ParticipantComponent(props: SectionProps): JSX.Element {
                   sectionID={sectionID}
                   sectionName={sectionName}
                   oneParticipant={participantObject as DBOneParticipant}
+                  key={Math.random()} /*temporary fix*/
                />
             );
          }
