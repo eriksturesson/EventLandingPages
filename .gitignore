@@ -30,3 +30,4 @@ customStyles.css
 .firebaserc
 *.log
 storage.rules
+/config-emulators/js/*

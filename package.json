@@ -1,6 +1,6 @@
 {
    "scripts": {
-      "emulators": "firebase emulators:start --import=./config-emulators/test-database & react-scripts start && fg",
+      "emulators": "./config-emulators/run-emulators.sh",
       "emulators-data": "firebase emulators:start --import=./config-emulators/test-database",
       "start": "react-scripts start",
       "build": "react-scripts build",
