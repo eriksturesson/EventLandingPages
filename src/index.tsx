@@ -7,12 +7,11 @@ import App from './App';
 
 const domNode = document.getElementById('root')!;
 const root = createRoot(domNode);
-root.render(<App />);
-/*
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+// root.render(<App />);
+
+root.render(
+   <React.StrictMode>
+      <App />
+   </React.StrictMode>
+   //  document.getElementById('root')
 );
-*/

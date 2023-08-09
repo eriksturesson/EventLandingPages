@@ -29,25 +29,6 @@
                   "size": 2
                }
             },
-            "-NamF-TQVEtqtU1N_oYo": {
-               "content": {
-                  "adressTitle": "Example adress title",
-                  "contactAddress1": "Example adress 1",
-                  "contactAddress2": "Example adress 2",
-                  "contactEmail": "example@example.com",
-                  "contactName": "Example contact name",
-                  "contactPhone": "+00 123 45 678",
-                  "contactTitle": "Example contact title",
-                  "integrityPolicy": "https://www.google.com/",
-                  "integrityPolicyDescription": "Our Integrity Policy",
-                  "mapImage": "/static/media/mapImageExample.d4ee5e1c10f876e3ab39.png"
-               },
-               "createdAt": "2023-08-01T17:58:08.459Z",
-               "sectionID": "-NamF-TQVEtqtU1N_oYo",
-               "sectionName": "footer",
-               "sectionOrder": 7,
-               "updatedAt": "2023-08-01T17:58:08.459Z"
-            },
             "-NamF-To_0jC5ZDGxeWr": {
                "content": {
                   "items": {
@@ -199,8 +180,27 @@
                "createdAt": "2023-08-01T17:58:08.611Z",
                "sectionID": "-NamF-Vn8SYgnUnKNM7F",
                "sectionName": "callToActionButton",
-               "sectionOrder": 1,
+               "sectionOrder": 7,
                "updatedAt": "2023-08-01T17:58:08.611Z"
+            },
+            "-NamF-TQVEtqtU1N_oYo": {
+               "content": {
+                  "adressTitle": "Example adress title",
+                  "contactAddress1": "Example adress 1",
+                  "contactAddress2": "Example adress 2",
+                  "contactEmail": "example@example.com",
+                  "contactName": "Example contact name",
+                  "contactPhone": "+00 123 45 678",
+                  "contactTitle": "Example contact title",
+                  "integrityPolicy": "https://www.google.com/",
+                  "integrityPolicyDescription": "Our Integrity Policy",
+                  "mapImage": "/static/media/mapImageExample.d4ee5e1c10f876e3ab39.png"
+               },
+               "createdAt": "2023-08-01T17:58:08.459Z",
+               "sectionID": "-NamF-TQVEtqtU1N_oYo",
+               "sectionName": "footer",
+               "sectionOrder": 8,
+               "updatedAt": "2023-08-01T17:58:08.459Z"
             }
          }
       }
