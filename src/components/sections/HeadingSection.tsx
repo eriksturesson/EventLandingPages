@@ -26,10 +26,11 @@ function HeadingSection(props: SectionProps): JSX.Element {
                justifyContent="center"
                sx={{
                   width: '100%',
-                  height: '4em',
+                  height: '5em',
                   backgroundColor: 'lightblue',
                   padding: '1em',
                   borderBottom: '2px solid blue',
+                  boxSizing: 'border-box',
                }}
             >
                <EditText

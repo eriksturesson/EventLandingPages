@@ -1,35 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { db } from './utils/firebase';
-import { Database, ref, onValue, set } from 'firebase/database';
-import { User, onAuthStateChanged, signOut } from 'firebase/auth';
+import { ref, onValue, set } from 'firebase/database';
+import { User, signOut } from 'firebase/auth';
 import { auth } from './utils/firebase';
-import ReactQuill, { Quill } from 'react-quill';
-import { QuillComponent } from './sections/Quill';
-import Home from './Home';
 import Button from '@mui/material/Button';
-import { TextareaAutosize } from '@mui/base';
 import NavWrapper from './NavWrapper';
-import { Footer } from './sections/Footer';
-import {
-   DB,
-   DBFullScreenMedia,
-   DBHomePageContent,
-   DBHomePageContentButton,
-   DBHomePageContentFooter,
-   DBOrganizersKey,
-   DBParticipantKey,
-   DBPitchCardKey,
-   DBSpeakersKey,
-   QuillContent,
-} from './interfaces/dbInterfaces';
-import { Box } from '@mui/material';
-import { PitchCardsComponent } from './sections/PitchCards';
-import { HeaderComponent } from './sections/ImageVideoSection/Header';
-import { OrganizersComponent } from './sections/Organizers';
+import { Box, Grid, Stack } from '@mui/material';
 import { SectionContent, SectionIDs } from './interfaces/sectionInterfaces';
 import { initialState } from './utils/initData';
 import { SectionLoader } from '../SectionLoader';
 import { LoadingSpinner } from './Loading';
+import SectionNavigator from './SectionNavigator';
 // Get user data //
 
 var name, email: string | null, photoUrl, uid: string, emailVerified;
@@ -153,26 +134,36 @@ export const Admin = ({ user, websiteID }: { user: User | null; websiteID: strin
 
    if (!homepageContent) return <LoadingSpinner />;
 
+   // TEMP: this operation is also done in SectionLoader
+   const sections: SectionContent[] = Object.values(homepageContent);
+   sections.sort((a, b) => a.sectionOrder - b.sectionOrder);
+   // /TEMP
+
    return (
       <>
-         <form>
-            <Button variant="outlined" onClick={signOutUser} id="signout">
-               Sign out
-            </Button>
-         </form>
-         <h1>Redigera program, talare och tider</h1>
-         <p>UserEmail: {user ? user.email : null}</p>
-         <br />
-         <Box className="adminEdit" id="adminEditWrapper">
-            <SectionLoader data={homepageContent} adminEditor={true} />
-         </Box>
-         <Box>
+         <Grid container>
+            <SectionNavigator sections={sections} />
+            <Grid item xs={9}>
+               <form>
+                  <Button variant="outlined" onClick={signOutUser} id="signout">
+                     Sign out
+                  </Button>
+               </form>
+               <h1>Redigera program, talare och tider</h1>
+               <p>UserEmail: {user ? user.email : null}</p>
+               <br />
+               <Box className="adminEdit" id="adminEditWrapper" sx={{ transform: 'scale(1)', transformOrigin: '0% 0% 0px' }}>
+                  <SectionLoader data={homepageContent} adminEditor={true} />
+               </Box>
+            </Grid>
+         </Grid>
+         {/*          <Box>
             <h1>Detta syns nu på webbsidan:</h1>
          </Box>
          <Box id="readDatabaseContentForAdmin" className="DBContent">
             <NavWrapper websiteID={websiteID} />
             <SectionLoader data={homepageContent} adminEditor={false} />
-         </Box>
+         </Box> */}
       </>
    );
 };

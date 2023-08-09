@@ -31,7 +31,7 @@ export function HeaderComponent(props: SectionProps): JSX.Element {
    let headerContent: JSX.Element = <></>;
    if (videoOrImage === video && video !== null) {
       headerContent = (
-         <video autoPlay muted loop className="video-container" style={{ width: '100%' }}>
+         <video autoPlay muted loop className="video-container" style={{ width: `${mediaSize}%` }}>
             <source src={video} type={`video/mp4`} />
             Your browser does not support the video tag.
          </video>
@@ -48,21 +48,34 @@ export function HeaderComponent(props: SectionProps): JSX.Element {
 
    return (
       <Stack
-         component="section"
          alignItems="center"
          justifyContent="space-between"
-         sx={adminEditor ? { minHeight: '100vh', maxHeight: '100vh' } : {}}
+         // sx={adminEditor ? { height: '100%', maxHeight: '100vh' } : {}}
       >
          {adminEditor && (
             <Divider>
                <h2>Edit img/video</h2>
             </Divider>
          )}
-         <Box className="header-container" sx={{ width: `${mediaSize}vw`, height: 'auto' }}>
+         <Stack
+            className="header-container"
+            alignItems="center"
+            justifyContent="space-between"
+            sx={{ width: '100%', height: 'auto' }}
+         >
+            {/* <Box className="header-container" sx={{ width: `${mediaSize}vw`, height: 'auto' }}> */}
             {headerContent}
             {isEditing && null}
 
-            <div className="box-text-over-video black-layer" style={{ width: '100%' }}>
+            <div
+               className="box-text-over-video black-layer"
+               style={{
+                  width: '100%',
+                  height: mediaSize === 34338563 ? '100%' : 'auto',
+                  transform: `scale(${mediaSize}%)`,
+                  transformOrigin: 'top center',
+               }}
+            >
                <h1 className="text-over-video">{textFields.title}</h1>
                <h3 className="text-over-video">{textFields.description}</h3>
                <h2 className="text-over-video">
@@ -73,7 +86,7 @@ export function HeaderComponent(props: SectionProps): JSX.Element {
                </p>
                {isEditing && <TextEditDialog textFields={textFields} onEditing={setEditing} onSubmit={textEditHandler} />}
             </div>
-         </Box>
+         </Stack>
          {adminEditor && (
             <Stack
                spacing={4}
@@ -85,6 +98,7 @@ export function HeaderComponent(props: SectionProps): JSX.Element {
                   backgroundColor: 'lightblue',
                   padding: '1em',
                   borderBottom: '2px solid blue',
+                  boxSizing: 'border-box',
                }}
             >
                <Button
