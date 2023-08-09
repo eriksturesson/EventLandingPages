@@ -5,14 +5,29 @@
             "-NamF-T2Fe-BIb-0LrQq": {
                "content": {
                   "description": "This is the description of the event",
-                  "image": "http://localhost:3001[object Object]",
-                  "title": "Welcome to the event!"
+                  "image": "https://images.unsplash.com/photo-1682685797898-6d7587974771?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                  "video": "/static/media/VideoStockholmCityAffarsnatverk_Trim_min.c6da3db146032dc5a9e0.mp4",
+                  "mediaSize": 100,
+                  "title": "Welcome to the event!",
+                  "time": "2023-09-01 - 19.00",
+                  "location": "City"
                },
                "createdAt": "2023-08-01T17:58:08.435Z",
                "sectionID": "-NamF-T2Fe-BIb-0LrQq",
                "sectionName": "fullScreenMedia",
                "sectionOrder": 0,
                "updatedAt": "2023-08-01T17:58:08.435Z"
+            },
+            "jklkj6lkö64": {
+               "sectionID": "jklkj6lkö64",
+               "sectionName": "HeadingSection",
+               "sectionOrder": 1,
+               "createdAt": "2023-08-01T17:58:08.435Z",
+               "updatedAt": "2023-08-01T17:58:08.435Z",
+               "content": {
+                  "text": "This is a heading",
+                  "size": 2
+               }
             },
             "-NamF-TQVEtqtU1N_oYo": {
                "content": {
@@ -25,7 +40,7 @@
                   "contactTitle": "Example contact title",
                   "integrityPolicy": "https://www.google.com/",
                   "integrityPolicyDescription": "Our Integrity Policy",
-                  "mapImage": "http://localhost:3001/static/media/mapImageExample.d4ee5e1c10f876e3ab39.png"
+                  "mapImage": "/static/media/mapImageExample.d4ee5e1c10f876e3ab39.png"
                },
                "createdAt": "2023-08-01T17:58:08.459Z",
                "sectionID": "-NamF-TQVEtqtU1N_oYo",
@@ -40,7 +55,7 @@
                         "description": "With experience in ...",
                         "fullName": "Jane Jones",
                         "id": "speakerskey1",
-                        "image": "http://localhost:3001/static/media/speakerImgExample1.afc65f97e9cbc4a767fa.jpg",
+                        "image": "/static/media/speakerImgExample1.afc65f97e9cbc4a767fa.jpg",
                         "order": 1,
                         "pitch": "I am a speaker",
                         "title": "CEO of Company X",
@@ -50,7 +65,7 @@
                         "description": "My name is Sofie Wattson and I am a speaker",
                         "fullName": "Sofie Wattson",
                         "id": "speakerskey2",
-                        "image": "http://localhost:3001/static/media/speakerImgExample2.602dd61a6e5300b45b89.jpg",
+                        "image": "/static/media/speakerImgExample2.602dd61a6e5300b45b89.jpg",
                         "order": 2,
                         "pitch": "I am a speaker",
                         "title": "CEO of Company Y",
@@ -60,7 +75,7 @@
                         "description": "My name is John Doe and I am a speaker",
                         "fullName": "John Doe",
                         "id": "speakerskey3",
-                        "image": "http://localhost:3001/static/media/speakerImgExample3.1768514f5305e1f56e70.jpg",
+                        "image": "/static/media/speakerImgExample3.1768514f5305e1f56e70.jpg",
                         "order": 3,
                         "pitch": "I am a speaker",
                         "title": "CEO of Company Z",
@@ -80,7 +95,7 @@
                   "items": {
                      "participantskey1": {
                         "id": "participantskey1",
-                        "image": "http://localhost:3001/static/media/speakerImgExample1.afc65f97e9cbc4a767fa.jpg",
+                        "image": "/static/media/speakerImgExample1.afc65f97e9cbc4a767fa.jpg",
                         "name": "Jane Jones",
                         "order": 1,
                         "organization": "Company X",
@@ -88,7 +103,7 @@
                      },
                      "participantskey2": {
                         "id": "participantskey2",
-                        "image": "http://localhost:3001/static/media/speakerImgExample2.602dd61a6e5300b45b89.jpg",
+                        "image": "/static/media/speakerImgExample2.602dd61a6e5300b45b89.jpg",
                         "name": "Sofie Wattson",
                         "order": 2,
                         "organization": "Company Y",
@@ -96,7 +111,7 @@
                      },
                      "participantskey3": {
                         "id": "participantskey3",
-                        "image": "http://localhost:3001/static/media/speakerImgExample3.1768514f5305e1f56e70.jpg",
+                        "image": "/static/media/speakerImgExample3.1768514f5305e1f56e70.jpg",
                         "name": "John Doe",
                         "order": 3,
                         "organization": "Company Z",
@@ -116,12 +131,12 @@
                   "items": {
                      "organizerskey1": {
                         "id": "organizerskey1",
-                        "logo": "http://localhost:3001/static/media/speakerImgExample1.afc65f97e9cbc4a767fa.jpg",
+                        "logo": "/static/media/speakerImgExample1.afc65f97e9cbc4a767fa.jpg",
                         "order": 1
                      },
                      "organizerskey2": {
                         "id": "organizerskey2",
-                        "logo": "http://localhost:3001/static/media/speakerImgExample2.602dd61a6e5300b45b89.jpg",
+                        "logo": "/static/media/speakerImgExample2.602dd61a6e5300b45b89.jpg",
                         "order": 2
                      }
                   },
@@ -147,21 +162,21 @@
                      "pitchCardskey1": {
                         "description": "This is the description of Pitch Card 1",
                         "id": "pitchCardskey1",
-                        "image": "http://localhost:3001/static/media/speakerImgExample1.afc65f97e9cbc4a767fa.jpg",
+                        "image": "/static/media/speakerImgExample1.afc65f97e9cbc4a767fa.jpg",
                         "order": 1,
                         "title": "Pitch Card 1"
                      },
                      "pitchCardskey2": {
                         "description": "This is the description of Pitch Card 2",
                         "id": "pitchCardskey2",
-                        "image": "http://localhost:3001/static/media/speakerImgExample2.602dd61a6e5300b45b89.jpg",
+                        "image": "/static/media/speakerImgExample2.602dd61a6e5300b45b89.jpg",
                         "order": 2,
                         "title": "Pitch Card 2"
                      },
                      "pitchCardskey3": {
                         "description": "This is the description of Pitch Card 3",
                         "id": "pitchCardskey3",
-                        "image": "http://localhost:3001/static/media/speakerImgExample3.1768514f5305e1f56e70.jpg",
+                        "image": "/static/media/speakerImgExample3.1768514f5305e1f56e70.jpg",
                         "order": 3,
                         "title": "Pitch Card 3"
                      }
@@ -190,13 +205,11 @@
          }
       }
    },
-   "websiteIDs": {
-    "websites": {
-        "myWebsiteID123456789": {
-                "websiteHostName": "localhost",
-                "websiteID": "myWebsiteID123456789",
-                "created": "2023-08-01T17:58:08.484Z"
-        }
+   "websiteIds": {
+      "myWebsiteID123456789": {
+         "websiteHostName": "localhost",
+         "websiteID": "myWebsiteID123456789",
+         "created": "2023-08-01T17:58:08.484Z"
+      }
    }
-}
 }

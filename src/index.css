@@ -18,6 +18,11 @@ body {
     }
   } */
 
+#root {
+   display: flex;
+   flex-direction: column;
+}
+
 .eriks-nav-wrapper {
    min-height: 56px;
    background-color: white;

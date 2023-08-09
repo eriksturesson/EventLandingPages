@@ -16,7 +16,7 @@ export function OrganizersComponent(props: SectionProps): JSX.Element {
       let arrayOfOrganizers: JSX.Element[] = [];
       for (let organizer of Object.keys(organizers)) {
          let organizerObject: OrganizerObject = organizers[organizer];
-         arrayOfOrganizers.push(<OneOrganizer organizer={organizerObject} />);
+         arrayOfOrganizers.push(<OneOrganizer organizer={organizerObject} key={Math.random()} /*temporary fix*/ />);
       }
 
       return (

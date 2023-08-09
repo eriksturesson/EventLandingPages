@@ -51,10 +51,10 @@ export const SectionLoader: React.FC<Props> = function (props) {
                }
 
                return (
-                  <>
-                     <Component data={section} adminEditor={props.adminEditor} key={i} />
-                     {adminEditor ? <CreateSection sectionOrder={section.sectionOrder + 1} key={i} /> : null}
-                  </>
+                  <section key={i}>
+                     <Component data={section} adminEditor={props.adminEditor} />
+                     {adminEditor ? <CreateSection sectionOrder={section.sectionOrder + 1} /> : null}
+                  </section>
                );
             })}
          </>

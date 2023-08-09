@@ -58,7 +58,9 @@ const AddNewPitchCard = ({ sectionID, cardOrderNr }: { sectionID: string; cardOr
          <img className="participant-image" src={briefcaseExample} />
       </Box>
    );
-   return (
+
+   // below creates warning: "unreachable code after return statement"
+   /*    return (
       <Box
          minHeight="10rem"
          sx={{
@@ -81,7 +83,7 @@ const AddNewPitchCard = ({ sectionID, cardOrderNr }: { sectionID: string; cardOr
          />
          <img className="participant-image" src={briefcaseExample} />
       </Box>
-   );
+   ); */
 };
 export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
    const { adminEditor, img, order, initTitle, initDescription, newCard, id, sectionID, sectionName } = props;
@@ -201,6 +203,7 @@ export function PitchCardsComponent(props: SectionProps): JSX.Element {
                   img={pitchCards[i].image ? (pitchCards[i].image as string) : ({ speakerImgExample1 } as unknown as string)}
                   initTitle={pitchCards[i].title ? (pitchCards[i].title as string) : 'Example title'}
                   initDescription={pitchCards[i].description ? (pitchCards[i].description as string) : 'Example description'}
+                  key={i}
                />
             );
          }

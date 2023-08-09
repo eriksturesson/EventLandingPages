@@ -98,7 +98,7 @@ export function HeaderComponent(props: SectionProps): JSX.Element {
                   <ImageButtonFileUpload cardOrderNr={1} sectionID={sectionID} sectionName={'fullScreenMedia'} />
                   <Slider
                      aria-label="Always visible"
-                     defaultValue={mediaSize}
+                     value={mediaSize}
                      sx={{ width: '8em', flexShrink: 0 }}
                      valueLabelDisplay="auto"
                      disabled={false}
