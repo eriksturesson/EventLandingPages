@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
-import { Paper, Grid } from '@mui/material';
-import { SectionContent } from './interfaces/sectionInterfaces';
+import { Paper, Grid, Box } from '@mui/material';
+import { SectionContent, SectionIDs } from './interfaces/sectionInterfaces';
+import { SaveTextsButton } from './smallComponents/TextEdits';
 
-type Props = {
+interface Props {
    sections: SectionContent[];
-};
+   handleDrop: (event: React.DragEvent<HTMLDivElement>, sections: SectionContent[]) => void;
+}
+
+const refBelowWebsiteID = `homepageContent/`;
 
 function SectionNavigator(props: Props): JSX.Element {
-   const [isDraggning, setDragging] = useState(false);
-   const [sections, setSections] = useState(props.sections);
+   console.log('--------------------RENDERING SECTIONNAVIGATOR----------------------');
+   // const [isDragHover, setDragHover] = useState({});
+   // const [isDraggning, setDragging] = useState(false);
+   // const [sections, setSections] = useState(props.sections);
 
    // const refBelowWebsiteID = `homepageContent/${sectionID}/content/`;
 
@@ -24,99 +30,60 @@ function SectionNavigator(props: Props): JSX.Element {
    const handleDragEnter = (event: React.DragEvent<HTMLDivElement>) => {
       // console.log(event);
       // console.log('entering target');
+      // setDragHover({
+      //    display: 'flex',
+      //    flexDirection: 'column',
+      //    justifyContent: 'flex-end',
+      //    height: '6em',
+      //    backgroundColor: 'red',
+      // });
    };
    const handleDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
       // console.log('leavning target');
+      // setDragHover({});
    };
    const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
       event.preventDefault();
       // console.log('dragging over target');
    };
-   const handleDrop = async (event: React.DragEvent<HTMLDivElement>) => {
-      const droppedIndex = +event.dataTransfer.getData('section-order');
-      let targetIndex = +((event.target as HTMLElement).dataset.order as string);
 
-      if (droppedIndex === targetIndex) return console.log('nope not here');
-
-      // const droppedIndex = sections.findIndex((section) => section.sectionID === droppedId);
-      // targetIndex
-      // const newSections = [...sections];
-      let newSections = JSON.parse(JSON.stringify(sections)) as SectionContent[];
-
-      const droppedItem = newSections.splice(droppedIndex, 1);
-      console.log('dropped item', droppedItem);
-      console.log('array, removed dropped item', newSections);
-
-      console.log('slice 1', newSections.slice(0, targetIndex));
-      console.log(
-         'slice 2',
-         newSections.slice(targetIndex === newSections.length ? targetIndex - 1 : targetIndex, newSections.length)
-      );
-
-      console.log('targetIndex', targetIndex);
-      console.log('newSections.length', newSections.length);
-
-      if (targetIndex === newSections.length || droppedIndex < targetIndex) targetIndex = targetIndex - 1;
-
-      // targetIndex = targetIndex === newSections.length ? targetIndex - 1 : targetIndex;
-      // targetIndex = droppedIndex < targetIndex ? targetIndex - 1 : targetIndex;
-
-      let newNewSections = [
-         ...newSections.slice(0, targetIndex),
-         ...droppedItem,
-         ...newSections.slice(targetIndex, newSections.length),
-      ];
-
-      console.log("after slice n' splice", newNewSections);
-
-      newNewSections = newNewSections.map((item, i) => {
-         item.sectionOrder = i;
-         return item;
-      });
-
-      // newSections.map((a) => JSON.parse(JSON.stringify(a)));
-
-      // if (droppedIndex > targetIndex) {
-      //    newSections[targetIndex].sectionOrder = targetIndex;
-      //    newSections[droppedIndex].sectionOrder = targetIndex - 1;
-      //    newSections.map(() => 'a');
-
-      //    console.log(newSections);
-      // }
-
-      // if (droppedIndex < targetIndex) {
-      //    newSections[targetIndex].sectionOrder = targetIndex;
-      //    newSections[droppedIndex].sectionOrder = targetIndex - 1;
-      // }
-
-      // newSections.sort((a, b) => a.sectionOrder - b.sectionOrder);
-
-      console.log('after map', newNewSections);
-
-      setSections(newNewSections);
-
-      console.log('dropping', droppedIndex, 'on', targetIndex);
+   const onHandleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+      props.handleDrop(event, props.sections);
    };
 
    return (
       <Grid item xs={3} sx={{ display: 'flex', flexDirection: 'column', gap: '2em', padding: '2em', textAlign: 'center' }}>
-         {sections.map((section, i) => (
-            <Paper
-               draggable
-               onDragStart={handleDragStart}
-               onDragEnd={handleDragEnd}
-               onDragEnter={handleDragEnter}
-               onDragLeave={handleDragLeave}
-               onDragOver={handleDragOver}
-               onDrop={handleDrop}
-               key={i}
-               data-id={section.sectionID}
-               data-order={section.sectionOrder}
-               sx={{ padding: '1em' }}
-            >
-               {section.sectionName}
-            </Paper>
+         {props.sections.map((section, i) => (
+            <Box key={i}>
+               <Paper
+                  draggable
+                  onDragStart={handleDragStart}
+                  onDragEnd={handleDragEnd}
+                  onDragEnter={handleDragEnter}
+                  onDragLeave={handleDragLeave}
+                  onDragOver={handleDragOver}
+                  onDrop={onHandleDrop}
+                  data-id={section.sectionID}
+                  data-order={section.sectionOrder}
+                  sx={{ padding: '1em' }}
+               >
+                  {section.sectionName}
+               </Paper>
+            </Box>
          ))}
+         <p>Save current state:</p>
+         <p>⚠️Might also affect other unsaved changes!⚠️</p>
+
+         <SaveTextsButton
+            refBelowWebsiteID={refBelowWebsiteID}
+            data={(() => {
+               const pageContent: SectionIDs = {};
+               props.sections.forEach((item) => {
+                  pageContent[item.sectionID] = item;
+               });
+               return pageContent;
+            })()}
+         />
       </Grid>
    );
 }
