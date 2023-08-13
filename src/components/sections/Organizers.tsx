@@ -9,7 +9,7 @@ export function OrganizersComponent(props: SectionProps): JSX.Element {
    const { data, adminEditor } = props;
    const { sectionName, sectionID, sectionOrder, createdAt, updatedAt } = data;
    const content = data.content as DBOrganizersKey;
-   const organizers = content.items;
+   const organizers = content;
    const title = content.title;
 
    if (organizers && Object.keys(organizers).length > 0) {
@@ -21,7 +21,6 @@ export function OrganizersComponent(props: SectionProps): JSX.Element {
 
       return (
          <>
-            <h1>{title}</h1>
             <div className="sponsor-logos-row">{arrayOfOrganizers}</div>
          </>
       );

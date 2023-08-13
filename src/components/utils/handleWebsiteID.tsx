@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { db, devSettings, storage } from './firebase';
 import { DBWebsiteIDs } from '../interfaces/dbInterfaces';
 import { SectionTypes, sectionTypes } from '../interfaces/sectionInterfaces';
-import { initSectionDataOnNewCreation } from './initData';
 import { WEBSITE_ID } from '../../App';
 import {
    mapImageExample,
@@ -39,7 +38,7 @@ async function createFirstTimeSections(websiteID: string) {
       //await uploadStandardImages(); //Does not work
       await set(dbRef(db, `websites/${websiteID}/homepageContent/${sectionID}/`), {
          sectionName: section,
-         content: initSectionDataOnNewCreation[section as SectionTypes],
+         //content: initSectionDataOnNewCreation[section as SectionTypes],
          sectionID: sectionID,
          sectionOrder: sectionOrder,
          createdAt: new Date().toISOString(),
@@ -101,7 +100,7 @@ export async function handleWebSiteID(): Promise<string> {
          } else {
             console.log('No data available,  creating new websiteID');
             let newWebsiteID = await createNewWebsiteID(thisLocationsHostName);
-            await createFirstTimeSections(newWebsiteID);
+            //await createFirstTimeSections(newWebsiteID);
             return newWebsiteID;
          }
       })

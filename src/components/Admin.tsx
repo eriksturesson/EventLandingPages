@@ -11,6 +11,7 @@ import { initialState } from './utils/initData';
 import { SectionLoader } from '../SectionLoader';
 import { LoadingSpinner } from './Loading';
 import SectionNavigator from './SectionNavigator';
+import { CreateSection } from './smallComponents/CreateSection';
 // Get user data //
 
 var name, email: string | null, photoUrl, uid: string, emailVerified;
@@ -127,7 +128,7 @@ export const Admin = ({ user, websiteID }: { user: User | null; websiteID: strin
       onValue(readContentFromDatabaseToIndex, (snapshot) => {
          let programContentFromDB: SectionIDs = snapshot.val() ? snapshot.val() : '';
 
-         if (!programContentFromDB) return setProgramContent(initialState);
+         if (!programContentFromDB) return setProgramContent({});
 
          if (programContentFromDB) setProgramContent(programContentFromDB);
       });
@@ -231,8 +232,11 @@ export const Admin = ({ user, websiteID }: { user: User | null; websiteID: strin
                <p>UserEmail: {user ? user.email : null}</p>
                <br />
                <Box className="adminEdit" id="adminEditWrapper" sx={{ transform: 'scale(1)', transformOrigin: '0% 0% 0px' }}>
-                  <SectionLoader data={homepageContent} adminEditor={true} />
+                  {Object.keys(homepageContent).length > 0 ? (
+                     <SectionLoader data={homepageContent} adminEditor={true} />
+                  ) : null}
                </Box>
+               {Object.keys(homepageContent).length === 0 ? <CreateSection sectionOrder={0} /> : null}
             </Grid>
          </Grid>
          {/*          <Box>

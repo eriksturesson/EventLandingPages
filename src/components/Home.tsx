@@ -7,6 +7,7 @@ import { SectionIDs } from './interfaces/sectionInterfaces';
 import { SectionLoader } from '../SectionLoader';
 import { initialState } from './utils/initData';
 import { LoadingSpinner } from './Loading';
+import { SomethingWentWrong } from './SomethingWentWrong';
 
 function testonload() {
    alert('testar onload i html-filen, då ska denna funktion köras');
@@ -23,8 +24,8 @@ const Home = ({ websiteID }: { websiteID: string }): JSX.Element => {
       onValue(readContentFromDatabaseToIndex, (snapshot) => {
          let programContentFromDB: SectionIDs = snapshot.val() ? snapshot.val() : '';
 
-         if (!programContentFromDB) return setProgramContent(initialState);
-
+         //if (!programContentFromDB) return setProgramContent(initialState);
+         if (!programContentFromDB) return <SomethingWentWrong />;
          setProgramContent(programContentFromDB);
       });
    }, []);

@@ -1,6 +1,6 @@
 import { Content } from './components/interfaces/dbInterfaces';
 import { SectionContent, SectionIDs, SectionProps } from './components/interfaces/sectionInterfaces';
-import { HeaderComponent } from './components/sections/ImageVideoSection/Header';
+import { FullScreenMedia } from './components/sections/ImageVideoSection/Header';
 import { SpeakersComponent } from './components/sections/Speakers';
 import { Footer } from './components/sections/Footer';
 import { ParticipantComponent } from './components/sections/Participants';
@@ -10,6 +10,7 @@ import { CallToActionButtonComponent } from './components/sections/CallToActionB
 import { PitchCardsComponent } from './components/sections/PitchCards';
 import { CreateSection } from './components/smallComponents/CreateSection';
 import HeadingSection from './components/sections/HeadingSection';
+import { Grid } from '@mui/material';
 
 interface Sections {
    [component: string]: React.FC<SectionProps>;
@@ -17,7 +18,7 @@ interface Sections {
 
 // Object for mapping each component in the JSX
 const components: Sections = {
-   fullScreenMedia: HeaderComponent,
+   fullScreenMedia: FullScreenMedia,
    speakers: SpeakersComponent,
    footer: Footer,
    participants: ParticipantComponent,
@@ -51,10 +52,16 @@ export const SectionLoader: React.FC<Props> = function (props) {
                }
 
                return (
-                  <section key={i}>
-                     <Component data={section} adminEditor={props.adminEditor} />
-                     {adminEditor ? <CreateSection sectionOrder={section.sectionOrder + 1} /> : null}
-                  </section>
+                  <>
+                     <Grid sm={12}>
+                        <Component data={section} adminEditor={props.adminEditor} />
+                     </Grid>
+                     {adminEditor ? (
+                        <Grid sm={12}>
+                           <CreateSection sectionOrder={section.sectionOrder + 1} />
+                        </Grid>
+                     ) : null}
+                  </>
                );
             })}
          </>

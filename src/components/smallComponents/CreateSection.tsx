@@ -1,17 +1,16 @@
 import React from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { Box, Button, Divider, Fab, Modal, Typography } from '@mui/material';
+import { Box, Button, Divider, Fab, Grid, Modal, Typography } from '@mui/material';
 import { SectionTypes, sectionTypes } from '../interfaces/sectionInterfaces';
 import { update, ref as dbRef, push, child } from 'firebase/database';
 import { db } from '../utils/firebase';
 import { WEBSITE_ID } from '../../App';
-import { initSectionDataOnNewCreation } from '../utils/initData';
 export function storeNewSection(sectionType: SectionTypes, sectionOrder: number) {
    let sectionID = push(child(dbRef(db), `websites/${WEBSITE_ID}/homepageContent/`)).key;
    update(dbRef(db, `websites/${WEBSITE_ID}/homepageContent/${sectionID}/`), {
       sectionName: sectionType,
-      content: initSectionDataOnNewCreation[sectionType],
+      //content: initSectionDataOnNewCreation[sectionType], //No, create your own content later - dont create stuff that you need to remove.
       sectionID: sectionID,
       sectionOrder: sectionOrder,
       createdAt: new Date(),

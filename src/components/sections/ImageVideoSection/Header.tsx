@@ -7,7 +7,7 @@ import { ImageButtonFileUpload } from '../../smallComponents/FileUploads';
 import { handleSaveTexts, SaveTextsButton } from '../../smallComponents/TextEdits';
 import TextEditDialog from './TextEditDialog';
 
-export function HeaderComponent(props: SectionProps): JSX.Element {
+export function FullScreenMedia(props: SectionProps): JSX.Element {
    const { adminEditor, data } = props;
    const { sectionID, content } = data;
    const { video, image, mediaSize: initMediaSize, title, description, time, location } = content as DBFullScreenMedia;

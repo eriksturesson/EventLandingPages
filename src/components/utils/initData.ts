@@ -9,7 +9,7 @@ import mapImageExample from '../../assets/mapImageExample.png';
 import { SectionIDs } from '../interfaces/sectionInterfaces';
 import TestImage from '../../assets/DSC02755.JPG';
 
-export const initSectionDataOnNewCreation: InitContent = {
+const initSectionDataOnNewCreation: InitContent = {
    fullScreenMedia: {
       title: 'Welcome to the event!',
       description: 'This is the description of the event',
@@ -20,8 +20,6 @@ export const initSectionDataOnNewCreation: InitContent = {
       mediaSize: 100,
    },
    speakers: {
-      title: 'Speakers',
-      items: {
          speakerskey1: {
             fullName: 'Jane Jones',
             description: 'With experience in ...',
@@ -52,11 +50,8 @@ export const initSectionDataOnNewCreation: InitContent = {
             id: 'speakerskey3',
             order: 3,
          },
-      },
    },
    participants: {
-      title: 'Participants',
-      items: {
          participantskey1: {
             image: (window.location.origin + speakerImgExample1) as unknown as string,
             name: 'Jane Jones',
@@ -81,11 +76,9 @@ export const initSectionDataOnNewCreation: InitContent = {
             id: 'participantskey3',
             order: 3,
          },
-      },
+    
    },
    organizers: {
-      title: 'Organizers',
-      items: {
          organizerskey1: {
             logo: (window.location.origin + speakerImgExample1) as unknown as string,
             id: 'organizerskey1',
@@ -96,11 +89,9 @@ export const initSectionDataOnNewCreation: InitContent = {
             id: 'organizerskey2',
             order: 2,
          },
-      },
+   
    },
    pitchCards: {
-      title: 'Pitch Cards',
-      items: {
          pitchCardskey1: {
             title: 'Pitch Card 1',
             description: 'This is the description of Pitch Card 1',
@@ -121,7 +112,6 @@ export const initSectionDataOnNewCreation: InitContent = {
             image: (window.location.origin + speakerImgExample3) as unknown as string,
             id: 'pitchCardskey3',
             order: 3,
-         },
       },
    },
    quillContent: {
@@ -169,8 +159,6 @@ export const initialState: SectionIDs = {
       createdAt: new Date(Date.now()),
       updatedAt: new Date(Date.now()),
       content: {
-         title: 'Speakers',
-         items: {
             geshfnoesriasf: {
                fullName: 'Test Testsson',
                description: 'This speaker is sooo awesome!',
@@ -180,7 +168,6 @@ export const initialState: SectionIDs = {
                titleDescription: 'In how many ways do I need to say this?',
                id: '098432oh432432ij432',
             } as DBSpeaker,
-         },
       } as DBSpeakersKey,
    },
 };

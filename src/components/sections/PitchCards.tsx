@@ -173,16 +173,9 @@ export function PitchCardsComponent(props: SectionProps): JSX.Element {
    const { data } = props;
    const { sectionName, sectionID, sectionOrder, createdAt, updatedAt } = data;
    const content = data.content as DBPitchCardKey;
-   const pitchCardsDB = content.items;
+   const pitchCardsDB = content;
 
    const [adminEditor, setadminEditor] = useState(props.adminEditor);
-   const [title, setTitle] = useState(content.title);
-
-   const handlePitchCardSectionTitleChange = (event: any) => {
-      let text: string = event.target.value;
-      setTitle(text);
-   };
-
    let pitchCardsContent: JSX.Element[] = [];
 
    // Sort the pitchCards array based on the "order" property
@@ -215,17 +208,7 @@ export function PitchCardsComponent(props: SectionProps): JSX.Element {
                   <h2>Edit pitchcards</h2>
                </Divider>
             ) : null}
-            {adminEditor ? (
-               <EditText
-                  onChange={handlePitchCardSectionTitleChange}
-                  initText={title ? title : '<h2>Example title of pitchCards</h2>'}
-               />
-            ) : (
-               <h1>{title}</h1>
-            )}
-            {adminEditor ? (
-               <SaveTextsButton refBelowWebsiteID={`homepageContent/${sectionID}/content/`} data={{ title: title }} />
-            ) : null}
+
             <Box className="wrapperOfImagesWithPitch">
                {pitchCardsContent}
                {/* Below is to always make it available to add one more pitchCards */}

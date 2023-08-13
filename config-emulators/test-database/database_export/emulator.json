@@ -31,7 +31,6 @@
             },
             "-NamF-To_0jC5ZDGxeWr": {
                "content": {
-                  "items": {
                      "speakerskey1": {
                         "description": "With experience in ...",
                         "fullName": "Jane Jones",
@@ -62,8 +61,6 @@
                         "title": "CEO of Company Z",
                         "titleDescription": "I am the CEO of Company Z"
                      }
-                  },
-                  "title": "Speakers"
                },
                "createdAt": "2023-08-01T17:58:08.484Z",
                "sectionID": "-NamF-To_0jC5ZDGxeWr",
@@ -73,7 +70,6 @@
             },
             "-NamF-UJQGN9lk0-kurh": {
                "content": {
-                  "items": {
                      "participantskey1": {
                         "id": "participantskey1",
                         "image": "/static/media/speakerImgExample1.afc65f97e9cbc4a767fa.jpg",
@@ -98,8 +94,6 @@
                         "organization": "Company Z",
                         "title": "CEO"
                      }
-                  },
-                  "title": "Participants"
                },
                "createdAt": "2023-08-01T17:58:08.516Z",
                "sectionID": "-NamF-UJQGN9lk0-kurh",
@@ -109,7 +103,6 @@
             },
             "-NamF-Ug7haziqHkeKPA": {
                "content": {
-                  "items": {
                      "organizerskey1": {
                         "id": "organizerskey1",
                         "logo": "/static/media/speakerImgExample1.afc65f97e9cbc4a767fa.jpg",
@@ -120,8 +113,6 @@
                         "logo": "/static/media/speakerImgExample2.602dd61a6e5300b45b89.jpg",
                         "order": 2
                      }
-                  },
-                  "title": "Organizers"
                },
                "createdAt": "2023-08-01T17:58:08.540Z",
                "sectionID": "-NamF-Ug7haziqHkeKPA",
@@ -139,7 +130,7 @@
             },
             "-NamF-VRrOqmF_NLQouD": {
                "content": {
-                  "items": {
+
                      "pitchCardskey1": {
                         "description": "This is the description of Pitch Card 1",
                         "id": "pitchCardskey1",
@@ -161,8 +152,6 @@
                         "order": 3,
                         "title": "Pitch Card 3"
                      }
-                  },
-                  "title": "Pitch Cards"
                },
                "createdAt": "2023-08-01T17:58:08.588Z",
                "sectionID": "-NamF-VRrOqmF_NLQouD",

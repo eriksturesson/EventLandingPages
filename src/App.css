@@ -341,31 +341,17 @@ p.speaker-description {
    overflow: hidden;
    font-style: italic;
    text-align: center;
-   padding-left: 10rem;
-   padding-right: 10rem;
-}
-
-@media only screen and (max-width: 1350px) {
-   .wrapper-participants {
-      padding-left: 2rem;
-      padding-right: 2rem;
-   }
-}
-
-@media only screen and (max-width: 400px) {
-   .wrapper-participants {
-      padding-left: 0rem;
-      padding-right: 0rem;
-   }
+   width: 100%;
 }
 
 .participant-box {
    display: table-cell;
    width: 30%;
    float: left;
+   height: 'auto';
    padding-bottom: 5rem;
    border: 2px;
-   margin: 1em;
+   padding: 1%;
    font-style: normal;
    overflow: hidden;
 }
@@ -382,7 +368,6 @@ p.speaker-description {
 
 @media only screen and (max-width: 750px) {
    .participant-box {
-      width: 40%;
       height: 25rem;
    }
 }
@@ -404,15 +389,6 @@ p.speaker-description {
    }
 }
 
-@media only screen and (max-width: 430px) {
-   .participant-box {
-      width: 43%;
-      margin-right: 0.5rem;
-      margin-left: 0.5rem;
-      padding-bottom: 3rem;
-   }
-}
-
 @media only screen and (max-width: 360px) {
    .participant-box {
       border-left: 1px;
@@ -428,6 +404,7 @@ p.speaker-description {
    max-width: 100%;
    border-radius: 50%;
    width: 320px;
+   overflow: hidden;
 }
 
 .sponsor-logos-row {

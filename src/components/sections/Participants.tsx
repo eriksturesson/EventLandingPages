@@ -7,9 +7,10 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import addNewSpeakerExample from '../../assets/addNewSpeakerExample.png';
 import { child, push, update, ref as dbRef, set } from 'firebase/database';
 import { db, devSettings, storage } from '../utils/firebase';
+import { v4 as uuidv4 } from 'uuid';
 import { WEBSITE_ID } from '../../App';
 import { useState } from 'react';
-import { Box, Button, Divider, SvgIcon, TextField } from '@mui/material';
+import { Box, Button, Divider, Grid, SvgIcon, TextField } from '@mui/material';
 import { ImageButtonFileUpload, NewImgBoxFileUpload } from '../smallComponents/FileUploads';
 import { EditText, SaveTextsButton, handleStateTextChange } from '../smallComponents/TextEdits';
 import { SectionProps, SectionTypes } from '../interfaces/sectionInterfaces';
@@ -121,13 +122,8 @@ export function ParticipantComponent(props: SectionProps): JSX.Element {
    const { data, adminEditor } = props;
    const { sectionName, sectionID, sectionOrder, createdAt, updatedAt } = data;
    const content = data.content as DBParticipantKey;
-   const participants = content.items;
-   const title = content.title;
-   const [cardTitle, setCardTitle] = useState(title);
-   const handleCardTitleChange = (event: any) => {
-      let text: string = event.target.value;
-      setCardTitle(text);
-   };
+   const participants = content;
+
    if (participants && Object.keys(participants).length > 0) {
       let allParticipants: JSX.Element[] = [];
       for (let participant of Object.keys(participants)) {
@@ -146,66 +142,89 @@ export function ParticipantComponent(props: SectionProps): JSX.Element {
       }
 
       return (
-         <>
+         <div className="wrapper-participants">
             {adminEditor ? (
                <Divider>
                   <h2>Edit participants</h2>
                </Divider>
             ) : null}
-            {adminEditor ? (
-               <>
-                  <EditText initText={title ? title : 'Participants'} onChange={handleCardTitleChange} />
-                  <SaveTextsButton refBelowWebsiteID={`homepageContent/${sectionID}/content/`} data={{ title: cardTitle }} />
-               </>
-            ) : (
-               <h1>{title}</h1>
-            )}
-
-            <div className="wrapper-participants">
-               {allParticipants}
-               {adminEditor ? (
-                  <OneParticipant
-                     adminEditor={adminEditor}
-                     sectionID={sectionID}
-                     sectionName={sectionName}
-                     newCard={true}
-                     oneParticipant={
-                        {
-                           order: participants ? Object.keys(participants).length + 1 : 1,
-                           image: addNewSpeakerExample,
-                           name: 'Test Testersson',
-                           id: 'randomKey',
-                           title: 'Tester',
-                           organization: 'Testers AB',
-                        } as DBOneParticipant
-                     }
-                  />
-               ) : null}
-            </div>
-         </>
-      );
-   } else {
-      return (
-         <>
+            {allParticipants}
             {adminEditor ? (
                <OneParticipant
                   adminEditor={adminEditor}
-                  newCard={true}
-                  sectionName={sectionName}
                   sectionID={sectionID}
+                  sectionName={sectionName}
+                  newCard={true}
                   oneParticipant={
                      {
-                        order: participants ? Object.keys(participants).length + 1 : 1,
+                        order: participants ? Object.keys(participants).length + 1 : 0,
                         image: addNewSpeakerExample,
-                        name: 'Test Testersson',
-                        id: 'randomKey',
-                        title: 'Tester',
-                        organization: 'Testers AB',
+                        name: '',
+                        id: uuidv4(),
+                        title: '',
+                        organization: '',
                      } as DBOneParticipant
                   }
                />
             ) : null}
-         </>
+         </div>
+      );
+   } else {
+      return (
+         <div className="wrapper-participants">
+            {adminEditor ? (
+               <>
+                  <OneParticipant
+                     adminEditor={adminEditor}
+                     newCard={true}
+                     sectionName={sectionName}
+                     sectionID={sectionID}
+                     oneParticipant={
+                        {
+                           order: participants ? Object.keys(participants).length + 1 : 0,
+                           image: addNewSpeakerExample,
+                           name: '',
+                           id: uuidv4(),
+                           title: '',
+                           organization: '',
+                        } as DBOneParticipant
+                     }
+                  />
+                  <OneParticipant
+                     adminEditor={adminEditor}
+                     newCard={true}
+                     sectionName={sectionName}
+                     sectionID={sectionID}
+                     oneParticipant={
+                        {
+                           order: participants ? Object.keys(participants).length + 1 : 0,
+                           image: addNewSpeakerExample,
+                           name: '',
+                           id: uuidv4(),
+                           title: '',
+                           organization: '',
+                        } as DBOneParticipant
+                     }
+                  />
+                  <OneParticipant
+                     adminEditor={adminEditor}
+                     newCard={true}
+                     sectionName={sectionName}
+                     sectionID={sectionID}
+                     oneParticipant={
+                        {
+                           order: participants ? Object.keys(participants).length + 1 : 0,
+                           image: addNewSpeakerExample,
+                           name: '',
+                           id: uuidv4(),
+                           title: '',
+                           organization: '',
+                        } as DBOneParticipant
+                     }
+                  />
+               </>
+            ) : null}
+         </div>
       );
    }
 }

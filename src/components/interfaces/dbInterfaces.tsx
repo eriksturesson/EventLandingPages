@@ -29,10 +29,7 @@ export interface DBHomePageContentPitchCards {
 }
 
 export interface DBPitchCardKey {
-   title?: string;
-   items?: {
-      [key: string]: DBHomePageContentPitchCards;
-   };
+   [key: string]: DBHomePageContentPitchCards;
 }
 
 export interface DBHomePageContentButton {
@@ -55,10 +52,7 @@ export interface DBHomePageContentFooter {
    mapImage: string; // url to storage
 }
 export interface DBSpeakersKey {
-   title?: string;
-   items?: {
-      [key: string]: DBSpeaker;
-   };
+   [key: string]: DBSpeaker;
 }
 
 export interface DBSpeaker {
@@ -82,17 +76,11 @@ export interface DBOneParticipant {
 }
 
 export interface DBParticipantKey {
-   title?: string;
-   items?: {
-      [key: string]: DBOneParticipant;
-   };
+   [key: string]: DBOneParticipant;
 }
 
 export interface DBOrganizersKey {
-   title?: string;
-   items?: {
-      [id: string]: OrganizerObject;
-   };
+   [id: string]: OrganizerObject;
 }
 
 export interface OrganizerObject {
