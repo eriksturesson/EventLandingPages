@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Paper, Grid, Box } from '@mui/material';
 import { SectionContent, SectionIDs } from './interfaces/sectionInterfaces';
 import { SaveTextsButton } from './smallComponents/TextEdits';
+import { BorderRight } from '@mui/icons-material';
 
 interface Props {
    sections: SectionContent[];
@@ -52,7 +53,18 @@ function SectionNavigator(props: Props): JSX.Element {
    };
 
    return (
-      <Grid item xs={3} sx={{ display: 'flex', flexDirection: 'column', gap: '2em', padding: '2em', textAlign: 'center' }}>
+      <Grid
+         item
+         xs={3}
+         sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '2em',
+            padding: '2em',
+            textAlign: 'center',
+            borderRight: '0.1rem solid grey',
+         }}
+      >
          {props.sections.map((section, i) => (
             <Box key={i}>
                <Paper
