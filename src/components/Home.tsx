@@ -8,30 +8,13 @@ import { SectionLoader } from '../SectionLoader';
 import { initialState } from './utils/initData';
 import { LoadingSpinner } from './Loading';
 import { SomethingWentWrong } from './SomethingWentWrong';
+import { Box, Typography } from '@mui/material';
 
 function testonload() {
    alert('testar onload i html-filen, då ska denna funktion köras');
 }
 
-const Home = ({ websiteID }: { websiteID: string }): JSX.Element => {
-   const [homepageContent, setProgramContent] = useState<SectionIDs | null>(null);
-   let page = window.location.href;
-   //let databaseContent = document.getElementByClassName('DBContent');
-   useEffect(() => {
-      // READ DATA WHEN UPDATED TO UPDATE PROGRAM CONTENT
-      let readContentFromDatabaseToIndex = ref(db, `websites/${websiteID}/homepageContent`);
-
-      onValue(readContentFromDatabaseToIndex, (snapshot) => {
-         let programContentFromDB: SectionIDs = snapshot.val() ? snapshot.val() : '';
-
-         //if (!programContentFromDB) return setProgramContent(initialState);
-         if (!programContentFromDB) return <SomethingWentWrong />;
-         setProgramContent(programContentFromDB);
-      });
-   }, []);
-
-   if (!homepageContent) return <LoadingSpinner />;
-
+const Home = ({ homepageContent }: { homepageContent: SectionIDs }): JSX.Element => {
    return <SectionLoader adminEditor={false} data={homepageContent} />;
 };
 

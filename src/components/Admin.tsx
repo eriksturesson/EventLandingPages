@@ -118,29 +118,15 @@ function loadDBContent(): JSX.Element {
    //}
 }
 
-export const Admin = ({ user, websiteID }: { user: User | null; websiteID: string }): JSX.Element => {
-   console.log('--------------------------RENDERING ADMIN-----------------------------');
-   const [homepageContent, setProgramContent] = useState<SectionIDs | null>(null);
-   //let databaseContent = document.getElementByClassName('DBContent');
-   useEffect(() => {
-      // READ DATA WHEN UPDATED TO UPDATE INDEX.HTML PROGRAM CONTENT
-      let readContentFromDatabaseToIndex = ref(db, `websites/${websiteID}/homepageContent`);
-      onValue(readContentFromDatabaseToIndex, (snapshot) => {
-         let programContentFromDB: SectionIDs = snapshot.val() ? snapshot.val() : '';
-
-         if (!programContentFromDB) return setProgramContent({});
-
-         if (programContentFromDB) setProgramContent(programContentFromDB);
-      });
-   }, []);
-
-   if (!homepageContent) return <LoadingSpinner />;
-
-   // TEMP: this operation is also done in SectionLoader
-   // const sections: SectionContent[] = Object.values(homepageContent);
-   // sections.sort((a, b) => a.sectionOrder - b.sectionOrder);
-   // /TEMP
-
+export const Admin = ({
+   user,
+   homepageContent,
+   setHomepageContent,
+}: {
+   user: User | null;
+   homepageContent: SectionIDs;
+   setHomepageContent: any;
+}): JSX.Element => {
    const handleDrop = async (event: React.DragEvent<HTMLDivElement>, sections: SectionContent[]) => {
       const droppedIndex = +event.dataTransfer.getData('section-order');
       let targetIndex = +((event.target as HTMLElement).dataset.order as string);
@@ -210,7 +196,7 @@ export const Admin = ({ user, websiteID }: { user: User | null; websiteID: strin
 
       console.log('pagecontent row 209', pageContent);
 
-      setProgramContent(pageContent);
+      setHomepageContent(pageContent);
 
       console.log('dropping', droppedIndex, 'on', targetIndex);
    };

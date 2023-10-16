@@ -9,8 +9,23 @@ import TextEditDialog from './TextEditDialog';
 
 export function FullScreenMedia(props: SectionProps): JSX.Element {
    const { adminEditor, data } = props;
-   const { sectionID, content } = data;
-   const { video, image, mediaSize: initMediaSize, title, description, time, location } = content as DBFullScreenMedia;
+   const sectionID = data.sectionID;
+   const content = data.content ? data.content : null;
+   let video, image, initMediaSize, title, description, time, location;
+
+   if (content) {
+      ({ video, image, mediaSize: initMediaSize, title, description, time, location } = content as DBFullScreenMedia);
+   } else {
+      // Provide default values or take any other necessary action when content is null
+      // Example:
+      video = null;
+      image = null;
+      initMediaSize = 0;
+      title = 'Default Title';
+      description = 'Default Description';
+      time = null;
+      location = null;
+   }
    const [isEditing, setEditing] = useState<boolean>(false);
    const [mediaSize, setMediaSize] = useState<number>(initMediaSize);
    const [textFields, setTextFields] = useState({ title, description, time, location });

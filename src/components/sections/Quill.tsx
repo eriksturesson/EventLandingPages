@@ -46,20 +46,19 @@ function saveQuillToDB(data: any, sectionID: string) {
 export function QuillComponent(props: SectionProps): JSX.Element {
    const { data, adminEditor } = props;
    const { sectionName, sectionID, sectionOrder, createdAt, updatedAt } = data;
-   const quillContent = data.content as QuillContent;
+   let quillContent = data.content as QuillContent;
+   console.log('quillContent', quillContent);
+
+   const [value, setValue] = useState(quillContent && quillContent.text ? quillContent.text : ''); // Initialize with an empty string
+
    if (adminEditor) {
-      const [value, setValue] = useState(quillContent.text);
-      useEffect(() => {
-         //QUILL Renders somehow before the initiation (so no text is visible in the quil editor from start even if there is text in the db) so useEffect is needed to put our quillContent to the quill editor
-         setValue(quillContent.text);
-      }, [quillContent]);
       return (
          <>
             <Divider>
                <h2>Edit Texts on your webpage</h2>
             </Divider>
             <div className="myquillComponent">
-               <ReactQuill theme="snow" value={value} defaultValue={value} onChange={setValue} />
+               <ReactQuill theme="snow" value={value} onChange={setValue} />
                <div
                   style={{
                      justifyContent: 'center',
@@ -75,6 +74,6 @@ export function QuillComponent(props: SectionProps): JSX.Element {
          </>
       );
    } else {
-      return <>{quillContent && quillContent.text ? parse(quillContent.text) : <></>}</>;
+      return <div dangerouslySetInnerHTML={{ __html: value }} />;
    }
 }

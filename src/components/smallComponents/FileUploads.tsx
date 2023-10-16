@@ -210,9 +210,12 @@ export function ImageButtonFileUpload(props: ParticipantCardFileUploadProps): JS
 
    return (
       <Button variant="contained" sx={{ whiteSpace: 'nowrap', minWidth: 'max-content' }} /* component="label" */>
-         Upload new image
+         <label htmlFor={`fileInput-${sectionID}`} style={{ cursor: 'pointer' }}>
+            Upload new image
+         </label>
          {/*<input hidden accept="image/*" type="file" onChange={(e) => handleFileUpload({ event: e, cardOrderNr: cardOrderNr, sectionName: sectionName, sectionID: sectionID })} />*/}
          <input
+            id={`fileInput-${sectionID}`}
             hidden
             accept="image/*"
             type="file"
@@ -220,7 +223,6 @@ export function ImageButtonFileUpload(props: ParticipantCardFileUploadProps): JS
                advancedFileUpload({ event: e, cardOrderNr: cardOrderNr, sectionName: sectionName, sectionID: sectionID })
             }
          />
-         ;
       </Button>
    );
 }

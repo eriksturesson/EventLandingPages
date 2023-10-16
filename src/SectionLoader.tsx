@@ -52,16 +52,16 @@ export const SectionLoader: React.FC<Props> = function (props) {
                }
 
                return (
-                  <>
-                     <Grid sm={12}>
+                  <Grid key={i}>
+                     <Grid item sm={12}>
                         <Component data={section} adminEditor={props.adminEditor} />
                      </Grid>
                      {adminEditor ? (
-                        <Grid sm={12}>
+                        <Grid item sm={12}>
                            <CreateSection sectionOrder={section.sectionOrder + 1} />
                         </Grid>
                      ) : null}
-                  </>
+                  </Grid>
                );
             })}
          </>

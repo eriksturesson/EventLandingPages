@@ -9,14 +9,17 @@ import ArrangerandeKlubbar from './components/ArrangerandeKlubbar';
 import TidigareProgram from './components/TidigareProgram';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { auth } from './components/utils/firebase';
+import { auth, db } from './components/utils/firebase';
 import { handleWebSiteID } from './components/utils/handleWebsiteID';
 import { LoadingSpinner } from './components/Loading';
+import { SectionIDs } from './components/interfaces/sectionInterfaces';
+import { onValue, ref } from 'firebase/database';
 export let WEBSITE_ID = '';
 const App = (): JSX.Element => {
+   console.log('--------------------------RENDERING -----------------------------');
    const [logedIn, setLogedIn] = useState<boolean | null>(null);
-   //const [loading, setLoading] = useState<boolean>(true)
    const [websiteID, setWebsiteID] = useState<string>('');
+   const [homepageContent, setProgramContent] = useState<SectionIDs | null>(null);
    WEBSITE_ID = websiteID;
    //const [websiteID, setWebsiteID] = useState<string | null>(null)
    let userOrNull: User | null = auth.currentUser;
@@ -30,13 +33,26 @@ const App = (): JSX.Element => {
       return () => {
          listener();
       };
-   }, [logedIn]);
+   }, []);
 
    useEffect(() => {
       handleWebSiteID().then((id) => {
          setWebsiteID(id);
       });
-   }, [websiteID]);
+   }, []);
+   useEffect(() => {
+      let readContentFromDatabaseToIndex = ref(db, `websites/${websiteID}/homepageContent`);
+      onValue(readContentFromDatabaseToIndex, (snapshot) => {
+         let programContentFromDB: SectionIDs = snapshot.val() ? snapshot.val() : '';
+         if (!programContentFromDB) return setProgramContent({});
+         setProgramContent(programContentFromDB);
+      });
+   }, [websiteID]); // Listen for changes in websiteID
+
+   if (homepageContent === null) {
+      // Data is not available yet, return a loading indicator or a message
+      return <LoadingSpinner />;
+   }
 
    console.log('websiteID at upstart', websiteID);
    console.log('logedIn at upstart', logedIn);
@@ -60,13 +76,17 @@ const App = (): JSX.Element => {
          </>
       );
    } else if (page.includes('admin') || page.includes('login')) {
-      let element: JSX.Element = logedIn ? <Admin websiteID={websiteID} user={userOrNull} /> : <Login />;
+      let element: JSX.Element = logedIn ? (
+         <Admin homepageContent={homepageContent} setHomepageContent={setProgramContent} user={userOrNull} />
+      ) : (
+         <Login />
+      );
       return element;
    } else {
       return (
          <>
             <NavWrapper websiteID={websiteID} />
-            <Home websiteID={websiteID} />
+            <Home homepageContent={homepageContent} />
          </>
       );
    }
