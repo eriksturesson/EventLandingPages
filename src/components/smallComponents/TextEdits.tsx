@@ -1,7 +1,7 @@
 import { Box, Button, TextField } from '@mui/material';
-import { update, ref as dbRef } from 'firebase/database';
-import { db } from '../utils/firebase';
+import { ref as dbRef, update } from 'firebase/database';
 import { WEBSITE_ID } from '../../App';
+import { db } from '../utils/firebase';
 
 export const handleSaveTexts = ({ refBelowWebsiteID, data }: { refBelowWebsiteID: string; data: object }) => {
    // Perform your save logic here, e.g., make an API call to save the data

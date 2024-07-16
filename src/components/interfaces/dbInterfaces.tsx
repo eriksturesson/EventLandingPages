@@ -15,8 +15,8 @@ export interface DBFullScreenMedia {
    description?: string;
    time?: string;
    location?: string;
-   video?: string; // url to storage
-   image?: string; // url to storage
+   media?: string; // url to storage
+   mediaType?: 'video' | 'image' | null;
    mediaSize: number;
 }
 

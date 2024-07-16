@@ -1,11 +1,10 @@
-import React from 'react';
-import AddIcon from '@mui/icons-material/Add';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { Box, Button, Divider, Fab, Grid, Modal, Typography } from '@mui/material';
-import { SectionTypes, sectionTypes } from '../interfaces/sectionInterfaces';
-import { update, ref as dbRef, push, child } from 'firebase/database';
-import { db } from '../utils/firebase';
+import { Box, Button, Divider, Modal, Typography } from '@mui/material';
+import { child, ref as dbRef, push, update } from 'firebase/database';
+import React from 'react';
 import { WEBSITE_ID } from '../../App';
+import { SectionTypes, sectionTypes } from '../interfaces/sectionInterfaces';
+import { db } from '../utils/firebase';
 export function storeNewSection(sectionType: SectionTypes, sectionOrder: number) {
    let sectionID = push(child(dbRef(db), `websites/${WEBSITE_ID}/homepageContent/`)).key;
    update(dbRef(db, `websites/${WEBSITE_ID}/homepageContent/${sectionID}/`), {

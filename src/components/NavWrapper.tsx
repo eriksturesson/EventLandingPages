@@ -1,10 +1,6 @@
 //import { BrowserRouter, Link, Route } from "react-router-dom";
-import ArrangerandeKlubbar from './ArrangerandeKlubbar';
 //import { Navbar, Nav, Container } from 'react-bootstrap';
 //import arrangerandeKlubbarHTML from "../"
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Home from './Home';
-import React from 'react';
 
 /*
             <div className="right-menu-in-nav" id="reactNavbar">

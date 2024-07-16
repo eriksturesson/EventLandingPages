@@ -1,12 +1,11 @@
-import React from 'react';
+import mapImageExample from '../../assets/mapImageExample.png';
 import kartbild from '../../assets/Rotary Karta till Stockholm City Affärsnätverk.png'; // relative path to image
 import { DBHomePageContentFooter } from '../interfaces/dbInterfaces';
 import { SectionProps } from '../interfaces/sectionInterfaces';
-import mapImageExample from '../../assets/mapImageExample.png';
 
 export function Footer(props: SectionProps): JSX.Element {
-   const { data, adminEditor } = props;
-   const { sectionName, sectionID, sectionOrder, createdAt, updatedAt } = data;
+   const { data } = props;
+
    const content = data.content as DBHomePageContentFooter;
    if (content) {
       return (

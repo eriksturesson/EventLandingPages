@@ -1,3 +1,4 @@
+import SaveIcon from '@mui/icons-material/Save';
 import {
    Box,
    Button,
@@ -5,23 +6,19 @@ import {
    FormControl,
    InputLabel,
    MenuItem,
-   OutlinedInput,
    Select,
    SelectChangeEvent,
    TextField,
    ThemeProvider,
 } from '@mui/material';
-import { DBHomePageContentButton } from '../interfaces/dbInterfaces';
-import SaveIcon from '@mui/icons-material/Save';
-import { ReactNode, useEffect, useRef, useState } from 'react';
-import { onValue, ref, set, update } from 'firebase/database';
-import { db } from '../utils/firebase';
-import { initialState } from '../utils/initData';
-import { readAndWriteToFirebase } from '../utils/firebaseFunctions';
-import { valueToPercent } from '@mui/base';
-import { eriksTheme } from '../myColorTheme';
-import { SectionProps } from '../interfaces/sectionInterfaces';
+import { onValue, ref, update } from 'firebase/database';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { WEBSITE_ID } from '../../App';
+import { DBHomePageContentButton } from '../interfaces/dbInterfaces';
+import { SectionProps } from '../interfaces/sectionInterfaces';
+import { eriksTheme } from '../myColorTheme';
+import { db } from '../utils/firebase';
+import { readAndWriteToFirebase } from '../utils/firebaseFunctions';
 export let customColor: string = '';
 export function RegisterButtonComponent({ buttonContent }: { buttonContent: DBHomePageContentButton }): JSX.Element {
    let formLink =

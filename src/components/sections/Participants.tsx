@@ -1,20 +1,16 @@
-import { deleteObject, ref, uploadBytes } from 'firebase/storage';
-import { DBHomePageContentPitchCards, DBOneParticipant, DBParticipantKey } from '../interfaces/dbInterfaces';
-import ImageIcon from '@mui/icons-material/Image';
 import DeleteIcon from '@mui/icons-material/Delete';
-import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import addNewSpeakerExample from '../../assets/addNewSpeakerExample.png';
-import { child, push, update, ref as dbRef, set } from 'firebase/database';
-import { db, devSettings, storage } from '../utils/firebase';
+import { Box, Divider, SvgIcon } from '@mui/material';
+import { ref as dbRef, set } from 'firebase/database';
+import { deleteObject, ref } from 'firebase/storage';
+import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { WEBSITE_ID } from '../../App';
-import { useState } from 'react';
-import { Box, Button, Divider, Grid, SvgIcon, TextField } from '@mui/material';
-import { ImageButtonFileUpload, NewImgBoxFileUpload } from '../smallComponents/FileUploads';
-import { EditText, SaveTextsButton, handleStateTextChange } from '../smallComponents/TextEdits';
+import addNewSpeakerExample from '../../assets/addNewSpeakerExample.png';
+import { DBOneParticipant, DBParticipantKey } from '../interfaces/dbInterfaces';
 import { SectionProps, SectionTypes } from '../interfaces/sectionInterfaces';
-import { PaidTwoTone } from '@mui/icons-material';
+import { NewImgBoxFileUpload } from '../smallComponents/FileUploads';
+import { EditText, SaveTextsButton, handleStateTextChange } from '../smallComponents/TextEdits';
+import { db, storage } from '../utils/firebase';
 
 export function OneParticipant({
    newCard,
@@ -77,7 +73,7 @@ export function OneParticipant({
                </Box>
             ) : null}
             {adminEditor && newCard ? (
-               <NewImgBoxFileUpload sectionID={sectionID} cardOrderNr={order} sectionName={sectionName} />
+               <NewImgBoxFileUpload sectionID={sectionID} order={order} sectionName={sectionName} />
             ) : null}
             {!newCard ? <img className="participant-image" src={image} /> : null}
             {adminEditor ? (

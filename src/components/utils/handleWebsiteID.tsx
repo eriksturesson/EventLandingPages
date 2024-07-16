@@ -1,17 +1,8 @@
-import { ref as dbRef, get, set, push, child } from 'firebase/database';
-import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { child, ref as dbRef, get, push, set } from 'firebase/database';
 import { v4 as uuidv4 } from 'uuid';
-import { db, devSettings, storage } from './firebase';
 import { DBWebsiteIDs } from '../interfaces/dbInterfaces';
-import { SectionTypes, sectionTypes } from '../interfaces/sectionInterfaces';
-import { WEBSITE_ID } from '../../App';
-import {
-   mapImageExample,
-   speakerImgExample1,
-   speakerImgExample2,
-   speakerImgExample3,
-   fullScreenMediaExample1,
-} from '../../assets/index';
+import { sectionTypes } from '../interfaces/sectionInterfaces';
+import { db } from './firebase';
 /* Does not work
 async function uploadStandardImages() {
    let images = [mapImageExample, speakerImgExample1, speakerImgExample2, speakerImgExample3, fullScreenMediaExample1];

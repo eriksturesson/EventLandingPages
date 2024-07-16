@@ -1,5 +1,4 @@
 import { InfinitySpin } from 'react-loader-spinner';
-
 export function LoadingSpinner() {
    //return <h2>🌀 Loading...</h2>;
    return (

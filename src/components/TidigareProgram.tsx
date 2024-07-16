@@ -1,5 +1,3 @@
-import React from 'react';
-
 const TidigareProgram = (): JSX.Element => {
    return (
       <section>
@@ -30,10 +28,7 @@ const TidigareProgram = (): JSX.Element => {
          <p>
             <strong>Maria Rankka, VD Stockholms Handelskammare</strong>
          </p>
-         <p>
-            "FRÅN HUVUDSTAD TILL HUVUDSTADSREGION - STOCKHOLMS UTMANINGAR OCH
-            MÖJLIGHETER"
-         </p>
+         <p>"FRÅN HUVUDSTAD TILL HUVUDSTADSREGION - STOCKHOLMS UTMANINGAR OCH MÖJLIGHETER"</p>
          <h2>2017-10-13</h2>
          <p>
             <strong>Johan Holmsäter, grundare Friskis & Svettis</strong>
@@ -47,10 +42,7 @@ const TidigareProgram = (): JSX.Element => {
          <h1>ÅR 2018</h1>
          <h2>2018-02-16</h2>
          <p>
-            <strong>
-               Magnus Henrekson, Proffessor, VD Institutet för
-               Näringslivsforskning
-            </strong>
+            <strong>Magnus Henrekson, Proffessor, VD Institutet för Näringslivsforskning</strong>
          </p>
          <p>"SYNEN PÅ KUNSKAP ÄR SKOLANS STÖRSTA PROBLEM"</p>
          <h2>2018-04-20</h2>
@@ -62,10 +54,7 @@ const TidigareProgram = (): JSX.Element => {
          <p>
             <strong>Erik Stenfors, VD Hanza Holding AB</strong>
          </p>
-         <p>
-            "VARNING FÖR FARTGROP: ERFARENHETER FRÅN ATT UTVECKLA
-            INTERNATIONELLA FÖRETAG"
-         </p>
+         <p>"VARNING FÖR FARTGROP: ERFARENHETER FRÅN ATT UTVECKLA INTERNATIONELLA FÖRETAG"</p>
          <h2>2018-09-14</h2>
          <p>
             <strong>Peppe Ekmark, Säljproffs</strong>
@@ -75,10 +64,7 @@ const TidigareProgram = (): JSX.Element => {
          <p>
             <strong>Jonas Arnberg, VD HUI Research</strong>
          </p>
-         <p>
-            "DIGITAL TRANSFORMATION - FÖRUTSÄTTNINGARNA FÖR HANDELN ÄNDRAS
-            SNABBT"
-         </p>
+         <p>"DIGITAL TRANSFORMATION - FÖRUTSÄTTNINGARNA FÖR HANDELN ÄNDRAS SNABBT"</p>
          <h2>2018-11-16</h2>
          <p>
             <strong>Ewa Bûlov & Gustaf-Wilhelm Hellstedt</strong>
@@ -133,18 +119,14 @@ const TidigareProgram = (): JSX.Element => {
          <p>"LÄNGRE MINGEL"</p>
          <h2>2019-11-15</h2>
          <p>
-            <strong>
-               Lena Linn - Branding Expert, Business Mentor & Board Member
-            </strong>
+            <strong>Lena Linn - Branding Expert, Business Mentor & Board Member</strong>
          </p>
          <p>"VÄRDESKAPANDE VARUMÄRKESBYGGANDE"</p>
 
          <h1>ÅR 2020</h1>
          <h2>2020-02-14</h2>
          <p>
-            <strong>
-               Jenny Wiener, Skandia - Affärsansvarig risk och hälsa
-            </strong>
+            <strong>Jenny Wiener, Skandia - Affärsansvarig risk och hälsa</strong>
          </p>
          <p>"TILLVÄXT SKAPAS AV FRISKA MEDARBETARE"</p>
          <h2>2020-04-03</h2>
@@ -176,15 +158,10 @@ const TidigareProgram = (): JSX.Element => {
          <p>
             <strong>Kurt Larsson, Executive Coach</strong>
          </p>
-         <p>
-            "HUR MYCKET SKA DU VINNA ELLER FÖRLORA PÅ GRUND AV DITT OMEDVETNA
-            KROPPSSPRÅK?"
-         </p>
+         <p>"HUR MYCKET SKA DU VINNA ELLER FÖRLORA PÅ GRUND AV DITT OMEDVETNA KROPPSSPRÅK?"</p>
          <h2>2021-03-24</h2>
          <p>
-            <strong>
-               Louise Bennetoft, Research Manager på Interim Search AB
-            </strong>
+            <strong>Louise Bennetoft, Research Manager på Interim Search AB</strong>
          </p>
          <p>"SÅ BLIR DU INTERIMSKONSULT"</p>
          <h2>2021-05-20</h2>
@@ -203,14 +180,9 @@ const TidigareProgram = (): JSX.Element => {
          <p>"KAPITALMARKNADEN - NULÄGE, FRAMTID OCH AKTUELLA TRENDER"</p>
          <h2>2021-11-23</h2>
          <p>
-            <strong>
-               Thomas Byström, regionchef Stockholm, Mälardalen på Företagarna
-            </strong>
+            <strong>Thomas Byström, regionchef Stockholm, Mälardalen på Företagarna</strong>
          </p>
-         <p>
-            "UPPSTART EFTER COVID-19 - VARFÖR ÄR SMÅFÖRETAGEN EN SÅ VIKTIG DEL I
-            DETTA?"
-         </p>
+         <p>"UPPSTART EFTER COVID-19 - VARFÖR ÄR SMÅFÖRETAGEN EN SÅ VIKTIG DEL I DETTA?"</p>
       </section>
    );
 };

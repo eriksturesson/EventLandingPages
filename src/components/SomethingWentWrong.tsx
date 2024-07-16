@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, List, ListItem, Typography } from '@mui/material';
 
 export function SomethingWentWrong(): JSX.Element {

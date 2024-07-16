@@ -1,19 +1,18 @@
 //import logo from './logo.svg';
+import { User, onAuthStateChanged } from 'firebase/auth';
+import { onValue, ref } from 'firebase/database';
+import { useEffect, useState } from 'react';
 import './App.css';
-import { User, getAuth, onAuthStateChanged } from 'firebase/auth';
-import NavWrapper from './components/NavWrapper';
-import Home from './components/Home';
 import { Admin } from './components/Admin';
-import { Login } from './components/Login';
 import ArrangerandeKlubbar from './components/ArrangerandeKlubbar';
+import Home from './components/Home';
+import { LoadingSpinner } from './components/Loading';
+import { Login } from './components/Login';
+import NavWrapper from './components/NavWrapper';
 import TidigareProgram from './components/TidigareProgram';
-import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { SectionIDs } from './components/interfaces/sectionInterfaces';
 import { auth, db } from './components/utils/firebase';
 import { handleWebSiteID } from './components/utils/handleWebsiteID';
-import { LoadingSpinner } from './components/Loading';
-import { SectionIDs } from './components/interfaces/sectionInterfaces';
-import { onValue, ref } from 'firebase/database';
 export let WEBSITE_ID = '';
 const App = (): JSX.Element => {
    console.log('--------------------------RENDERING -----------------------------');

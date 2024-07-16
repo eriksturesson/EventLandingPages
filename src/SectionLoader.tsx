@@ -1,16 +1,15 @@
-import { Content } from './components/interfaces/dbInterfaces';
-import { SectionContent, SectionIDs, SectionProps } from './components/interfaces/sectionInterfaces';
-import { FullScreenMedia } from './components/sections/ImageVideoSection/Header';
-import { SpeakersComponent } from './components/sections/Speakers';
-import { Footer } from './components/sections/Footer';
-import { ParticipantComponent } from './components/sections/Participants';
-import { OrganizersComponent } from './components/sections/Organizers';
-import { QuillComponent } from './components/sections/Quill';
-import { CallToActionButtonComponent } from './components/sections/CallToActionButton';
-import { PitchCardsComponent } from './components/sections/PitchCards';
-import { CreateSection } from './components/smallComponents/CreateSection';
-import HeadingSection from './components/sections/HeadingSection';
 import { Grid } from '@mui/material';
+import React from 'react';
+import { SectionContent, SectionIDs, SectionProps } from './components/interfaces/sectionInterfaces';
+import { CallToActionButtonComponent } from './components/sections/CallToActionButton';
+import { Footer } from './components/sections/Footer';
+import { FullScreenMedia } from './components/sections/FullScreenMedia';
+import { OrganizersComponent } from './components/sections/Organizers';
+import { ParticipantComponent } from './components/sections/Participants';
+import { PitchCardsComponent } from './components/sections/PitchCards';
+import { QuillComponent } from './components/sections/QuillComponent';
+import { SpeakersComponent } from './components/sections/Speakers';
+import { CreateSection } from './components/smallComponents/CreateSection';
 
 interface Sections {
    [component: string]: React.FC<SectionProps>;
@@ -26,7 +25,6 @@ const components: Sections = {
    quillContent: QuillComponent,
    pitchCards: PitchCardsComponent,
    callToActionButton: CallToActionButtonComponent,
-   HeadingSection: HeadingSection,
 };
 interface Props {
    data: SectionIDs;

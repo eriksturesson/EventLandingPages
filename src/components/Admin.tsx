@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { db } from './utils/firebase';
-import { ref, onValue, set } from 'firebase/database';
-import { User, signOut } from 'firebase/auth';
-import { auth } from './utils/firebase';
+import { Box, Grid } from '@mui/material';
 import Button from '@mui/material/Button';
-import NavWrapper from './NavWrapper';
-import { Box, Grid, Stack } from '@mui/material';
-import { SectionContent, SectionIDs } from './interfaces/sectionInterfaces';
-import { initialState } from './utils/initData';
+import { User, signOut } from 'firebase/auth';
+import { onValue, ref, set } from 'firebase/database';
+import React from 'react';
 import { SectionLoader } from '../SectionLoader';
-import { LoadingSpinner } from './Loading';
+import { SectionContent, SectionIDs } from './interfaces/sectionInterfaces';
 import SectionNavigator from './SectionNavigator';
 import { CreateSection } from './smallComponents/CreateSection';
+import { auth, db } from './utils/firebase';
 // Get user data //
 
 var name, email: string | null, photoUrl, uid: string, emailVerified;

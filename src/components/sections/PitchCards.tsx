@@ -1,20 +1,20 @@
-import visningsbild1 from '../../assets/DSC01125.JPG';
-import visningsbild2 from '../../assets/DSC01286.JPG';
-import visningsbild3 from '../../assets/DSC02755.JPG';
-import speakerImgExample1 from '../../assets/speakerImgExample1.jpg';
-import briefcaseExample from '../../assets/briefcaseExample.png';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import DeleteIcon from '@mui/icons-material/Delete';
-import react, { useState } from 'react';
-import { DBHomePageContent, DBHomePageContentPitchCards, DBPitchCardKey } from '../interfaces/dbInterfaces';
-import { Box, Button, Divider, Stack, SvgIcon, TextField } from '@mui/material';
-import { deleteObject, getStorage, ref, uploadBytes } from 'firebase/storage';
-import { db, devSettings, storage } from '../utils/firebase';
-import { child, push, ref as dbRef, set, update, onChildAdded } from 'firebase/database';
+import { Box, Divider, SvgIcon } from '@mui/material';
+import { ref as dbRef, set } from 'firebase/database';
+import { deleteObject, ref } from 'firebase/storage';
+import { useState } from 'react';
 import { WEBSITE_ID } from '../../App';
-import { EditText, SaveTextsButton } from '../smallComponents/TextEdits';
-import { ImageButtonFileUpload, NewImgBoxFileUpload } from '../smallComponents/FileUploads';
+import briefcaseExample from '../../assets/briefcaseExample.png';
+import visningsbild1 from '../../assets/DSC01125.jpg';
+import visningsbild2 from '../../assets/DSC01286.jpg';
+import visningsbild3 from '../../assets/DSC02755.jpg';
+import speakerImgExample1 from '../../assets/speakerImgExample1.jpg';
+import { DBHomePageContentPitchCards, DBPitchCardKey } from '../interfaces/dbInterfaces';
 import { SectionProps, SectionTypes } from '../interfaces/sectionInterfaces';
+import { ImageButtonFileUpload, NewImgBoxFileUpload } from '../smallComponents/FileUploads';
+import { EditText, SaveTextsButton } from '../smallComponents/TextEdits';
+import { db, storage } from '../utils/firebase';
 
 interface OnePitchCardProps {
    adminEditor?: boolean;
@@ -28,7 +28,7 @@ interface OnePitchCardProps {
    sectionName: SectionTypes;
 }
 
-const AddNewPitchCard = ({ sectionID, cardOrderNr }: { sectionID: string; cardOrderNr: number }): JSX.Element => {
+const AddNewPitchCard = ({ sectionID, order }: { sectionID: string; order: number }): JSX.Element => {
    return (
       <Box
          minHeight="10rem"
@@ -53,7 +53,7 @@ const AddNewPitchCard = ({ sectionID, cardOrderNr }: { sectionID: string; cardOr
          >
             <SvgIcon component={AddPhotoAlternateIcon} fontSize="large" />
             <br></br>
-            <ImageButtonFileUpload sectionID={sectionID} sectionName={'pitchCards'} cardOrderNr={cardOrderNr} />
+            <ImageButtonFileUpload sectionID={sectionID} sectionName={'pitchCards'} order={order} />
          </Box>
          <img className="participant-image" src={briefcaseExample} />
       </Box>
@@ -149,9 +149,9 @@ export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
 
             {adminEditor && newCard ? (
                <>
-                  <NewImgBoxFileUpload sectionID={sectionID} cardOrderNr={order} sectionName={sectionName} />
+                  <NewImgBoxFileUpload sectionID={sectionID} order={order} sectionName={sectionName} />
 
-                  {/*<AddNewPitchCard sectionID={sectionID} cardOrderNr={order} />*/}
+                  {/*<AddNewPitchCard sectionID={sectionID} order={order} />*/}
                </>
             ) : (
                <img className="visningsbilder" alt="visningsbild1" src={img} />

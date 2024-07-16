@@ -1,7 +1,6 @@
 // alert('Dubbelkoll av Erik vid utveckling. Om rutan popar upp så funkar mitt javascript samt jquery.');
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from './utils/firebase';
-import React from 'react';
 
 // CREATE NEW ACCOUNT //
 /*

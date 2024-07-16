@@ -1,12 +1,12 @@
-import { SectionContent, SectionProps, SectionTypes } from '../interfaces/sectionInterfaces';
+import { useState } from 'react';
 import { DBSpeaker, DBSpeakersKey } from '../interfaces/dbInterfaces';
+import { SectionProps, SectionTypes } from '../interfaces/sectionInterfaces';
 import { EditorOfImage, NewImgBoxFileUpload } from '../smallComponents/FileUploads';
 import { EditText, SaveTextsButton, handleStateTextChange } from '../smallComponents/TextEdits';
-import { useState } from 'react';
 
 export function SpeakersComponent(props: SectionProps): JSX.Element {
    const { data, adminEditor } = props;
-   const { sectionName, sectionID, sectionOrder } = data;
+   const { sectionName, sectionID } = data;
    const DBSpeakers = props.data.content as DBSpeakersKey;
 
    console.log(Object.values(DBSpeakers));
@@ -26,11 +26,11 @@ export function SpeakersComponent(props: SectionProps): JSX.Element {
       return (
          <>
             {arrayOfSpeakers}
-            {adminEditor ? <NewImgBoxFileUpload sectionID={sectionID} cardOrderNr={0} sectionName={sectionName} /> : null}
+            {adminEditor ? <NewImgBoxFileUpload sectionID={sectionID} order={0} sectionName={sectionName} /> : null}
          </>
       );
    } else {
-      return <NewImgBoxFileUpload sectionID={sectionID} cardOrderNr={0} sectionName={sectionName} />;
+      return <NewImgBoxFileUpload sectionID={sectionID} order={0} sectionName={sectionName} />;
    }
 }
 export function OneSpeaker({
@@ -69,7 +69,7 @@ export function OneSpeaker({
                   refBelowWebsiteID={`homepageContent/${sectionID}/content/${id}`}
                   data={{ title: title, titleDescription: titleDescription }}
                />
-               <EditorOfImage sectionID={sectionID} cardOrderNr={0} sectionName={sectionName} image={image} />
+               <EditorOfImage sectionID={sectionID} order={0} sectionName={sectionName} image={image} />
                <EditText
                   type={'description'}
                   initText={fullName}

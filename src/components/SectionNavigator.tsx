@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { Paper, Grid, Box } from '@mui/material';
+import { Box, Grid, Paper } from '@mui/material';
+import React from 'react';
 import { SectionContent, SectionIDs } from './interfaces/sectionInterfaces';
 import { SaveTextsButton } from './smallComponents/TextEdits';
-import { BorderRight } from '@mui/icons-material';
 
 interface Props {
    sections: SectionContent[];

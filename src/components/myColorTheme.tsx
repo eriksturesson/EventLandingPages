@@ -1,7 +1,5 @@
-import * as React from 'react';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { red, blue, green } from '@mui/material/colors';
-import Button from '@mui/material/Button';
+import { blue, green, red } from '@mui/material/colors';
+import { createTheme } from '@mui/material/styles';
 declare module '@mui/material/styles' {
    interface Palette {
       neutral: Palette['primary'];
