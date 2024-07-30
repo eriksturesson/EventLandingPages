@@ -88,14 +88,12 @@ export function OneParticipant({
                      type={'description'}
                      labelName={'Title'}
                      onChange={(event: any) => handleStateTextChange(setTitle, event)}
-                     initText={title}
                      value={title ? title : ''}
                   />
                   <EditText
                      type={'description'}
                      labelName={'Organization'}
                      onChange={(event: any) => handleStateTextChange(setOrganization, event)}
-                     initText={organization}
                      value={organization ? organization : ''}
                   />
                   <SaveTextsButton

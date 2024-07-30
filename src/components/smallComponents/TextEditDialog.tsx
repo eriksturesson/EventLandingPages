@@ -32,14 +32,14 @@ function TextEditDialog(props: Props): JSX.Element {
                }}
             >
                <EditText
-                  initText={title}
+                  value={title ? title : ''}
                   onChange={(event: any) => {
                      tempTextContent.title = event.target.value;
                   }}
                   labelName={'Title'}
                />
                <EditText
-                  initText={description}
+                  value={description ? description : ''}
                   onChange={(event: any) => {
                      // setDescription(event.target.value);
                      tempTextContent.description = event.target.value;
@@ -47,7 +47,7 @@ function TextEditDialog(props: Props): JSX.Element {
                   labelName={'Description'}
                />
                <EditText
-                  initText={time}
+                  value={time}
                   onChange={(event: any) => {
                      // setTime(event.target.value);
                      tempTextContent.time = event.target.value;
@@ -55,7 +55,7 @@ function TextEditDialog(props: Props): JSX.Element {
                   labelName={'Time'}
                />
                <EditText
-                  initText={location}
+                  value={location}
                   onChange={(event: any) => {
                      // setLocation(event.target.value);
                      tempTextContent.location = event.target.value;

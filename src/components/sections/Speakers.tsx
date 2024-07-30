@@ -57,12 +57,12 @@ export function OneSpeaker({
             <>
                <EditText
                   type={'header'}
-                  initText={title}
+                  value={title ? title : ''}
                   onChange={(event: any) => handleStateTextChange(setTitle, event)}
                />
                <EditText
                   type={'description'}
-                  initText={titleDescription}
+                  value={titleDescription ? titleDescription : ''}
                   onChange={(event: any) => handleStateTextChange(setTitleDescription, event)}
                />
                <SaveTextsButton
@@ -72,17 +72,17 @@ export function OneSpeaker({
                <EditorOfImage sectionID={sectionID} order={0} sectionName={sectionName} image={image} />
                <EditText
                   type={'description'}
-                  initText={fullName}
+                  value={fullName ? fullName : ''}
                   onChange={(event: any) => handleStateTextChange(setFullName, event)}
                />
                <EditText
                   type={'description'}
-                  initText={description}
+                  value={description ? description : ''}
                   onChange={(event: any) => handleStateTextChange(setDescription, event)}
                />
                <EditText
                   type={'description'}
-                  initText={pitch}
+                  value={pitch ? pitch : ''}
                   onChange={(event: any) => handleStateTextChange(setPitch, event)}
                />
                <SaveTextsButton

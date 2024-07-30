@@ -156,8 +156,12 @@ export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
             ) : (
                <img className="visningsbilder" alt="visningsbild1" src={img} />
             )}
-            {adminEditor ? <EditText onChange={handleTitleChange} initText={title} /> : <h1>{title}</h1>}
-            {adminEditor ? <EditText onChange={handleDescriptionChange} initText={description} /> : <p>{description}</p>}
+            {adminEditor ? <EditText onChange={handleTitleChange} value={title ? title : ''} /> : <h1>{title}</h1>}
+            {adminEditor ? (
+               <EditText onChange={handleDescriptionChange} value={description ? description : ''} />
+            ) : (
+               <p>{description}</p>
+            )}
             {adminEditor ? (
                <SaveTextsButton
                   refBelowWebsiteID={`homepageContent/${sectionID}/content/${id}`}
