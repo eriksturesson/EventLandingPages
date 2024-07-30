@@ -81,7 +81,7 @@ export function OneParticipant({
                   <EditText
                      type={'header'}
                      onChange={(event: any) => handleStateTextChange(setName, event)}
-                     initText={'name'}
+                     value={name ? name : ''}
                      labelName={'Name'}
                   />
                   <EditText
@@ -89,16 +89,18 @@ export function OneParticipant({
                      labelName={'Title'}
                      onChange={(event: any) => handleStateTextChange(setTitle, event)}
                      initText={title}
+                     value={title ? title : ''}
                   />
                   <EditText
                      type={'description'}
                      labelName={'Organization'}
                      onChange={(event: any) => handleStateTextChange(setOrganization, event)}
                      initText={organization}
+                     value={organization ? organization : ''}
                   />
                   <SaveTextsButton
                      refBelowWebsiteID={`homepageContent/${sectionID}/content/${id}`}
-                     data={{ name: name, title: title, organisation: organization, id: id, order: order }}
+                     data={{ name: name, title: title, organization: organization, id: id, order: order }}
                   />
                </>
             ) : (

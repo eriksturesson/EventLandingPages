@@ -14,11 +14,13 @@ export function EditText({
    initText,
    onChange,
    type,
+   value,
    labelName,
    rows,
 }: {
    initText?: string;
    onChange: any;
+   value: string;
    labelName?: string;
    type?: 'header' | 'description';
    rows?: number;
@@ -31,6 +33,7 @@ export function EditText({
             placeholder="Placeholder"
             rows={rows ? rows : 1}
             multiline
+            value={value}
             defaultValue={initText ? initText : ''}
             style={{ width: '100%', alignContent: 'center' }}
             InputLabelProps={{ shrink: true }}
