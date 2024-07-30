@@ -103,7 +103,7 @@ export interface DBHomePageContent {
    quillContent?: QuillContent;
    callToActionButton?: DBHomePageContentButton;
    footer?: DBHomePageContentFooter;
-   HeadingSection?: HeadingSectionTypes;
+   //HeadingSection?: HeadingSectionTypes;
 
    // timestamp: string;
 }
@@ -121,8 +121,8 @@ export type Content =
    | DBPitchCardKey
    | QuillContent
    | DBHomePageContentButton
-   | DBHomePageContentFooter
-   | HeadingSectionTypes;
+   | DBHomePageContentFooter;
+//| HeadingSectionTypes;
 
 export type InitContent = {
    fullScreenMedia: DBFullScreenMedia;

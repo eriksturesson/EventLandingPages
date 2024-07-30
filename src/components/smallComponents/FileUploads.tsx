@@ -113,6 +113,9 @@ export function fileUpload(props: FileUploadProps): void {
    } else {
       randomKeyOrOneItem = uuidv4();
    }
+   if (sectionName === 'footer') {
+      randomKeyOrOneItem = 'mapImage';
+   }
    if (file) {
       const storageRef = ref(
          storage,
@@ -165,6 +168,9 @@ export function fileUpload(props: FileUploadProps): void {
                let ref = '';
                if (sectionName === 'fullScreenMedia') {
                   data = { media: downloadURL, order: order, id: randomKeyOrOneItem, mediaType: fileType(file) };
+                  ref = `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/`;
+               } else if (sectionName === 'footer') {
+                  data = { mapImage: downloadURL };
                   ref = `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/`;
                } else {
                   data = { image: downloadURL, order: order, id: randomKeyOrOneItem };

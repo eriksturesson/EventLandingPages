@@ -23,6 +23,7 @@ export function EditText({
    type?: 'header' | 'description';
    rows?: number;
 }): JSX.Element {
+   console.log('value:', value);
    return (
       <Box style={{ paddingBottom: '2rem', width: '100%', alignContent: 'center' }}>
          <TextField
