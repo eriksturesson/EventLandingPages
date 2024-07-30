@@ -1,5 +1,5 @@
 import SaveIcon from '@mui/icons-material/Save';
-import { Button, Divider } from '@mui/material';
+import { Box, Button, Divider } from '@mui/material';
 import { ref, set } from 'firebase/database';
 import { useState } from 'react';
 import ReactQuill from 'react-quill';
@@ -73,6 +73,6 @@ export function QuillComponent(props: SectionProps): JSX.Element {
          </>
       );
    } else {
-      return <div dangerouslySetInnerHTML={{ __html: value }}></div>;
+      return <Box sx={{ justifyContent: 'center', display: 'flex' }} dangerouslySetInnerHTML={{ __html: value }}></Box>;
    }
 }
