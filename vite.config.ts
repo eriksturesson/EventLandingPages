@@ -14,14 +14,14 @@ export default defineConfig({
             main: './src/main.tsx',
          },
       },
-   },
+ },
    server: {
       // this ensures that the browser opens upon server start
       open: true,
       // this sets a default port to 3000
       port: 3001,
    },
-   //assetsInclude: ['**/*.jpg', '**/*.JPG', '**/*.jpeg', '**/*.JPEG', '**/*.png', '**/*.PNG', '**/*.gif', '**/*.svg'],
+   assetsInclude: ['**/*.jpg', '**/*.JPG', '**/*.jpeg', '**/*.JPEG', '**/*.png', '**/*.PNG', '**/*.gif', '**/*.svg'],
    // build: {
    //    assetsDir: 'assets', // Specify the directory where assets will be output
    // },
