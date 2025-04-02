@@ -1,6 +1,7 @@
 // alert('Dubbelkoll av Erik vid utveckling. Om rutan popar upp så funkar mitt javascript samt jquery.');
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from './utils/firebase';
+import { Typography } from '@mui/material';
 
 // CREATE NEW ACCOUNT //
 /*
@@ -62,11 +63,10 @@ function getUserData() {
    console.log(email);
    console.log(uid);
 }
-
 export const Login = (): JSX.Element => {
    return (
       <div style={{ margin: '1rem 1rem 1rem 1rem' }}>
-         <h1>Logga in</h1>
+         <Typography variant='h1'>Simone</Typography>
          <h2>Endast för admin till webbsidan</h2>
          <br />
          <div style={{ textAlign: 'center' }}>
