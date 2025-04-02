@@ -63,9 +63,11 @@ function getUserData() {
    console.log(email);
    console.log(uid);
 }
+import Box from '@mui/material/Box';
+
 export const Login = (): JSX.Element => {
    return (
-      <div style={{ margin: '1rem 1rem 1rem 1rem' }}>
+      <Box sx={{ margin: '1rem 1rem 1rem 1rem' }}>
          <Typography variant='h1'>Logga in</Typography>
          <h2>Endast för admin till webbsidan</h2>
          <br />
@@ -89,6 +91,6 @@ export const Login = (): JSX.Element => {
             </form>
          </div>
          <p>Har du frågor eller vill ha adminbehörighet? Kontakta Erik</p>
-      </div>
+      </Box>
    );
 };
