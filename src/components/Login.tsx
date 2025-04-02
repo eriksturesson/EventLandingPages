@@ -66,7 +66,7 @@ function getUserData() {
 export const Login = (): JSX.Element => {
    return (
       <div style={{ margin: '1rem 1rem 1rem 1rem' }}>
-         <Typography variant='h1'>Simone</Typography>
+         <Typography variant='h1'>Logga in</Typography>
          <h2>Endast för admin till webbsidan</h2>
          <br />
          <div style={{ textAlign: 'center' }}>
