@@ -72,9 +72,14 @@ export const Login = (): JSX.Element => {
       <Box sx={{ margin: '1rem 1rem 1rem 1rem' }}>
          <Typography variant='h1' sx={{
             fontSize: {xs: "2rem", sm: "3rem", md: "4rem" },
-            color: "primary.main"}}>
-            Logga in</Typography>
-         <Typography variant='h2'>Endast för admin till webbsidan</Typography>
+            color: "black"}}>
+            Logga in
+            </Typography>
+         <Typography variant='h2' sx= {{
+            fontSize: {xs: "1rem", sm:"2rem", md: "3rem"}, 
+            color: "black"}}>
+            Endast för admin till webbsidan
+            </Typography>
          <Grid container spacing={2}>
             <Grid item xs={12} sm={6} md={4}>
             </Grid>
