@@ -2,6 +2,7 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from './utils/firebase';
 import { Typography } from '@mui/material';
+import Box from '@mui/material/Box';
 
 // CREATE NEW ACCOUNT //
 /*
@@ -63,12 +64,15 @@ function getUserData() {
    console.log(email);
    console.log(uid);
 }
-import Box from '@mui/material/Box';
+
 
 export const Login = (): JSX.Element => {
    return (
       <Box sx={{ margin: '1rem 1rem 1rem 1rem' }}>
-         <Typography variant='h1'>Logga in</Typography>
+         <Typography variant='h1' sx={{
+            fontSize: {xs: "2rem", sm: "3rem", md: "4rem" },
+            color: "primary.main"}}>
+            Logga in</Typography>
          <h2>Endast för admin till webbsidan</h2>
          <br />
          <Box sx={{ textAlign: 'center' }}>
