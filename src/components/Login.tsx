@@ -71,7 +71,7 @@ export const Login = (): JSX.Element => {
          <Typography variant='h1'>Logga in</Typography>
          <h2>Endast för admin till webbsidan</h2>
          <br />
-         <div style={{ textAlign: 'center' }}>
+         <Box sx={{ textAlign: 'center' }}>
             <form>
                <label htmlFor="accountemail">Email:</label>
                <br />
@@ -89,7 +89,7 @@ export const Login = (): JSX.Element => {
                </button>
                {/* <button type="button" onclick="getUserData()" id="getuserdata">See my data</button> */}
             </form>
-         </div>
+         </Box>
          <p>Har du frågor eller vill ha adminbehörighet? Kontakta Erik</p>
       </Box>
    );
