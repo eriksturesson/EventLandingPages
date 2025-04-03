@@ -3,6 +3,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from './utils/firebase';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
+import { Grid } from '@mui/material';
 
 // CREATE NEW ACCOUNT //
 /*
@@ -73,8 +74,11 @@ export const Login = (): JSX.Element => {
             fontSize: {xs: "2rem", sm: "3rem", md: "4rem" },
             color: "primary.main"}}>
             Logga in</Typography>
-         <h2>Endast för admin till webbsidan</h2>
-         <br />
+         <Typography variant='h2'>Endast för admin till webbsidan</Typography>
+         <Grid container spacing={2}>
+            <Grid item xs={12} sm={6} md={4}>
+            </Grid>
+         </Grid>
          <Box sx={{ textAlign: 'center' }}>
             <form>
                <label htmlFor="accountemail">Email:</label>
