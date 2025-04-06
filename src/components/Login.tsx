@@ -112,7 +112,7 @@ export const Login = ({ loginFunction }: Props): JSX.Element => {
              label="Email"
              type="email"
              variant="outlined"
-             fullWidth
+             
            />
          </Box>
 
@@ -123,7 +123,6 @@ export const Login = ({ loginFunction }: Props): JSX.Element => {
              label="Password"
              type="password"
              variant="outlined"
-             fullWidth
            />
          </Box>
 
