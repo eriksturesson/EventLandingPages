@@ -4,6 +4,8 @@ import { auth } from './utils/firebase';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { Grid } from '@mui/material';
+import React from 'react';
+import { TextField, Button } from '@mui/material';
 
 // CREATE NEW ACCOUNT //
 /*
@@ -66,44 +68,78 @@ function getUserData() {
    console.log(uid);
 }
 
-
-export const Login = (): JSX.Element => {
+type Props = {
+   loginFunction: () => void;
+ };
+ 
+export const Login = ({ loginFunction }: Props): JSX.Element => {
    return (
       <Box sx={{ margin: '1rem 1rem 1rem 1rem' }}>
-         <Typography variant='h1' sx={{
-            fontSize: {xs: "2rem", sm: "3rem", md: "4rem" },
-            color: "black"}}>
+         <Typography 
+            variant='h1' 
+            sx={{
+               fontSize: {xs: "2rem", sm: "3rem", md: "4rem" },
+               color: "black"}}>
+
             Logga in
             </Typography>
-         <Typography variant='h2' sx= {{
-            fontSize: {xs: "1rem", sm:"2rem", md: "3rem"}, 
-            color: "black"}}>
+
+         <Typography 
+            variant='h2' 
+            sx= {{
+               fontSize: {xs: "1rem", sm:"2rem", md: "3rem"}, 
+               color: "black"}}>
+
             Endast för admin till webbsidan
             </Typography>
+
          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6} md={4}>
-            </Grid>
+            <Grid item xs={12} sm={6} md={4}></Grid>
          </Grid>
-         <Box sx={{ textAlign: 'center' }}>
-            <form>
-               <label htmlFor="accountemail">Email:</label>
-               <br />
-               <input type="text" id="accountemail" name="accountemail" />
-               <br />
-               <br />
-               <label htmlFor="pass">Password:</label>
-               <br />
-               <input type="password" id="pass" name="password" />
-               <br />
-               <br />
-               {/* <button type="button" onclick="createUser()" id="createaccount">Create Account</button> */}
-               <button type="button" onClick={loginFunction} id="signin">
-                  Sign in
-               </button>
-               {/* <button type="button" onclick="getUserData()" id="getuserdata">See my data</button> */}
-            </form>
+
+         <Box sx={{ textAlign: 'center'}}>
+
+         <form
+         onSubmit={(e) => {
+           e.preventDefault();
+           loginFunction();
+         }}
+       >
+         <Box sx={{ mb: 2 }}>
+           <TextField
+             id="accountemail"
+             name="accountemail"
+             label="Email"
+             type="email"
+             variant="outlined"
+             fullWidth
+           />
          </Box>
-         <p>Har du frågor eller vill ha adminbehörighet? Kontakta Erik</p>
-      </Box>
-   );
+
+         <Box sx={{ mb: 2 }}>
+           <TextField
+             id="pass"
+             name="password"
+             label="Password"
+             type="password"
+             variant="outlined"
+             fullWidth
+           />
+         </Box>
+
+         <Button
+           type="submit"
+           variant="contained"
+           color="primary"
+           id="signin"
+         >
+           Sign in
+         </Button>
+       </form>
+     </Box>
+     <Typography variant="body2" sx={{ mt: 2 }}>
+        Har du frågor eller vill ha adminbehörighet? Kontakta Erik
+      </Typography>
+    </Box>
+  );
 };
