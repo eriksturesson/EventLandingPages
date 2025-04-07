@@ -1,11 +1,8 @@
 // alert('Dubbelkoll av Erik vid utveckling. Om rutan popar upp så funkar mitt javascript samt jquery.');
+import { Button, Grid, TextField, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from './utils/firebase';
-import { Typography } from '@mui/material';
-import Box from '@mui/material/Box';
-import { Grid } from '@mui/material';
-import React from 'react';
-import { TextField, Button } from '@mui/material';
 
 // CREATE NEW ACCOUNT //
 /*
@@ -68,77 +65,56 @@ function getUserData() {
    console.log(uid);
 }
 
-type Props = {
-   loginFunction: () => void;
- };
- 
-export const Login = ({ loginFunction }: Props): JSX.Element => {
+export const Login = (): JSX.Element => {
    return (
       <Box sx={{ margin: '1rem 1rem 1rem 1rem' }}>
-         <Typography 
-            variant='h1' 
+         <Typography
+            variant="h1"
             sx={{
-               fontSize: {xs: "2rem", sm: "3rem", md: "4rem" },
-               color: "black"}}>
-
+               fontSize: { xs: '2rem', sm: '3rem', md: '4rem' },
+               color: 'black',
+            }}
+         >
             Logga in
-            </Typography>
+         </Typography>
 
-         <Typography 
-            variant='h2' 
-            sx= {{
-               fontSize: {xs: "1rem", sm:"2rem", md: "3rem"}, 
-               color: "black"}}>
-
+         <Typography
+            variant="h2"
+            sx={{
+               fontSize: { xs: '1rem', sm: '2rem', md: '3rem' },
+               color: 'black',
+            }}
+         >
             Endast för admin till webbsidan
-            </Typography>
+         </Typography>
 
          <Grid container spacing={2}>
             <Grid item xs={12} sm={6} md={4}></Grid>
          </Grid>
 
-         <Box sx={{ textAlign: 'center'}}>
+         <Box sx={{ textAlign: 'center' }}>
+            <form
+               onSubmit={(e) => {
+                  e.preventDefault();
+                  loginFunction();
+               }}
+            >
+               <Box sx={{ mb: 2 }}>
+                  <TextField id="accountemail" name="accountemail" label="Email" type="email" variant="outlined" />
+               </Box>
 
-         <form
-         onSubmit={(e) => {
-           e.preventDefault();
-           loginFunction();
-         }}
-       >
-         <Box sx={{ mb: 2 }}>
-           <TextField
-             id="accountemail"
-             name="accountemail"
-             label="Email"
-             type="email"
-             variant="outlined"
-             
-           />
+               <Box sx={{ mb: 2 }}>
+                  <TextField id="pass" name="password" label="Password" type="password" variant="outlined" />
+               </Box>
+
+               <Button type="submit" variant="contained" color="primary" id="signin">
+                  Sign in
+               </Button>
+            </form>
          </Box>
-
-         <Box sx={{ mb: 2 }}>
-           <TextField
-             id="pass"
-             name="password"
-             label="Password"
-             type="password"
-             variant="outlined"
-           />
-         </Box>
-
-         <Button
-           type="submit"
-           variant="contained"
-           color="primary"
-           id="signin"
-         >
-           Sign in
-         </Button>
-       </form>
-     </Box>
-     <Typography variant="body2" sx={{ mt: 2 }}>
-        Har du frågor eller vill ha adminbehörighet? Kontakta Erik
-      </Typography>
-    </Box>
-  );
+         <Typography variant="body2" sx={{ mt: 2 }}>
+            Har du frågor eller vill ha adminbehörighet? Kontakta Erik
+         </Typography>
+      </Box>
+   );
 };
