@@ -17,10 +17,11 @@
             </div>
 
 */
+import Box from '@mui/material/Box';
 
 const NavWrapper = ({ websiteID }: { websiteID: string }): JSX.Element => {
    return (
-      <div className="eriks-nav-wrapper">
+      <Box sx={{padding: 2}}className="eriks-nav-wrapper">
          <ul className="right-menu-in-nav">
             <li>
                <a href="/">Home</a>
@@ -32,7 +33,7 @@ const NavWrapper = ({ websiteID }: { websiteID: string }): JSX.Element => {
                <a href="./arrangerandeklubbar">Arrangörer</a>
             </li>
          </ul>
-      </div>
+      </Box>
    );
 };
 
