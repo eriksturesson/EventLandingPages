@@ -1,73 +1,49 @@
-// alert('Dubbelkoll av Erik vid utveckling. Om rutan popar upp så funkar mitt javascript samt jquery.');
-import { Button, Grid, TextField, Typography } from '@mui/material';
-import Box from '@mui/material/Box';
+import { Box, Button, FormControl, FormHelperText, Grid, Input, InputLabel, Typography } from '@mui/material';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useState } from 'react';
 import { auth } from './utils/firebase';
 
-// CREATE NEW ACCOUNT //
-/*
-  function createUser() {
-
-    let accountEmailValue = document.getElementById("accountemail").value;
-    let passwordValue = document.getElementById("pass").value;
-  
-   firebase.auth().createUserWithEmailAndPassword(accountEmailValue, passwordValue)
-    .then((userCredential) => {
-      // Signed in 
-      var user = userCredential.user;
-      alert("Nu har du skapat ett konto och kan börja logga in framöver. Har du mer frågor, kontakta Erik.");
-      // ...
-    })
-    .catch((error) => {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ..
-    });
-    }
-  */
-function loginFunction() {
-   let accountEmailValue = (document.getElementById('accountemail') as HTMLInputElement).value;
-   let passwordValue = (document.getElementById('pass') as HTMLInputElement).value;
-
-   // SIGN IN USER //
-   signInWithEmailAndPassword(auth, accountEmailValue, passwordValue)
-      .then((userCredential) => {
-         // Signed in
-         var user = userCredential.user;
-         //window.location.href = "admin.html";
-         // ...
-      })
-      .catch((error) => {
-         var errorCode = error.code;
-         var errorMessage = error.message;
-         alert(errorMessage);
-      });
-}
-
-// Get user data //
-function getUserData() {
-   var user = auth.currentUser;
-   var name, email, photoUrl, uid, emailVerified;
-
-   if (user != null) {
-      name = user.displayName;
-      email = user.email;
-      photoUrl = user.photoURL;
-      emailVerified = user.emailVerified;
-      uid = user.uid; // The user's ID, unique to the Firebase project. Do NOT use
-      // this value to authenticate with your backend server, if
-      // you have one. Use User.getToken() instead.
+async function loginFunction({ email, password }: { email?: string; password?: string }) {
+   if (!email || !password) {
+      throw new Error('Email and password are required for login.');
    }
-
-   (document.getElementById('testgetuser')! as HTMLElement).innerHTML = 'Name: ' + name + '<br>' + 'uid: ' + uid + '<br>';
-   console.log(name);
-   console.log(email);
-   console.log(uid);
+   try {
+      let data = await signInWithEmailAndPassword(auth, email, password);
+      return data.user.uid;
+   } catch (error: any) {
+      let errorMessage = error.message;
+      errorMessage = errorMessage.replace('Firebase: ', '').replace('(', '').replace(')', '');
+      throw new Error(errorMessage);
+   }
 }
 
 export const Login = (): JSX.Element => {
+   const [email, setEmail] = useState<string>('');
+   const [password, setPassword] = useState<string>('');
+   const [error, setError] = useState<string | null>(null);
+
+   const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+      try {
+         setError(null);
+         await loginFunction({ email, password });
+      } catch (err: any) {
+         setError(err.message);
+      }
+   };
+
    return (
-      <Box sx={{ margin: '1rem 1rem 1rem 1rem' }}>
+      <Box
+         sx={{
+            margin: '1rem 1rem 1rem 1rem',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            minHeight: '100vh', // Fill full screen
+            backgroundColor: '#f5f5f5', // Optional, for contrast
+         }}
+      >
          <Typography
             variant="h1"
             sx={{
@@ -92,26 +68,59 @@ export const Login = (): JSX.Element => {
             <Grid item xs={12} sm={6} md={4}></Grid>
          </Grid>
 
-         <Box sx={{ textAlign: 'center' }}>
-            <form
-               onSubmit={(e) => {
-                  e.preventDefault();
-                  loginFunction();
-               }}
-            >
-               <Box sx={{ mb: 2 }}>
-                  <TextField id="accountemail" name="accountemail" label="Email" type="email" variant="outlined" />
-               </Box>
+         <Box
+            sx={{
+               textAlign: 'center',
+               mt: 2,
+               mb: 2,
+               backgroundColor: 'lightgray',
+               maxWidth: '400px',
+               padding: '1rem',
+               borderRadius: '8px',
+            }}
+         >
+            <form onSubmit={handleSubmit}>
+               <Box>
+                  <Box sx={{ mb: 2 }}>
+                     <FormControl>
+                        <InputLabel htmlFor="email-input">Email address</InputLabel>
+                        <Input
+                           id="email-input"
+                           aria-describedby="email-helper-text"
+                           value={email}
+                           onChange={(e) => setEmail(e.target.value)}
+                           type="email"
+                        />
+                        <FormHelperText id="email-helper-text">Write your admin email</FormHelperText>
+                     </FormControl>
+                  </Box>
 
-               <Box sx={{ mb: 2 }}>
-                  <TextField id="pass" name="password" label="Password" type="password" variant="outlined" />
-               </Box>
+                  <Box sx={{ mb: 2 }}>
+                     <FormControl>
+                        <InputLabel htmlFor="password-input">Password</InputLabel>
+                        <Input
+                           id="password-input"
+                           aria-describedby="password-helper-text"
+                           value={password}
+                           onChange={(e) => setPassword(e.target.value)}
+                           type="password"
+                        />
+                        <FormHelperText id="password-helper-text">Ditt lösenord är säkert hos oss.</FormHelperText>
+                     </FormControl>
+                  </Box>
 
-               <Button type="submit" variant="contained" color="primary" id="signin">
+                  {error && (
+                     <Typography color="error" sx={{ mb: 2 }}>
+                        {error}
+                     </Typography>
+                  )}
+               </Box>
+               <Button type="submit" variant="contained" color="primary">
                   Sign in
                </Button>
             </form>
          </Box>
+
          <Typography variant="body2" sx={{ mt: 2 }}>
             Har du frågor eller vill ha adminbehörighet? Kontakta Erik
          </Typography>
