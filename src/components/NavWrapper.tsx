@@ -25,13 +25,13 @@ const NavWrapper = ({ websiteID }: { websiteID: string }): JSX.Element => {
       <Box sx={{display: 'flex', justifyContent: 'flex-end', padding: 2}}className="eriks-nav-wrapper">
          <List sx={{display: 'flex', gap: 2, padding: 0}} className="right-menu-in-nav">
             <ListItem sx={{width: 'auto', padding: 0 }}>
-               <Link href="/"underline ="none">Home</Link>
+               <Link href="/"underline ="none" sx={{color: 'black', textDecoration: 'none', '&:hover': {color: 'grey', textDecorationColor: 'grey', borderBottom: '2px solid grey'}}}>Home</Link>
             </ListItem>
             <ListItem sx={{width: 'auto', padding: 0 }}>
-               <Link href="./tidigareprogram" underline="none">Föregående år</Link>
+               <Link href="./tidigareprogram" underline="none" sx={{color: 'inherit', textDecoration: 'none', '&:hover': {color: 'grey', textDecorationColor: 'grey', borderBottom: '2px solid grey'}}}>Föregående år</Link>
             </ListItem>
             <ListItem sx={{width: 'auto', padding: 0 }}>
-               <Link href="./arrangerandeklubbar" underline = "none">Arrangörer</Link>
+               <Link href="./arrangerandeklubbar" underline = "none" sx={{color: 'inherit', textDecoration: 'none', '&:hover': {color: 'grey', textDecorationColor: 'grey', borderBottom: '2px solid grey'}}}>Arrangörer</Link>
             </ListItem>
          </List>
       </Box>
