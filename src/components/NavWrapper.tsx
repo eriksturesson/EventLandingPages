@@ -18,23 +18,21 @@
 
 */
 
-import { Box, List, ListItem, Link} from '@mui/material';
-
 const NavWrapper = ({ websiteID }: { websiteID: string }): JSX.Element => {
    return (
-      <Box sx={{display: 'flex', justifyContent: 'flex-end', padding: 2}}className="eriks-nav-wrapper">
-         <List sx={{display: 'flex', gap: 2, padding: 0}} className="right-menu-in-nav">
-            <ListItem sx={{width: 'auto', padding: 0 }}>
-               <Link href="/"underline ="none" sx={{color: 'black', textDecoration: 'none', '&:hover': {color: 'grey', textDecorationColor: 'grey', borderBottom: '2px solid grey'}}}>Home</Link>
-            </ListItem>
-            <ListItem sx={{width: 'auto', padding: 0 }}>
-               <Link href="./tidigareprogram" underline="none" sx={{color: 'inherit', textDecoration: 'none', '&:hover': {color: 'grey', textDecorationColor: 'grey', borderBottom: '2px solid grey'}}}>Föregående år</Link>
-            </ListItem>
-            <ListItem sx={{width: 'auto', padding: 0 }}>
-               <Link href="./arrangerandeklubbar" underline = "none" sx={{color: 'inherit', textDecoration: 'none', '&:hover': {color: 'grey', textDecorationColor: 'grey', borderBottom: '2px solid grey'}}}>Arrangörer</Link>
-            </ListItem>
-         </List>
-      </Box>
+      <div className="eriks-nav-wrapper">
+         <ul className="right-menu-in-nav">
+            <li>
+               <a href="/">Home</a>
+            </li>
+            <li>
+               <a href="./tidigareprogram">Föregående år</a>
+            </li>
+            <li>
+               <a href="./arrangerandeklubbar">Arrangörer</a>
+            </li>
+         </ul>
+      </div>
    );
 };
 
