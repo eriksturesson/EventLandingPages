@@ -54,15 +54,6 @@ const NavWrapper = ({ websiteID }: { websiteID: string }): JSX.Element => {
                >
                   Arrangörer
                </Button>
-
-               <Link href="./arrangerandeklubbar">Arrangörer</Link>
-               <Typography variant="h6" color="inherit" component="div">
-                  Photos
-               </Typography>
-
-               <Typography variant="h6" color="inherit" component="div">
-                  Photos
-               </Typography>
             </Toolbar>
          </AppBar>
       </Box>
