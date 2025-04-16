@@ -11,7 +11,7 @@ export default defineConfig({
       emptyOutDir: true,
       rollupOptions: {
          input: {
-            main: './src/main.tsx',
+            main: './src/index.html',
          },
       },
  },
@@ -19,7 +19,7 @@ export default defineConfig({
       // this ensures that the browser opens upon server start
       open: true,
       // this sets a default port to 3000
-      port: 3001,
+      port: 3002,
    },
    assetsInclude: ['**/*.jpg', '**/*.JPG', '**/*.jpeg', '**/*.JPEG', '**/*.png', '**/*.PNG', '**/*.gif', '**/*.svg'],
    // build: {
