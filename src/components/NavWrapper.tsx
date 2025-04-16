@@ -31,11 +31,30 @@ const NavWrapper = ({ websiteID }: { websiteID: string }): JSX.Element => {
       <Box sx={{ flexGrow: 1 }}>
          <AppBar position="static">
             <Toolbar variant="dense">
-               <Button component="a" href="/" target="_blank" rel="noopener noreferrer">
+               <Button component="a" href="/" target="_blank" rel="noopener noreferrer" sx={{ color: 'inherit' }}>
                   Home
                </Button>
-               <Link href="/">Home</Link>
-               <Link href="./tidigareprogram">Föregående år</Link>
+
+               <Button
+                  component="a"
+                  href="./tidigareprogram"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{ color: 'inherit' }}
+               >
+                  Föregående år
+               </Button>
+
+               <Button
+                  component="a"
+                  href="./arrangerandeklubbar"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{ color: 'inherit' }}
+               >
+                  Arrangörer
+               </Button>
+
                <Link href="./arrangerandeklubbar">Arrangörer</Link>
                <Typography variant="h6" color="inherit" component="div">
                   Photos
