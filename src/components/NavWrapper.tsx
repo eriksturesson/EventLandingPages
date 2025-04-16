@@ -28,37 +28,95 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 const NavWrapper = ({ websiteID }: { websiteID: string }): JSX.Element => {
    return (
-      <Box sx={{ flexGrow: 1 }}>
-         <AppBar position="static">
-            <Toolbar variant="dense">
-               <Button component="a" href="/" target="_blank" rel="noopener noreferrer" sx={{ color: 'inherit' }}>
-                  Home
-               </Button>
+      <Box sx={{ backgroundColor: 'primary.main', padding: 1, flexGrow: 1 }}>
+         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+            <Button
+               component="a"
+               href="/"
+               target="_blank"
+               rel="noopener noreferrer"
+               sx={{
+                  color: 'white',
+                  fontWeight: 'bold',
+                  textTransform: 'none',
+                  '&:hover': {
+                     backgroundColor: 'primary.dark',
+                  },
+               }}
+            >
+               Home
+            </Button>
 
-               <Button
-                  component="a"
-                  href="./tidigareprogram"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  sx={{ color: 'inherit' }}
-               >
-                  Föregående år
-               </Button>
+            <Button
+               component="a"
+               href="./tidigareprogram"
+               target="_blank"
+               rel="noopener noreferrer"
+               sx={{
+                  color: 'white',
+                  fontWeight: 'bold',
+                  textTransform: 'none',
+                  '&:hover': {
+                     backgroundColor: 'primary.dark',
+                  },
+               }}
+            >
+               Föregående år
+            </Button>
 
-               <Button
-                  component="a"
-                  href="./arrangerandeklubbar"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  sx={{ color: 'inherit' }}
-               >
-                  Arrangörer
-               </Button>
-            </Toolbar>
-         </AppBar>
+            <Button
+               component="a"
+               href="./arrangerandeklubbar"
+               target="_blank"
+               rel="noopener noreferrer"
+               sx={{
+                  color: 'white',
+                  fontWeight: 'bold',
+                  textTransform: 'none',
+
+                  '&:hover': {
+                     backgroundColor: 'primary.dark',
+                  },
+               }}
+            >
+               Arrangörer
+            </Button>
+         </Box>
       </Box>
    );
 };
+//       <Box sx={{ flexGrow: 1 }}>
+//          <AppBar position="static">
+//             <Toolbar variant="dense">
+//                <Button component="a" href="/" target="_blank" rel="noopener noreferrer" sx={{ color: 'inherit' }}>
+//                   Home
+//                </Button>
+
+//                <Button
+//                   component="a"
+//                   href="./tidigareprogram"
+//                   target="_blank"
+//                   rel="noopener noreferrer"
+//                   sx={{ color: 'inherit' }}
+//                >
+//                   Föregående år
+//                </Button>
+
+//                <Button
+//                   component="a"
+//                   href="./arrangerandeklubbar"
+//                   target="_blank"
+//                   rel="noopener noreferrer"
+//                   sx={{ color: 'inherit' }}
+//                >
+//                   Arrangörer
+//                </Button>
+
+//             </Toolbar>
+//          </AppBar>
+//       </Box>
+//    );
+// };
 
 // return (
 //    <Box >
