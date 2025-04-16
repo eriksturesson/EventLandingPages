@@ -9,6 +9,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import logga from '../assets/LOGGA FÄRDIGT UTKAST.jpg';
 
 /*
             <div className="right-menu-in-nav" id="reactNavbar">
@@ -29,62 +30,83 @@ import MenuIcon from '@mui/icons-material/Menu';
 const NavWrapper = ({ websiteID }: { websiteID: string }): JSX.Element => {
    return (
       <Box sx={{ backgroundColor: 'primary.main', padding: 1, flexGrow: 1 }}>
-         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
-            <Button
-               component="a"
-               href="/"
-               target="_blank"
-               rel="noopener noreferrer"
-               sx={{
-                  color: 'white',
-                  fontWeight: 'bold',
-                  textTransform: 'none',
-                  '&:hover': {
-                     backgroundColor: 'primary.dark',
-                  },
-               }}
-            >
-               Home
-            </Button>
+         <Box
+            sx={{
+               display: 'flex',
+               alignItems: 'center',
+               justifyContent: 'space-between',
+               paddingX: 2,
+            }}
+         >
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+               <img
+                  src={logga}
+                  alt="Logo"
+                  style={{
+                     width: '120px',
+                     height: '50px',
+                     borderRadius: '5%',
+                  }}
+               />
+            </Box>
 
-            <Button
-               component="a"
-               href="./tidigareprogram"
-               target="_blank"
-               rel="noopener noreferrer"
-               sx={{
-                  color: 'white',
-                  fontWeight: 'bold',
-                  textTransform: 'none',
-                  '&:hover': {
-                     backgroundColor: 'primary.dark',
-                  },
-               }}
-            >
-               Föregående år
-            </Button>
+            <Box sx={{ display: 'flex', gap: 2 }}>
+               <Button
+                  component="a"
+                  href="/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                     color: 'white',
+                     fontWeight: 'bold',
+                     textTransform: 'none',
+                     '&:hover': {
+                        backgroundColor: 'primary.dark',
+                     },
+                  }}
+               >
+                  Home
+               </Button>
 
-            <Button
-               component="a"
-               href="./arrangerandeklubbar"
-               target="_blank"
-               rel="noopener noreferrer"
-               sx={{
-                  color: 'white',
-                  fontWeight: 'bold',
-                  textTransform: 'none',
+               <Button
+                  component="a"
+                  href="./tidigareprogram"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                     color: 'white',
+                     fontWeight: 'bold',
+                     textTransform: 'none',
+                     '&:hover': {
+                        backgroundColor: 'primary.dark',
+                     },
+                  }}
+               >
+                  Föregående år
+               </Button>
 
-                  '&:hover': {
-                     backgroundColor: 'primary.dark',
-                  },
-               }}
-            >
-               Arrangörer
-            </Button>
+               <Button
+                  component="a"
+                  href="./arrangerandeklubbar"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                     color: 'white',
+                     fontWeight: 'bold',
+                     textTransform: 'none',
+                     '&:hover': {
+                        backgroundColor: 'primary.dark',
+                     },
+                  }}
+               >
+                  Arrangörer
+               </Button>
+            </Box>
          </Box>
       </Box>
    );
 };
+
 //       <Box sx={{ flexGrow: 1 }}>
 //          <AppBar position="static">
 //             <Toolbar variant="dense">
