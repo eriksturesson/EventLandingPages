@@ -39,15 +39,25 @@ const NavWrapper = ({ websiteID }: { websiteID: string }): JSX.Element => {
             }}
          >
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-               <img
-                  src={logga}
-                  alt="Logo"
-                  style={{
-                     width: '120px',
-                     height: '50px',
-                     borderRadius: '5%',
+               <Box
+                  sx={{
+                     backgroundColor: 'white',
+                     paddingX: '24px',
+                     paddingY: '4px',
+                     borderRadius: '8px',
+                     display: 'inline-block',
                   }}
-               />
+               >
+                  <img
+                     src={logga}
+                     alt="Logo"
+                     style={{
+                        width: '120px',
+                        height: '50px',
+                        borderRadius: '0%',
+                     }}
+                  />
+               </Box>
             </Box>
 
             <Box sx={{ display: 'flex', gap: 2 }}>
