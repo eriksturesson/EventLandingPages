@@ -2,14 +2,10 @@
 //import { Navbar, Nav, Container } from 'react-bootstrap';
 //import arrangerandeKlubbarHTML from "../"
 
-import { Box, Button, Link } from '@mui/material';
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
+import { Box, Button, Drawer, IconButton, List, ListItem, ListItemText } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import logga from '../assets/LOGGA FÄRDIGT UTKAST.jpg';
+import { useState } from 'react';
 
 /*
             <div className="right-menu-in-nav" id="reactNavbar">
@@ -28,6 +24,17 @@ import logga from '../assets/LOGGA FÄRDIGT UTKAST.jpg';
 */
 
 const NavWrapper = ({ websiteID }: { websiteID: string }): JSX.Element => {
+   const menuItems = [
+      { label: 'Home', link: '/' },
+      { label: 'Föregående år', link: './tidigareprogram' },
+      { label: 'Arrangörer', link: './arrangerandeklubbar' },
+   ];
+   const [menuOpen, setMenuOpen] = useState(false);
+
+   const handleDrawerToggle = () => {
+      setMenuOpen(!menuOpen);
+   };
+
    return (
       <Box sx={{ backgroundColor: 'primary.main', padding: 1, flexGrow: 1 }}>
          <Box
@@ -54,73 +61,109 @@ const NavWrapper = ({ websiteID }: { websiteID: string }): JSX.Element => {
                      style={{
                         width: '120px',
                         height: '50px',
-                        borderRadius: '0%',
                      }}
                   />
                </Box>
             </Box>
-
-            <Box sx={{ display: 'flex', gap: 2 }}>
-               <Button
-                  component="a"
-                  href="/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  sx={{
-                     color: 'white',
-                     fontWeight: 'bold',
-                     textTransform: 'none',
-                     '&:hover': {
-                        backgroundColor: 'primary.dark',
-                     },
-                  }}
-               >
-                  Home
-               </Button>
-
-               <Button
-                  component="a"
-                  href="./tidigareprogram"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  sx={{
-                     color: 'white',
-                     fontWeight: 'bold',
-                     textTransform: 'none',
-                     '&:hover': {
-                        backgroundColor: 'primary.dark',
-                     },
-                  }}
-               >
-                  Föregående år
-               </Button>
-
-               <Button
-                  component="a"
-                  href="./arrangerandeklubbar"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  sx={{
-                     color: 'white',
-                     fontWeight: 'bold',
-                     textTransform: 'none',
-                     '&:hover': {
-                        backgroundColor: 'primary.dark',
-                     },
-                  }}
-               >
-                  Arrangörer
-               </Button>
+            <Box
+               sx={{
+                  display: { xs: 'none', md: 'flex' },
+                  gap: 2,
+               }}
+            >
+               {menuItems.map((item) => (
+                  <Button
+                     key={item.label}
+                     component="a"
+                     href={item.link}
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     sx={{
+                        color: 'white',
+                        fontWeight: 'bold',
+                        textTransform: 'none',
+                        '&:hover': {
+                           backgroundColor: 'primary.dark',
+                        },
+                     }}
+                  >
+                     {item.label}
+                  </Button>
+               ))}
             </Box>
+            <IconButton sx={{ display: { xs: 'flex', md: 'none' }, color: 'white' }} onClick={handleDrawerToggle}>
+               <MenuIcon />
+            </IconButton>
+            <Drawer
+               anchor="right"
+               open={menuOpen}
+               onClose={handleDrawerToggle}
+               PaperProps={{
+                  sx: { width: 250, backgroundColor: 'primary.main', color: 'white' },
+               }}
+            >
+               <List>
+                  {menuItems.map((item) => (
+                     <ListItem button key={item.label} component="a" href={item.link} onClick={handleDrawerToggle}>
+                        <ListItemText primary={item.label} />
+                     </ListItem>
+                  ))}
+               </List>
+            </Drawer>
          </Box>
       </Box>
    );
 };
 
-//       <Box sx={{ flexGrow: 1 }}>
-//          <AppBar position="static">
-//             <Toolbar variant="dense">
-//                <Button component="a" href="/" target="_blank" rel="noopener noreferrer" sx={{ color: 'inherit' }}>
+// Innan hamburgermenyn:
+// const NavWrapper = ({ websiteID }: { websiteID: string }): JSX.Element => {
+//    return (
+//       <Box sx={{ backgroundColor: 'primary.main', padding: 1, flexGrow: 1 }}>
+//          <Box
+//             sx={{
+//                display: 'flex',
+//                alignItems: 'center',
+//                justifyContent: 'space-between',
+//                paddingX: 2,
+//             }}
+//          >
+//             <Box sx={{ display: 'flex', alignItems: 'center' }}>
+//                <Box
+//                   sx={{
+//                      backgroundColor: 'white',
+//                      paddingX: '24px',
+//                      paddingY: '4px',
+//                      borderRadius: '8px',
+//                      display: 'inline-block',
+//                   }}
+//                >
+//                   <img
+//                      src={logga}
+//                      alt="Logo"
+//                      style={{
+//                         width: '120px',
+//                         height: '50px',
+//                         borderRadius: '0%',
+//                      }}
+//                   />
+//                </Box>
+//             </Box>
+
+//             <Box sx={{ display: 'flex', gap: 2 }}>
+//                <Button
+//                   component="a"
+//                   href="/"
+//                   target="_blank"
+//                   rel="noopener noreferrer"
+//                   sx={{
+//                      color: 'white',
+//                      fontWeight: 'bold',
+//                      textTransform: 'none',
+//                      '&:hover': {
+//                         backgroundColor: 'primary.dark',
+//                      },
+//                   }}
+//                >
 //                   Home
 //                </Button>
 
@@ -129,7 +172,14 @@ const NavWrapper = ({ websiteID }: { websiteID: string }): JSX.Element => {
 //                   href="./tidigareprogram"
 //                   target="_blank"
 //                   rel="noopener noreferrer"
-//                   sx={{ color: 'inherit' }}
+//                   sx={{
+//                      color: 'white',
+//                      fontWeight: 'bold',
+//                      textTransform: 'none',
+//                      '&:hover': {
+//                         backgroundColor: 'primary.dark',
+//                      },
+//                   }}
 //                >
 //                   Föregående år
 //                </Button>
@@ -139,13 +189,19 @@ const NavWrapper = ({ websiteID }: { websiteID: string }): JSX.Element => {
 //                   href="./arrangerandeklubbar"
 //                   target="_blank"
 //                   rel="noopener noreferrer"
-//                   sx={{ color: 'inherit' }}
+//                   sx={{
+//                      color: 'white',
+//                      fontWeight: 'bold',
+//                      textTransform: 'none',
+//                      '&:hover': {
+//                         backgroundColor: 'primary.dark',
+//                      },
+//                   }}
 //                >
 //                   Arrangörer
 //                </Button>
-
-//             </Toolbar>
-//          </AppBar>
+//             </Box>
+//          </Box>
 //       </Box>
 //    );
 // };
