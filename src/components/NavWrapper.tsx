@@ -36,7 +36,15 @@ const NavWrapper = ({ websiteID }: { websiteID: string }): JSX.Element => {
    };
 
    return (
-      <Box sx={{ backgroundColor: 'primary.main', padding: 1, flexGrow: 1 }}>
+      <Box
+         sx={{
+            backgroundColor: 'transparent',
+            backdropFilter: 'blur(8px)',
+            padding: 1,
+            flexGrow: 1,
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+         }}
+      >
          <Box
             sx={{
                display: 'flex',
