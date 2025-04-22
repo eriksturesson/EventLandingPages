@@ -59,7 +59,7 @@ const NavWrapper = ({ websiteID }: { websiteID: string }): JSX.Element => {
                      backgroundColor: 'white',
                      paddingX: '24px',
                      paddingY: '4px',
-                     borderRadius: '8px',
+                     borderRadius: '12px',
                      display: 'inline-block',
                   }}
                >
@@ -87,11 +87,14 @@ const NavWrapper = ({ websiteID }: { websiteID: string }): JSX.Element => {
                      target="_blank"
                      rel="noopener noreferrer"
                      sx={{
-                        color: 'white',
+                        color: 'black',
                         fontWeight: 'bold',
                         textTransform: 'none',
+                        // paddingX: 2,
+                        // paddingY: 1,
+
                         '&:hover': {
-                           backgroundColor: 'primary.dark',
+                           backgroundColor: 'rgba(0,0,0,0.1)',
                         },
                      }}
                   >
@@ -99,8 +102,18 @@ const NavWrapper = ({ websiteID }: { websiteID: string }): JSX.Element => {
                   </Button>
                ))}
             </Box>
-            <IconButton sx={{ display: { xs: 'flex', md: 'none' }, color: 'white' }} onClick={handleDrawerToggle}>
-               <MenuIcon />
+            <IconButton
+               sx={{
+                  display: { xs: 'flex', md: 'none' },
+                  color: 'black',
+                  border: '1px solid black',
+                  borderRadius: '12px',
+                  padding: 1,
+                  backgroundColor: 'rgba(255, 255, 255, 0.7)',
+               }}
+               onClick={handleDrawerToggle}
+            >
+               <MenuIcon fontSize="medium" />
             </IconButton>
             <Drawer
                anchor="right"
