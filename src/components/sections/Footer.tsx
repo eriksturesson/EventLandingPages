@@ -9,7 +9,7 @@ import { EditText, SaveTextsButton } from '../smallComponents/TextEdits';
 
 export function Footer(props: SectionProps): JSX.Element {
    const { data, adminEditor } = props;
-   const content = data.content as DBHomePageContentFooter;
+   const content = data.content as DBHomePageContentFooter | undefined;
    const { sectionID } = data;
    const [adressTitle, setAdressTitle] = useState(content?.adressTitle ? content.adressTitle : '');
    const [contactTitle, setContactTitle] = useState(content?.contactTitle ? content.contactTitle : '');

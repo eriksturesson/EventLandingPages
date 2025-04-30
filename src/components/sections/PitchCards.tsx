@@ -176,7 +176,7 @@ export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
 export function PitchCardsComponent(props: SectionProps): JSX.Element {
    const { data } = props;
    const { sectionName, sectionID, sectionOrder, createdAt, updatedAt } = data;
-   const content = data.content as DBPitchCardKey;
+   const content = data.content as DBPitchCardKey | undefined;
    const pitchCardsDB = content;
 
    const [adminEditor, setadminEditor] = useState(props.adminEditor);

@@ -117,7 +117,7 @@ export function OneParticipant({
 export function ParticipantComponent(props: SectionProps): JSX.Element {
    const { data, adminEditor } = props;
    const { sectionName, sectionID, sectionOrder, createdAt, updatedAt } = data;
-   const content = data.content as DBParticipantKey;
+   const content = data.content as DBParticipantKey | undefined;
    const participants = content;
 
    if (participants && Object.keys(participants).length > 0) {

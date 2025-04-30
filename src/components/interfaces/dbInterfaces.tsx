@@ -84,7 +84,7 @@ export interface DBOrganizersKey {
 }
 
 export interface OrganizerObject {
-   logo: string;
+   logo?: string;
    id: string;
    order: number;
 }
@@ -121,7 +121,8 @@ export type Content =
    | DBPitchCardKey
    | QuillContent
    | DBHomePageContentButton
-   | DBHomePageContentFooter;
+   | DBHomePageContentFooter
+   | undefined;
 //| HeadingSectionTypes;
 
 export type InitContent = {

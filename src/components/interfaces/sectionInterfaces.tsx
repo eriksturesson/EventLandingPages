@@ -2,7 +2,7 @@ import { Content } from './dbInterfaces';
 
 export interface SectionContent {
    sectionName: SectionTypes;
-   content: Content;
+   content?: Content;
    sectionID: string;
    sectionOrder: number;
    createdAt: Date;

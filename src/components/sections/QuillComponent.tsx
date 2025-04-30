@@ -45,7 +45,7 @@ function saveQuillToDB(data: any, sectionID: string) {
 export function QuillComponent(props: SectionProps): JSX.Element {
    const { data, adminEditor } = props;
    const { sectionName, sectionID, sectionOrder, createdAt, updatedAt } = data;
-   let quillContent = data.content as QuillContent;
+   let quillContent = data.content as QuillContent | undefined;
    console.log('quillContent', quillContent);
 
    const [value, setValue] = useState(quillContent && quillContent.text ? quillContent.text : ''); // Initialize with an empty string

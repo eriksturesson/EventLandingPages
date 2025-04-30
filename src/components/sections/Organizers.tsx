@@ -6,9 +6,8 @@ export function OneOrganizer({ organizer }: { organizer: OrganizerObject }): JSX
 
 export function OrganizersComponent(props: SectionProps): JSX.Element {
    const { data, adminEditor } = props;
-   const content = data.content as DBOrganizersKey;
-   const organizers = content;
-   const title = content.title;
+   const content = data.content as DBOrganizersKey | undefined;
+   const organizers: DBOrganizersKey | undefined = content;
 
    if (organizers && Object.keys(organizers).length > 0) {
       let arrayOfOrganizers: JSX.Element[] = [];

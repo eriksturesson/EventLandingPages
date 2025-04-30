@@ -7,9 +7,7 @@ import { EditText, SaveTextsButton, handleStateTextChange } from '../smallCompon
 export function SpeakersComponent(props: SectionProps): JSX.Element {
    const { data, adminEditor } = props;
    const { sectionName, sectionID } = data;
-   const DBSpeakers = props.data.content as DBSpeakersKey;
-
-   console.log(Object.values(DBSpeakers));
+   const DBSpeakers = data.content as DBSpeakersKey | undefined;
    if (DBSpeakers && Object.keys(DBSpeakers).length > 0) {
       let arrayOfSpeakers: JSX.Element[] = [];
       Object.values(DBSpeakers).forEach((speaker, i) => {
