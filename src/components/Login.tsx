@@ -76,7 +76,8 @@ export const Login = (): JSX.Element => {
                backgroundColor: 'white',
                maxWidth: '400px',
                padding: '1rem',
-               borderRadius: '8px',
+               border: '1px solid black',
+               borderRadius: '12px',
             }}
          >
             <form onSubmit={handleSubmit}>
