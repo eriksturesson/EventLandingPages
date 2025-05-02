@@ -45,29 +45,15 @@ export const Login = (): JSX.Element => {
          }}
       >
          <Typography
-            variant="h1"
+            variant="h3"
             sx={{
-               fontSize: { xs: '2rem', sm: '3rem', md: '4rem' },
+               // fontSize: { xs: '2rem', sm: '3rem', md: '4rem' },
                color: 'black',
+               mb: 2,
             }}
          >
             Logga in
          </Typography>
-
-         <Typography
-            variant="h2"
-            sx={{
-               fontSize: { xs: '1rem', sm: '2rem', md: '3rem' },
-               color: 'black',
-            }}
-         >
-            Endast för admin till webbsidan
-         </Typography>
-
-         <Grid container spacing={2}>
-            <Grid item xs={12} sm={6} md={4}></Grid>
-         </Grid>
-
          <Box
             sx={{
                textAlign: 'left',
@@ -80,9 +66,26 @@ export const Login = (): JSX.Element => {
                borderRadius: '12px',
             }}
          >
+            <Typography
+               variant="caption"
+               sx={{
+                  // fontSize: { xs: '1rem', sm: '2rem', md: '3rem' },
+                  color: 'black',
+                  textAlign: 'center',
+                  mt: 3,
+                  mb: 3,
+                  padding: '1rem',
+               }}
+            >
+               Endast för admin till webbsidan
+            </Typography>
+
+            <Grid container spacing={2}>
+               <Grid item xs={12} sm={6} md={4}></Grid>
+            </Grid>
             <form onSubmit={handleSubmit}>
                <Box>
-                  <Box sx={{ mb: 2 }}>
+                  <Box sx={{ mb: 2, mt: 4 }}>
                      <FormControl>
                         <InputLabel htmlFor="email-input">Email address</InputLabel>
                         <Input
@@ -96,7 +99,7 @@ export const Login = (): JSX.Element => {
                      </FormControl>
                   </Box>
 
-                  <Box sx={{ mb: 2 }}>
+                  <Box sx={{ mb: 2, mt: 4 }}>
                      <FormControl>
                         <InputLabel htmlFor="password-input">Password</InputLabel>
                         <Input
@@ -106,7 +109,7 @@ export const Login = (): JSX.Element => {
                            onChange={(e) => setPassword(e.target.value)}
                            type="password"
                         />
-                        <FormHelperText id="password-helper-text">Ditt lösenord är säkert hos oss.</FormHelperText>
+                        <FormHelperText id="password-helper-text">Insert your password</FormHelperText>
                      </FormControl>
                   </Box>
 
@@ -116,15 +119,14 @@ export const Login = (): JSX.Element => {
                      </Typography>
                   )}
                </Box>
-               <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+               <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2, mt: 4 }}>
                   <Button type="submit" variant="contained" color="primary">
                      Sign in
                   </Button>
                </Box>
             </form>
          </Box>
-
-         <Typography variant="body2" sx={{ mt: 2 }}>
+         <Typography variant="caption" sx={{ mt: 2 }}>
             Har du frågor eller vill ha adminbehörighet? Kontakta Erik
          </Typography>
       </Box>
