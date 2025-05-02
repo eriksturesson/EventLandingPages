@@ -41,7 +41,7 @@ export const Login = (): JSX.Element => {
             justifyContent: 'center',
             alignItems: 'center',
             minHeight: '100vh', // Fill full screen
-            backgroundColor: '#f5f5f5', // Optional, for contrast
+            // backgroundColor: '#f5f5f5', // Optional, for contrast
          }}
       >
          <Typography
@@ -73,7 +73,7 @@ export const Login = (): JSX.Element => {
                textAlign: 'center',
                mt: 2,
                mb: 2,
-               backgroundColor: 'lightgray',
+               backgroundColor: 'white',
                maxWidth: '400px',
                padding: '1rem',
                borderRadius: '8px',
