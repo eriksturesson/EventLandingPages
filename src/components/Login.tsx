@@ -70,7 +70,7 @@ export const Login = (): JSX.Element => {
 
          <Box
             sx={{
-               textAlign: 'center',
+               textAlign: 'left',
                mt: 2,
                mb: 2,
                backgroundColor: 'white',
@@ -116,9 +116,11 @@ export const Login = (): JSX.Element => {
                      </Typography>
                   )}
                </Box>
-               <Button type="submit" variant="contained" color="primary">
-                  Sign in
-               </Button>
+               <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                  <Button type="submit" variant="contained" color="primary">
+                     Sign in
+                  </Button>
+               </Box>
             </form>
          </Box>
 
