@@ -24,6 +24,7 @@ const modalStyle = {
    transform: 'translate(-50%, -50%)',
    width: 400,
    bgcolor: 'background.paper',
+   borderRadius: '12px',
    border: '2px solid #000',
    boxShadow: 24,
    p: 4,
@@ -39,8 +40,9 @@ export function CreateSection({ sectionOrder }: { sectionOrder: number }) {
          <Box sx={{ alignItems: 'center' }} key={i}>
             <Button
                sx={{
-                  backgroundColor: 'yellow',
+                  backgroundColor: 'white',
                   float: 'left',
+                  border: '1px solid black',
                   marginTop: '1rem',
                   marginBottom: '1rem',
                   marginLeft: '1rem',
