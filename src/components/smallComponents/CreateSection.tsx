@@ -79,7 +79,7 @@ export function CreateSection({ sectionOrder }: { sectionOrder: number }) {
                border: 'solid 2px black',
             }}
          >
-            <Button sx={{ type: 'large', color: 'white' }} onClick={handleOpen}>
+            <Button sx={{ size: 'large', color: 'white' }} onClick={handleOpen}>
                <h2>Create new Section</h2>
             </Button>
             <Modal
