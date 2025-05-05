@@ -20,7 +20,6 @@ export interface SectionProps {
 
 export type SectionTypes =
    | 'fullScreenMedia'
-   | 'footer'
    | 'speakers'
    | 'participants'
    | 'organizers'
@@ -32,7 +31,6 @@ export type SectionTypes =
 
 export const sectionTypes: SectionTypes[] = [
    'fullScreenMedia',
-   'footer',
    'speakers',
    'participants',
    'organizers',
