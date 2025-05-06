@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import React from 'react';
 import { SectionContent, SectionIDs, SectionProps } from './components/interfaces/sectionInterfaces';
 import { CallToActionButtonComponent } from './components/sections/CallToActionButton';
@@ -38,7 +38,7 @@ export const SectionLoader: React.FC<Props> = function (props) {
    if (sections) {
       sections.sort((a, b) => a.sectionOrder - b.sectionOrder);
       return (
-         <>
+         <Box sx={{ textAlign: 'center', contentAlign: 'center' }}>
             {sections.map((section, i) => {
                // console.log('section:', section);
                // console.log('sectionName:', section.sectionName);
@@ -62,7 +62,7 @@ export const SectionLoader: React.FC<Props> = function (props) {
                   </Grid>
                );
             })}
-         </>
+         </Box>
       );
    } else {
       console.error('No sections found in SectionLoader');
