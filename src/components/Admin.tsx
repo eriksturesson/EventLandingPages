@@ -1,4 +1,4 @@
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { User, signOut } from 'firebase/auth';
 import { onValue, ref, set } from 'firebase/database';
@@ -198,7 +198,7 @@ export const Admin = ({
    };
 
    return (
-      <>
+      <Box sx={{ textAlign: 'center', contentAlign: 'center' }}>
          <Grid container>
             <SectionNavigator
                sections={Object.values(homepageContent).sort((a, b) => a.sectionOrder - b.sectionOrder)}
@@ -210,9 +210,9 @@ export const Admin = ({
                      Sign out
                   </Button>
                </form>
-               <h1>Redigera program, talare och tider</h1>
-               <p>UserEmail: {user ? user.email : null}</p>
-               <br />
+               <Typography variant="h3">Redigera program, talare och tider</Typography>
+               <Typography variant="body1">UserEmail: {user ? user.email : null}</Typography>
+
                <Box className="adminEdit" id="adminEditWrapper" sx={{ transform: 'scale(1)', transformOrigin: '0% 0% 0px' }}>
                   {Object.keys(homepageContent).length > 0 ? (
                      <SectionLoader data={homepageContent} adminEditor={true} />
@@ -228,6 +228,6 @@ export const Admin = ({
             <NavWrapper websiteID={websiteID} />
             <SectionLoader data={homepageContent} adminEditor={false} />
          </Box> */}
-      </>
+      </Box>
    );
 };

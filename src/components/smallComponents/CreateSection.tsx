@@ -1,7 +1,7 @@
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { Box, Button, Divider, Modal, Typography } from '@mui/material';
+import { Box, Button, Divider, Grid, Modal, Typography } from '@mui/material';
 import { child, ref as dbRef, push, update } from 'firebase/database';
-import React from 'react';
+import { useState } from 'react';
 import { WEBSITE_ID } from '../../App';
 import { SectionTypes, sectionTypes } from '../interfaces/sectionInterfaces';
 import { db } from '../utils/firebase';
@@ -17,87 +17,64 @@ export function storeNewSection(sectionType: SectionTypes, sectionOrder: number)
    });
 }
 
-const modalStyle = {
-   position: 'absolute' as 'absolute',
-   top: '50%',
-   left: '50%',
-   transform: 'translate(-50%, -50%)',
-   width: 400,
-   bgcolor: 'background.paper',
-   borderRadius: '12px',
-   border: '2px solid #000',
-   boxShadow: 24,
-   p: 4,
-};
-
 export function CreateSection({ sectionOrder }: { sectionOrder: number }) {
-   const [open, setOpen] = React.useState(false);
+   const [open, setOpen] = useState(false);
    const handleOpen = () => setOpen(true);
    const handleClose = () => setOpen(false);
 
    const allSections: JSX.Element[] = sectionTypes.map((sectionType: SectionTypes, i) => {
       return (
-         <Box sx={{ alignItems: 'center' }} key={i}>
+         <Grid sx={{ textAlign: 'center', pt: 2, pb: 2 }} item xs={12} sm={12} md={6} key={i}>
             <Button
-               sx={{
-                  backgroundColor: 'white',
-                  float: 'left',
-                  border: '1px solid black',
-                  marginTop: '1rem',
-                  marginBottom: '1rem',
-                  marginLeft: '1rem',
-                  marginRight: '1rem',
-               }}
+               color="info"
+               endIcon={<AddCircleIcon />}
+               variant="contained"
                onClick={() => storeNewSection(sectionType, sectionOrder)}
             >
                {sectionType}
-
-               <AddCircleIcon />
             </Button>
-         </Box>
+         </Grid>
       );
    });
    return (
-      <Divider>
-         <Box
-            sx={{
-               borderRadius: '16px',
-               marginTop: '4rem',
-               marginBottom: '4rem',
-               marginLeft: '4rem',
-               marginRight: '4rem',
-               paddingLeft: '4rem',
-               color: 'white',
-               paddingRight: '4rem',
-               background: '#1976d2',
-               '&:hover': {
-                  border: '1px solid black',
-                  color: 'gray',
-                  backgroundColor: '#1769aa',
-               },
-               textAlign: 'center',
-               border: 'solid 2px black',
-            }}
+      <>
+         <Divider>
+            <Box sx={{ pt: 2, pb: 2 }}>
+               <Button endIcon={<AddCircleIcon />} variant="contained" size="large" onClick={handleOpen}>
+                  Create new Section
+               </Button>
+            </Box>
+         </Divider>
+         <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
          >
-            <Button sx={{ size: 'large', color: 'white' }} onClick={handleOpen}>
-               <h2>Create new Section</h2>
-            </Button>
-            <Modal
-               open={open}
-               onClose={handleClose}
-               aria-labelledby="modal-createSection-title"
-               aria-describedby="modal-createSection-sectionTypes"
+            <Box
+               sx={{
+                  maxHeight: '80vh', // limit height
+                  overflow: 'auto', // enable scroll if content overflows
+                  textAlign: 'center',
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  bgcolor: 'background.paper',
+                  borderRadius: 2,
+                  boxShadow: 24,
+                  p: 4,
+               }}
             >
-               <Box sx={modalStyle}>
-                  <Typography id="modal-createSection-title" variant="h6" component="h2">
-                     Choose section to create:
-                  </Typography>
-                  <Box sx={{ mt: 2 }} id="modal-createSection-sectionTypes">
-                     {allSections}
-                  </Box>
-               </Box>
-            </Modal>
-         </Box>
-      </Divider>
+               <Typography id="modal-modal-title" variant="h6" component="h2">
+                  Choose section to create:
+               </Typography>
+               <Divider sx={{ mb: '2rem', mt: '2rem' }} />
+               <Grid container spacing={2}>
+                  {allSections}
+               </Grid>
+            </Box>
+         </Modal>
+      </>
    );
 }
