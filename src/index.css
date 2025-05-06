@@ -1,8 +1,8 @@
-body {
+/* body {
    background-color: white;
    font-size: 16px;
    margin: 0;
-}
+} */
 
 /* DETTA ÄR OM WRAPPERN FÖR MENYN ÄR FIXED
   
@@ -18,10 +18,10 @@ body {
     }
   } */
 
-#root {
+/* #root {
    display: flex;
    flex-direction: column;
-}
+} */
 
 .eriks-nav-wrapper {
    min-height: 56px;
@@ -186,9 +186,9 @@ body {
    clear: left;
 }
 
-.button {
+/* .button {
    display: inline-block;
    height: 36px;
    margin-left: 8px;
    min-width: 88px;
-}
+} */
