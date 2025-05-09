@@ -10,6 +10,7 @@ import {
    SelectChangeEvent,
    TextField,
 } from '@mui/material';
+import { Typography } from '@mui/material';
 import { onValue, ref, update } from 'firebase/database';
 import React, { ReactNode, useEffect, useState } from 'react';
 import { WEBSITE_ID } from '../../App';
@@ -17,6 +18,7 @@ import { DBHomePageContentButton } from '../interfaces/dbInterfaces';
 import { SectionProps } from '../interfaces/sectionInterfaces';
 import { db } from '../utils/firebase';
 import { readAndWriteToFirebase } from '../utils/firebaseFunctions';
+
 export let customColor: string = '';
 export function RegisterButtonComponent({ buttonContent }: { buttonContent: DBHomePageContentButton }): JSX.Element {
    let formLink =
@@ -37,13 +39,12 @@ export function RegisterButtonComponent({ buttonContent }: { buttonContent: DBHo
    }
    return (
       <Box textAlign="center" className="knapp-sektion">
-         <div className="rotaryknapp">
-            
-               <Button color={buttonColor as any} href={formLink} variant="contained">
-                  {buttonText}
-               </Button>
-         </div>
-         <p>{buttonInfo}</p>
+         <Box className="rotaryknapp">
+            <Button color={buttonColor as any} href={formLink} variant="contained">
+               {buttonText}
+            </Button>
+         </Box>
+         <Typography>{buttonInfo}</Typography>
       </Box>
    );
 }
