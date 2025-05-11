@@ -105,11 +105,11 @@ export function CallToActionButtonComponent(props: SectionProps): JSX.Element {
       return (
          <>
             <Divider>
-               <h2>Edit botton</h2>
+               <Typography variant="h6">Edit button</Typography>
             </Divider>
             <RegisterButtonComponent buttonContent={buttonContent} />
             <Box sx={{ padding: 4, textAlign: 'center' }}>
-               <h3>Edit register/call to action Button</h3>
+               <Typography variant="h5">Edit register/call to action Button</Typography>
             </Box>
             <Box
                sx={{
