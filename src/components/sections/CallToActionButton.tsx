@@ -33,7 +33,7 @@ export function RegisterButtonComponent({ buttonContent }: { buttonContent: DBHo
    let buttonColor = buttonContent && buttonContent.buttonColor ? buttonContent.buttonColor : 'green';
    if (buttonColor === 'green') buttonColor = 'success';
    else if (buttonColor === 'red') buttonColor = 'error';
-   else if (buttonColor === 'blue') buttonColor = 'neutral';
+   else if (buttonColor === 'blue') buttonColor = 'primary';
    else {
       console.error('Error: buttonColor is not supported. It is: ' + buttonColor);
    }
