@@ -38,7 +38,7 @@ export function RegisterButtonComponent({ buttonContent }: { buttonContent: DBHo
       console.error('Error: buttonColor is not supported. It is: ' + buttonColor);
    }
    return (
-      <Box textAlign="center" className="knapp-sektion">
+      <Box textAlign="center" sx={{ my: 2 }}>
          <Box className="rotaryknapp">
             <Button color={buttonColor as any} href={formLink} variant="contained">
                {buttonText}
