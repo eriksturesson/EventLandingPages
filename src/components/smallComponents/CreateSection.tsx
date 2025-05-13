@@ -38,7 +38,7 @@ export function CreateSection({ sectionOrder }: { sectionOrder: number }) {
    });
    return (
       <>
-         <Divider>
+         <Divider sx={{ mb: '2rem', mt: '2rem' }}>
             <Box sx={{ pt: 2, pb: 2 }}>
                <Button endIcon={<AddCircleIcon />} variant="contained" size="large" onClick={handleOpen}>
                   Create new Section

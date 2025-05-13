@@ -8,7 +8,7 @@ import { OrganizersComponent } from './components/sections/Organizers';
 import { ParticipantComponent } from './components/sections/Participants';
 import { PitchCardsComponent } from './components/sections/PitchCards';
 import { QuillComponent } from './components/sections/QuillComponent';
-import { SpeakersComponent } from './components/sections/Speakers';
+import { SpeakersComponent } from './components/sections/SpeakersComponent';
 import { CreateSection } from './components/smallComponents/CreateSection';
 
 interface Sections {
