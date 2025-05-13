@@ -28,7 +28,7 @@ export function SpeakersComponent(props: SectionProps): JSX.Element {
          </>
       );
    } else {
-      return <NewImgBoxFileUpload sectionID={sectionID} order={0} sectionName={sectionName} />;
+      return <>{adminEditor ? <NewImgBoxFileUpload sectionID={sectionID} order={0} sectionName={sectionName} /> : null}</>;
    }
 }
 export function OneSpeaker({
