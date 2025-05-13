@@ -23,11 +23,8 @@ export let customColor: string = '';
 export function RegisterButtonComponent({ buttonContent }: { buttonContent: DBHomePageContentButton }): JSX.Element {
    const formLink = buttonContent && buttonContent.formLink ? buttonContent.formLink : '';
    const buttonText = buttonContent && buttonContent.buttonText ? buttonContent.buttonText : 'Anmälan';
-   const buttonInfo =
-      buttonContent && buttonContent.buttonInfo
-         ? buttonContent.buttonInfo
-         : 'Du måste vara Rotarian eller gäst till en Rotarian för att anmäla dig.';
-   let buttonColor = buttonContent && buttonContent.buttonColor ? buttonContent.buttonColor : 'green';
+   const buttonInfo = buttonContent && buttonContent.buttonInfo ? buttonContent.buttonInfo : '';
+   let buttonColor = buttonContent && buttonContent.buttonColor ? buttonContent.buttonColor : 'blue';
    if (buttonColor === 'green') buttonColor = 'success';
    else if (buttonColor === 'red') buttonColor = 'error';
    else if (buttonColor === 'blue') buttonColor = 'primary';
@@ -52,9 +49,10 @@ async function saveButtonDataToDB(
    sectionID: string
 ): Promise<string> {
    if (!homepageButtonContent.buttonColor) {
-      // Temporarily disabled while implementing Sections in Home
-      // homepageButtonContent.buttonColor = initialState.button.buttonColor;
       homepageButtonContent.buttonColor = 'blue';
+   }
+   if (!homepageButtonContent.buttonText) {
+      homepageButtonContent.buttonText = 'Anmälan';
    }
    await readAndWriteToFirebase({
       method: 'update',
