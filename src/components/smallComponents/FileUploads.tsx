@@ -220,6 +220,7 @@ export function EditorOfImage(props: EditorOfImagesProps) {
          minHeight="10rem"
          sx={{
             textAlign: 'center',
+            mt: '2rem',
             width: '100%',
             position: 'relative',
             display: 'flex',

@@ -25,7 +25,7 @@ export function EditText({
 }): JSX.Element {
    console.log('value:', value);
    return (
-      <Box style={{ paddingBottom: '2rem', width: '100%', alignContent: 'center' }}>
+      <Box style={{ padding: '2rem', width: '100%', alignContent: 'center' }}>
          <TextField
             id="outlined-textarea"
             label={labelName ? labelName : type ? type : 'Header'}
@@ -33,7 +33,7 @@ export function EditText({
             rows={rows ? rows : 1}
             multiline
             value={value}
-            style={{ width: '100%', alignContent: 'center' }}
+            style={{ width: '80%', alignContent: 'center' }}
             InputLabelProps={{ shrink: true }}
             onChange={onChange}
          />
@@ -43,7 +43,7 @@ export function EditText({
 
 export function SaveTextsButton({ refBelowWebsiteID, data }: { refBelowWebsiteID: string; data: object }): JSX.Element {
    return (
-      <Box style={{ paddingBottom: '2rem', textAlign: 'center', width: '100%' }}>
+      <Box style={{ marginTop: '2rem', paddingBottom: '2rem', textAlign: 'center', width: '100%' }}>
          <Button onClick={() => handleSaveTexts({ refBelowWebsiteID, data })} variant="contained" color="primary">
             Save texts
          </Button>
