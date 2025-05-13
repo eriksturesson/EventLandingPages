@@ -9,8 +9,8 @@ import {
    Select,
    SelectChangeEvent,
    TextField,
+   Typography,
 } from '@mui/material';
-import { Typography } from '@mui/material';
 import { onValue, ref, update } from 'firebase/database';
 import React, { ReactNode, useEffect, useState } from 'react';
 import { WEBSITE_ID } from '../../App';
@@ -21,10 +21,7 @@ import { readAndWriteToFirebase } from '../utils/firebaseFunctions';
 
 export let customColor: string = '';
 export function RegisterButtonComponent({ buttonContent }: { buttonContent: DBHomePageContentButton }): JSX.Element {
-   const formLink =
-      buttonContent && buttonContent.formLink
-         ? buttonContent.formLink
-         : 'https://9c831b73.sibforms.com/serve/MUIEAL41dyIw4oNTgGbL1IM7tpycWXBQTiZ3tUsgtJcTF3Eur522V2Zw98_DWJZ30w2O3z-WpTN7mutUIspI7JTSJ9dBrIy9b9ZVnGyrHURAzGyhNMS34JH6xhdUlyWNQpU2sVbE9-xcdpzV5vuZlYtMa_IJw7U_3L96rZkcyDUsfiW4umx_iAGXTAKLnMWWT6SGWiJTLVrrLzqx';
+   const formLink = buttonContent && buttonContent.formLink ? buttonContent.formLink : '';
    const buttonText = buttonContent && buttonContent.buttonText ? buttonContent.buttonText : 'Anmälan';
    const buttonInfo =
       buttonContent && buttonContent.buttonInfo
@@ -76,8 +73,10 @@ function handleButtonColorChange(event: SelectChangeEvent<string>, websiteID: Re
 export function CallToActionButtonComponent(props: SectionProps): JSX.Element {
    const { data, adminEditor } = props;
    const { sectionName, sectionID, sectionOrder, createdAt, updatedAt } = data;
-   const buttonContent = data.content as DBHomePageContentButton;
-   const [homepageButtonContent, setHomepageButtonContent] = useState<DBHomePageContentButton>(buttonContent);
+   const buttonContent = data.content as DBHomePageContentButton | undefined;
+   const [homepageButtonContent, setHomepageButtonContent] = useState<DBHomePageContentButton>(
+      buttonContent ? buttonContent : { formLink: '', buttonText: '', buttonInfo: '', buttonColor: '' }
+   );
    if (adminEditor) {
       useEffect(() => {
          // READ DATA WHEN UPDATED TO UPDATE INDEX.HTML PROGRAM CONTENT
@@ -107,7 +106,7 @@ export function CallToActionButtonComponent(props: SectionProps): JSX.Element {
             <Divider>
                <Typography variant="h6">Edit button</Typography>
             </Divider>
-            <RegisterButtonComponent buttonContent={buttonContent} />
+            <RegisterButtonComponent buttonContent={homepageButtonContent} />
             <Box sx={{ padding: 4, textAlign: 'center' }}>
                <Typography variant="h5">Edit register/call to action Button</Typography>
             </Box>
@@ -130,7 +129,7 @@ export function CallToActionButtonComponent(props: SectionProps): JSX.Element {
                      value={
                         homepageButtonContent && homepageButtonContent.buttonColor
                            ? (homepageButtonContent.buttonColor as any)
-                           : 'green'
+                           : 'blue'
                      }
                      label="Button Color"
                      onChange={handleSelectChange}
@@ -218,7 +217,7 @@ export function CallToActionButtonComponent(props: SectionProps): JSX.Element {
    } else {
       return (
          <>
-            <RegisterButtonComponent buttonContent={buttonContent} />
+            <RegisterButtonComponent buttonContent={homepageButtonContent} />
          </>
       );
    }
