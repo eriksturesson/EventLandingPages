@@ -21,12 +21,12 @@ import { readAndWriteToFirebase } from '../utils/firebaseFunctions';
 
 export let customColor: string = '';
 export function RegisterButtonComponent({ buttonContent }: { buttonContent: DBHomePageContentButton }): JSX.Element {
-   let formLink =
+   const formLink =
       buttonContent && buttonContent.formLink
          ? buttonContent.formLink
          : 'https://9c831b73.sibforms.com/serve/MUIEAL41dyIw4oNTgGbL1IM7tpycWXBQTiZ3tUsgtJcTF3Eur522V2Zw98_DWJZ30w2O3z-WpTN7mutUIspI7JTSJ9dBrIy9b9ZVnGyrHURAzGyhNMS34JH6xhdUlyWNQpU2sVbE9-xcdpzV5vuZlYtMa_IJw7U_3L96rZkcyDUsfiW4umx_iAGXTAKLnMWWT6SGWiJTLVrrLzqx';
-   let buttonText = buttonContent && buttonContent.buttonText ? buttonContent.buttonText : 'Anmälan';
-   let buttonInfo =
+   const buttonText = buttonContent && buttonContent.buttonText ? buttonContent.buttonText : 'Anmälan';
+   const buttonInfo =
       buttonContent && buttonContent.buttonInfo
          ? buttonContent.buttonInfo
          : 'Du måste vara Rotarian eller gäst till en Rotarian för att anmäla dig.';
