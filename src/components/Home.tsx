@@ -1,11 +1,11 @@
-import { SectionLoader } from '../SectionLoader';
-import { SectionIDs } from './interfaces/sectionInterfaces';
+import { SectionLoader } from './SectionLoader';
+import { SectionContent } from './interfaces/sectionInterfaces';
 
 function testonload() {
    alert('testar onload i html-filen, då ska denna funktion köras');
 }
 
-const Home = ({ homepageContent }: { homepageContent: SectionIDs }): JSX.Element => {
+const Home = ({ homepageContent }: { homepageContent: SectionContent[] }): JSX.Element => {
    return <SectionLoader adminEditor={false} data={homepageContent} />;
 };
 

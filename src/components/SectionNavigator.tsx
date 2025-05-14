@@ -1,102 +1,148 @@
-import { Box, Grid, Paper } from '@mui/material';
-import React from 'react';
-import { SectionContent, SectionIDs } from './interfaces/sectionInterfaces';
-import { SaveTextsButton } from './smallComponents/TextEdits';
+import MenuIcon from '@mui/icons-material/Menu';
+import {
+   Box,
+   Button,
+   Divider,
+   Drawer,
+   IconButton,
+   List,
+   ListItem,
+   ListItemText,
+   IconButton as MUIButton,
+   Paper,
+   Typography,
+   useMediaQuery,
+   useTheme,
+} from '@mui/material';
+import React, { useState } from 'react';
+
+import { User } from 'firebase/auth';
+import { signOutUser } from './helpers/signoutUser';
+import { SectionContent } from './interfaces/sectionInterfaces';
+import { SaveTextsButton } from './smallComponents/SaveTextsButton';
 
 interface Props {
+   user: User | null;
    sections: SectionContent[];
    handleDrop: (event: React.DragEvent<HTMLDivElement>, sections: SectionContent[]) => void;
 }
-
 const refBelowWebsiteID = `homepageContent/`;
 
-function SectionNavigator(props: Props): JSX.Element {
-   console.log('--------------------RENDERING SECTIONNAVIGATOR----------------------');
-   // const [isDragHover, setDragHover] = useState({});
-   // const [isDraggning, setDragging] = useState(false);
-   // const [sections, setSections] = useState(props.sections);
-
-   // const refBelowWebsiteID = `homepageContent/${sectionID}/content/`;
-
-   // ts complains if not defined like this but I can't find another way
+const SectionNavigator: React.FC<Props> = ({ sections, handleDrop, user }) => {
+   const [open, setOpen] = useState(false);
+   const theme = useTheme();
+   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
    const handleDragStart = (event: React.DragEvent<HTMLDivElement>) => {
       event.dataTransfer.setData('section-order', `${(event.target as HTMLElement).dataset.order}`);
-      console.log('starting drag');
    };
-   const handleDragEnd = () => {
-      // console.log('ending drag');
-   };
-   const handleDragEnter = (event: React.DragEvent<HTMLDivElement>) => {
-      // console.log(event);
-      // console.log('entering target');
-      // setDragHover({
-      //    display: 'flex',
-      //    flexDirection: 'column',
-      //    justifyContent: 'flex-end',
-      //    height: '6em',
-      //    backgroundColor: 'red',
-      // });
-   };
-   const handleDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
-      // console.log('leavning target');
-      // setDragHover({});
-   };
+
    const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
       event.preventDefault();
-      // console.log('dragging over target');
    };
 
    const onHandleDrop = (event: React.DragEvent<HTMLDivElement>) => {
-      props.handleDrop(event, props.sections);
+      handleDrop(event, sections);
    };
 
-   return (
-      <Grid
-         item
-         xs={3}
-         sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '2em',
-            padding: '2em',
-            textAlign: 'center',
-            borderRight: '0.1rem solid grey',
-         }}
-      >
-         {props.sections.map((section, i) => (
-            <Box key={i}>
-               <Paper
-                  draggable
-                  onDragStart={handleDragStart}
-                  onDragEnd={handleDragEnd}
-                  onDragEnter={handleDragEnter}
-                  onDragLeave={handleDragLeave}
-                  onDragOver={handleDragOver}
-                  onDrop={onHandleDrop}
-                  data-id={section.sectionID}
-                  data-order={section.sectionOrder}
-                  sx={{ padding: '1em' }}
-               >
-                  {section.sectionName}
-               </Paper>
-            </Box>
-         ))}
-         <p>Save current state:</p>
-         <p>⚠️Might also affect other unsaved changes!⚠️</p>
+   const toggleDrawer = () => setOpen(!open);
+   const closeDrawer = () => setOpen(false); // Add this method for closing the drawer
 
-         <SaveTextsButton
-            refBelowWebsiteID={refBelowWebsiteID}
-            data={(() => {
-               const pageContent: SectionIDs = {};
-               props.sections.forEach((item) => {
-                  pageContent[item.sectionID] = item;
-               });
-               return pageContent;
-            })()}
-         />
-      </Grid>
+   return (
+      <>
+         {isMobile && (
+            <IconButton onClick={toggleDrawer} sx={{ position: 'absolute', top: 16, left: 16, zIndex: 999 }}>
+               <MenuIcon />
+            </IconButton>
+         )}
+
+         <Drawer
+            variant={isMobile ? 'temporary' : 'permanent'}
+            open={isMobile ? open : true}
+            onClose={closeDrawer}
+            ModalProps={{
+               keepMounted: true, // Better open performance on mobile
+            }}
+            sx={{
+               '& .MuiDrawer-paper': {
+                  boxSizing: 'border-box',
+                  width: isMobile ? '100%' : '240px',
+                  p: 2,
+                  ...(isMobile && {
+                     height: '100vh',
+                  }),
+               },
+            }}
+         >
+            {/* Close button inside the drawer */}
+            {isMobile && (
+               <IconButton onClick={closeDrawer} sx={{ position: 'absolute', top: 10, right: 10, zIndex: 1000 }}>
+                  <MUIButton>✖</MUIButton>
+               </IconButton>
+            )}
+
+            <Box>
+               <Button variant="outlined" color="error" onClick={signOutUser}>
+                  Sign out
+               </Button>
+               <Typography variant="body1">{user ? user.email : 'N/A'}</Typography>
+               <Typography variant="body2">{user ? user.displayName : 'N/A'}</Typography>
+               <Typography variant="body2">{user ? user.phoneNumber : 'N/A'}</Typography>
+               <Divider sx={{ my: 2 }} />
+               <Typography variant="h6" gutterBottom>
+                  Page Sections
+               </Typography>
+               <List>
+                  {sections.length > 0 ? (
+                     sections.map((section, index) => (
+                        <Paper
+                           key={section.sectionID}
+                           draggable
+                           onDragStart={handleDragStart}
+                           onDragOver={handleDragOver}
+                           onDrop={onHandleDrop}
+                           data-id={section.sectionID}
+                           data-order={section.sectionOrder}
+                           sx={{
+                              mb: 1.5,
+                              px: 2,
+                              py: 1,
+                              cursor: 'grab',
+                              backgroundColor: '#fefefe',
+                              border: '1px solid #eee',
+                           }}
+                        >
+                           <ListItem disablePadding>
+                              <ListItemText primary={section.sectionName} />
+                           </ListItem>
+                        </Paper>
+                     ))
+                  ) : (
+                     <Typography variant="body2" sx={{ fontStyle: 'italic' }}>
+                        No sections available. Start by adding content to the homepage.
+                     </Typography>
+                  )}
+               </List>
+
+               {sections.length > 0 && (
+                  <Box textAlign="center" mt={4}>
+                     <Typography variant="body2" gutterBottom>
+                        Save current order:
+                     </Typography>
+                     <SaveTextsButton
+                        data={sections.reduce((acc, section) => ({ ...acc, [section.sectionID]: section }), {})}
+                        refBelowWebsiteID={refBelowWebsiteID}
+                     />
+                  </Box>
+               )}
+            </Box>
+
+            <Box sx={{ mt: 4, textAlign: 'center', color: 'text.secondary' }}>
+               <Typography variant="caption">v0.0.0.1</Typography>
+            </Box>
+         </Drawer>
+      </>
    );
-}
+};
 
 export default SectionNavigator;
