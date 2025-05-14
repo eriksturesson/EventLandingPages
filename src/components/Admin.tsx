@@ -125,85 +125,38 @@ export const Admin = ({
 }): JSX.Element => {
    const handleDrop = async (event: React.DragEvent<HTMLDivElement>, sections: SectionContent[]) => {
       const droppedIndex = +event.dataTransfer.getData('section-order');
-      let targetIndex = +((event.target as HTMLElement).dataset.order as string);
+      const targetEl = (event.target as HTMLElement).closest('[data-order]');
+      const targetIndexRaw = targetEl ? +targetEl.getAttribute('data-order')! : -1;
 
-      if (droppedIndex === targetIndex) return console.log('nope not here');
+      if (droppedIndex === targetIndexRaw || targetIndexRaw === -1) return;
 
-      // const droppedIndex = sections.findIndex((section) => section.sectionID === droppedId);
-      // targetIndex
-      // const newSections = [...sections];
-      let newSections = JSON.parse(JSON.stringify(sections)) as SectionContent[];
+      let targetIndex = targetIndexRaw;
+      const newSections = JSON.parse(JSON.stringify(sections)) as SectionContent[];
 
       const droppedItem = newSections.splice(droppedIndex, 1);
-      // console.log('dropped item', droppedItem);
-      // console.log('array, removed dropped item', newSections);
 
-      // console.log('slice 1', newSections.slice(0, targetIndex));
-      // console.log(
-      //    'slice 2',
-      //    newSections.slice(targetIndex === newSections.length ? targetIndex - 1 : targetIndex, newSections.length)
-      // );
+      if (targetIndex === newSections.length || droppedIndex < targetIndex) {
+         targetIndex -= 1;
+      }
 
-      // console.log('targetIndex', targetIndex);
-      // console.log('newSections.length', newSections.length);
-
-      if (targetIndex === newSections.length || droppedIndex < targetIndex) targetIndex = targetIndex - 1;
-
-      // targetIndex = targetIndex === newSections.length ? targetIndex - 1 : targetIndex;
-      // targetIndex = droppedIndex < targetIndex ? targetIndex - 1 : targetIndex;
-
-      let newNewSections = [
-         ...newSections.slice(0, targetIndex),
-         ...droppedItem,
-         ...newSections.slice(targetIndex, newSections.length),
-      ];
-
-      console.log("after slice n' splice", newNewSections);
-
-      newNewSections = newNewSections.map((item, i) => {
-         item.sectionOrder = i;
-         return item;
-      });
-
-      // newSections.map((a) => JSON.parse(JSON.stringify(a)));
-
-      // if (droppedIndex > targetIndex) {
-      //    newSections[targetIndex].sectionOrder = targetIndex;
-      //    newSections[droppedIndex].sectionOrder = targetIndex - 1;
-      //    newSections.map(() => 'a');
-
-      //    console.log(newSections);
-      // }
-
-      // if (droppedIndex < targetIndex) {
-      //    newSections[targetIndex].sectionOrder = targetIndex;
-      //    newSections[droppedIndex].sectionOrder = targetIndex - 1;
-      // }
-
-      // newSections.sort((a, b) => a.sectionOrder - b.sectionOrder);
-
-      console.log('after map', newNewSections);
+      const reordered = [...newSections.slice(0, targetIndex), ...droppedItem, ...newSections.slice(targetIndex)].map(
+         (item, index) => ({ ...item, sectionOrder: index })
+      );
 
       const pageContent: SectionIDs = {};
-
-      newNewSections.forEach((item) => {
+      reordered.forEach((item) => {
          pageContent[item.sectionID] = item;
       });
 
-      console.log('pagecontent row 209', pageContent);
-
       setHomepageContent(pageContent);
-
-      console.log('dropping', droppedIndex, 'on', targetIndex);
    };
+
+   const orderedSections = Object.values(homepageContent).sort((a, b) => a.sectionOrder - b.sectionOrder);
 
    return (
       <Box sx={{ textAlign: 'center', contentAlign: 'center' }}>
          <Grid container>
-            <SectionNavigator
-               sections={Object.values(homepageContent).sort((a, b) => a.sectionOrder - b.sectionOrder)}
-               handleDrop={handleDrop}
-            />
+            <SectionNavigator sections={orderedSections} handleDrop={handleDrop} />
             <Grid item xs={9}>
                <form>
                   <Button variant="outlined" onClick={signOutUser} id="signout">

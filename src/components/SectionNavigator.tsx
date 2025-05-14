@@ -1,4 +1,4 @@
-import { Box, Grid, Paper } from '@mui/material';
+import { Box, List, ListItem, ListItemText, Paper, Typography } from '@mui/material';
 import React from 'react';
 import { SectionContent, SectionIDs } from './interfaces/sectionInterfaces';
 import { SaveTextsButton } from './smallComponents/TextEdits';
@@ -10,93 +10,101 @@ interface Props {
 
 const refBelowWebsiteID = `homepageContent/`;
 
-function SectionNavigator(props: Props): JSX.Element {
-   console.log('--------------------RENDERING SECTIONNAVIGATOR----------------------');
-   // const [isDragHover, setDragHover] = useState({});
-   // const [isDraggning, setDragging] = useState(false);
-   // const [sections, setSections] = useState(props.sections);
-
-   // const refBelowWebsiteID = `homepageContent/${sectionID}/content/`;
-
-   // ts complains if not defined like this but I can't find another way
-
+const SectionNavigator = ({ sections, handleDrop }: Props) => {
    const handleDragStart = (event: React.DragEvent<HTMLDivElement>) => {
       event.dataTransfer.setData('section-order', `${(event.target as HTMLElement).dataset.order}`);
-      console.log('starting drag');
    };
-   const handleDragEnd = () => {
-      // console.log('ending drag');
-   };
-   const handleDragEnter = (event: React.DragEvent<HTMLDivElement>) => {
-      // console.log(event);
-      // console.log('entering target');
-      // setDragHover({
-      //    display: 'flex',
-      //    flexDirection: 'column',
-      //    justifyContent: 'flex-end',
-      //    height: '6em',
-      //    backgroundColor: 'red',
-      // });
-   };
-   const handleDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
-      // console.log('leavning target');
-      // setDragHover({});
-   };
+
    const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
       event.preventDefault();
-      // console.log('dragging over target');
    };
 
    const onHandleDrop = (event: React.DragEvent<HTMLDivElement>) => {
-      props.handleDrop(event, props.sections);
+      handleDrop(event, sections);
    };
 
    return (
-      <Grid
-         item
-         xs={3}
+      <Box
          sx={{
+            width: 280,
+            borderRight: '1px solid #ddd',
+            height: '100vh',
+            boxSizing: 'border-box',
+            p: 2,
             display: 'flex',
             flexDirection: 'column',
-            gap: '2em',
-            padding: '2em',
-            textAlign: 'center',
-            borderRight: '0.1rem solid grey',
+            justifyContent: 'space-between',
          }}
       >
-         {props.sections.map((section, i) => (
-            <Box key={i}>
-               <Paper
-                  draggable
-                  onDragStart={handleDragStart}
-                  onDragEnd={handleDragEnd}
-                  onDragEnter={handleDragEnter}
-                  onDragLeave={handleDragLeave}
-                  onDragOver={handleDragOver}
-                  onDrop={onHandleDrop}
-                  data-id={section.sectionID}
-                  data-order={section.sectionOrder}
-                  sx={{ padding: '1em' }}
-               >
-                  {section.sectionName}
-               </Paper>
-            </Box>
-         ))}
-         <p>Save current state:</p>
-         <p>⚠️Might also affect other unsaved changes!⚠️</p>
+         <Box>
+            <Typography variant="h6" gutterBottom>
+               Page Sections
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+               Drag and drop to reorder the homepage sections.
+            </Typography>
 
-         <SaveTextsButton
-            refBelowWebsiteID={refBelowWebsiteID}
-            data={(() => {
-               const pageContent: SectionIDs = {};
-               props.sections.forEach((item) => {
-                  pageContent[item.sectionID] = item;
-               });
-               return pageContent;
-            })()}
-         />
-      </Grid>
+            <List>
+               {sections.length > 0 ? (
+                  sections.map((section, index) => (
+                     <Paper
+                        key={section.sectionID}
+                        draggable
+                        onDragStart={handleDragStart}
+                        onDragOver={handleDragOver}
+                        onDrop={onHandleDrop}
+                        data-id={section.sectionID}
+                        data-order={section.sectionOrder}
+                        sx={{
+                           mb: 1.5,
+                           px: 2,
+                           py: 1,
+                           cursor: 'grab',
+                           backgroundColor: '#fefefe',
+                           border: '1px solid #eee',
+                           borderRadius: 2,
+                           boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+                           '&:hover': {
+                              backgroundColor: '#f5f5f5',
+                           },
+                        }}
+                     >
+                        <ListItem disablePadding>
+                           <ListItemText primary={section.sectionName} />
+                        </ListItem>
+                     </Paper>
+                  ))
+               ) : (
+                  <Typography variant="body2" sx={{ p: 1, fontStyle: 'italic' }}>
+                     No sections available. Start by adding content to the homepage.
+                  </Typography>
+               )}
+            </List>
+
+            {sections.length > 0 && (
+               <Box mt={4}>
+                  <Typography variant="subtitle2" gutterBottom>
+                     Save current order:
+                  </Typography>
+                  <SaveTextsButton
+                     refBelowWebsiteID={refBelowWebsiteID}
+                     data={(() => {
+                        const pageContent: SectionIDs = {};
+                        sections.forEach((item) => {
+                           pageContent[item.sectionID] = item;
+                        });
+                        return pageContent;
+                     })()}
+                  />
+               </Box>
+            )}
+         </Box>
+
+         <Box sx={{ mt: 4, textAlign: 'center', color: 'text.secondary' }}>
+            <Typography variant="caption">v0.0.0.1</Typography>
+         </Box>
+      </Box>
    );
-}
+};
 
 export default SectionNavigator;
