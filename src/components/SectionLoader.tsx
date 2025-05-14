@@ -66,7 +66,23 @@ export const SectionLoader: React.FC<Props> = function (props) {
          </Box>
       );
    } else {
-      console.error('No sections found in SectionLoader');
-      return <CreateSection sectionOrder={1} />;
+      console.log('No sections found in SectionLoader');
+      if (adminEditor) {
+         return (
+            <Box sx={{ textAlign: 'center', contentAlign: 'center' }}>
+               <Grid>
+                  <Grid item sm={12}>
+                     <CreateSection sectionOrder={1} />
+                  </Grid>
+               </Grid>
+            </Box>
+         );
+      } else {
+         return (
+            <Box sx={{ textAlign: 'center', marginTop: '5rem', contentAlign: 'center' }}>
+               Admin has not created any content yet
+            </Box>
+         );
+      }
    }
 };
