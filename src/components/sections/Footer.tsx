@@ -152,7 +152,6 @@ export function Footer(props: SectionProps): JSX.Element {
                      position: 'relative',
                   }}
                >
-                  {/* {adminEditor ? <NewImgBoxFileUpload sectionID={sectionID} order={0} sectionName={'footer'} /> : null} */}
                   <img id="kartbild" alt="karta" src={content.mapImage ? content.mapImage : mapImageExample} />
                   {adminEditor ? (
                      <Box
@@ -165,7 +164,7 @@ export function Footer(props: SectionProps): JSX.Element {
                            transform: 'translate(-50%, -50%)',
                         }}
                      >
-                        <ImageButtonFileUpload order={1} sectionID={sectionID} sectionName={'footer'} />
+                        <ImageButtonFileUpload order={1} sectionID={sectionID} sectionName={'footer'} id={'footer-image'} />
                      </Box>
                   ) : null}
                </Grid>

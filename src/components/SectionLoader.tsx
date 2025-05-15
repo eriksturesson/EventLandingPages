@@ -66,7 +66,6 @@ export const SectionLoader: React.FC<Props> = function (props) {
          </Box>
       );
    } else {
-      console.log('No sections found in SectionLoader');
       if (adminEditor) {
          return (
             <Box sx={{ textAlign: 'center', contentAlign: 'center' }}>

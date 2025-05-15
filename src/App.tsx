@@ -16,7 +16,6 @@ import { auth, db } from './components/utils/firebase';
 import { handleWebSiteID } from './components/utils/handleWebsiteID';
 export let WEBSITE_ID = '';
 const App = (): JSX.Element => {
-   console.log('--------------------------RENDERING -----------------------------');
    const [logedIn, setLogedIn] = useState<boolean | null>(null);
    const [websiteID, setWebsiteID] = useState<string>('');
    const [homepageContent, setProgramContent] = useState<SectionContent[]>([]);
@@ -52,13 +51,10 @@ const App = (): JSX.Element => {
       });
    }, [websiteID]); // Listen for changes in websiteID
 
-   console.log('websiteID at upstart', websiteID);
-   console.log('logedIn at upstart', logedIn);
    if (websiteID === '' || logedIn === null) return <LoadingSpinner />;
 
    let page = window.location.href;
-   console.log('page', page);
-   console.log('logedIn', logedIn);
+
    if (page.includes('tidigareprogram')) {
       return (
          <>

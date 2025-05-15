@@ -70,13 +70,12 @@ export async function handleWebSiteID(): Promise<string> {
       .then(async (snapshot) => {
          let websiteID = '';
          if (snapshot.exists() && snapshot.val()) {
-            console.log(snapshot.val());
             let data: DBWebsiteIDs = snapshot.val();
             let arrayOfWebsiteIDs = Object.keys(data);
             for (let websiteIDInDB of arrayOfWebsiteIDs) {
                if (data[websiteIDInDB].websiteHostName === thisLocationsHostName) {
                   websiteID = websiteIDInDB;
-                  console.log(websiteIDInDB, 'websiteIDInDB');
+                  console.log('websiteID in DB:', websiteIDInDB);
                   return websiteID;
                }
             }

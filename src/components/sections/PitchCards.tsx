@@ -4,6 +4,7 @@ import { Box, Divider, SvgIcon } from '@mui/material';
 import { ref as dbRef, set } from 'firebase/database';
 import { deleteObject, ref } from 'firebase/storage';
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { WEBSITE_ID } from '../../App';
 import briefcaseExample from '../../assets/briefcaseExample.png';
 import visningsbild1 from '../../assets/DSC01125.jpg';
@@ -12,7 +13,7 @@ import visningsbild3 from '../../assets/DSC02755.jpg';
 import speakerImgExample1 from '../../assets/speakerImgExample1.jpg';
 import { DBHomePageContentPitchCards, DBPitchCardKey } from '../interfaces/dbInterfaces';
 import { SectionProps, SectionTypes } from '../interfaces/sectionInterfaces';
-import { ImageButtonFileUpload, NewImgBoxFileUpload } from '../smallComponents/FileUploads';
+import { EditorOfImage, ImageButtonFileUpload } from '../smallComponents/FileUploads';
 import { EditText, SaveTextsButton } from '../smallComponents/TextEdits';
 import { db, storage } from '../utils/firebase';
 
@@ -53,7 +54,7 @@ const AddNewPitchCard = ({ sectionID, order }: { sectionID: string; order: numbe
          >
             <SvgIcon component={AddPhotoAlternateIcon} fontSize="large" />
             <br></br>
-            <ImageButtonFileUpload sectionID={sectionID} sectionName={'pitchCards'} order={order} />
+            <ImageButtonFileUpload sectionID={sectionID} sectionName={'pitchCards'} order={order} id={uuidv4()} />
          </Box>
          <img className="participant-image" src={briefcaseExample} />
       </Box>
@@ -149,7 +150,13 @@ export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
 
             {adminEditor && newCard ? (
                <>
-                  <NewImgBoxFileUpload sectionID={sectionID} order={order} sectionName={sectionName} />
+                  <EditorOfImage
+                     image={undefined}
+                     sectionID={sectionID}
+                     order={order}
+                     sectionName={sectionName}
+                     id={uuidv4()}
+                  />
 
                   {/*<AddNewPitchCard sectionID={sectionID} order={order} />*/}
                </>

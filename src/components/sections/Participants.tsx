@@ -8,7 +8,7 @@ import { WEBSITE_ID } from '../../App';
 import addNewSpeakerExample from '../../assets/addNewSpeakerExample.png';
 import { DBOneParticipant, DBParticipantKey } from '../interfaces/dbInterfaces';
 import { SectionProps, SectionTypes } from '../interfaces/sectionInterfaces';
-import { NewImgBoxFileUpload } from '../smallComponents/FileUploads';
+import { EditorOfImage } from '../smallComponents/FileUploads';
 import { EditText, SaveTextsButton, handleStateTextChange } from '../smallComponents/TextEdits';
 import { db, storage } from '../utils/firebase';
 
@@ -73,7 +73,8 @@ export function OneParticipant({
                </Box>
             ) : null}
             {adminEditor && newCard ? (
-               <NewImgBoxFileUpload sectionID={sectionID} order={order} sectionName={sectionName} />
+               <EditorOfImage sectionID={sectionID} order={order} sectionName={sectionName} id={id} image={undefined}/>
+          
             ) : null}
             {!newCard ? <img className="participant-image" src={image} /> : null}
             {adminEditor ? (

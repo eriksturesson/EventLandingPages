@@ -2,7 +2,6 @@ import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { Box, Button, SvgIcon } from '@mui/material';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { WEBSITE_ID } from '../../App';
 import addNewSpeakerExample from '../../assets/addNewSpeakerExample.png';
 import briefcaseExample from '../../assets/briefcaseExample.png';
@@ -16,6 +15,7 @@ import { fileType } from './fileType';
 
 export interface ParticipantCardFileUploadProps {
    order: number;
+   id?: string;
    sectionID: string;
    sectionName: SectionTypes;
 }
@@ -25,10 +25,11 @@ interface ImgCardFileUploadProps {
    order: number;
    sectionName: SectionTypes;
    className?: string;
+   id: string;
 }
 
 export function NewImgBoxFileUpload(props: ImgCardFileUploadProps): JSX.Element {
-   const { sectionID, order, sectionName } = props;
+   const { sectionID, order, sectionName, id } = props;
    let backgroundImg = 'briefcase';
    let shape: 'circle' | 'square' = 'circle';
    let className = 'participant-image';
@@ -81,6 +82,7 @@ export function NewImgBoxFileUpload(props: ImgCardFileUploadProps): JSX.Element 
             justifyContent: 'center',
             alignItems: 'center',
             zIndex: 3,
+            marginTop: '2rem',
             marginBottom: '2rem',
          }}
       >
@@ -93,7 +95,7 @@ export function NewImgBoxFileUpload(props: ImgCardFileUploadProps): JSX.Element 
          >
             <SvgIcon component={AddPhotoAlternateIcon} fontSize="large" />
             <br></br>
-            <ImageButtonFileUpload sectionID={sectionID} sectionName={sectionName} order={order} />
+            <ImageButtonFileUpload sectionID={sectionID} sectionName={sectionName} order={order} id={id} />
          </Box>
          <img className={className} src={backgroundImg} />
       </Box>
@@ -105,16 +107,15 @@ interface FileUploadProps extends ParticipantCardFileUploadProps {
 }
 
 export function fileUpload(props: FileUploadProps): void {
-   const { event, order, sectionName, sectionID } = props;
+   const { event, order, sectionName, sectionID, id } = props;
    const file = event?.target?.files ? event.target.files[0] : null;
    let randomKeyOrOneItem;
+
    if (sectionName === 'fullScreenMedia') {
       randomKeyOrOneItem = fileType(file);
    } else {
-      randomKeyOrOneItem = uuidv4();
-   }
-   if (sectionName === 'footer') {
-      randomKeyOrOneItem = 'mapImage';
+      //If ID exists, we are probably replacing an existing image, otherwise create a new
+      randomKeyOrOneItem = id;
    }
    if (file) {
       const storageRef = ref(
@@ -169,9 +170,6 @@ export function fileUpload(props: FileUploadProps): void {
                if (sectionName === 'fullScreenMedia') {
                   data = { media: downloadURL, order: order, id: randomKeyOrOneItem, mediaType: fileType(file) };
                   ref = `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/`;
-               } else if (sectionName === 'footer') {
-                  data = { mapImage: downloadURL };
-                  ref = `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/`;
                } else {
                   data = { image: downloadURL, order: order, id: randomKeyOrOneItem };
                   ref = `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/${randomKeyOrOneItem}/`;
@@ -190,21 +188,20 @@ export function fileUpload(props: FileUploadProps): void {
 }
 
 export function ImageButtonFileUpload(props: ParticipantCardFileUploadProps): JSX.Element {
-   const { order, sectionName, sectionID } = props;
-
+   const { order, sectionName, sectionID, id } = props;
    return (
       <Button variant="contained" sx={{ whiteSpace: 'nowrap', minWidth: 'max-content' }} /* component="label" */>
-         <label htmlFor={`fileInput-${sectionID}`} style={{ cursor: 'pointer' }}>
+         <label htmlFor={`fileInput-${sectionID}-${id}`} style={{ cursor: 'pointer' }}>
             Upload new image
          </label>
          {/*<input hidden accept="image/*" type="file" onChange={(e) => handleFileUpload({ event: e, order: order, sectionName: sectionName, sectionID: sectionID })} />*/}
          <input
-            id={`fileInput-${sectionID}`}
+            id={`fileInput-${sectionID}-${id}`}
             hidden
             accept="image/*"
             type="file"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-               fileUpload({ event: e, order: order, sectionName: sectionName, sectionID: sectionID })
+               fileUpload({ event: e, order: order, sectionName: sectionName, sectionID: sectionID, id: id })
             }
          />
       </Button>
@@ -214,7 +211,8 @@ interface EditorOfImagesProps extends ImgCardFileUploadProps {
    image: string | undefined;
 }
 export function EditorOfImage(props: EditorOfImagesProps) {
-   const { image, sectionID, order, sectionName, className } = props;
+   const { image, sectionID, order, sectionName, className, id } = props;
+   if (!image) return <NewImgBoxFileUpload sectionID={sectionID} order={order} sectionName={sectionName} id={id} />;
    return (
       <Box
          minHeight="10rem"
@@ -239,7 +237,7 @@ export function EditorOfImage(props: EditorOfImagesProps) {
          >
             <SvgIcon component={AddPhotoAlternateIcon} fontSize="large" />
             <br></br>
-            <ImageButtonFileUpload sectionID={sectionID} sectionName={sectionName} order={order} />
+            <ImageButtonFileUpload sectionID={sectionID} sectionName={sectionName} order={order} id={id} />
          </Box>
          <img className={className} src={image} />
       </Box>

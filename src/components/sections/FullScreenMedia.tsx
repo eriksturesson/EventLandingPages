@@ -14,7 +14,7 @@ export function FullScreenMedia(props: SectionProps): JSX.Element {
    let media, mediaType, initMediaSize, title, description, time, location;
 
    if (content) {
-      ({ media, mediaType, mediaSize: initMediaSize, title, description, time, location } = content as DBFullScreenMedia);
+      ({ media, mediaType, mediaSize: initMediaSize, title, description, time, location} = content as DBFullScreenMedia);
    } else {
       // Provide default values or take any other necessary action when content is null
       // Example:

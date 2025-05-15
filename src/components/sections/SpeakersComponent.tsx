@@ -1,18 +1,17 @@
-import { Grid, Paper, TextField } from '@mui/material';
+import { Box, Grid, Paper, TextField } from '@mui/material';
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { DBSpeaker, DBSpeakersKey } from '../interfaces/dbInterfaces';
 import { SectionProps, SectionTypes } from '../interfaces/sectionInterfaces';
-import { NewImgBoxFileUpload } from '../smallComponents/FileUploads';
-import { SaveTextsButton, handleStateTextChange } from '../smallComponents/TextEdits';
-
-import { Box } from '@mui/material';
 import { EditorOfImage } from '../smallComponents/FileUploads';
+import { SaveTextsButton, handleStateTextChange } from '../smallComponents/TextEdits';
 
 export function SpeakersComponent(props: SectionProps): JSX.Element {
    const { data, adminEditor } = props;
    const { sectionName, sectionID } = data;
    const DBSpeakers = data.content as DBSpeakersKey | undefined;
    const nrOfSpeakers = (DBSpeakers && Object.keys(DBSpeakers).length) || 0;
+   const newSpeaker = { id: uuidv4(), order: nrOfSpeakers + 1, image: '' };
    if (DBSpeakers && Object.keys(DBSpeakers).length > 0) {
       let arrayOfSpeakers: JSX.Element[] = [];
       Object.values(DBSpeakers)
@@ -24,15 +23,24 @@ export function SpeakersComponent(props: SectionProps): JSX.Element {
                   sectionName={sectionName}
                   adminEditor={adminEditor}
                   speaker={speaker}
-                  key={i}
+                  key={speaker.id}
                />
             );
          });
+
       return (
          <Grid container spacing={2}>
             {arrayOfSpeakers}
             {adminEditor ? (
-               <NewImgBoxFileUpload sectionID={sectionID} order={nrOfSpeakers + 1} sectionName={sectionName} />
+               <>
+                  <OneSpeaker
+                     sectionID={sectionID}
+                     sectionName={sectionName}
+                     adminEditor={adminEditor}
+                     speaker={newSpeaker}
+                     key={newSpeaker.id}
+                  />
+               </>
             ) : null}
          </Grid>
       );
@@ -40,7 +48,15 @@ export function SpeakersComponent(props: SectionProps): JSX.Element {
       return (
          <>
             {adminEditor ? (
-               <NewImgBoxFileUpload sectionID={sectionID} order={nrOfSpeakers + 1} sectionName={sectionName} />
+               <>
+                  <OneSpeaker
+                     sectionID={sectionID}
+                     sectionName={sectionName}
+                     adminEditor={adminEditor}
+                     speaker={newSpeaker}
+                     key={newSpeaker.id}
+                  />
+               </>
             ) : null}
          </>
       );
@@ -58,15 +74,15 @@ export function OneSpeaker({
 
    speaker: DBSpeaker;
 }): JSX.Element {
-   const { image, id } = speaker;
-   const [title, setTitle] = useState(speaker.title);
-   const [titleDescription, setTitleDescription] = useState(speaker.titleDescription);
-   const [fullName, setFullName] = useState(speaker.fullName);
-   const [description, setDescription] = useState(speaker.description);
-   const [pitch, setPitch] = useState(speaker.pitch);
+   const { image, id, order } = speaker;
+   const [title, setTitle] = useState(speaker.title || '');
+   const [titleDescription, setTitleDescription] = useState(speaker.titleDescription || '');
+   const [fullName, setFullName] = useState(speaker.fullName || '');
+   const [description, setDescription] = useState(speaker.description || '');
+   const [pitch, setPitch] = useState(speaker.pitch || '');
 
    return (
-      <Grid sx={{ sm: 6, md: 6, lg: 4 }} spacing={2}>
+      <Grid container sx={{ sm: 6, md: 6, lg: 4 }} spacing={2}>
          {adminEditor ? (
             <Paper elevation={5} sx={{ marginLeft: '2rem', marginBottom: '1rem' }}>
                <Box sx={{ p: 2, borderRadius: 2, bgcolor: '#f9f9f9', mb: 3 }}>
@@ -88,7 +104,7 @@ export function OneSpeaker({
                      onChange={(e) => handleStateTextChange(setTitleDescription, e)}
                   />
 
-                  <EditorOfImage sectionID={sectionID} order={0} sectionName={sectionName} image={image} />
+                  <EditorOfImage sectionID={sectionID} order={order} sectionName={sectionName} image={image} id={id} />
 
                   <TextField
                      fullWidth
@@ -119,6 +135,8 @@ export function OneSpeaker({
                   <SaveTextsButton
                      refBelowWebsiteID={`homepageContent/${sectionID}/content/${id}/`}
                      data={{
+                        id: id,
+                        order: order,
                         pitch: pitch,
                         description: description,
                         fullName: fullName,
