@@ -20,6 +20,7 @@ const App = (): JSX.Element => {
    const [logedIn, setLogedIn] = useState<boolean | null>(null);
    const [websiteID, setWebsiteID] = useState<string>('');
    const [homepageContent, setProgramContent] = useState<SectionContent[]>([]);
+   const [isLoading, setIsLoading] = useState<boolean>(true);
    WEBSITE_ID = websiteID;
    //const [websiteID, setWebsiteID] = useState<string | null>(null)
    let userOrNull: User | null = auth.currentUser;
@@ -50,11 +51,6 @@ const App = (): JSX.Element => {
          setProgramContent(programContentArray);
       });
    }, [websiteID]); // Listen for changes in websiteID
-
-   if (homepageContent.length === 0) {
-      // Data is not available yet, return a loading indicator or a message
-      return <LoadingSpinner />;
-   }
 
    console.log('websiteID at upstart', websiteID);
    console.log('logedIn at upstart', logedIn);

@@ -66,7 +66,7 @@ const Admin: React.FC<AdminProps> = ({ user, homepageContent, setHomepageContent
             }}
          >
             <Box className="adminEdit" sx={{ transform: 'scale(1)', transformOrigin: '0% 0% 0px' }}>
-               {homepageContent.length > 0 ? <SectionLoader data={homepageContent} adminEditor={true} /> : null}
+               <SectionLoader data={homepageContent} adminEditor={true} />
             </Box>
          </Box>
       </Box>
