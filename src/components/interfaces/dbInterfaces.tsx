@@ -25,7 +25,7 @@ export interface DBHomePageContentPitchCards {
    title?: string;
    description?: string;
    order: number;
-   id?: string;
+   id: string;
 }
 
 export interface DBPitchCardKey {
