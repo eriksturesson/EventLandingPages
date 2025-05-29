@@ -37,8 +37,7 @@ service firebase.storage {
 
 # Emulate your code:
 
--  Run `npm run emulators` in one terminal to use the emulators. That will start both the firebase emulators for authentication, db and more, but also the development server for the react-scripts at the same time. Both has to be active. It only works locally, not on your network, since firebase only works locally. Alternatively you can start the servers separately, check out the start scripts in `package.json`.
--  Firebase emulators will automatically import test data from `/config-emulators/test-database`. See the separate instructions in `/config-emulators/firebaseConfig.ts`.
+-  Run `npm run emulators`
 -  All users are admins currently, so just create a user with email and password in firebase emulator (standard set tolocalhost:4000, in the auth-section) and login with those credentials. Everytime you restart the firebase emulators you will need to recreate your user.
 
 3. Deploy to firebase (not tested yet)

@@ -1,0 +1,13 @@
+{
+   "users": [
+      {
+         "localId": "EMZ6iT9NqfJvf8iYpWZ7vw0vIo8B",
+         "email": "test.testersson@gmail.com",
+         "emailVerified": true,
+         "displayName": "Test User",
+         "photoUrl": "",
+         "passwordHash": "fakeHash:salt=123456789$hash=anything",
+         "salt": "123456789"
+      }
+   ]
+}

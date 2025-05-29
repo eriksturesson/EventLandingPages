@@ -1,7 +1,7 @@
 {
    "scripts": {
       "emulators": "firebase emulators:start",
-      "emulators-data": "firebase emulators:start --import=./config-emulators/test-database",
+      "emulatorsData": "firebase emulators:start --import=./emulatorData",
       "dev": "vite --port 3002",
       "build": "tsc -b && vite build",
       "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
@@ -15,6 +15,7 @@
       "@mui/material": "^5.17.1",
       "@types/react": "~18.0.27",
       "dotenv": "^16.3.1",
+      "error-drawings": "^3.0.1",
       "firebase": "^9.23.0",
       "firebase-tools": "^12.0.0",
       "html-react-parser": "^4.0.0",
