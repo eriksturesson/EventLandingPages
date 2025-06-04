@@ -286,11 +286,11 @@ p.speaker-description {
    }
 }
 
-.speaker-image {
+/* .speaker-image {
    max-width: 100%;
    border-radius: 50%;
    width: 400px;
-}
+} */
 
 .schedule-box {
    position: relative;
