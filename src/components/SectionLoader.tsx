@@ -40,8 +40,8 @@ export const SectionLoader: React.FC<Props> = function (props) {
       return (
          <Box sx={{ textAlign: 'center', contentAlign: 'center' }}>
             {sortedData.map((section) => {
-               console.log('section:', section);
-               console.log('sectionName:', section.sectionName);
+               // console.log('section:', section);
+               // console.log('sectionName:', section.sectionName);
                const Component = components[section.sectionName];
                const sectionData = section.content;
                if (!Component) {

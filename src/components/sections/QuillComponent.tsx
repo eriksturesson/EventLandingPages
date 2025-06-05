@@ -27,7 +27,7 @@ function saveQuillToDB(data: any, sectionID: string) {
    console.log(timeSavedData);
 
    // Insert text to database
-   set(ref(db, `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/quillContent`), {
+   set(ref(db, `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/`), {
       text: data,
       timestamp: timeSavedData,
    });
@@ -46,17 +46,20 @@ export function QuillComponent(props: SectionProps): JSX.Element {
    const { data, adminEditor } = props;
    const { sectionName, sectionID, sectionOrder, createdAt, updatedAt } = data;
    let quillContent = data.content as QuillContent | undefined;
-   console.log('quillContent', quillContent);
+   // console.log('quillContent', quillContent);
 
    const [value, setValue] = useState(quillContent && quillContent.text ? quillContent.text : ''); // Initialize with an empty string
-
+   async function handleSave() {
+      saveQuillToDB(value, sectionID);
+      setValue(value);
+   }
    if (adminEditor) {
       return (
          <>
             <Divider>
                <h2>Edit Texts on your webpage</h2>
             </Divider>
-            <div className="myquillComponent">
+            <div className="myquillComponent" style={{ textAlign: 'center', marginTop: '1rem' }}>
                <ReactQuill theme="snow" value={value} onChange={setValue} />
                <div
                   style={{
@@ -65,7 +68,7 @@ export function QuillComponent(props: SectionProps): JSX.Element {
                      marginTop: '1rem',
                   }}
                >
-                  <Button variant="contained" onClick={() => saveQuillToDB(value, sectionID)} endIcon={<SaveIcon />}>
+                  <Button variant="contained" onClick={handleSave} endIcon={<SaveIcon />}>
                      Save
                   </Button>
                </div>
@@ -73,6 +76,11 @@ export function QuillComponent(props: SectionProps): JSX.Element {
          </>
       );
    } else {
-      return <Box sx={{ justifyContent: 'center', display: 'flex' }} dangerouslySetInnerHTML={{ __html: value }}></Box>;
+      return (
+         <Box
+            sx={{ justifyContent: 'center', display: 'flex' }}
+            dangerouslySetInnerHTML={{ __html: `<div>${value}</div>` }}
+         ></Box>
+      );
    }
 }
