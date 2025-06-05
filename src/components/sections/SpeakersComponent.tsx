@@ -120,10 +120,33 @@ export function OneSpeaker({
          </Box>
       </Paper>
    ) : (
-      <Box sx={{ p: 2, borderRadius: 2, mb: 3 }}>
+      <Box
+         sx={{
+            p: 2,
+            borderRadius: 2,
+            mb: 3,
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+         }}
+      >
          <h1 className="speaker-description">{title}</h1>
          <h2 className="speaker-description">{titleDescription}</h2>
-         <img className="speaker-image" src={image} />
+         <Box
+            component="img"
+            src={image}
+            alt={fullName}
+            sx={{
+               maxWidth: '100%',
+               width: '400px',
+               height: '400px',
+               borderRadius: '50%',
+               objectFit: 'cover',
+               mx: 'auto',
+               display: 'block',
+            }}
+         />
          <h2 className="speaker-description">{fullName}</h2>
          <h2 className="speaker-description">{description}</h2>
          <h2 className="speaker-description">{pitch}</h2>
