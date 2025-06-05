@@ -6,7 +6,7 @@ import { SectionProps } from '../interfaces/sectionInterfaces';
 import { ImageButtonFileUpload } from '../smallComponents/FileUploads';
 import { EditText, SaveTextsButton } from '../smallComponents/TextEdits';
 
-export function Footer(props: SectionProps): JSX.Element {
+export function FooterComponent(props: SectionProps): JSX.Element {
    const { data, adminEditor } = props;
    const content = data.content as DBHomePageContentFooter | undefined;
    const { sectionID } = data;
@@ -162,9 +162,8 @@ export function Footer(props: SectionProps): JSX.Element {
                         transform: 'translate(-50%, -50%)',
                      }}
                   >
-                     <ImageButtonFileUpload order={1} sectionID={sectionID} sectionName={'footer'} id={'footer-image'} />
+                     <ImageButtonFileUpload order={1} sectionID={sectionID} sectionName={'footer'} id={'mapImage'} />
                   </Box>
-                  )
                </Grid>
 
                <Grid item xs={12} id="footer">

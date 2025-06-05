@@ -96,7 +96,7 @@ const SectionNavigator: React.FC<Props> = ({ sections, handleDrop, user }) => {
                   {sections.length > 0 ? (
                      sections.map((section, index) => (
                         <Paper
-                           key={section.sectionID}
+                           key={section.sectionID + '-drawer-' + index}
                            draggable
                            onDragStart={handleDragStart}
                            onDragOver={handleDragOver}

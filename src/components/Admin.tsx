@@ -66,7 +66,7 @@ const Admin: React.FC<AdminProps> = ({ user, homepageContent, setHomepageContent
             }}
          >
             <Box className="adminEdit" sx={{ transform: 'scale(1)', transformOrigin: '0% 0% 0px' }}>
-               <SectionLoader data={homepageContent} adminEditor={true} />
+               <SectionLoader data={orderedSections} adminEditor={true} />
             </Box>
          </Box>
       </Box>

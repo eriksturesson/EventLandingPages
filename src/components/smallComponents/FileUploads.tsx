@@ -170,6 +170,9 @@ export function fileUpload(props: FileUploadProps): void {
                if (sectionName === 'fullScreenMedia') {
                   data = { media: downloadURL, order: order, id: randomKeyOrOneItem, mediaType: fileType(file) };
                   ref = `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/`;
+               } else if (sectionName === 'footer') {
+                  data = { mapImage: downloadURL };
+                  ref = `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/`;
                } else {
                   data = { image: downloadURL, order: order, id: randomKeyOrOneItem };
                   ref = `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/${randomKeyOrOneItem}/`;
