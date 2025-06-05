@@ -35,19 +35,14 @@ export function FooterComponent(props: SectionProps): JSX.Element {
                   <p>{content?.contactName}</p>
                   <p>{content?.contactPhone}</p>
                   <p>{content?.contactEmail}</p>
-                  <p>
-                     <a href={content?.integrityPolicy}>{content?.integrityPolicyDescription}</a>
-                  </p>
                </div>
                <div id="karta">
                   <img id="kartbild" alt="karta" src={mapImage ? mapImage : mapImageExample} />
                </div>
             </div>
 
-            <div id="footer">
-               <a href="https://firebasestorage.googleapis.com/v0/b/stockholm-city-affarsnatverk.appspot.com/o/Integritetspolicy%201.0%20-%20Stockholm%20City%20Aff%C3%A4rsn%C3%A4tverk.pdf?alt=media&token=44075bd0-fc76-44a1-a4c0-f634a1a5b45c">
-                  Vår integritetspolicy
-               </a>
+            <div id="footerPolicy">
+               <a href={content?.integrityPolicy}>{content?.integrityPolicyDescription}</a>
             </div>
          </div>
       );
