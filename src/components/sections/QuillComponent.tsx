@@ -36,8 +36,8 @@ function saveQuillToDB(data: any, sectionID: string) {
    if (auth.currentUser) {
       set(ref(db, 'adminUsers/' + auth.currentUser.uid), {
          websiteID: websiteID,
-         Email: auth.currentUser.email,
-         LastTimeSavedData: timeSavedData,
+         email: auth.currentUser.email,
+         lastTimeSavedData: timeSavedData,
       });
    }
 }

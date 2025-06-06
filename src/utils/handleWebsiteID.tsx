@@ -1,6 +1,6 @@
 import { child, ref as dbRef, get, push, set } from 'firebase/database';
 import { v4 as uuidv4 } from 'uuid';
-import { DBWebsiteIDs } from '../interfaces/dbInterfaces';
+import { DBWebsiteIdKey } from '../interfaces/dbInterfaces';
 import { sectionTypes } from '../interfaces/sectionInterfaces';
 import { db } from './firebase';
 /* Does not work
@@ -70,7 +70,7 @@ export async function handleWebSiteID(): Promise<string> {
       .then(async (snapshot) => {
          let websiteID = '';
          if (snapshot.exists() && snapshot.val()) {
-            let data: DBWebsiteIDs = snapshot.val();
+            let data: DBWebsiteIdKey = snapshot.val();
             let arrayOfWebsiteIDs = Object.keys(data);
             for (let websiteIDInDB of arrayOfWebsiteIDs) {
                if (data[websiteIDInDB].websiteHostName === thisLocationsHostName) {

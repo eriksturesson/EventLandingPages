@@ -1,4 +1,4 @@
-import { SectionIDs } from './sectionInterfaces';
+import { CustomPageSectionContent, SectionContent } from './sectionInterfaces';
 
 export interface DBFullScreenMediaMetaData {
    metaDescription: string;
@@ -94,19 +94,19 @@ export interface QuillContent {
    timestamp: Date;
 }
 
-export interface DBHomePageContent {
-   fullScreenMedia?: DBFullScreenMedia;
-   speakers?: DBSpeakersKey;
-   participants?: DBParticipantKey;
-   organizers?: DBOrganizersKey;
-   pitchCards?: DBPitchCardKey;
-   quillContent?: QuillContent;
-   callToActionButton?: DBHomePageContentButton;
-   footer?: DBHomePageContentFooter;
-   //HeadingSection?: HeadingSectionTypes;
+// export interface DBHomePageContent {
+//    fullScreenMedia?: DBFullScreenMedia;
+//    speakers?: DBSpeakersKey;
+//    participants?: DBParticipantKey;
+//    organizers?: DBOrganizersKey;
+//    pitchCards?: DBPitchCardKey;
+//    quillContent?: QuillContent;
+//    callToActionButton?: DBHomePageContentButton;
+//    footer?: DBHomePageContentFooter;
+//    //HeadingSection?: HeadingSectionTypes;
 
-   // timestamp: string;
-}
+//    // timestamp: string;
+// }
 
 export interface HeadingSectionTypes {
    text: string;
@@ -137,48 +137,37 @@ export type InitContent = {
    //HeadingSection: HeadingSectionTypes;
 };
 
-export interface DBAdminPageContent {}
-
-export interface DBSubPageContent {
-   header: DBFullScreenMedia;
-   quillContent: string;
-}
-
-export interface DB {
-   websiteHostName: string;
-   homepageContent: SectionIDs;
-   adminpageContent: DBAdminPageContent;
-   subpages: DBSubPageContent[];
-}
-
-export interface DBs {
-   [websiteID: string]: DB;
-}
 export interface DBAdminUsers {
    [userID: string]: {
       [websiteID: string]: string;
-      Email: string;
-      LastTimeSavedData: string;
+      email: string;
+      lastTimeSavedData: string;
    }; //Not done, maybe even not needed
 }
 
-export interface DBUsers {
-   [userID: string]: {
-      Email: string;
-      LastTimeSavedData: string;
-   }; //Not done, maybe even not needed
+export interface DbCustomPagesKey {
+   [pageID: string]: Record<string, CustomPageSectionContent>;
+}
+export interface DbEachWebsite {
+   homepageContent: Record<string, SectionContent>;
+   customPages: DbCustomPagesKey;
+}
+export interface DBEachWebsiteKey {
+   [websiteID: string]: DbEachWebsite;
 }
 
 export interface DBWebsiteIDs {
-   [websiteID: string]: {
-      websiteHostName: string;
-      websiteID: string;
-      created: string;
-   };
+   websiteHostName: string;
+   websiteID: string;
+   created: string;
 }
-export interface DB {
-   websites: DB;
-   websiteIds: DBWebsiteIDs;
-   users: DBUsers;
+
+export interface DBWebsiteIdKey {
+   [websiteID: string]: DBWebsiteIDs;
+}
+
+export interface DBRoot {
    adminUsers: DBAdminUsers;
+   websiteIds: DBWebsiteIdKey;
+   websites: DBEachWebsiteKey;
 }
