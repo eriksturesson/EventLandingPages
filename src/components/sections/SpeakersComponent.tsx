@@ -25,13 +25,20 @@ export function SpeakersComponent(props: SectionProps): JSX.Element {
                         sectionName={sectionName}
                         adminEditor={adminEditor}
                         speaker={speaker}
+                        isNewCard={false}
                      />
                   </Grid>
                ))}
 
          {adminEditor && (
             <Grid item xs={12} md={6} lg={4} key={newSpeaker.id}>
-               <OneSpeaker sectionID={sectionID} sectionName={sectionName} adminEditor={adminEditor} speaker={newSpeaker} />
+               <OneSpeaker
+                  sectionID={sectionID}
+                  sectionName={sectionName}
+                  adminEditor={adminEditor}
+                  speaker={newSpeaker}
+                  isNewCard={true}
+               />
             </Grid>
          )}
       </Grid>
@@ -42,11 +49,12 @@ export function OneSpeaker({
    speaker,
    sectionID,
    sectionName,
+   isNewCard = false,
 }: {
    sectionID: string;
    sectionName: SectionTypes;
    adminEditor: boolean;
-
+   isNewCard?: boolean;
    speaker: DBSpeaker;
 }): JSX.Element {
    const { image, id, order } = speaker;
@@ -57,7 +65,7 @@ export function OneSpeaker({
    const [pitch, setPitch] = useState(speaker.pitch || '');
 
    return adminEditor ? (
-      <Paper elevation={5} sx={{ p: 2, borderRadius: 2, bgcolor: '#f9f9f9', mb: 3 }}>
+      <Paper elevation={5} sx={{ p: 2, borderRadius: 2, bgcolor: isNewCard ? '#e0e0e0' : '#f9f9f9', mb: 3 }}>
          <Box sx={{ p: 2, borderRadius: 2, mb: 3 }}>
             <TextField
                fullWidth
