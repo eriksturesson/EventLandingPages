@@ -1,5 +1,6 @@
 import { onValue, ref } from 'firebase/database';
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { DBCustomPages, PageMetadata } from '../interfaces/dbInterfaces';
 import { SectionContent, SectionIDs } from '../interfaces/sectionInterfaces';
 import { db } from '../utils/firebase';
 import { handleWebSiteID } from '../utils/handleWebsiteID';
@@ -9,6 +10,9 @@ interface DbContentContextType {
    homepageContent: SectionContent[];
    setHomepageContent: React.Dispatch<React.SetStateAction<SectionContent[]>>;
    customPages: Record<string, SectionContent[]>;
+   setCustomPages: React.Dispatch<React.SetStateAction<Record<string, SectionContent[]>>>;
+   setCustomPagesMetaData: React.Dispatch<React.SetStateAction<PageMetadata[]>>; // new!
+   customPageMetaData: PageMetadata[]; // new!
    isLoading: boolean;
 }
 
@@ -23,6 +27,7 @@ export const useDbContent = (): DbContentContextType => {
 export const DbContentProvider = ({ children }: { children: React.ReactNode }) => {
    const [websiteID, setWebsiteID] = useState<string>('');
    const [homepageContent, setHomepageContent] = useState<SectionContent[]>([]);
+   const [customPageMetaData, setCustomPagesMetaData] = useState<PageMetadata[]>([]); // new!
    const [customPages, setCustomPages] = useState<Record<string, SectionContent[]>>({});
    const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -62,23 +67,45 @@ export const DbContentProvider = ({ children }: { children: React.ReactNode }) =
       const customPagesRef = ref(db, `websites/${websiteID}/customPages`);
       const unsubscribe = onValue(customPagesRef, (snapshot) => {
          const pages = snapshot.val();
-         if (!pages) return setCustomPages({});
+         if (!pages) {
+            setCustomPages({});
+            setCustomPagesMetaData([]);
+            return;
+         }
 
          const parsedPages: Record<string, SectionContent[]> = {};
+         const navLinks: PageMetadata[] = [];
 
-         Object.entries(pages).forEach(([pageID, content]) => {
-            const sectionArray = Object.values(content as SectionIDs).sort((a, b) => a.sectionOrder - b.sectionOrder);
+         Object.entries(pages).forEach(([pageID, data]) => {
+            const { metadata, content } = data as DBCustomPages;
+            if (!metadata || !content) return;
+
+            const sectionArray = Object.values(content).sort((a, b) => a.sectionOrder - b.sectionOrder);
             parsedPages[pageID] = sectionArray;
+
+            navLinks.push(metadata);
          });
 
          setCustomPages(parsedPages);
+         setCustomPagesMetaData(navLinks);
       });
 
       return () => unsubscribe();
    }, [websiteID]);
 
    return (
-      <DbContentContext.Provider value={{ websiteID, homepageContent, setHomepageContent, customPages, isLoading }}>
+      <DbContentContext.Provider
+         value={{
+            websiteID,
+            homepageContent,
+            customPageMetaData,
+            setCustomPagesMetaData,
+            setHomepageContent,
+            setCustomPages,
+            customPages,
+            isLoading,
+         }}
+      >
          {children}
       </DbContentContext.Provider>
    );

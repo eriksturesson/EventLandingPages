@@ -6,7 +6,11 @@ import AddIcon from '@mui/icons-material/Add';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Box, Button, Drawer, IconButton, List, ListItem, ListItemText, Modal, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import logga from '../assets/LOGGA FÄRDIGT UTKAST.jpg';
+import { useDbContent } from '../contexts/DBContentContext';
+import { PageMetadata } from '../interfaces/dbInterfaces';
+import { readAndWriteToFirebase } from '../utils/firebaseFunctions';
 const style = {
    position: 'absolute' as const,
    top: '50%',
@@ -19,22 +23,30 @@ const style = {
    p: 4,
 };
 const NavWrapper = ({ isAdmin }: { isAdmin: boolean }): JSX.Element => {
-   const [menuItems, setMenuItems] = useState([
-      { label: 'Home', link: '/' },
-      { label: 'Föregående år', link: './tidigareprogram' },
-      { label: 'Arrangörer', link: './arrangerandeklubbar' },
-   ]);
+   const { customPageMetaData, setCustomPagesMetaData, websiteID } = useDbContent();
    const [menuOpen, setMenuOpen] = useState(false);
    const [modalOpen, setModalOpen] = useState(false);
-   const [newItem, setNewItem] = useState({ label: '', link: '' });
+   const [newItem, setNewItem] = useState<PageMetadata>({ pageName: '', pageLink: '', pageID: '' });
    const handleDrawerToggle = () => setMenuOpen(!menuOpen);
    const handleModalToggle = () => setModalOpen(!modalOpen);
 
-   const handleAddItem = () => {
-      if (newItem.label && newItem.link) {
-         setMenuItems([...menuItems, newItem]);
-         setNewItem({ label: '', link: '' });
-         setModalOpen(false);
+   const handleAddItem = async () => {
+      if (newItem.pageName && newItem.pageLink) {
+         let newPageID = uuidv4();
+         newItem.pageID = newPageID;
+         //First update db
+         try {
+            await readAndWriteToFirebase({
+               method: 'update',
+               ref: `websites/${websiteID}/customPages/${newPageID}/metadata/`,
+               data: newItem,
+            });
+            //If successful, also update state
+            setCustomPagesMetaData([...customPageMetaData, newItem]);
+            setModalOpen(false);
+         } catch (error) {
+            console.error('Error adding new item:', error);
+         }
       }
    };
 
@@ -79,11 +91,11 @@ const NavWrapper = ({ isAdmin }: { isAdmin: boolean }): JSX.Element => {
                      Add Link
                   </Button>
                )}
-               {menuItems.map((item) => (
+               {customPageMetaData.map((item) => (
                   <Button
-                     key={item.label}
+                     key={item.pageID}
                      component="a"
-                     href={item.link}
+                     href={item.pageLink}
                      target="_blank"
                      rel="noopener noreferrer"
                      sx={{
@@ -95,7 +107,7 @@ const NavWrapper = ({ isAdmin }: { isAdmin: boolean }): JSX.Element => {
                         },
                      }}
                   >
-                     {item.label}
+                     {item.pageName}
                   </Button>
                ))}
             </Box>
@@ -138,9 +150,9 @@ const NavWrapper = ({ isAdmin }: { isAdmin: boolean }): JSX.Element => {
                         <AddIcon />
                      </IconButton>
                   )}
-                  {menuItems.map((item) => (
-                     <ListItem button key={item.label} component="a" href={item.link} onClick={handleDrawerToggle}>
-                        <ListItemText primary={item.label} />
+                  {customPageMetaData.map((item) => (
+                     <ListItem button key={item.pageName} component="a" href={item.pageLink} onClick={handleDrawerToggle}>
+                        <ListItemText primary={item.pageName} />
                      </ListItem>
                   ))}
                </List>
@@ -169,16 +181,16 @@ const NavWrapper = ({ isAdmin }: { isAdmin: boolean }): JSX.Element => {
                      fullWidth
                      label="Namn"
                      variant="outlined"
-                     value={newItem.label}
-                     onChange={(e) => setNewItem({ ...newItem, label: e.target.value })}
+                     value={newItem.pageName}
+                     onChange={(e) => setNewItem({ ...newItem, pageName: e.target.value })}
                      sx={{ mb: 2 }}
                   />
                   <TextField
                      fullWidth
                      label="Länk"
                      variant="outlined"
-                     value={newItem.link}
-                     onChange={(e) => setNewItem({ ...newItem, link: e.target.value })}
+                     value={newItem.pageLink}
+                     onChange={(e) => setNewItem({ ...newItem, pageLink: e.target.value })}
                      sx={{ mb: 2 }}
                   />
                   <Button fullWidth variant="contained" onClick={handleAddItem}>

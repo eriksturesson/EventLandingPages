@@ -1,4 +1,4 @@
-import { CustomPageSectionContent, SectionContent } from './sectionInterfaces';
+import { SectionContent } from './sectionInterfaces';
 
 export interface DBFullScreenMediaMetaData {
    metaDescription: string;
@@ -145,12 +145,19 @@ export interface DBAdminUsers {
    }; //Not done, maybe even not needed
 }
 
-export interface DbCustomPagesKey {
-   [pageID: string]: Record<string, CustomPageSectionContent>;
+export interface PageMetadata {
+   pageName: string;
+   pageLink: string;
+   pageID: string;
+}
+
+export interface DBCustomPages {
+   metadata: PageMetadata;
+   content: Record<string, SectionContent>; // sectionID -> content
 }
 export interface DbEachWebsite {
    homepageContent: Record<string, SectionContent>;
-   customPages: DbCustomPagesKey;
+   customPages: DBCustomPages;
 }
 export interface DBEachWebsiteKey {
    [websiteID: string]: DbEachWebsite;

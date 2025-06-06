@@ -9,11 +9,6 @@ export interface SectionContent {
    updatedAt: Date;
 }
 
-export interface CustomPageSectionContent extends SectionContent {
-   pageName: string;
-   pageLink: string;
-}
-
 export interface SectionIDs {
    [sectionID: string]: SectionContent;
 }
