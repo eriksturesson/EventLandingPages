@@ -5,8 +5,7 @@ import { useState } from 'react';
 import { useDbContent } from '../../contexts/DBContentContext';
 import { SectionTypes, sectionTypes } from '../../interfaces/sectionInterfaces';
 import { db } from '../../utils/firebase';
-export function storeNewSection(sectionType: SectionTypes, sectionOrder: number) {
-   const { websiteID } = useDbContent();
+export function storeNewSection(sectionType: SectionTypes, sectionOrder: number, websiteID?: string) {
    let sectionID = push(child(dbRef(db), `websites/${websiteID}/homepageContent/`)).key;
    update(dbRef(db, `websites/${websiteID}/homepageContent/${sectionID}/`), {
       sectionName: sectionType,
@@ -19,6 +18,7 @@ export function storeNewSection(sectionType: SectionTypes, sectionOrder: number)
 }
 
 export function CreateSection({ sectionOrder }: { sectionOrder: number }) {
+   const { websiteID } = useDbContent();
    const [open, setOpen] = useState(false);
    const handleOpen = () => setOpen(true);
    const handleClose = () => setOpen(false);
@@ -30,7 +30,7 @@ export function CreateSection({ sectionOrder }: { sectionOrder: number }) {
                color="info"
                endIcon={<AddCircleIcon />}
                variant="contained"
-               onClick={() => storeNewSection(sectionType, sectionOrder)}
+               onClick={() => storeNewSection(sectionType, sectionOrder, websiteID)}
             >
                {sectionType}
             </Button>
