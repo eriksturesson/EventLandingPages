@@ -1,8 +1,8 @@
 import { Button, Divider, Slider, Stack } from '@mui/material';
 import { useState } from 'react';
 import arrowDown from '../../assets/baseline_keyboard_arrow_down_white_18dp.png';
-import { DBFullScreenMedia } from '../interfaces/dbInterfaces';
-import { SectionProps } from '../interfaces/sectionInterfaces';
+import { DBFullScreenMedia } from '../../interfaces/dbInterfaces';
+import { SectionProps } from '../../interfaces/sectionInterfaces';
 import { ImageButtonFileUpload } from '../smallComponents/FileUploads';
 import TextEditDialog from '../smallComponents/TextEditDialog';
 import { handleSaveTexts, SaveTextsButton } from '../smallComponents/TextEdits';
@@ -14,7 +14,7 @@ export function FullScreenMedia(props: SectionProps): JSX.Element {
    let media, mediaType, initMediaSize, title, description, time, location;
 
    if (content) {
-      ({ media, mediaType, mediaSize: initMediaSize, title, description, time, location} = content as DBFullScreenMedia);
+      ({ media, mediaType, mediaSize: initMediaSize, title, description, time, location } = content as DBFullScreenMedia);
    } else {
       // Provide default values or take any other necessary action when content is null
       // Example:

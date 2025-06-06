@@ -1,8 +1,8 @@
 import { Box, Divider, Grid } from '@mui/material';
 import { useState } from 'react';
 import mapImageExample from '../../assets/mapImageExample.png';
-import { DBHomePageContentFooter } from '../interfaces/dbInterfaces';
-import { SectionProps } from '../interfaces/sectionInterfaces';
+import { DBHomePageContentFooter } from '../../interfaces/dbInterfaces';
+import { SectionProps } from '../../interfaces/sectionInterfaces';
 import { ImageButtonFileUpload } from '../smallComponents/FileUploads';
 import { EditText, SaveTextsButton } from '../smallComponents/TextEdits';
 

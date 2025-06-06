@@ -1,8 +1,8 @@
 import { onValue, ref } from 'firebase/database';
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { SectionContent, SectionIDs } from '../components/interfaces/sectionInterfaces';
-import { db } from '../components/utils/firebase';
-import { handleWebSiteID } from '../components/utils/handleWebsiteID';
+import { SectionContent, SectionIDs } from '../interfaces/sectionInterfaces';
+import { db } from '../utils/firebase';
+import { handleWebSiteID } from '../utils/handleWebsiteID';
 
 interface DbContentContextType {
    websiteID: string;

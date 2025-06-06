@@ -14,10 +14,10 @@ import {
 import { onValue, ref, update } from 'firebase/database';
 import React, { ReactNode, useEffect, useState } from 'react';
 import { useDbContent } from '../../contexts/DBContentContext';
-import { DBHomePageContentButton } from '../interfaces/dbInterfaces';
-import { SectionProps } from '../interfaces/sectionInterfaces';
-import { db } from '../utils/firebase';
-import { readAndWriteToFirebase } from '../utils/firebaseFunctions';
+import { DBHomePageContentButton } from '../../interfaces/dbInterfaces';
+import { SectionProps } from '../../interfaces/sectionInterfaces';
+import { db } from '../../utils/firebase';
+import { readAndWriteToFirebase } from '../../utils/firebaseFunctions';
 
 export let customColor: string = '';
 export function RegisterButtonComponent({ buttonContent }: { buttonContent: DBHomePageContentButton }): JSX.Element {

@@ -5,11 +5,11 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { useDbContent } from '../../contexts/DBContentContext';
-import { DBHomePageContentPitchCards, DBPitchCardKey } from '../interfaces/dbInterfaces';
-import { SectionProps, SectionTypes } from '../interfaces/sectionInterfaces';
+import { DBHomePageContentPitchCards, DBPitchCardKey } from '../../interfaces/dbInterfaces';
+import { SectionProps, SectionTypes } from '../../interfaces/sectionInterfaces';
+import { db, storage } from '../../utils/firebase';
 import { EditorOfImage } from '../smallComponents/FileUploads';
 import { EditText, SaveTextsButton } from '../smallComponents/TextEdits';
-import { db, storage } from '../utils/firebase';
 
 interface OnePitchCardProps {
    adminEditor?: boolean;

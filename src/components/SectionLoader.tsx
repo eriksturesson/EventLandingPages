@@ -1,6 +1,6 @@
 import { Box, Grid } from '@mui/material';
 import React from 'react';
-import { SectionContent, SectionProps } from './interfaces/sectionInterfaces';
+import { SectionContent, SectionProps } from '../interfaces/sectionInterfaces';
 import { CallToActionButtonComponent } from './sections/CallToActionButton';
 import { FooterComponent } from './sections/FooterComponent';
 import { FullScreenMedia } from './sections/FullScreenMedia';

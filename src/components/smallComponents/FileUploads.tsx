@@ -8,9 +8,9 @@ import companyExample from '../../assets/companyExample.png';
 import logoExample from '../../assets/logoExample.png';
 import mapImageExample from '../../assets/mapImageExample.png';
 import { useDbContent } from '../../contexts/DBContentContext';
-import { SectionTypes } from '../interfaces/sectionInterfaces';
-import { storage } from '../utils/firebase';
-import { readAndWriteToFirebase } from '../utils/firebaseFunctions';
+import { SectionTypes } from '../../interfaces/sectionInterfaces';
+import { storage } from '../../utils/firebase';
+import { readAndWriteToFirebase } from '../../utils/firebaseFunctions';
 import { fileType } from './fileType';
 
 export interface ParticipantCardFileUploadProps {

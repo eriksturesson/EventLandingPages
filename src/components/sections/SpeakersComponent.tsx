@@ -1,8 +1,8 @@
 import { Box, Grid, Paper, TextField } from '@mui/material';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { DBSpeaker, DBSpeakersKey } from '../interfaces/dbInterfaces';
-import { SectionProps, SectionTypes } from '../interfaces/sectionInterfaces';
+import { DBSpeaker, DBSpeakersKey } from '../../interfaces/dbInterfaces';
+import { SectionProps, SectionTypes } from '../../interfaces/sectionInterfaces';
 import { EditorOfImage } from '../smallComponents/FileUploads';
 import { SaveTextsButton, handleStateTextChange } from '../smallComponents/TextEdits';
 

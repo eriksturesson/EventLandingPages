@@ -1,7 +1,7 @@
 import { Box, Button, FormControl, FormHelperText, Grid, Input, InputLabel, Typography } from '@mui/material';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
-import { auth } from './utils/firebase';
+import { auth } from '../utils/firebase';
 
 async function loginFunction({ email, password }: { email?: string; password?: string }) {
    if (!email || !password) {

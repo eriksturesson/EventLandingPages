@@ -6,11 +6,11 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import addNewSpeakerExample from '../../assets/addNewSpeakerExample.png';
 import { useDbContent } from '../../contexts/DBContentContext';
-import { DBOneParticipant, DBParticipantKey } from '../interfaces/dbInterfaces';
-import { SectionProps, SectionTypes } from '../interfaces/sectionInterfaces';
+import { DBOneParticipant, DBParticipantKey } from '../../interfaces/dbInterfaces';
+import { SectionProps, SectionTypes } from '../../interfaces/sectionInterfaces';
+import { db, storage } from '../../utils/firebase';
 import { EditorOfImage } from '../smallComponents/FileUploads';
 import { EditText, SaveTextsButton, handleStateTextChange } from '../smallComponents/TextEdits';
-import { db, storage } from '../utils/firebase';
 
 export function OneParticipant({
    newCard,

@@ -3,8 +3,8 @@ import { Box, Button, Divider, Grid, Modal, Typography } from '@mui/material';
 import { child, ref as dbRef, push, update } from 'firebase/database';
 import { useState } from 'react';
 import { useDbContent } from '../../contexts/DBContentContext';
-import { SectionTypes, sectionTypes } from '../interfaces/sectionInterfaces';
-import { db } from '../utils/firebase';
+import { SectionTypes, sectionTypes } from '../../interfaces/sectionInterfaces';
+import { db } from '../../utils/firebase';
 export function storeNewSection(sectionType: SectionTypes, sectionOrder: number) {
    const { websiteID } = useDbContent();
    let sectionID = push(child(dbRef(db), `websites/${websiteID}/homepageContent/`)).key;

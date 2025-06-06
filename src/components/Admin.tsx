@@ -2,7 +2,7 @@ import { Box, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useDbContent } from '../contexts/DBContentContext';
-import { SectionContent } from './interfaces/sectionInterfaces';
+import { SectionContent } from '../interfaces/sectionInterfaces';
 import { Login } from './Login';
 import NavWrapper from './NavWrapper';
 import { SectionLoader } from './SectionLoader';

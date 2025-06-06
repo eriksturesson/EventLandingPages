@@ -17,8 +17,8 @@ import {
 import React, { useState } from 'react';
 
 import { User } from 'firebase/auth';
-import { signOutUser } from './helpers/signoutUser';
-import { SectionContent } from './interfaces/sectionInterfaces';
+import { signOutUser } from '../helpers/signoutUser';
+import { SectionContent } from '../interfaces/sectionInterfaces';
 import { SaveTextsButton } from './smallComponents/SaveTextsButton';
 
 interface Props {

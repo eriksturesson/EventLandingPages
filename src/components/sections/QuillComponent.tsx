@@ -5,9 +5,9 @@ import { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useDbContent } from '../../contexts/DBContentContext';
-import { QuillContent } from '../interfaces/dbInterfaces';
-import { SectionProps } from '../interfaces/sectionInterfaces';
-import { auth, db } from '../utils/firebase';
+import { QuillContent } from '../../interfaces/dbInterfaces';
+import { SectionProps } from '../../interfaces/sectionInterfaces';
+import { auth, db } from '../../utils/firebase';
 
 function saveQuillToDB(data: any, sectionID: string) {
    const { websiteID } = useDbContent();
