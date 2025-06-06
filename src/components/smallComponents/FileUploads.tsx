@@ -2,12 +2,12 @@ import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { Box, Button, SvgIcon } from '@mui/material';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import React from 'react';
-import { WEBSITE_ID } from '../../App';
 import addNewSpeakerExample from '../../assets/addNewSpeakerExample.png';
 import briefcaseExample from '../../assets/briefcaseExample.png';
 import companyExample from '../../assets/companyExample.png';
 import logoExample from '../../assets/logoExample.png';
 import mapImageExample from '../../assets/mapImageExample.png';
+import { useDbContent } from '../../contexts/DBContentContext';
 import { SectionTypes } from '../interfaces/sectionInterfaces';
 import { storage } from '../utils/firebase';
 import { readAndWriteToFirebase } from '../utils/firebaseFunctions';
@@ -107,6 +107,7 @@ interface FileUploadProps extends ParticipantCardFileUploadProps {
 }
 
 export function fileUpload(props: FileUploadProps): void {
+   const { websiteID } = useDbContent();
    const { event, order, sectionName, sectionID, id } = props;
    const file = event?.target?.files ? event.target.files[0] : null;
    let randomKeyOrOneItem;
@@ -120,7 +121,7 @@ export function fileUpload(props: FileUploadProps): void {
    if (file) {
       const storageRef = ref(
          storage,
-         `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/${randomKeyOrOneItem}/${file.name}`
+         `websites/${websiteID}/homepageContent/${sectionID}/content/${randomKeyOrOneItem}/${file.name}`
       );
       const uploadTask = uploadBytesResumable(storageRef, file);
 
@@ -169,13 +170,13 @@ export function fileUpload(props: FileUploadProps): void {
                let ref = '';
                if (sectionName === 'fullScreenMedia') {
                   data = { media: downloadURL, order: order, id: randomKeyOrOneItem, mediaType: fileType(file) };
-                  ref = `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/`;
+                  ref = `websites/${websiteID}/homepageContent/${sectionID}/content/`;
                } else if (sectionName === 'footer') {
                   data = { mapImage: downloadURL };
-                  ref = `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/`;
+                  ref = `websites/${websiteID}/homepageContent/${sectionID}/content/`;
                } else {
                   data = { image: downloadURL, order: order, id: randomKeyOrOneItem };
-                  ref = `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/${randomKeyOrOneItem}/`;
+                  ref = `websites/${websiteID}/homepageContent/${sectionID}/content/${randomKeyOrOneItem}/`;
                }
                readAndWriteToFirebase({
                   method: 'update',

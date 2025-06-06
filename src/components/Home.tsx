@@ -1,12 +1,15 @@
+import { useDbContent } from '../contexts/DBContentContext';
+import { LoadingSpinner } from './Loading';
 import NavWrapper from './NavWrapper';
 import { SectionLoader } from './SectionLoader';
-import { SectionContent } from './interfaces/sectionInterfaces';
 
 function testonload() {
    alert('testar onload i html-filen, då ska denna funktion köras');
 }
 
-const Home = ({ homepageContent }: { homepageContent: SectionContent[] }): JSX.Element => {
+const Home = (): JSX.Element => {
+   const { homepageContent, isLoading } = useDbContent();
+   if (isLoading) return <LoadingSpinner />;
    return (
       <>
          <NavWrapper isAdmin={false} />

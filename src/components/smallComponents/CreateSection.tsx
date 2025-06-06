@@ -2,12 +2,13 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { Box, Button, Divider, Grid, Modal, Typography } from '@mui/material';
 import { child, ref as dbRef, push, update } from 'firebase/database';
 import { useState } from 'react';
-import { WEBSITE_ID } from '../../App';
+import { useDbContent } from '../../contexts/DBContentContext';
 import { SectionTypes, sectionTypes } from '../interfaces/sectionInterfaces';
 import { db } from '../utils/firebase';
 export function storeNewSection(sectionType: SectionTypes, sectionOrder: number) {
-   let sectionID = push(child(dbRef(db), `websites/${WEBSITE_ID}/homepageContent/`)).key;
-   update(dbRef(db, `websites/${WEBSITE_ID}/homepageContent/${sectionID}/`), {
+   const { websiteID } = useDbContent();
+   let sectionID = push(child(dbRef(db), `websites/${websiteID}/homepageContent/`)).key;
+   update(dbRef(db, `websites/${websiteID}/homepageContent/${sectionID}/`), {
       sectionName: sectionType,
       //content: initSectionDataOnNewCreation[sectionType], //No, create your own content later - dont create stuff that you need to remove.
       sectionID: sectionID,

@@ -1,19 +1,17 @@
 import { Box, useMediaQuery, useTheme } from '@mui/material';
-import { User } from 'firebase/auth';
 import React from 'react';
+import { useAuth } from '../contexts/AuthContext';
+import { useDbContent } from '../contexts/DBContentContext';
 import { SectionContent } from './interfaces/sectionInterfaces';
+import { Login } from './Login';
 import NavWrapper from './NavWrapper';
 import { SectionLoader } from './SectionLoader';
 import SectionNavigator from './SectionNavigator';
 
-interface AdminProps {
-   user: User | null;
-   homepageContent: SectionContent[];
-   setHomepageContent: React.Dispatch<React.SetStateAction<SectionContent[]>>;
-}
-
-const Admin: React.FC<AdminProps> = ({ user, homepageContent, setHomepageContent }) => {
+const Admin: React.FC = () => {
    const theme = useTheme();
+   const { user } = useAuth();
+   const { homepageContent, setHomepageContent } = useDbContent();
    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
    const handleDrop = async (event: React.DragEvent<HTMLDivElement>, sections: SectionContent[]) => {
       const droppedIndex = +event.dataTransfer.getData('section-order');
@@ -39,6 +37,7 @@ const Admin: React.FC<AdminProps> = ({ user, homepageContent, setHomepageContent
    };
 
    const orderedSections = Object.values(homepageContent).sort((a, b) => a.sectionOrder - b.sectionOrder);
+   if (!user) return <Login />;
    return (
       <>
          <NavWrapper isAdmin={true} />

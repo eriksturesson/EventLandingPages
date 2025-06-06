@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import { onValue, ref, update } from 'firebase/database';
 import React, { ReactNode, useEffect, useState } from 'react';
-import { WEBSITE_ID } from '../../App';
+import { useDbContent } from '../../contexts/DBContentContext';
 import { DBHomePageContentButton } from '../interfaces/dbInterfaces';
 import { SectionProps } from '../interfaces/sectionInterfaces';
 import { db } from '../utils/firebase';
@@ -71,6 +71,7 @@ function handleButtonColorChange(event: SelectChangeEvent<string>, websiteID: Re
 export function CallToActionButtonComponent(props: SectionProps): JSX.Element {
    const { data, adminEditor } = props;
    const { sectionName, sectionID, sectionOrder, createdAt, updatedAt } = data;
+   const { websiteID } = useDbContent();
    const buttonContent = data.content as DBHomePageContentButton | undefined;
    const [homepageButtonContent, setHomepageButtonContent] = useState<DBHomePageContentButton>(
       buttonContent ? buttonContent : { formLink: '', buttonText: '', buttonInfo: '', buttonColor: '' }
@@ -78,7 +79,7 @@ export function CallToActionButtonComponent(props: SectionProps): JSX.Element {
    if (adminEditor) {
       useEffect(() => {
          // READ DATA WHEN UPDATED TO UPDATE INDEX.HTML PROGRAM CONTENT
-         let readButtonContentFromDatabase = ref(db, `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/`);
+         let readButtonContentFromDatabase = ref(db, `websites/${websiteID}/homepageContent/${sectionID}/content/`);
          onValue(readButtonContentFromDatabase, (snapshot) => {
             let buttonContentFromDB: DBHomePageContentButton = snapshot.val() ? snapshot.val() : '';
             setHomepageButtonContent(buttonContentFromDB);
@@ -149,7 +150,7 @@ export function CallToActionButtonComponent(props: SectionProps): JSX.Element {
                noValidate
                autoComplete="off"
                //onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleButtonChange(e, websiteID)}
-               onSubmit={() => saveButtonDataToDB(homepageButtonContent, WEBSITE_ID, sectionID)}
+               onSubmit={() => saveButtonDataToDB(homepageButtonContent, websiteID, sectionID)}
             >
                <TextField
                   name="formLink"

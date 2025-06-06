@@ -4,8 +4,8 @@ import { ref as dbRef, set } from 'firebase/database';
 import { deleteObject, ref } from 'firebase/storage';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { WEBSITE_ID } from '../../App';
 import addNewSpeakerExample from '../../assets/addNewSpeakerExample.png';
+import { useDbContent } from '../../contexts/DBContentContext';
 import { DBOneParticipant, DBParticipantKey } from '../interfaces/dbInterfaces';
 import { SectionProps, SectionTypes } from '../interfaces/sectionInterfaces';
 import { EditorOfImage } from '../smallComponents/FileUploads';
@@ -25,6 +25,7 @@ export function OneParticipant({
    sectionID: string;
    sectionName: SectionTypes;
 }): JSX.Element {
+   const { websiteID } = useDbContent();
    const { id, order, image } = oneParticipant;
    const [name, setName] = useState(oneParticipant.name);
    const [title, setTitle] = useState(oneParticipant.title);
@@ -33,7 +34,7 @@ export function OneParticipant({
    const removeParticipantCard = (id: string, imgStorageRef: string) => {
       return () => {
          //Remove from db
-         const participantCardsRef = dbRef(db, `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/${id}`);
+         const participantCardsRef = dbRef(db, `websites/${websiteID}/homepageContent/${sectionID}/content/${id}`);
          set(participantCardsRef, null);
          // Create a reference to the file to delete from Storage
          const participantImgRefInStorage = ref(storage, imgStorageRef);
@@ -73,8 +74,7 @@ export function OneParticipant({
                </Box>
             ) : null}
             {adminEditor && newCard ? (
-               <EditorOfImage sectionID={sectionID} order={order} sectionName={sectionName} id={id} image={undefined}/>
-          
+               <EditorOfImage sectionID={sectionID} order={order} sectionName={sectionName} id={id} image={undefined} />
             ) : null}
             {!newCard ? <img className="participant-image" src={image} /> : null}
             {adminEditor ? (

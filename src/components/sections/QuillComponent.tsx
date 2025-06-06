@@ -4,13 +4,13 @@ import { ref, set } from 'firebase/database';
 import { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { WEBSITE_ID } from '../../App';
+import { useDbContent } from '../../contexts/DBContentContext';
 import { QuillContent } from '../interfaces/dbInterfaces';
 import { SectionProps } from '../interfaces/sectionInterfaces';
 import { auth, db } from '../utils/firebase';
 
 function saveQuillToDB(data: any, sectionID: string) {
-   console.log(data);
+   const { websiteID } = useDbContent();
    let currentdate = new Date();
    let timeSavedData =
       currentdate.getFullYear() +
@@ -27,7 +27,7 @@ function saveQuillToDB(data: any, sectionID: string) {
    console.log(timeSavedData);
 
    // Insert text to database
-   set(ref(db, `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/`), {
+   set(ref(db, `websites/${websiteID}/homepageContent/${sectionID}/content/`), {
       text: data,
       timestamp: timeSavedData,
    });
@@ -35,7 +35,7 @@ function saveQuillToDB(data: any, sectionID: string) {
    // Insert log to database //
    if (auth.currentUser) {
       set(ref(db, 'adminUsers/' + auth.currentUser.uid), {
-         websiteID: WEBSITE_ID,
+         websiteID: websiteID,
          Email: auth.currentUser.email,
          LastTimeSavedData: timeSavedData,
       });

@@ -3,7 +3,8 @@ import { ref as dbRef, set } from 'firebase/database';
 import { deleteObject, ref } from 'firebase/storage';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { WEBSITE_ID } from '../../App';
+
+import { useDbContent } from '../../contexts/DBContentContext';
 import { DBHomePageContentPitchCards, DBPitchCardKey } from '../interfaces/dbInterfaces';
 import { SectionProps, SectionTypes } from '../interfaces/sectionInterfaces';
 import { EditorOfImage } from '../smallComponents/FileUploads';
@@ -20,6 +21,7 @@ interface OnePitchCardProps {
 export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
    const { adminEditor, sectionID, sectionName, pitchCard } = props;
    const { image, order, id } = pitchCard;
+   const { websiteID } = useDbContent();
    const [title, setTitle] = useState(pitchCard.title || '');
    const [description, setDescription] = useState(pitchCard.description || '');
 
@@ -36,7 +38,7 @@ export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
    const removePitchCard = (id: string, imgStorageRef: string) => {
       return () => {
          //Remove from db
-         const pitchCardsRef = dbRef(db, `websites/${WEBSITE_ID}/homepageContent/${sectionID}/content/${id}`);
+         const pitchCardsRef = dbRef(db, `websites/${websiteID}/homepageContent/${sectionID}/content/${id}`);
          set(pitchCardsRef, null);
          // Create a reference to the file to delete from Storage
          const pitchCardImgRefInStorage = ref(storage, imgStorageRef);

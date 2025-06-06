@@ -1,6 +1,8 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
+import { AuthProvider } from './contexts/AuthContext';
+import { DbContentProvider } from './contexts/DBContentContext';
 import './index.css';
 //import { BrowserRouter, Link, Route } from "react-router-dom"
 
@@ -10,7 +12,11 @@ const root = createRoot(domNode);
 
 root.render(
    <React.StrictMode>
-      <App />
+      <DbContentProvider>
+         <AuthProvider>
+            <App />
+         </AuthProvider>
+      </DbContentProvider>
    </React.StrictMode>
    //  document.getElementById('root')
 );
