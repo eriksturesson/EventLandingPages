@@ -8,7 +8,6 @@ import ArrangerandeKlubbar from './components/ArrangerandeKlubbar';
 import Home from './components/Home';
 import { LoadingSpinner } from './components/Loading';
 import { Login } from './components/Login';
-import NavWrapper from './components/NavWrapper';
 import TidigareProgram from './components/TidigareProgram';
 import { SectionContent, SectionIDs } from './components/interfaces/sectionInterfaces';
 import { auth, db } from './components/utils/firebase';
@@ -55,19 +54,9 @@ const App = (): JSX.Element => {
    let page = window.location.href;
 
    if (page.includes('tidigareprogram')) {
-      return (
-         <>
-            <NavWrapper websiteID={websiteID} />
-            <TidigareProgram />
-         </>
-      );
+      return <TidigareProgram isAdmin={false} />;
    } else if (page.includes('arrangerandeklubbar')) {
-      return (
-         <>
-            <NavWrapper websiteID={websiteID} />
-            <ArrangerandeKlubbar />
-         </>
-      );
+      return <ArrangerandeKlubbar isAdmin={false} />;
    } else if (page.includes('admin') || page.includes('login')) {
       let element: JSX.Element = logedIn ? (
          <Admin homepageContent={homepageContent} setHomepageContent={setProgramContent} user={userOrNull} />
@@ -78,7 +67,6 @@ const App = (): JSX.Element => {
    } else {
       return (
          <>
-            <NavWrapper websiteID={websiteID} />
             <Home homepageContent={homepageContent} />
          </>
       );

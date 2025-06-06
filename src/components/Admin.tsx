@@ -2,6 +2,7 @@ import { Box, useMediaQuery, useTheme } from '@mui/material';
 import { User } from 'firebase/auth';
 import React from 'react';
 import { SectionContent } from './interfaces/sectionInterfaces';
+import NavWrapper from './NavWrapper';
 import { SectionLoader } from './SectionLoader';
 import SectionNavigator from './SectionNavigator';
 
@@ -39,37 +40,40 @@ const Admin: React.FC<AdminProps> = ({ user, homepageContent, setHomepageContent
 
    const orderedSections = Object.values(homepageContent).sort((a, b) => a.sectionOrder - b.sectionOrder);
    return (
-      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', height: '100vh' }}>
-         {/* Section Navigator (Drawer) */}
-         <Box
-            sx={{
-               width: '240px', // Drawer width
-               height: '100vh',
-               position: 'fixed',
-               top: 0,
-               left: 0,
-               overflowY: 'auto', // Allows scrolling for large content
-               padding: 2,
-            }}
-         >
-            <SectionNavigator sections={orderedSections} handleDrop={handleDrop} user={user} />
-         </Box>
+      <>
+         <NavWrapper isAdmin={true} />
+         <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', height: '100vh' }}>
+            {/* Section Navigator (Drawer) */}
+            <Box
+               sx={{
+                  width: '240px', // Drawer width
+                  height: '100vh',
+                  position: 'fixed',
+                  top: 0,
+                  left: 0,
+                  overflowY: 'auto', // Allows scrolling for large content
+                  padding: 2,
+               }}
+            >
+               <SectionNavigator sections={orderedSections} handleDrop={handleDrop} user={user} />
+            </Box>
 
-         {/* Main Content Area */}
-         <Box
-            sx={{
-               flexGrow: 1,
-               padding: 2,
-               marginTop: '20px', // Adjust based on your header height
-               marginLeft: isMobile ? 0 : '240px',
-               overflowY: 'auto',
-            }}
-         >
-            <Box className="adminEdit" sx={{ transform: 'scale(1)', transformOrigin: '0% 0% 0px' }}>
-               <SectionLoader data={orderedSections} adminEditor={true} />
+            {/* Main Content Area */}
+            <Box
+               sx={{
+                  flexGrow: 1,
+                  padding: 2,
+                  marginTop: '20px', // Adjust based on your header height
+                  marginLeft: isMobile ? 0 : '240px',
+                  overflowY: 'auto',
+               }}
+            >
+               <Box className="adminEdit" sx={{ transform: 'scale(1)', transformOrigin: '0% 0% 0px' }}>
+                  <SectionLoader data={orderedSections} adminEditor={true} />
+               </Box>
             </Box>
          </Box>
-      </Box>
+      </>
    );
 };
 

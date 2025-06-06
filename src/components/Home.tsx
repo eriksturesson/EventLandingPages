@@ -1,3 +1,4 @@
+import NavWrapper from './NavWrapper';
 import { SectionLoader } from './SectionLoader';
 import { SectionContent } from './interfaces/sectionInterfaces';
 
@@ -6,7 +7,12 @@ function testonload() {
 }
 
 const Home = ({ homepageContent }: { homepageContent: SectionContent[] }): JSX.Element => {
-   return <SectionLoader adminEditor={false} data={homepageContent} />;
+   return (
+      <>
+         <NavWrapper isAdmin={false} />
+         <SectionLoader adminEditor={false} data={homepageContent} />
+      </>
+   );
 };
 
 export default Home;

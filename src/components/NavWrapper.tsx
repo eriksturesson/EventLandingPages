@@ -2,10 +2,10 @@
 //import { Navbar, Nav, Container } from 'react-bootstrap';
 //import arrangerandeKlubbarHTML from "../"
 
-import { Box, Button, Drawer, IconButton, List, ListItem, ListItemText } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import logga from '../assets/LOGGA FÄRDIGT UTKAST.jpg';
+import { Box, Button, Drawer, IconButton, List, ListItem, ListItemText } from '@mui/material';
 import { useState } from 'react';
+import logga from '../assets/LOGGA FÄRDIGT UTKAST.jpg';
 
 /*
             <div className="right-menu-in-nav" id="reactNavbar">
@@ -23,7 +23,7 @@ import { useState } from 'react';
 
 */
 
-const NavWrapper = ({ websiteID }: { websiteID: string }): JSX.Element => {
+const NavWrapper = ({ isAdmin }: { isAdmin: boolean }): JSX.Element => {
    const menuItems = [
       { label: 'Home', link: '/' },
       { label: 'Föregående år', link: './tidigareprogram' },
