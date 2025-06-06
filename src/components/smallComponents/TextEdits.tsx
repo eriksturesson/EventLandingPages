@@ -3,9 +3,16 @@ import { ref as dbRef, update } from 'firebase/database';
 import { useDbContent } from '../../contexts/DBContentContext';
 import { db } from '../../utils/firebase';
 
-export const handleSaveTexts = ({ refBelowWebsiteID, data }: { refBelowWebsiteID: string; data: object }) => {
+export const handleSaveTexts = ({
+   refBelowWebsiteID,
+   data,
+   websiteID,
+}: {
+   refBelowWebsiteID: string;
+   data: object;
+   websiteID: string;
+}) => {
    // Perform your save logic here, e.g., make an API call to save the data
-   const { websiteID } = useDbContent();
    console.log('Saving texts to db');
    update(dbRef(db, `websites/${websiteID}/${refBelowWebsiteID}`), data);
    console.log('Saved title and description');
@@ -42,9 +49,10 @@ export function EditText({
 }
 
 export function SaveTextsButton({ refBelowWebsiteID, data }: { refBelowWebsiteID: string; data: object }): JSX.Element {
+   const { websiteID } = useDbContent();
    return (
       <Box style={{ marginTop: '2rem', paddingBottom: '2rem', textAlign: 'center', width: '100%' }}>
-         <Button onClick={() => handleSaveTexts({ refBelowWebsiteID, data })} variant="contained" color="primary">
+         <Button onClick={() => handleSaveTexts({ refBelowWebsiteID, data, websiteID })} variant="contained" color="primary">
             Save texts
          </Button>
       </Box>
