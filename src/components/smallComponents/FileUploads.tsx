@@ -104,11 +104,11 @@ export function NewImgBoxFileUpload(props: ImgCardFileUploadProps): JSX.Element 
 
 interface FileUploadProps extends ParticipantCardFileUploadProps {
    event: React.ChangeEvent<HTMLInputElement>;
+   websiteID: string;
 }
 
 export function fileUpload(props: FileUploadProps): void {
-   const { websiteID } = useDbContent();
-   const { event, order, sectionName, sectionID, id } = props;
+   const { event, order, sectionName, sectionID, id, websiteID } = props;
    const file = event?.target?.files ? event.target.files[0] : null;
    let randomKeyOrOneItem;
 
@@ -192,6 +192,7 @@ export function fileUpload(props: FileUploadProps): void {
 }
 
 export function ImageButtonFileUpload(props: ParticipantCardFileUploadProps): JSX.Element {
+   const { websiteID } = useDbContent();
    const { order, sectionName, sectionID, id } = props;
    return (
       <Button variant="contained" sx={{ whiteSpace: 'nowrap', minWidth: 'max-content' }} /* component="label" */>
@@ -205,7 +206,14 @@ export function ImageButtonFileUpload(props: ParticipantCardFileUploadProps): JS
             accept="image/*"
             type="file"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-               fileUpload({ event: e, order: order, sectionName: sectionName, sectionID: sectionID, id: id })
+               fileUpload({
+                  event: e,
+                  order: order,
+                  sectionName: sectionName,
+                  sectionID: sectionID,
+                  id: id,
+                  websiteID: websiteID,
+               })
             }
          />
       </Button>
