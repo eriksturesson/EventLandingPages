@@ -119,10 +119,7 @@ export function fileUpload(props: FileUploadProps): void {
       randomKeyOrOneItem = id;
    }
    if (file) {
-      const storageRef = ref(
-         storage,
-         `websites/${websiteID}/homepageContent/${sectionID}/content/${randomKeyOrOneItem}/${file.name}`
-      );
+      const storageRef = ref(storage, `websites/${websiteID}/${randomKeyOrOneItem}/${file.name}`);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
       uploadTask.on(
