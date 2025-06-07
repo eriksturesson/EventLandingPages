@@ -192,29 +192,40 @@ const NavWrapper = ({
             >
                <List>
                   {isAdmin && (
-                     <IconButton
-                        onClick={() => {
-                           toggleDrawer();
-                           openModal();
-                        }}
-                        sx={{
-                           position: 'absolute',
-                           top: 12,
-                           right: 12,
-                           backgroundColor: 'white',
-                           border: '1px solid #ccc',
-                           '&:hover': {
-                              backgroundColor: '#eee',
-                           },
-                        }}
-                     >
-                        <AddIcon />
-                     </IconButton>
+                     <ListItem>
+                        <Button
+                           startIcon={<AddIcon />}
+                           variant="contained"
+                           color="success"
+                           onClick={() => {
+                              toggleDrawer();
+                              openModal();
+                           }}
+                        >
+                           Create page
+                        </Button>
+                     </ListItem>
                   )}
                   {customPageMetaData.map((item) => (
-                     <ListItem key={item.pageID} component="a" href={item.pageLink} onClick={toggleDrawer}>
-                        <EditIcon sx={{ mr: 1 }} />
+                     <ListItem
+                        key={item.pageID}
+                        component="a"
+                        href={isAdmin ? undefined : item.pageLink}
+                        onClick={isAdmin ? () => openModal(item) : undefined}
+                     >
+                        {isAdmin ? <EditIcon sx={{ mr: 1 }} /> : null}
                         <ListItemText primary={item.pageName} />
+                        {isAdmin && (
+                           <IconButton
+                              size="small"
+                              onClick={(e) => {
+                                 e.stopPropagation(); // Förhindra att föräldrarklick triggas
+                                 if (setPageToEdit) setPageToEdit(item.pageID);
+                              }}
+                           >
+                              <EditNoteIcon />
+                           </IconButton>
+                        )}
                      </ListItem>
                   ))}
                </List>
