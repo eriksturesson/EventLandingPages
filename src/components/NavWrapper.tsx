@@ -1,4 +1,5 @@
 import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -9,7 +10,6 @@ import logga from '../assets/LOGGA FÄRDIGT UTKAST.jpg';
 import { useDbContent } from '../contexts/DBContentContext';
 import { PageMetadata } from '../interfaces/dbInterfaces';
 import { readAndWriteToFirebase } from '../utils/firebaseFunctions';
-
 const modalStyle = {
    position: 'absolute' as const,
    top: '50%',
@@ -49,6 +49,21 @@ const NavWrapper = ({
          setNewItem({ pageName: '', pageLink: '', pageID: '' });
       }
       setModalOpen(true);
+   };
+
+   const removeItem = async () => {
+      if (!editingItemID) return;
+      try {
+         await readAndWriteToFirebase({
+            method: 'remove',
+            ref: `websites/${websiteID}/customPages/${editingItemID}/`,
+         });
+
+         setCustomPagesMetaData(customPageMetaData.filter((item) => item.pageID !== editingItemID));
+         setModalOpen(false);
+      } catch (error) {
+         console.error('Error removing item:', error);
+      }
    };
 
    const handleSaveItem = async () => {
@@ -237,11 +252,11 @@ const NavWrapper = ({
             <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
                <Box sx={modalStyle}>
                   <Typography variant="h6" mb={2}>
-                     {isEditMode ? 'Redigera länk' : 'Lägg till länk'}
+                     {isEditMode ? 'Edit link' : 'Add new link'}
                   </Typography>
                   <TextField
                      fullWidth
-                     label="Namn"
+                     label="Name"
                      variant="outlined"
                      value={newItem.pageName}
                      onChange={(e) => setNewItem({ ...newItem, pageName: e.target.value })}
@@ -249,14 +264,26 @@ const NavWrapper = ({
                   />
                   <TextField
                      fullWidth
-                     label="Länk"
+                     label="Link"
                      variant="outlined"
                      value={newItem.pageLink}
                      onChange={(e) => setNewItem({ ...newItem, pageLink: e.target.value })}
                      sx={{ mb: 2 }}
                   />
+                  {isEditMode && (
+                     <Button
+                        sx={{ mt: 2, mb: 2 }}
+                        startIcon={<DeleteIcon />}
+                        color="error"
+                        fullWidth
+                        variant="contained"
+                        onClick={removeItem}
+                     >
+                        Remove
+                     </Button>
+                  )}
                   <Button fullWidth variant="contained" onClick={handleSaveItem}>
-                     {isEditMode ? 'Spara ändringar' : 'Lägg till'}
+                     {isEditMode ? 'Save changes' : 'Add link'}
                   </Button>
                </Box>
             </Modal>
