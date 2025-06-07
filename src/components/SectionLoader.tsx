@@ -45,10 +45,14 @@ export const SectionLoader: React.FC<Props> = function (props) {
                // console.log('sectionName:', section.sectionName);
                const Component = components[section.sectionName];
                const sectionData = section.content;
+               if (!sectionData && !adminEditor) {
+                  //hidden for non-admin
+                  return null;
+               }
                if (!Component) {
-                  console.error('Section:', section);
-                  console.error(`Failed to render module ${section.sectionName}. Check spelling.`);
-                  console.log('sectionName:', section.sectionName);
+                  // console.error('Section:', section);
+                  //console.error(`Failed to render module ${section.sectionName}. Check spelling.`);
+
                   return null;
                }
 
