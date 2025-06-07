@@ -48,7 +48,7 @@ export const SectionLoader: React.FC<Props> = function (props) {
                if (!Component) {
                   console.error('Section:', section);
                   console.error(`Failed to render module ${section.sectionName}. Check spelling.`);
-
+                  console.log('sectionName:', section.sectionName);
                   return null;
                }
 

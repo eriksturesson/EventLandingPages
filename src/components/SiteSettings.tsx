@@ -10,23 +10,13 @@ import {
    Typography,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { SiteSettingsData } from '../interfaces/SettingsInterfaces';
 
 interface SiteSettingsProps {
    open: boolean;
    onClose: () => void;
    initialSettings?: SiteSettingsData;
    onSave: (settings: SiteSettingsData) => void;
-}
-
-export interface SiteSettingsData {
-   font: string;
-   primaryColor: string;
-   textColor: string;
-   customCSS: string;
-   customHTMLHead: string;
-   customHTMLBodyEnd: string;
-   logoUrl?: string;
-   faviconUrl?: string;
 }
 
 const availableFonts = ['Open Sans', 'Roboto', 'Lato', 'Montserrat', 'Poppins', 'Arial', 'Verdana'];
