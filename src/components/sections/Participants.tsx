@@ -18,12 +18,14 @@ export function OneParticipant({
    oneParticipant,
    sectionID,
    sectionName,
+   pageID,
 }: {
    newCard?: true;
    adminEditor: boolean;
    oneParticipant: DBOneParticipant;
    sectionID: string;
    sectionName: SectionTypes;
+   pageID: string | null;
 }): JSX.Element {
    const { websiteID } = useDbContent();
    const { id, order, image } = oneParticipant;
@@ -34,7 +36,10 @@ export function OneParticipant({
    const removeParticipantCard = (id: string, imgStorageRef: string) => {
       return () => {
          //Remove from db
-         const participantCardsRef = dbRef(db, `websites/${websiteID}/homepageContent/${sectionID}/content/${id}`);
+         const refAfterWebsiteID = pageID
+            ? `customPages/${pageID}/content/${sectionID}/content/${id}`
+            : `homepageContent/${sectionID}/content/${id}`;
+         const participantCardsRef = dbRef(db, `websites/${websiteID}/` + refAfterWebsiteID);
          set(participantCardsRef, null);
          // Create a reference to the file to delete from Storage
          const participantImgRefInStorage = ref(storage, imgStorageRef);
@@ -74,7 +79,14 @@ export function OneParticipant({
                </Box>
             ) : null}
             {adminEditor && newCard ? (
-               <EditorOfImage sectionID={sectionID} order={order} sectionName={sectionName} id={id} image={undefined} />
+               <EditorOfImage
+                  sectionID={sectionID}
+                  order={order}
+                  sectionName={sectionName}
+                  id={id}
+                  image={undefined}
+                  pageID={pageID}
+               />
             ) : null}
             {!newCard ? <img className="participant-image" src={image} /> : null}
             {adminEditor ? (
@@ -98,7 +110,11 @@ export function OneParticipant({
                      value={organization ? organization : ''}
                   />
                   <SaveTextsButton
-                     refBelowWebsiteID={`homepageContent/${sectionID}/content/${id}`}
+                     refBelowWebsiteID={
+                        pageID
+                           ? `customPages/${pageID}/content/${sectionID}/content/${id}`
+                           : `homepageContent/${sectionID}/content/${id}`
+                     }
                      data={{ name: name, title: title, organization: organization, id: id, order: order }}
                   />
                </>
@@ -116,7 +132,7 @@ export function OneParticipant({
 }
 
 export function ParticipantComponent(props: SectionProps): JSX.Element {
-   const { data, adminEditor } = props;
+   const { data, adminEditor, pageID } = props;
    const { sectionName, sectionID, sectionOrder, createdAt, updatedAt } = data;
    const content = data.content as DBParticipantKey | undefined;
    const participants = content;
@@ -132,6 +148,7 @@ export function ParticipantComponent(props: SectionProps): JSX.Element {
                   sectionID={sectionID}
                   sectionName={sectionName}
                   oneParticipant={participantObject as DBOneParticipant}
+                  pageID={pageID}
                   key={Math.random()} /*temporary fix*/
                />
             );
@@ -150,6 +167,7 @@ export function ParticipantComponent(props: SectionProps): JSX.Element {
                <OneParticipant
                   adminEditor={adminEditor}
                   sectionID={sectionID}
+                  pageID={pageID}
                   sectionName={sectionName}
                   newCard={true}
                   oneParticipant={
@@ -174,6 +192,7 @@ export function ParticipantComponent(props: SectionProps): JSX.Element {
                   <OneParticipant
                      adminEditor={adminEditor}
                      newCard={true}
+                     pageID={pageID}
                      sectionName={sectionName}
                      sectionID={sectionID}
                      oneParticipant={
@@ -190,6 +209,7 @@ export function ParticipantComponent(props: SectionProps): JSX.Element {
                   <OneParticipant
                      adminEditor={adminEditor}
                      newCard={true}
+                     pageID={pageID}
                      sectionName={sectionName}
                      sectionID={sectionID}
                      oneParticipant={
@@ -206,6 +226,7 @@ export function ParticipantComponent(props: SectionProps): JSX.Element {
                   <OneParticipant
                      adminEditor={adminEditor}
                      newCard={true}
+                     pageID={pageID}
                      sectionName={sectionName}
                      sectionID={sectionID}
                      oneParticipant={

@@ -46,7 +46,8 @@ export function RegisterButtonComponent({ buttonContent }: { buttonContent: DBHo
 async function saveButtonDataToDB(
    homepageButtonContent: DBHomePageContentButton,
    websiteID: string,
-   sectionID: string
+   sectionID: string,
+   pageID: string | null
 ): Promise<string> {
    if (!homepageButtonContent.buttonColor) {
       homepageButtonContent.buttonColor = 'blue';
@@ -54,22 +55,29 @@ async function saveButtonDataToDB(
    if (!homepageButtonContent.buttonText) {
       homepageButtonContent.buttonText = 'Anmälan';
    }
+   const path = pageID ? `customPages/${pageID}/content/${sectionID}/content/` : `homepageContent/${sectionID}/content/`;
    await readAndWriteToFirebase({
       method: 'update',
-      ref: `websites/${websiteID}/homepageContent/${sectionID}/content/`,
+      ref: `websites/${websiteID}/` + path,
       data: homepageButtonContent,
    });
-   return `homePageContentButton saved to database`;
+   return `homepageContentButton saved to database`;
 }
 
-function handleButtonColorChange(event: SelectChangeEvent<string>, websiteID: ReactNode, sectionID: string): void {
-   update(ref(db, `websites/${websiteID}/homepageContent/${sectionID}/content/`), {
+function handleButtonColorChange(
+   event: SelectChangeEvent<string>,
+   websiteID: ReactNode,
+   sectionID: string,
+   pageID: string | null
+): void {
+   const path = pageID ? `customPages/${pageID}/content/${sectionID}/content/` : `homepageContent/${sectionID}/content/`;
+   update(ref(db, `websites/${websiteID}/` + path), {
       buttonColor: event.target.value,
    });
 }
 
 export function CallToActionButtonComponent(props: SectionProps): JSX.Element {
-   const { data, adminEditor } = props;
+   const { data, adminEditor, pageID } = props;
    const { sectionName, sectionID, sectionOrder, createdAt, updatedAt } = data;
    const { websiteID } = useDbContent();
    const buttonContent = data.content as DBHomePageContentButton | undefined;
@@ -79,7 +87,10 @@ export function CallToActionButtonComponent(props: SectionProps): JSX.Element {
    if (adminEditor) {
       useEffect(() => {
          // READ DATA WHEN UPDATED TO UPDATE INDEX.HTML PROGRAM CONTENT
-         let readButtonContentFromDatabase = ref(db, `websites/${websiteID}/homepageContent/${sectionID}/content/`);
+         const path = pageID
+            ? `customPages/${pageID}/content/${sectionID}/content/`
+            : `homepageContent/${sectionID}/content/`;
+         let readButtonContentFromDatabase = ref(db, `websites/${websiteID}/` + path);
          onValue(readButtonContentFromDatabase, (snapshot) => {
             let buttonContentFromDB: DBHomePageContentButton = snapshot.val() ? snapshot.val() : '';
             setHomepageButtonContent(buttonContentFromDB);
@@ -150,7 +161,7 @@ export function CallToActionButtonComponent(props: SectionProps): JSX.Element {
                noValidate
                autoComplete="off"
                //onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleButtonChange(e, websiteID)}
-               onSubmit={() => saveButtonDataToDB(homepageButtonContent, websiteID, sectionID)}
+               onSubmit={() => saveButtonDataToDB(homepageButtonContent, websiteID, sectionID, pageID)}
             >
                <TextField
                   name="formLink"

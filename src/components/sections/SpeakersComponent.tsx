@@ -7,7 +7,7 @@ import { EditorOfImage } from '../smallComponents/FileUploads';
 import { SaveTextsButton, handleStateTextChange } from '../smallComponents/TextEdits';
 
 export function SpeakersComponent(props: SectionProps): JSX.Element {
-   const { data, adminEditor } = props;
+   const { data, adminEditor, pageID } = props;
    const { sectionName, sectionID } = data;
    const DBSpeakers = data.content as DBSpeakersKey | undefined;
    const nrOfSpeakers = (DBSpeakers && Object.keys(DBSpeakers).length) || 0;
@@ -25,13 +25,20 @@ export function SpeakersComponent(props: SectionProps): JSX.Element {
                         sectionName={sectionName}
                         adminEditor={adminEditor}
                         speaker={speaker}
+                        pageID={pageID}
                      />
                   </Grid>
                ))}
 
          {adminEditor && (
             <Grid item xs={12} md={6} lg={4} key={newSpeaker.id}>
-               <OneSpeaker sectionID={sectionID} sectionName={sectionName} adminEditor={adminEditor} speaker={newSpeaker} />
+               <OneSpeaker
+                  sectionID={sectionID}
+                  sectionName={sectionName}
+                  adminEditor={adminEditor}
+                  speaker={newSpeaker}
+                  pageID={pageID}
+               />
             </Grid>
          )}
       </Grid>
@@ -42,11 +49,12 @@ export function OneSpeaker({
    speaker,
    sectionID,
    sectionName,
+   pageID,
 }: {
    sectionID: string;
    sectionName: SectionTypes;
    adminEditor: boolean;
-
+   pageID: string | null;
    speaker: DBSpeaker;
 }): JSX.Element {
    const { image, id, order } = speaker;
@@ -77,7 +85,14 @@ export function OneSpeaker({
                onChange={(e) => handleStateTextChange(setTitleDescription, e)}
             />
 
-            <EditorOfImage sectionID={sectionID} order={order} sectionName={sectionName} image={image} id={id} />
+            <EditorOfImage
+               sectionID={sectionID}
+               order={order}
+               sectionName={sectionName}
+               image={image}
+               id={id}
+               pageID={pageID}
+            />
 
             <TextField
                fullWidth
@@ -106,7 +121,11 @@ export function OneSpeaker({
                onChange={(e) => handleStateTextChange(setPitch, e)}
             />
             <SaveTextsButton
-               refBelowWebsiteID={`homepageContent/${sectionID}/content/${id}/`}
+               refBelowWebsiteID={
+                  pageID
+                     ? `customPages/${pageID}/content/${sectionID}/content/${id}/`
+                     : `homepageContent/${sectionID}/content/${id}/`
+               }
                data={{
                   id: id,
                   order: order,

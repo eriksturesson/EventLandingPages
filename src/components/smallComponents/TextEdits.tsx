@@ -14,6 +14,7 @@ export const handleSaveTexts = ({
 }) => {
    // Perform your save logic here, e.g., make an API call to save the data
    console.log('Saving texts to db');
+
    update(dbRef(db, `websites/${websiteID}/${refBelowWebsiteID}`), data);
    console.log('Saved title and description');
 };

@@ -18,6 +18,7 @@ export interface ParticipantCardFileUploadProps {
    id?: string;
    sectionID: string;
    sectionName: SectionTypes;
+   pageID: string | null; // Optional, used for custom pages
 }
 
 interface ImgCardFileUploadProps {
@@ -26,10 +27,11 @@ interface ImgCardFileUploadProps {
    sectionName: SectionTypes;
    className?: string;
    id: string;
+   pageID: string | null; // Optional, used for custom pages
 }
 
 export function NewImgBoxFileUpload(props: ImgCardFileUploadProps): JSX.Element {
-   const { sectionID, order, sectionName, id } = props;
+   const { sectionID, order, sectionName, id, pageID } = props;
    let backgroundImg = 'briefcase';
    let shape: 'circle' | 'square' = 'circle';
    let className = 'participant-image';
@@ -95,7 +97,7 @@ export function NewImgBoxFileUpload(props: ImgCardFileUploadProps): JSX.Element 
          >
             <SvgIcon component={AddPhotoAlternateIcon} fontSize="large" />
             <br></br>
-            <ImageButtonFileUpload sectionID={sectionID} sectionName={sectionName} order={order} id={id} />
+            <ImageButtonFileUpload sectionID={sectionID} sectionName={sectionName} order={order} id={id} pageID={pageID} />
          </Box>
          <img className={className} src={backgroundImg} />
       </Box>
@@ -105,10 +107,11 @@ export function NewImgBoxFileUpload(props: ImgCardFileUploadProps): JSX.Element 
 interface FileUploadProps extends ParticipantCardFileUploadProps {
    event: React.ChangeEvent<HTMLInputElement>;
    websiteID: string;
+   pageID: string | null;
 }
 
 export function fileUpload(props: FileUploadProps): void {
-   const { event, order, sectionName, sectionID, id, websiteID } = props;
+   const { event, order, sectionName, sectionID, id, websiteID, pageID } = props;
    const file = event?.target?.files ? event.target.files[0] : null;
    let randomKeyOrOneItem;
 
@@ -175,18 +178,20 @@ export function fileUpload(props: FileUploadProps): void {
             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                console.log('File available at', downloadURL);
-
+               const startRef = pageID
+                  ? `websites/${websiteID}/customPages/${pageID}/content/`
+                  : `websites/${websiteID}/homepageContent/`;
                let data = {};
                let ref = '';
                if (sectionName === 'fullScreenMedia') {
                   data = { media: downloadURL, order: order, id: randomKeyOrOneItem, mediaType: fileType(file) };
-                  ref = `websites/${websiteID}/homepageContent/${sectionID}/content/`;
+                  ref = startRef + `${sectionID}/content/`;
                } else if (sectionName === 'footer') {
                   data = { mapImage: downloadURL };
-                  ref = `websites/${websiteID}/homepageContent/${sectionID}/content/`;
+                  ref = startRef + `${sectionID}/content/`;
                } else {
                   data = { image: downloadURL, order: order, id: randomKeyOrOneItem };
-                  ref = `websites/${websiteID}/homepageContent/${sectionID}/content/${randomKeyOrOneItem}/`;
+                  ref = startRef + `${sectionID}/content/${randomKeyOrOneItem}/`;
                }
                readAndWriteToFirebase({
                   method: 'update',
@@ -203,7 +208,7 @@ export function fileUpload(props: FileUploadProps): void {
 
 export function ImageButtonFileUpload(props: ParticipantCardFileUploadProps): JSX.Element {
    const { websiteID } = useDbContent();
-   const { order, sectionName, sectionID, id } = props;
+   const { order, sectionName, sectionID, id, pageID } = props;
    return (
       <Button variant="contained" sx={{ whiteSpace: 'nowrap', minWidth: 'max-content' }} /* component="label" */>
          <label htmlFor={`fileInput-${sectionID}-${id}`} style={{ cursor: 'pointer' }}>
@@ -223,6 +228,7 @@ export function ImageButtonFileUpload(props: ParticipantCardFileUploadProps): JS
                   sectionID: sectionID,
                   id: id,
                   websiteID: websiteID,
+                  pageID: pageID,
                })
             }
          />
@@ -233,8 +239,9 @@ interface EditorOfImagesProps extends ImgCardFileUploadProps {
    image: string | undefined;
 }
 export function EditorOfImage(props: EditorOfImagesProps) {
-   const { image, sectionID, order, sectionName, className, id } = props;
-   if (!image) return <NewImgBoxFileUpload sectionID={sectionID} order={order} sectionName={sectionName} id={id} />;
+   const { image, sectionID, order, sectionName, className, id, pageID } = props;
+   if (!image)
+      return <NewImgBoxFileUpload sectionID={sectionID} order={order} sectionName={sectionName} id={id} pageID={pageID} />;
    return (
       <Box
          minHeight="10rem"
@@ -259,7 +266,7 @@ export function EditorOfImage(props: EditorOfImagesProps) {
          >
             <SvgIcon component={AddPhotoAlternateIcon} fontSize="large" />
             <br></br>
-            <ImageButtonFileUpload sectionID={sectionID} sectionName={sectionName} order={order} id={id} />
+            <ImageButtonFileUpload sectionID={sectionID} sectionName={sectionName} order={order} id={id} pageID={pageID} />
          </Box>
          <img className={className} src={image} />
       </Box>

@@ -23,16 +23,16 @@ import { SaveTextsButton } from './smallComponents/SaveTextsButton';
 
 interface Props {
    user: User | null;
+   pageID: string | null;
    sections: SectionContent[];
    handleDrop: (event: React.DragEvent<HTMLDivElement>, sections: SectionContent[]) => void;
 }
-const refBelowWebsiteID = `homepageContent/`;
 
-const SectionNavigator: React.FC<Props> = ({ sections, handleDrop, user }) => {
+const SectionNavigator: React.FC<Props> = ({ sections, handleDrop, user, pageID }) => {
    const [open, setOpen] = useState(false);
    const theme = useTheme();
    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
+   const refBelowWebsiteID = pageID ? `customPages/${pageID}/content/` : `homepageContent/`;
    const handleDragStart = (event: React.DragEvent<HTMLDivElement>) => {
       event.dataTransfer.setData('section-order', `${(event.target as HTMLElement).dataset.order}`);
    };

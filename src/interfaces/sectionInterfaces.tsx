@@ -16,6 +16,7 @@ export interface SectionIDs {
 export interface SectionProps {
    data: SectionContent;
    adminEditor: boolean;
+   pageID: string | null;
 }
 
 export type SectionTypes =

@@ -14,12 +14,12 @@ import { EditText, SaveTextsButton } from '../smallComponents/TextEdits';
 interface OnePitchCardProps {
    adminEditor?: boolean;
    pitchCard: DBHomePageContentPitchCards;
-
+   pageID: string | null;
    sectionID: string;
    sectionName: SectionTypes;
 }
 export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
-   const { adminEditor, sectionID, sectionName, pitchCard } = props;
+   const { adminEditor, sectionID, sectionName, pitchCard, pageID } = props;
    const { image, order, id } = pitchCard;
    const { websiteID } = useDbContent();
    const [title, setTitle] = useState(pitchCard.title || '');
@@ -38,7 +38,10 @@ export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
    const removePitchCard = (id: string, imgStorageRef: string) => {
       return () => {
          //Remove from db
-         const pitchCardsRef = dbRef(db, `websites/${websiteID}/homepageContent/${sectionID}/content/${id}`);
+         const path = pageID
+            ? `websites/${websiteID}/customPages/${pageID}/content/${sectionID}/content/${id}`
+            : `websites/${websiteID}/homepageContent/${sectionID}/content/${id}`;
+         const pitchCardsRef = dbRef(db, path);
          set(pitchCardsRef, null);
          // Create a reference to the file to delete from Storage
          const pitchCardImgRefInStorage = ref(storage, imgStorageRef);
@@ -58,11 +61,22 @@ export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
 
    return adminEditor ? (
       <Paper elevation={5} sx={{ p: 2, borderRadius: 2, bgcolor: '#f9f9f9', mb: 3 }}>
-         <EditorOfImage sectionID={sectionID} order={order} sectionName={sectionName} image={image} id={id} />
+         <EditorOfImage
+            sectionID={sectionID}
+            order={order}
+            sectionName={sectionName}
+            image={image}
+            id={id}
+            pageID={pageID}
+         />
          <EditText onChange={handleTitleChange} value={title ? title : ''} />
          <EditText onChange={handleDescriptionChange} value={description ? description : ''} />
          <SaveTextsButton
-            refBelowWebsiteID={`homepageContent/${sectionID}/content/${id}`}
+            refBelowWebsiteID={
+               pageID
+                  ? `customPages/${pageID}/content/${sectionID}/content/${id}`
+                  : `homepageContent/${sectionID}/content/${id}`
+            }
             data={{ title: title, description: description, id: id, order: order }}
          />
       </Paper>
@@ -82,7 +96,7 @@ export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
 }
 
 export function PitchCardsComponent(props: SectionProps): JSX.Element {
-   const { data, adminEditor } = props;
+   const { data, adminEditor, pageID } = props;
    const { sectionName, sectionID, sectionOrder, createdAt, updatedAt } = data;
    const content = data.content as DBPitchCardKey | undefined;
    const pitchCardsDB = content;
@@ -103,6 +117,7 @@ export function PitchCardsComponent(props: SectionProps): JSX.Element {
                         sectionID={sectionID}
                         adminEditor={adminEditor}
                         pitchCard={pitchCard}
+                        pageID={pageID}
                         key={i}
                      />
                   </Grid>
@@ -113,6 +128,7 @@ export function PitchCardsComponent(props: SectionProps): JSX.Element {
                <OnePitchCard
                   sectionID={sectionID}
                   sectionName={sectionName}
+                  pageID={pageID}
                   adminEditor={adminEditor}
                   pitchCard={newPitchCard}
                />

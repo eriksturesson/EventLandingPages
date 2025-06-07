@@ -65,7 +65,7 @@ const Admin: React.FC = () => {
                   padding: 2,
                }}
             >
-               <SectionNavigator sections={orderedSections} handleDrop={handleDrop} user={user} />
+               <SectionNavigator sections={orderedSections} handleDrop={handleDrop} user={user} pageID={pageToEdit} />
             </Box>
 
             {/* Main Content Area */}

@@ -9,7 +9,7 @@ import { QuillContent } from '../../interfaces/dbInterfaces';
 import { SectionProps } from '../../interfaces/sectionInterfaces';
 import { auth, db } from '../../utils/firebase';
 
-function saveQuillToDB(data: any, sectionID: string) {
+function saveQuillToDB(data: any, sectionID: string, pageID: string | null): void {
    const { websiteID } = useDbContent();
    let currentdate = new Date();
    let timeSavedData =
@@ -27,7 +27,8 @@ function saveQuillToDB(data: any, sectionID: string) {
    console.log(timeSavedData);
 
    // Insert text to database
-   set(ref(db, `websites/${websiteID}/homepageContent/${sectionID}/content/`), {
+   const path = pageID ? `customPages/${pageID}/content/${sectionID}/content/` : `homepageContent/${sectionID}/content/`;
+   set(ref(db, `websites/${websiteID}/` + path), {
       text: data,
       timestamp: timeSavedData,
    });
@@ -43,14 +44,14 @@ function saveQuillToDB(data: any, sectionID: string) {
 }
 
 export function QuillComponent(props: SectionProps): JSX.Element {
-   const { data, adminEditor } = props;
+   const { data, adminEditor, pageID } = props;
    const { sectionName, sectionID, sectionOrder, createdAt, updatedAt } = data;
    let quillContent = data.content as QuillContent | undefined;
    // console.log('quillContent', quillContent);
 
    const [value, setValue] = useState(quillContent && quillContent.text ? quillContent.text : ''); // Initialize with an empty string
    async function handleSave() {
-      saveQuillToDB(value, sectionID);
+      saveQuillToDB(value, sectionID, pageID);
       setValue(value);
    }
    if (adminEditor) {

@@ -7,7 +7,7 @@ import { ImageButtonFileUpload } from '../smallComponents/FileUploads';
 import { EditText, SaveTextsButton } from '../smallComponents/TextEdits';
 
 export function FooterComponent(props: SectionProps): JSX.Element {
-   const { data, adminEditor } = props;
+   const { data, adminEditor, pageID } = props;
    const content = data.content as DBHomePageContentFooter | undefined;
    const { sectionID } = data;
    const [adressTitle, setAdressTitle] = useState(content?.adressTitle ? content.adressTitle : '');
@@ -119,7 +119,11 @@ export function FooterComponent(props: SectionProps): JSX.Element {
 
                   <Grid item xs={12}>
                      <SaveTextsButton
-                        refBelowWebsiteID={`homepageContent/${sectionID}/content/`}
+                        refBelowWebsiteID={
+                           pageID
+                              ? `customPages/${pageID}/conent/${sectionID}/content/`
+                              : `homepageContent/${sectionID}/content/`
+                        }
                         data={{
                            adressTitle: adressTitle,
                            contactTitle: contactTitle,
@@ -157,7 +161,13 @@ export function FooterComponent(props: SectionProps): JSX.Element {
                         transform: 'translate(-50%, -50%)',
                      }}
                   >
-                     <ImageButtonFileUpload order={1} sectionID={sectionID} sectionName={'footer'} id={'mapImage'} />
+                     <ImageButtonFileUpload
+                        order={1}
+                        sectionID={sectionID}
+                        sectionName={'footer'}
+                        id={'mapImage'}
+                        pageID={pageID}
+                     />
                   </Box>
                </Grid>
 

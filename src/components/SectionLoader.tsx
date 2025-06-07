@@ -55,7 +55,7 @@ export const SectionLoader: React.FC<Props> = function (props) {
                return (
                   <Grid key={section.sectionID}>
                      <Grid item sm={12}>
-                        <Component data={section} adminEditor={props.adminEditor} />
+                        <Component data={section} adminEditor={props.adminEditor} pageID={pageID} />
                      </Grid>
                      {adminEditor ? (
                         <Grid item sm={12}>

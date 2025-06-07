@@ -1,6 +1,7 @@
 import { Button, Divider, Slider, Stack } from '@mui/material';
 import { useState } from 'react';
 import arrowDown from '../../assets/baseline_keyboard_arrow_down_white_18dp.png';
+import { useDbContent } from '../../contexts/DBContentContext';
 import { DBFullScreenMedia } from '../../interfaces/dbInterfaces';
 import { SectionProps } from '../../interfaces/sectionInterfaces';
 import { ImageButtonFileUpload } from '../smallComponents/FileUploads';
@@ -8,7 +9,8 @@ import TextEditDialog from '../smallComponents/TextEditDialog';
 import { handleSaveTexts, SaveTextsButton } from '../smallComponents/TextEdits';
 
 export function FullScreenMedia(props: SectionProps): JSX.Element {
-   const { adminEditor, data } = props;
+   const { adminEditor, data, pageID } = props;
+   const { websiteID } = useDbContent();
    const sectionID = data.sectionID;
    const content = data.content ? data.content : null;
    let media, mediaType, initMediaSize, title, description, time, location;
@@ -29,14 +31,16 @@ export function FullScreenMedia(props: SectionProps): JSX.Element {
    const [isEditing, setEditing] = useState<boolean>(false);
    const [mediaSize, setMediaSize] = useState<number>(initMediaSize);
    const [textFields, setTextFields] = useState({ title, description, time, location });
-   const refBelowWebsiteID = `homepageContent/${sectionID}/content/`;
+   const refBelowWebsiteID = pageID
+      ? `customPages/${pageID}/content/${sectionID}/content/`
+      : `homepageContent/${sectionID}/content/`;
 
    const videoOrImage: 'video' | 'image' | null = mediaType ? mediaType : null;
    // let videoOrImage = image; // used for testing only
 
    const textEditHandler = function (data: any) {
       console.log(data);
-      handleSaveTexts({ refBelowWebsiteID, data });
+      handleSaveTexts({ refBelowWebsiteID, data, websiteID });
 
       setEditing(false);
 
@@ -124,7 +128,7 @@ export function FullScreenMedia(props: SectionProps): JSX.Element {
                   Edit text
                </Button>
                <Stack spacing={2} direction="row">
-                  <ImageButtonFileUpload order={1} sectionID={sectionID} sectionName={'fullScreenMedia'} />
+                  <ImageButtonFileUpload order={1} sectionID={sectionID} sectionName={'fullScreenMedia'} pageID={pageID} />
                   <Slider
                      aria-label="Always visible"
                      value={mediaSize}
