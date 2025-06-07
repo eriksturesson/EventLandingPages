@@ -44,6 +44,26 @@ async function createFirstTimeSections(websiteID: string) {
    }
 }
 async function createNewWebsiteID(thisLocationsHostName: string) {
+   const isDev = thisLocationsHostName === 'localhost';
+
+   if (isDev) {
+      // Hårdkodat ID för localhost (eller annan dev hostname)
+      const hardcodedID = '-DEV-LOCALHOST-ID';
+
+      // Skriv in i DB om det inte finns sedan innan (så det finns en databaspost också)
+      const ref = dbRef(db, 'websiteIds/' + hardcodedID);
+      const snapshot = await get(ref);
+      if (!snapshot.exists()) {
+         await set(ref, {
+            websiteHostName: thisLocationsHostName,
+            websiteID: hardcodedID,
+            created: new Date().toISOString(),
+         });
+         console.log('Hardcoded dev websiteID created in DB');
+      }
+
+      return hardcodedID;
+   }
    //let newWebsiteID = uuidv4()
    let newWebsiteID = push(child(dbRef(db), 'websiteIds')).key;
    if (newWebsiteID === null) newWebsiteID = uuidv4();
@@ -89,6 +109,7 @@ export async function handleWebSiteID(): Promise<string> {
             return websiteID;
          } else {
             console.log('No data available,  creating new websiteID');
+
             let newWebsiteID = await createNewWebsiteID(thisLocationsHostName);
             //await createFirstTimeSections(newWebsiteID);
             return newWebsiteID;
