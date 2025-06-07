@@ -119,7 +119,20 @@ export function fileUpload(props: FileUploadProps): void {
       randomKeyOrOneItem = id;
    }
    if (file) {
-      const storageRef = ref(storage, `websites/${websiteID}/${randomKeyOrOneItem}/${file.name}`);
+      const MAX_FILE_SIZE_MB = 5;
+      const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
+
+      if (file.size > MAX_FILE_SIZE_BYTES) {
+         alert(`File is too large. Max size is ${MAX_FILE_SIZE_MB}MB.`);
+         return;
+      }
+
+      const safeFileName = file.name
+         .normalize('NFD')
+         .replace(/[\u0300-\u036f]/g, '') // remove diacritics like å, ä, ö
+         .replace(/[^a-zA-Z0-9._-]/g, '_'); // replace spaces and special chars
+
+      const storageRef = ref(storage, `websites/${websiteID}/${randomKeyOrOneItem}/${safeFileName}`);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
       uploadTask.on(
