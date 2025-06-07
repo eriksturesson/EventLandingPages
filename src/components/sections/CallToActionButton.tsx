@@ -2,7 +2,6 @@ import SaveIcon from '@mui/icons-material/Save';
 import {
    Box,
    Button,
-   Divider,
    FormControl,
    InputLabel,
    MenuItem,
@@ -113,9 +112,6 @@ export function CallToActionButtonComponent(props: SectionProps): JSX.Element {
 
       return (
          <>
-            <Divider>
-               <Typography variant="h6">Edit button</Typography>
-            </Divider>
             <RegisterButtonComponent buttonContent={homepageButtonContent} />
             <Box sx={{ padding: 4, textAlign: 'center' }}>
                <Typography variant="h5">Edit register/call to action Button</Typography>

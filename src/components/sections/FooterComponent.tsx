@@ -1,4 +1,4 @@
-import { Box, Divider, Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { useState } from 'react';
 import mapImageExample from '../../assets/mapImageExample.png';
 import { DBHomePageContentFooter } from '../../interfaces/dbInterfaces';
@@ -49,9 +49,6 @@ export function FooterComponent(props: SectionProps): JSX.Element {
    } else {
       return (
          <>
-            <Divider>
-               <h2>Edit Footer</h2>
-            </Divider>
             <Grid container>
                <Grid item xs={12} md={6} padding={2}>
                   <EditText

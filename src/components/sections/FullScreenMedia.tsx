@@ -1,4 +1,4 @@
-import { Button, Divider, Slider, Stack } from '@mui/material';
+import { Button, Slider, Stack } from '@mui/material';
 import { useState } from 'react';
 import arrowDown from '../../assets/baseline_keyboard_arrow_down_white_18dp.png';
 import { useDbContent } from '../../contexts/DBContentContext';
@@ -71,11 +71,6 @@ export function FullScreenMedia(props: SectionProps): JSX.Element {
          justifyContent="space-between"
          // sx={adminEditor ? { height: '100%', maxHeight: '100vh' } : {}}
       >
-         {adminEditor && (
-            <Divider>
-               <h2>Edit img/video</h2>
-            </Divider>
-         )}
          <Stack
             className="header-container"
             alignItems="center"

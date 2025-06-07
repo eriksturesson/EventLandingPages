@@ -1,4 +1,4 @@
-import { Box, Grid } from '@mui/material';
+import { Box, Divider, Grid, Typography } from '@mui/material';
 import React from 'react';
 import { SectionContent, SectionProps } from '../interfaces/sectionInterfaces';
 import { CallToActionButtonComponent } from './sections/CallToActionButton';
@@ -10,6 +10,7 @@ import { PitchCardsComponent } from './sections/PitchCards';
 import { QuillComponent } from './sections/QuillComponent';
 import { SpeakersComponent } from './sections/SpeakersComponent';
 import { CreateSection } from './smallComponents/CreateSection';
+import { RemoveSectionComponent } from './smallComponents/RemoveSection';
 
 interface Sections {
    [component: string]: React.FC<SectionProps>;
@@ -59,6 +60,20 @@ export const SectionLoader: React.FC<Props> = function (props) {
                return (
                   <Grid key={section.sectionID}>
                      <Grid item sm={12}>
+                        {adminEditor && (
+                           <>
+                              <Divider>
+                                 <Typography fontStyle={'italic'} variant="h4">
+                                    Edit {section.sectionName}
+                                 </Typography>
+                              </Divider>
+                              <RemoveSectionComponent
+                                 pageID={pageID}
+                                 sectionID={section.sectionID}
+                                 sectionName={section.sectionName}
+                              />
+                           </>
+                        )}
                         <Component data={section} adminEditor={props.adminEditor} pageID={pageID} />
                      </Grid>
                      {adminEditor ? (

@@ -1,5 +1,5 @@
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Box, Divider, Grid, Paper, SvgIcon, TextField } from '@mui/material';
+import { Box, Grid, Paper, SvgIcon, TextField } from '@mui/material';
 import { ref as dbRef, set } from 'firebase/database';
 import { deleteObject, ref } from 'firebase/storage';
 import { useEffect, useState } from 'react';
@@ -59,12 +59,6 @@ export function SpeakersComponent(props: SectionProps): JSX.Element {
    };
    return (
       <>
-         {adminEditor ? (
-            <Divider>
-               <h2>Edit speakers</h2>
-            </Divider>
-         ) : null}
-
          <Grid container spacing={2}>
             {speakers &&
                Object.values(speakers)

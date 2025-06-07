@@ -1,5 +1,5 @@
 import SaveIcon from '@mui/icons-material/Save';
-import { Box, Button, Divider } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { ref, set } from 'firebase/database';
 import { useState } from 'react';
 import ReactQuill from 'react-quill';
@@ -57,9 +57,6 @@ export function QuillComponent(props: SectionProps): JSX.Element {
    if (adminEditor) {
       return (
          <>
-            <Divider>
-               <h2>Edit Texts on your webpage</h2>
-            </Divider>
             <div className="myquillComponent" style={{ textAlign: 'center', marginTop: '1rem' }}>
                <ReactQuill theme="snow" value={value} onChange={setValue} />
                <div

@@ -1,5 +1,5 @@
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Box, Divider, SvgIcon } from '@mui/material';
+import { Box, SvgIcon } from '@mui/material';
 import { ref as dbRef, set } from 'firebase/database';
 import { deleteObject, ref } from 'firebase/storage';
 import { useEffect, useState } from 'react';
@@ -140,12 +140,6 @@ export function ParticipantComponent(props: SectionProps): JSX.Element {
    };
    return (
       <div className="wrapper-participants">
-         {adminEditor ? (
-            <Divider>
-               <h2>Edit participants</h2>
-            </Divider>
-         ) : null}
-
          {participants &&
             Object.values(participants)
                .sort((a, b) => a.order - b.order)
