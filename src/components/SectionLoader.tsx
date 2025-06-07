@@ -1,4 +1,4 @@
-import { Box, Divider, Grid, Typography } from '@mui/material';
+import { Box, Divider, Grid, Paper, Typography } from '@mui/material';
 import React from 'react';
 import { SectionContent, SectionProps } from '../interfaces/sectionInterfaces';
 import { CallToActionButtonComponent } from './sections/CallToActionButton';
@@ -60,27 +60,33 @@ export const SectionLoader: React.FC<Props> = function (props) {
                return (
                   <Grid key={section.sectionID}>
                      <Grid item sm={12}>
-                        {adminEditor && (
+                        {adminEditor ? (
                            <>
-                              <Divider>
-                                 <Typography fontStyle={'italic'} variant="h4">
-                                    Edit {section.sectionName}
-                                 </Typography>
-                              </Divider>
-                              <RemoveSectionComponent
-                                 pageID={pageID}
-                                 sectionID={section.sectionID}
-                                 sectionName={section.sectionName}
-                              />
+                              <Paper elevation={6} sx={{ p: 2, mt: 2, mb: 2 }}>
+                                 <Divider sx={{ mb: 2, mt: 2 }}>
+                                    <Typography fontStyle={'italic'} variant="h4">
+                                       {section?.sectionName
+                                          ? section.sectionName.charAt(0).toUpperCase() + section.sectionName.slice(1)
+                                          : 'Edit section'}
+                                    </Typography>
+                                 </Divider>
+                                 <RemoveSectionComponent
+                                    pageID={pageID}
+                                    sectionID={section.sectionID}
+                                    sectionName={section.sectionName}
+                                 />
+                                 <Component data={section} adminEditor={props.adminEditor} pageID={pageID} />
+                              </Paper>
+                              <Paper elevation={6} sx={{ p: 2, mt: 2, mb: 2 }}>
+                                 <Grid item sm={12}>
+                                    <CreateSection sectionOrder={section.sectionOrder + 1} pageID={pageID} />
+                                 </Grid>
+                              </Paper>
                            </>
+                        ) : (
+                           <Component data={section} adminEditor={props.adminEditor} pageID={pageID} />
                         )}
-                        <Component data={section} adminEditor={props.adminEditor} pageID={pageID} />
                      </Grid>
-                     {adminEditor ? (
-                        <Grid item sm={12}>
-                           <CreateSection sectionOrder={section.sectionOrder + 1} pageID={pageID} />
-                        </Grid>
-                     ) : null}
                   </Grid>
                );
             })}
