@@ -1,5 +1,6 @@
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
+import EditNoteIcon from '@mui/icons-material/EditNote';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Box, Button, Drawer, IconButton, List, ListItem, ListItemText, Modal, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
@@ -21,7 +22,13 @@ const modalStyle = {
    p: 4,
 };
 
-const NavWrapper = ({ isAdmin }: { isAdmin: boolean }): JSX.Element => {
+const NavWrapper = ({
+   isAdmin,
+   setPageToEdit,
+}: {
+   isAdmin: boolean;
+   setPageToEdit?: React.Dispatch<React.SetStateAction<string | null>>;
+}): JSX.Element => {
    const { customPageMetaData, setCustomPagesMetaData, websiteID } = useDbContent();
    const [menuOpen, setMenuOpen] = useState(false);
    const [modalOpen, setModalOpen] = useState(false);
@@ -97,27 +104,65 @@ const NavWrapper = ({ isAdmin }: { isAdmin: boolean }): JSX.Element => {
                      Add Link
                   </Button>
                )}
+               <Button
+                  key={'homepage'}
+                  component={isAdmin ? 'button' : 'a'}
+                  onClick={
+                     isAdmin
+                        ? () => {
+                             if (setPageToEdit) setPageToEdit(null);
+                          }
+                        : undefined
+                  }
+                  href={isAdmin ? undefined : '/'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                     border: isAdmin ? '1px solid black' : 'none',
+                     color: 'black',
+                     fontWeight: 'bold',
+                     textTransform: 'none',
+                     '&:hover': {
+                        backgroundColor: 'rgba(0,0,0,0.1)',
+                     },
+                  }}
+               >
+                  Home
+               </Button>
                {customPageMetaData.map((item) => (
-                  <Button
-                     key={item.pageID}
-                     startIcon={isAdmin ? <EditIcon /> : null}
-                     component={isAdmin ? 'button' : 'a'}
-                     onClick={isAdmin ? () => openModal(item) : undefined}
-                     href={isAdmin ? undefined : item.pageLink}
-                     target="_blank"
-                     rel="noopener noreferrer"
-                     sx={{
-                        border: isAdmin ? '1px solid black' : 'none',
-                        color: 'black',
-                        fontWeight: 'bold',
-                        textTransform: 'none',
-                        '&:hover': {
-                           backgroundColor: 'rgba(0,0,0,0.1)',
-                        },
-                     }}
-                  >
-                     {item.pageName}
-                  </Button>
+                  <Box key={item.pageID} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                     <Button
+                        key={item.pageID}
+                        startIcon={isAdmin ? <EditIcon /> : null}
+                        component={isAdmin ? 'button' : 'a'}
+                        onClick={isAdmin ? () => openModal(item) : undefined}
+                        href={isAdmin ? undefined : item.pageLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        sx={{
+                           border: isAdmin ? '1px solid black' : 'none',
+                           color: 'black',
+                           fontWeight: 'bold',
+                           textTransform: 'none',
+                           '&:hover': {
+                              backgroundColor: 'rgba(0,0,0,0.1)',
+                           },
+                        }}
+                     >
+                        {item.pageName}
+                     </Button>
+                     {isAdmin && (
+                        <IconButton
+                           size="small"
+                           onClick={(e) => {
+                              e.stopPropagation(); // Förhindra att föräldrarklick triggas
+                              if (setPageToEdit) setPageToEdit(item.pageID);
+                           }}
+                        >
+                           <EditNoteIcon />
+                        </IconButton>
+                     )}
+                  </Box>
                ))}
             </Box>
 

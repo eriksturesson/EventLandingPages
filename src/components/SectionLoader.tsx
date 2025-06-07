@@ -29,10 +29,11 @@ const components: Sections = {
 interface Props {
    data: SectionContent[];
    adminEditor: boolean;
+   pageID: string | null;
 }
 
 export const SectionLoader: React.FC<Props> = function (props) {
-   const { adminEditor, data } = props;
+   const { adminEditor, data, pageID } = props;
    // console.log('sections', sections);
    if (data && data.length > 0) {
       const sortedData = data.sort((a, b) => a.sectionOrder - b.sectionOrder);
@@ -58,7 +59,7 @@ export const SectionLoader: React.FC<Props> = function (props) {
                      </Grid>
                      {adminEditor ? (
                         <Grid item sm={12}>
-                           <CreateSection sectionOrder={section.sectionOrder + 1} />
+                           <CreateSection sectionOrder={section.sectionOrder + 1} pageID={pageID} />
                         </Grid>
                      ) : null}
                   </Grid>
@@ -72,7 +73,7 @@ export const SectionLoader: React.FC<Props> = function (props) {
             <Box sx={{ textAlign: 'center', contentAlign: 'center' }}>
                <Grid>
                   <Grid item sm={12}>
-                     <CreateSection sectionOrder={1} />
+                     <CreateSection sectionOrder={1} pageID={pageID} />
                   </Grid>
                </Grid>
             </Box>

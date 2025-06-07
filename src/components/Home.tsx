@@ -13,7 +13,7 @@ const Home = (): JSX.Element => {
    return (
       <>
          <NavWrapper isAdmin={false} />
-         <SectionLoader adminEditor={false} data={homepageContent} />
+         <SectionLoader adminEditor={false} data={homepageContent} pageID={null} />
       </>
    );
 };

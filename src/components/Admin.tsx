@@ -1,5 +1,5 @@
-import { Box, useMediaQuery, useTheme } from '@mui/material';
-import React from 'react';
+import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
+import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useDbContent } from '../contexts/DBContentContext';
 import { SectionContent } from '../interfaces/sectionInterfaces';
@@ -11,7 +11,16 @@ import SectionNavigator from './SectionNavigator';
 const Admin: React.FC = () => {
    const theme = useTheme();
    const { user } = useAuth();
-   const { homepageContent, setHomepageContent } = useDbContent();
+   const { homepageContent, setHomepageContent, customPages, setCustomPages, customPageMetaData } = useDbContent();
+   const [pageToEdit, setPageToEdit] = useState<string | null>(null);
+   const currentPageContent = pageToEdit ? customPages[pageToEdit] ?? [] : homepageContent;
+   const setCurrentPageContent = (content: SectionContent[]) => {
+      if (pageToEdit) {
+         setCustomPages((prev) => ({ ...prev, [pageToEdit]: content }));
+      } else {
+         setHomepageContent(content);
+      }
+   };
    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
    const handleDrop = async (event: React.DragEvent<HTMLDivElement>, sections: SectionContent[]) => {
       const droppedIndex = +event.dataTransfer.getData('section-order');
@@ -33,14 +42,16 @@ const Admin: React.FC = () => {
          (item, index) => ({ ...item, sectionOrder: index })
       );
 
-      setHomepageContent(reordered);
+      setCurrentPageContent(reordered);
    };
 
-   const orderedSections = Object.values(homepageContent).sort((a, b) => a.sectionOrder - b.sectionOrder);
+   const orderedSections = [...currentPageContent].sort((a, b) => a.sectionOrder - b.sectionOrder);
+
    if (!user) return <Login />;
+   const customPageAdminEdits = customPageMetaData.find((page) => page.pageID === pageToEdit);
    return (
       <>
-         <NavWrapper isAdmin={true} />
+         <NavWrapper isAdmin={true} setPageToEdit={setPageToEdit} />
          <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', height: '100vh' }}>
             {/* Section Navigator (Drawer) */}
             <Box
@@ -67,8 +78,11 @@ const Admin: React.FC = () => {
                   overflowY: 'auto',
                }}
             >
+               <Typography variant="h4" sx={{ marginBottom: '20px' }}>
+                  {pageToEdit ? `Editing Page: ${customPageAdminEdits?.pageName}` : 'Editing Homepage'}
+               </Typography>
                <Box className="adminEdit" sx={{ transform: 'scale(1)', transformOrigin: '0% 0% 0px' }}>
-                  <SectionLoader data={orderedSections} adminEditor={true} />
+                  <SectionLoader data={orderedSections} adminEditor={true} pageID={pageToEdit} />
                </Box>
             </Box>
          </Box>

@@ -5,9 +5,21 @@ import { useState } from 'react';
 import { useDbContent } from '../../contexts/DBContentContext';
 import { SectionTypes, sectionTypes } from '../../interfaces/sectionInterfaces';
 import { db } from '../../utils/firebase';
-export function storeNewSection(sectionType: SectionTypes, sectionOrder: number, websiteID?: string) {
-   let sectionID = push(child(dbRef(db), `websites/${websiteID}/homepageContent/`)).key;
-   update(dbRef(db, `websites/${websiteID}/homepageContent/${sectionID}/`), {
+
+export interface CreateSectionProps {
+   sectionType: SectionTypes;
+   sectionOrder: number;
+   websiteID?: string;
+   pageID: string | null;
+}
+export function storeNewSection(props: CreateSectionProps) {
+   const { sectionType, sectionOrder, websiteID, pageID } = props;
+
+   const dbRefStart = pageID
+      ? `websites/${websiteID}/customPages/${pageID}/content/`
+      : `websites/${websiteID}/homepageContent/`;
+   let sectionID = push(child(dbRef(db), dbRefStart)).key;
+   update(dbRef(db, dbRefStart + sectionID), {
       sectionName: sectionType,
       //content: initSectionDataOnNewCreation[sectionType], //No, create your own content later - dont create stuff that you need to remove.
       sectionID: sectionID,
@@ -17,7 +29,7 @@ export function storeNewSection(sectionType: SectionTypes, sectionOrder: number,
    });
 }
 
-export function CreateSection({ sectionOrder }: { sectionOrder: number }) {
+export function CreateSection({ sectionOrder, pageID }: { sectionOrder: number; pageID: string | null }): JSX.Element {
    const { websiteID } = useDbContent();
    const [open, setOpen] = useState(false);
    const handleOpen = () => setOpen(true);
@@ -30,7 +42,10 @@ export function CreateSection({ sectionOrder }: { sectionOrder: number }) {
                color="info"
                endIcon={<AddCircleIcon />}
                variant="contained"
-               onClick={() => storeNewSection(sectionType, sectionOrder, websiteID)}
+               onClick={() => {
+                  storeNewSection({ sectionType, sectionOrder, websiteID, pageID });
+                  handleClose();
+               }}
             >
                {sectionType}
             </Button>
