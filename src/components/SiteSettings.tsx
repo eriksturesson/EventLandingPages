@@ -10,6 +10,7 @@ import {
    Typography,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { useSiteSettings } from '../contexts/SiteSettingsContext';
 import { SiteSettingsData } from '../interfaces/SettingsInterfaces';
 
 interface SiteSettingsProps {
@@ -18,26 +19,30 @@ interface SiteSettingsProps {
    initialSettings?: SiteSettingsData;
    onSave: (settings: SiteSettingsData) => void;
 }
-
+const defaultSettings: SiteSettingsData = {
+   font: '',
+   primaryColor: '#000000',
+   textColor: '#000000',
+   customCSS: '',
+   customHTMLHead: '',
+   customHTMLBodyEnd: '',
+   logoUrl: '',
+   faviconUrl: '',
+};
 const availableFonts = ['Open Sans', 'Roboto', 'Lato', 'Montserrat', 'Poppins', 'Arial', 'Verdana'];
 
 const SiteSettings: React.FC<SiteSettingsProps> = ({ open, onClose, initialSettings, onSave }) => {
-   const [settings, setSettings] = useState<SiteSettingsData>({
-      font: '',
-      primaryColor: '#000000',
-      textColor: '#000000',
-      customCSS: '',
-      customHTMLHead: '',
-      customHTMLBodyEnd: '',
-      logoUrl: '',
-      faviconUrl: '',
-   });
+   const { siteSettings } = useSiteSettings();
+   const [settings, setSettings] = useState<SiteSettingsData>(initialSettings ?? siteSettings ?? defaultSettings);
 
    useEffect(() => {
+      // Om initialSettings ändras (t.ex. ny data från föräldern) vill vi uppdatera state
       if (initialSettings) {
          setSettings(initialSettings);
+      } else if (siteSettings) {
+         setSettings(siteSettings);
       }
-   }, [initialSettings]);
+   }, [initialSettings, siteSettings]);
 
    const handleChange = (field: keyof SiteSettingsData, value: string) => {
       setSettings((prev) => ({ ...prev, [field]: value }));
