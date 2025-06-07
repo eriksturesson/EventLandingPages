@@ -151,15 +151,27 @@ export function OneSpeaker({
                value={titleDescription}
                onChange={(e) => handleStateTextChange(setTitleDescription, e)}
             />
-
-            <EditorOfImage
-               sectionID={sectionID}
-               order={order}
-               sectionName={sectionName}
-               image={image}
-               id={id}
-               pageID={pageID}
-            />
+            <Box
+               sx={{
+                  maxWidth: '300',
+                  width: '100%',
+                  height: '300',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  overflow: 'hidden',
+                  borderRadius: 2,
+               }}
+            >
+               <EditorOfImage
+                  sectionID={sectionID}
+                  order={order}
+                  sectionName={sectionName}
+                  image={image}
+                  id={id}
+                  pageID={pageID}
+               />
+            </Box>
 
             <TextField
                fullWidth
