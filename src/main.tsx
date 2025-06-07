@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import App from './App';
 import { AuthProvider } from './contexts/AuthContext';
 import { DbContentProvider } from './contexts/DBContentContext';
+import { SiteSettingsProvider } from './contexts/SiteSettingsContext';
 import './index.css';
 //import { BrowserRouter, Link, Route } from "react-router-dom"
 
@@ -13,9 +14,11 @@ const root = createRoot(domNode);
 root.render(
    <React.StrictMode>
       <DbContentProvider>
-         <AuthProvider>
-            <App />
-         </AuthProvider>
+         <SiteSettingsProvider>
+            <AuthProvider>
+               <App />
+            </AuthProvider>
+         </SiteSettingsProvider>
       </DbContentProvider>
    </React.StrictMode>
    //  document.getElementById('root')
