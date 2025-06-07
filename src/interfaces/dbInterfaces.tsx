@@ -85,7 +85,7 @@ export interface DBOrganizersKey {
 }
 
 export interface OrganizerObject {
-   logo?: string;
+   image: string;
    id: string;
    order: number;
 }
