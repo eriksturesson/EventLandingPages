@@ -1,17 +1,37 @@
+import SettingsIcon from '@mui/icons-material/Settings';
 import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useDbContent } from '../contexts/DBContentContext';
 import { SectionContent } from '../interfaces/sectionInterfaces';
+import { SiteSettingsData } from '../interfaces/SettingsInterfaces';
+import { readAndWriteToFirebase } from '../utils/firebaseFunctions';
 import { Login } from './Login';
 import NavWrapper from './NavWrapper';
 import { SectionLoader } from './SectionLoader';
 import SectionNavigator from './SectionNavigator';
+import SiteSettings from './SiteSettings';
 
 const Admin: React.FC = () => {
    const theme = useTheme();
    const { user } = useAuth();
-   const { homepageContent, setHomepageContent, customPages, setCustomPages, customPageMetaData } = useDbContent();
+   const { homepageContent, setHomepageContent, customPages, setCustomPages, customPageMetaData, websiteID } =
+      useDbContent();
+   const [siteSettingsOpen, setSiteSettingsOpen] = useState(false);
+
+   // Dummy initial settings (kan sen laddas från DB om du vill)
+   const [siteSettings, setSiteSettings] = useState<SiteSettingsData>({
+      font: 'Open Sans',
+      primaryColor: '#000000',
+      textColor: '#000000',
+      customCSS: '',
+      customHTMLHead: '',
+      customHTMLBodyEnd: '',
+      logoUrl: '',
+      faviconUrl: '',
+   });
+
    const [pageToEdit, setPageToEdit] = useState<string | null>(null);
    const currentPageContent = pageToEdit ? customPages[pageToEdit] ?? [] : homepageContent;
    const setCurrentPageContent = (content: SectionContent[]) => {
@@ -22,6 +42,14 @@ const Admin: React.FC = () => {
       }
    };
    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+   const saveSiteSettings = async (newSettings: SiteSettingsData) => {
+      await readAndWriteToFirebase({
+         method: 'update',
+         ref: `websites/${websiteID}/settings/`,
+         data: newSettings,
+      });
+      setSiteSettings(newSettings);
+   };
    const handleDrop = async (event: React.DragEvent<HTMLDivElement>, sections: SectionContent[]) => {
       const droppedIndex = +event.dataTransfer.getData('section-order');
       const targetEl = (event.target as HTMLElement).closest('[data-order]');
@@ -78,14 +106,24 @@ const Admin: React.FC = () => {
                   overflowY: 'auto',
                }}
             >
+               <IconButton onClick={() => setSiteSettingsOpen(true)} color="primary">
+                  <SettingsIcon /> Edit site settings
+               </IconButton>
                <Typography variant="h4" sx={{ marginBottom: '20px' }}>
                   {pageToEdit ? `Editing Page: ${customPageAdminEdits?.pageName}` : 'Editing Homepage'}
                </Typography>
+
                <Box className="adminEdit" sx={{ transform: 'scale(1)', transformOrigin: '0% 0% 0px' }}>
                   <SectionLoader data={orderedSections} adminEditor={true} pageID={pageToEdit} />
                </Box>
             </Box>
          </Box>
+         <SiteSettings
+            open={siteSettingsOpen}
+            onClose={() => setSiteSettingsOpen(false)}
+            initialSettings={siteSettings}
+            onSave={(newSettings) => saveSiteSettings(newSettings)}
+         />
       </>
    );
 };

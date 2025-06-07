@@ -1,4 +1,5 @@
 import { SectionContent } from './sectionInterfaces';
+import { SiteSettingsData } from './SettingsInterfaces';
 
 export interface DBFullScreenMediaMetaData {
    metaDescription: string;
@@ -158,6 +159,7 @@ export interface DBCustomPages {
 export interface DbEachWebsite {
    homepageContent: Record<string, SectionContent>;
    customPages: DBCustomPages;
+   settings: SiteSettingsData;
 }
 export interface DBEachWebsiteKey {
    [websiteID: string]: DbEachWebsite;
