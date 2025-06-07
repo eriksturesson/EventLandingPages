@@ -1,5 +1,5 @@
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Box, SvgIcon } from '@mui/material';
+import { Box, CardMedia, Grid, SvgIcon } from '@mui/material';
 import { ref as dbRef, set } from 'firebase/database';
 import { deleteObject, ref } from 'firebase/storage';
 import { useEffect, useState } from 'react';
@@ -21,7 +21,6 @@ export function OneOrganizer({
    organizer: OrganizerObject;
    sectionID: string;
    id: string;
-
    sectionName: SectionTypes;
    adminEditor: boolean;
    pageID: string | null;
@@ -29,19 +28,10 @@ export function OneOrganizer({
 }): JSX.Element {
    return adminEditor ? (
       <>
-         <Box
-            sx={{
-               marginTop: '1rem',
-               backgroundColor: 'grey',
-               textAlign: 'center',
-               width: '100%',
-               display: 'flex',
-               alignItems: 'center',
-            }}
-         >
+         <Box>
             <SvgIcon
-               style={{ color: 'red', cursor: 'pointer' }}
                onClick={() => onRemove(id, organizer.image as string)}
+               sx={{ color: 'red', cursor: 'pointer' }}
                component={DeleteIcon}
                fontSize="large"
             />
@@ -56,9 +46,7 @@ export function OneOrganizer({
          />
       </>
    ) : (
-      <Box>
-         <img className="organizer-logo" src={organizer?.image} />
-      </Box>
+      <CardMedia component="img" image={organizer?.image} alt="Organizer logo" />
    );
 }
 
@@ -79,54 +67,94 @@ export function OrganizersComponent(props: SectionProps): JSX.Element {
          setOrganizers(parsed);
       }
    }, [content]);
+
    const handleRemove = (id: string, imgStorageRef: string) => {
       const path = pageID
          ? `customPages/${pageID}/content/${sectionID}/content/${id}`
          : `homepageContent/${sectionID}/content/${id}`;
 
       const dbPath = dbRef(db, `websites/${websiteID}/${path}`);
-      set(dbPath, null); // delete from database
+      set(dbPath, null);
       if (imgStorageRef) {
          const imgRef = ref(storage, imgStorageRef);
-         deleteObject(imgRef).catch(console.error); // delete from storage
+         deleteObject(imgRef).catch(console.error);
       }
-      setOrganizers((prev) => prev.filter((organizer) => organizer.id !== id));
+      setOrganizers((prev) => prev.filter((o) => o.id !== id));
    };
+
+   const sortedOrganizers = organizers.sort((a, b) => a.order - b.order);
+   const count = sortedOrganizers.length;
+
+   function getGridSize() {
+      if (count === 1) return 12;
+      if (count === 2) return 6;
+      if (count === 3) return 4;
+      return 3;
+   }
+   const gridSize = getGridSize();
+
    const newOrganizer: OrganizerObject = {
       id: uuidv4(),
       order: organizers.length + 1,
       image: '',
    };
+
    return (
-      <>
-         {organizers &&
-            Object.values(organizers)
-               .sort((a, b) => a.order - b.order)
-               .map((organizer) => (
+      <Grid container spacing={3} justifyContent="center" alignItems="center" sx={{ py: 4 }}>
+         {sortedOrganizers.map((organizer) => (
+            <Grid item xs={12} sm={gridSize} key={organizer.id} sx={{ textAlign: 'center' }}>
+               {adminEditor ? (
+                  <Box
+                     sx={{
+                        overflow: 'hidden',
+                     }}
+                  >
+                     <OneOrganizer
+                        organizer={organizer}
+                        id={organizer.id}
+                        sectionID={sectionID}
+                        sectionName={sectionName}
+                        adminEditor={adminEditor}
+                        onRemove={handleRemove}
+                        pageID={pageID}
+                     />
+                  </Box>
+               ) : (
+                  <Box
+                     sx={{
+                        maxWidth: 350,
+                        margin: 'auto',
+                     }}
+                  >
+                     <OneOrganizer
+                        organizer={organizer}
+                        id={organizer.id}
+                        sectionID={sectionID}
+                        sectionName={sectionName}
+                        adminEditor={adminEditor}
+                        onRemove={handleRemove}
+                        pageID={pageID}
+                     />
+                  </Box>
+               )}
+            </Grid>
+         ))}
+
+         {adminEditor && (
+            <Grid item xs={12} sm={gridSize} key="new-organizer">
+               <Box>
                   <OneOrganizer
-                     organizer={organizer}
-                     key={organizer.id}
-                     id={organizer.id}
+                     organizer={newOrganizer}
+                     id={newOrganizer.id}
                      sectionID={sectionID}
                      sectionName={sectionName}
                      adminEditor={adminEditor}
                      onRemove={handleRemove}
                      pageID={pageID}
                   />
-               ))}
-
-         {adminEditor && (
-            <OneOrganizer
-               organizer={newOrganizer}
-               key={newOrganizer.id}
-               id={newOrganizer.id}
-               sectionID={sectionID}
-               sectionName={sectionName}
-               adminEditor={adminEditor}
-               onRemove={handleRemove}
-               pageID={pageID}
-            />
+               </Box>
+            </Grid>
          )}
-      </>
+      </Grid>
    );
 }
