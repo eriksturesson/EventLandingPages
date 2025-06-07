@@ -1,4 +1,5 @@
 import MenuIcon from '@mui/icons-material/Menu';
+import SettingsIcon from '@mui/icons-material/Settings';
 import {
    Box,
    Button,
@@ -17,8 +18,12 @@ import {
 import React, { useState } from 'react';
 
 import { User } from 'firebase/auth';
+import { useDbContent } from '../contexts/DBContentContext';
 import { signOutUser } from '../helpers/signoutUser';
 import { SectionContent } from '../interfaces/sectionInterfaces';
+import { SiteSettingsData } from '../interfaces/SettingsInterfaces';
+import { readAndWriteToFirebase } from '../utils/firebaseFunctions';
+import SiteSettings from './SiteSettings';
 import { SaveTextsButton } from './smallComponents/SaveTextsButton';
 
 interface Props {
@@ -30,9 +35,30 @@ interface Props {
 
 const SectionNavigator: React.FC<Props> = ({ sections, handleDrop, user, pageID }) => {
    const [open, setOpen] = useState(false);
+   const { websiteID } = useDbContent();
+   const [siteSettingsOpen, setSiteSettingsOpen] = useState(false);
+   // Dummy initial settings (kan sen laddas från DB om du vill)
+   const [siteSettings, setSiteSettings] = useState<SiteSettingsData>({
+      font: 'Open Sans',
+      primaryColor: '#000000',
+      textColor: '#000000',
+      customCSS: '',
+      customHTMLHead: '',
+      customHTMLBodyEnd: '',
+      logoUrl: '',
+      faviconUrl: '',
+   });
    const theme = useTheme();
    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
    const refBelowWebsiteID = pageID ? `customPages/${pageID}/content/` : `homepageContent/`;
+   const saveSiteSettings = async (newSettings: SiteSettingsData) => {
+      await readAndWriteToFirebase({
+         method: 'update',
+         ref: `websites/${websiteID}/settings/`,
+         data: newSettings,
+      });
+      setSiteSettings(newSettings);
+   };
    const handleDragStart = (event: React.DragEvent<HTMLDivElement>) => {
       event.dataTransfer.setData('section-order', `${(event.target as HTMLElement).dataset.order}`);
    };
@@ -136,11 +162,20 @@ const SectionNavigator: React.FC<Props> = ({ sections, handleDrop, user, pageID 
                   </Box>
                )}
             </Box>
-
+            <Divider sx={{ my: 2 }} />
+            <IconButton onClick={() => setSiteSettingsOpen(true)} color="primary">
+               <SettingsIcon /> Settings
+            </IconButton>
             <Box sx={{ mt: 4, textAlign: 'center', color: 'text.secondary' }}>
-               <Typography variant="caption">v0.0.0.1</Typography>
+               <Typography variant="caption">v0.9.0.1</Typography>
             </Box>
          </Drawer>
+         <SiteSettings
+            open={siteSettingsOpen}
+            onClose={() => setSiteSettingsOpen(false)}
+            initialSettings={siteSettings}
+            onSave={(newSettings) => saveSiteSettings(newSettings)}
+         />
       </>
    );
 };
