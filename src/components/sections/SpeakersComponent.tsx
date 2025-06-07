@@ -65,7 +65,17 @@ export function OneSpeaker({
    const [pitch, setPitch] = useState(speaker.pitch || '');
 
    return adminEditor ? (
-      <Paper elevation={5} sx={{ p: 2, borderRadius: 2, bgcolor: isNewCard ? '#e0e0e0' : '#f9f9f9', mb: 3 }}>
+      <Paper
+         elevation={5}
+         sx={{
+            p: 2,
+            borderRadius: 2,
+            bgcolor: isNewCard ? '#e0e0e0' : '#f9f9f9',
+            mb: 3,
+            width: '100%',
+            maxWidth: '100%',
+         }}
+      >
          <Box sx={{ p: 2, borderRadius: 2, mb: 3 }}>
             <TextField
                fullWidth
@@ -84,8 +94,20 @@ export function OneSpeaker({
                value={titleDescription}
                onChange={(e) => handleStateTextChange(setTitleDescription, e)}
             />
-
-            <EditorOfImage sectionID={sectionID} order={order} sectionName={sectionName} image={image} id={id} />
+            <Box
+               sx={{
+                  maxWidth: '300',
+                  width: '100%',
+                  height: '300',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  overflow: 'hidden',
+                  borderRadius: 2,
+               }}
+            >
+               <EditorOfImage sectionID={sectionID} order={order} sectionName={sectionName} image={image} id={id} />
+            </Box>
 
             <TextField
                fullWidth
