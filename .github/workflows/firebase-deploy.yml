@@ -21,7 +21,7 @@ jobs:
 
          # Install dependencies for root (frontend)
          - name: Install root dependencies
-           run: npm ci
+           run: npm install
            env:
               VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
               VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
@@ -48,7 +48,7 @@ jobs:
          # Install dependencies for functions
          - name: Install functions dependencies
            working-directory: ./functions
-           run: npm ci
+           run: npm install
 
          # Build functions (backend)
          - name: Build functions
