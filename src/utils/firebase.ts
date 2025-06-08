@@ -7,7 +7,7 @@ import { awesomeLogStyle } from './awesomeLogStyle';
 import { firebaseConfig } from './firebaseConfig';
 
 type CONFIGS = 'development' | 'production';
-export const devSettings: CONFIGS = import.meta.env.NODE_ENV === 'production' ? 'production' : 'development';
+export const devSettings: CONFIGS = import.meta.env.VITE_NODE_ENV === 'production' ? 'production' : 'development';
 ///////////////////////////////////////
 //LOCAL VARIABLE FOR URL TO CLOUD FUNCTION REQUEST
 let beginingOfCloudFunctionRequestUrl = '';
