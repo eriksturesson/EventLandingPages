@@ -28,8 +28,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-package-lock.json
-
 # Firebase
 /src/components/utils/firebaseConfig.ts
 customStyles.css
