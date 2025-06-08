@@ -1,7 +1,10 @@
 import type { Request, Response } from 'express';
-import * as admin from 'firebase-admin';
+import { initializeApp } from 'firebase-admin/app';
+import { getAuth } from 'firebase-admin/auth';
+import { getDatabase } from 'firebase-admin/database';
 import { onRequest } from 'firebase-functions/v2/https';
-admin.initializeApp();
+const defaultApp = initializeApp();
+console.log(defaultApp.name); // '[DEFAULT]'
 
 export interface DBAdminUser {
    [websiteID: string]: string;
@@ -28,7 +31,7 @@ export const createAdmin = onRequest(async (req: Request, res: Response): Promis
       return res.status(401).send('Unauthorized: Missing userID in headers.');
    }
    try {
-      const db = admin.database();
+      const db = getDatabase(defaultApp);
 
       // Verify that the requester userID is authorized by checking adminUsers in DB
       const snapshot = await db.ref(`adminUsers/${requesterUserID}`).get();
@@ -41,7 +44,7 @@ export const createAdmin = onRequest(async (req: Request, res: Response): Promis
       }
 
       // Create the user
-      const userRecord = await admin.auth().createUser({
+      const userRecord = await getAuth(defaultApp).createUser({
          email: req.body.email,
          password: req.body.password,
          displayName: req.body.displayName || 'Admin',
@@ -49,7 +52,7 @@ export const createAdmin = onRequest(async (req: Request, res: Response): Promis
       });
 
       // Assign admin role
-      await admin.auth().setCustomUserClaims(userRecord.uid, { admin: true });
+      await getAuth(defaultApp).setCustomUserClaims(userRecord.uid, { admin: true });
 
       // Save data in Realtime Database under "adminUsers/{uid}"
 
