@@ -6,9 +6,8 @@ import { connectStorageEmulator, getStorage } from 'firebase/storage';
 import { awesomeLogStyle } from './awesomeLogStyle';
 import { firebaseConfig } from './firebaseConfig';
 
-type CONFIGS = 'EMULATORS' | 'PRODUCTION';
-
-export const devSettings: CONFIGS = 'EMULATORS';
+type CONFIGS = 'development' | 'production';
+export const devSettings: CONFIGS = import.meta.env.NODE_ENV === 'production' ? 'production' : 'development';
 ///////////////////////////////////////
 //LOCAL VARIABLE FOR URL TO CLOUD FUNCTION REQUEST
 let beginingOfCloudFunctionRequestUrl = '';
@@ -16,7 +15,7 @@ let beginingOfCloudFunctionRequestUrl = '';
 
 // See: https://firebase.google.com/docs/web/learn-more#config-object
 let config = {};
-if (devSettings === 'EMULATORS') {
+if (devSettings === 'development') {
    console.log(`%c FIREBASE devSettings = ${devSettings}`, awesomeLogStyle);
    beginingOfCloudFunctionRequestUrl = `http://127.0.0.1:5001/${firebaseConfig.projectId}/us-central1/`;
 
@@ -29,7 +28,7 @@ if (devSettings === 'EMULATORS') {
       messagingSenderId: firebaseConfig.messagingSenderId,
       appId: firebaseConfig.appId,
    };
-} else if (devSettings === 'PRODUCTION') {
+} else if (devSettings === 'production') {
    console.error(`%c FIREBASE devSettings = ${devSettings}`, awesomeLogStyle);
    beginingOfCloudFunctionRequestUrl = `https://us-central1-${firebaseConfig.projectId}.cloudfunctions.net/`;
    config = {
@@ -53,7 +52,7 @@ export const functions = getFunctions(app);
 export const storage = getStorage();
 export const db = getDatabase(app);
 
-if (devSettings === 'EMULATORS') {
+if (devSettings === 'development') {
    connectAuthEmulator(auth, 'http://localhost:9099');
    connectFunctionsEmulator(functions, 'localhost', 5001);
    connectDatabaseEmulator(db, 'localhost', 9000);
