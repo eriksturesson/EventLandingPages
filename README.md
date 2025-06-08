@@ -17,11 +17,25 @@
 
    -  Create your firebase project at firebase.com
    -  Follow Firebase's own steps for deploying and setting up your project. Use `firebase init`. Install, when asked all these: `emulators`, `cloud functions`, `realtime database`, `storage` and `hosting`. Don't overwrite the `database.rules.json` nor `firebase.json` when asked during the installation (we set that up for you!).
-   -  Create a file `firebaseConfig.ts` and copy paste your `firebaseConfig` from firebase and export the variable firebaseConfig. Put it here: `src\components\utils\firebaseConfig.ts`. You find your firebaseConfig in the firebase console --> firebase settings --> General
+   -  Add the firebase config into the `.env`file you create in the root. See "Environment Configuration". You find your firebaseConfig in the firebase console --> firebase settings --> General
 
-   B: Copy our database and storage rules from the root-folder `config`.
+1. B: Copy our database and storage rules from the root-folder `config`.
 
-2. Change the storage.rules files to fit the name of your storage bucket link:
+1. ##
+
+📁 Environment Configuration
+Create a .env file in the root folder of your project and add your Firebase config like this:
+
+```ts
+VITE_FIREBASE_API_KEY = yourApikey;
+VITE_FIREBASE_AUTH_DOMAIN = yourAuthDomain;
+VITE_FIREBASE_PROJECT_ID = yourProjectID;
+VITE_FIREBASE_STORAGE_BUCKET = yourStorageBucket;
+VITE_FIREBASE_MESSAGING_SENDER_ID = yourMessageSenderID;
+VITE_FIREBASE_APP_ID = yourAppID;
+```
+
+3. Change the storage.rules files to fit the name of your storage bucket link:
 
 ```
 rules_version = '2';
