@@ -6,6 +6,9 @@
       "strict": true,
       "esModuleInterop": true,
       "skipLibCheck": true, // Rekommenderas med vissa @types
-      "forceConsistentCasingInFileNames": true
-   }
+      "forceConsistentCasingInFileNames": true,
+      "rootDir": "src",
+      "outDir": "lib"
+   },
+   "include": ["src"]
 }
