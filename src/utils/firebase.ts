@@ -4,7 +4,6 @@ import { connectDatabaseEmulator, getDatabase } from 'firebase/database';
 import { connectFunctionsEmulator, getFunctions } from 'firebase/functions';
 import { connectStorageEmulator, getStorage } from 'firebase/storage';
 import { awesomeLogStyle } from './awesomeLogStyle';
-import { firebaseConfig } from './firebaseConfig';
 
 type CONFIGS = 'development' | 'production';
 export const devSettings: CONFIGS = import.meta.env.VITE_NODE_ENV === 'production' ? 'production' : 'development';
@@ -17,28 +16,30 @@ let beginingOfCloudFunctionRequestUrl = '';
 let config = {};
 if (devSettings === 'development') {
    console.log(`%c FIREBASE devSettings = ${devSettings}`, awesomeLogStyle);
-   beginingOfCloudFunctionRequestUrl = `http://127.0.0.1:5001/${firebaseConfig.projectId}/us-central1/`;
+   beginingOfCloudFunctionRequestUrl = `http://127.0.0.1:5001/${import.meta.env.VITE_FIREBASE_PROJECT_ID}/us-central1/`;
 
    config = {
-      apiKey: firebaseConfig.apiKey,
-      authDomain: firebaseConfig.apiKey,
+      apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+      authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
       databaseURL: 'https://emulator.firebaseio.com',
-      projectId: firebaseConfig.projectId,
-      storageBucket: firebaseConfig.storageBucket,
-      messagingSenderId: firebaseConfig.messagingSenderId,
-      appId: firebaseConfig.appId,
+      projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+      storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+      messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+      appId: import.meta.env.VITE_FIREBASE_APP_ID,
+      // measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
    };
 } else if (devSettings === 'production') {
    console.error(`%c FIREBASE devSettings = ${devSettings}`, awesomeLogStyle);
-   beginingOfCloudFunctionRequestUrl = `https://us-central1-${firebaseConfig.projectId}.cloudfunctions.net/`;
+   beginingOfCloudFunctionRequestUrl = `https://us-central1-${import.meta.env.VITE_FIREBASE_PROJECT_ID}.cloudfunctions.net/`;
    config = {
-      apiKey: firebaseConfig.apiKey,
-      authDomain: firebaseConfig.apiKey,
-      databaseURL: firebaseConfig.databaseURL,
-      projectId: firebaseConfig.projectId,
-      storageBucket: firebaseConfig.storageBucket,
-      messagingSenderId: firebaseConfig.messagingSenderId,
-      appId: firebaseConfig.appId,
+      apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+      authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+      databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
+      projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+      storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+      messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+      appId: import.meta.env.VITE_FIREBASE_APP_ID,
+      // measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
    };
 }
 

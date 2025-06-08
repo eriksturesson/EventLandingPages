@@ -17,7 +17,7 @@
 
    -  Create your firebase project at firebase.com
    -  Follow Firebase's own steps for deploying and setting up your project. Use `firebase init`. Install, when asked all these: `emulators`, `cloud functions`, `realtime database`, `storage` and `hosting`. Don't overwrite the `database.rules.json` nor `firebase.json` when asked during the installation (we set that up for you!).
-   -  Add the firebase config into the `.env`file you create in the root. See "Environment Configuration". You find your firebaseConfig in the firebase console --> firebase settings --> General
+   -  Add the firebase config into the `.env` file you create in the root. See "Environment Configuration". You find your firebaseConfig in the firebase console --> firebase settings --> General
    -  For production later, set up cleanup policy to remove backend images automatically to reduce costs
 
 1. B: Copy our database and storage rules from the root-folder `config`.
