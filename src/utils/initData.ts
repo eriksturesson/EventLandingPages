@@ -77,12 +77,12 @@ const initSectionDataOnNewCreation: InitContent = {
    },
    organizers: {
       organizerskey1: {
-         logo: (window.location.origin + speakerImgExample1) as unknown as string,
+         image: (window.location.origin + speakerImgExample1) as unknown as string,
          id: 'organizerskey1',
          order: 1,
       },
       organizerskey2: {
-         logo: (window.location.origin + speakerImgExample2) as unknown as string,
+         image: (window.location.origin + speakerImgExample2) as unknown as string,
          id: 'organizerskey2',
          order: 2,
       },

@@ -138,12 +138,13 @@ export type InitContent = {
    //HeadingSection: HeadingSectionTypes;
 };
 
+export interface DBAdminUser {
+   [websiteID: string]: string;
+   email: string;
+   lastTimeSavedData: string;
+}
 export interface DBAdminUsers {
-   [userID: string]: {
-      [websiteID: string]: string;
-      email: string;
-      lastTimeSavedData: string;
-   }; //Not done, maybe even not needed
+   [userID: string]: DBAdminUser;
 }
 
 export interface PageMetadata {
