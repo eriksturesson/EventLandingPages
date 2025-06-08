@@ -17,8 +17,13 @@ jobs:
          - name: Set up Node.js
            uses: actions/setup-node@v4
            with:
-              node-version: '18'
+              node-version: '20'
 
+         - name: Clean npm cache and remove lock and modules
+           run: |
+              npm cache clean --force
+              rm -rf node_modules package-lock.json
+              rm -rf functions/node_modules functions/package-lock.json
          # Install dependencies for root (frontend)
          - name: Install root dependencies
            run: npm install
