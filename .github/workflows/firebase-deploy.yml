@@ -8,6 +8,8 @@ on:
 jobs:
    deploy:
       runs-on: ubuntu-latest
+      environment: production
+
       steps:
          - name: Checkout code
            uses: actions/checkout@v3
@@ -17,14 +19,48 @@ jobs:
            with:
               node-version: '20'
 
-         - name: Install dependencies
+         # Install dependencies for root (frontend)
+         - name: Install root dependencies
+           run: npm ci
+           env:
+              VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+              VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+              VITE_FIREBASE_DATABASE_URL: ${{ secrets.VITE_FIREBASE_DATABASE_URL }}
+              VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+              VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
+              VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+              VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+              VITE_FIREBASE_MEASUREMENT_ID: ${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}
+
+         # Build frontend
+         - name: Build frontend
+           run: npm run build
+           env:
+              VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+              VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+              VITE_FIREBASE_DATABASE_URL: ${{ secrets.VITE_FIREBASE_DATABASE_URL }}
+              VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+              VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
+              VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+              VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+              VITE_FIREBASE_MEASUREMENT_ID: ${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}
+
+         # Install dependencies for functions
+         - name: Install functions dependencies
+           working-directory: ./functions
            run: npm ci
 
+         # Build functions (backend)
+         - name: Build functions
+           working-directory: ./functions
+           run: npm run build
+
+         # Install Firebase CLI
          - name: Install Firebase CLI
            run: npm install -g firebase-tools
 
+         # Deploy everything
          - name: Deploy to Firebase
-           run: |
-              firebase deploy --non-interactive
+           run: firebase deploy --non-interactive
            env:
               FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

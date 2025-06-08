@@ -1,36 +1,27 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# Ignoring dist
-/dist
-
-# dependencies
+# Dependencies
 /node_modules
 /.pnp
 .pnp.js
 
-# testing
+# Testing
 /coverage
 
-# production
-/build
-/dist
-/dist/*
-/public
+# Build artifacts (frontend only)
+# Don't ignore dist or build for Firebase Functions
+/build/
+# Uncomment this if you have frontend-only dist folder
+# /dist/
 
-# misc
+# Public folder (only ignore if not used for hosting)
+# /public
+
+# Misc
 .DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Firebase
-/src/components/utils/firebaseConfig.ts
-customStyles.css
-.firebaserc
-*.log
-storage.rules
+# Env files
+.env
+.env.*
