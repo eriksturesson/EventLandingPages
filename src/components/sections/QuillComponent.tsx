@@ -97,7 +97,18 @@ export function QuillComponent(props: SectionProps): JSX.Element {
    } else {
       return (
          <Box
-            sx={{ justifyContent: 'center', display: 'flex' }}
+            sx={{
+               justifyContent: 'center',
+               display: 'flex',
+
+               '& img': {
+                  maxWidth: '100%',
+                  height: 'auto',
+                  borderRadius: 2,
+                  maxHeight: 400, // exempelvis
+                  objectFit: 'contain',
+               },
+            }}
             dangerouslySetInnerHTML={{ __html: `<div>${value}</div>` }}
          ></Box>
       );
