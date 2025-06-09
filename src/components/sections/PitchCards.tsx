@@ -60,7 +60,8 @@ export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
    };
 
    return adminEditor ? (
-      <Paper elevation={5} sx={{ p: 2, borderRadius: 2, bgcolor: '#f9f9f9', mb: 3 }}>
+      <Paper elevation={5} sx={{ p: 2, borderRadius: 2, bgcolor: '#f9f9f9', mb: 3, overflow: 'hidden' }}>
+         {/*onClick={image ? removePitchCard(id, image) : undefined}*/}
          <EditorOfImage
             sectionID={sectionID}
             order={order}
@@ -83,8 +84,6 @@ export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
    ) : (
       <Box className="pitchcard-container" id={id}>
          <Box className="pitchcard-box">
-            {/*onClick={image ? removePitchCard(id, image) : undefined}*/}
-
             <img className="visningsbilder" alt="visningsbild1" src={image} />
 
             <h1>{title}</h1>
