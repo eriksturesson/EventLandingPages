@@ -32,7 +32,7 @@ export function RegisterButtonComponent({ buttonContent }: { buttonContent: DBHo
    }
    return (
       <Box textAlign="center" sx={{ my: 2 }}>
-         <Box className="rotaryknapp">
+         <Box className="callToActionButton" sx={{ mb: 2 }}>
             <Button color={buttonColor as any} href={formLink} variant="contained">
                {buttonText}
             </Button>
@@ -221,11 +221,7 @@ export function CallToActionButtonComponent(props: SectionProps): JSX.Element {
          </>
       );
    } else {
-      return (
-         <>
-            <RegisterButtonComponent buttonContent={homepageButtonContent} />
-         </>
-      );
+      return <RegisterButtonComponent buttonContent={homepageButtonContent} />;
    }
 }
 
