@@ -2,9 +2,11 @@ import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useDbContent } from '../contexts/DBContentContext';
+import { useSiteSettings } from '../contexts/SiteSettingsContext';
 import { SectionContent } from '../interfaces/sectionInterfaces';
 import { Login } from './Login';
 import NavWrapper from './NavWrapper';
+import PageMeta from './PageMeta';
 import { SectionLoader } from './SectionLoader';
 import SectionNavigator from './SectionNavigator';
 
@@ -15,6 +17,7 @@ const Admin: React.FC = () => {
       useDbContent();
 
    const [pageToEdit, setPageToEdit] = useState<string | null>(null);
+   const { siteSettings } = useSiteSettings();
    const currentPageContent = pageToEdit ? customPages[pageToEdit] ?? [] : homepageContent;
    const setCurrentPageContent = (content: SectionContent[]) => {
       if (pageToEdit) {
@@ -54,6 +57,12 @@ const Admin: React.FC = () => {
    const customPageAdminEdits = customPageMetaData.find((page) => page.pageID === pageToEdit);
    return (
       <>
+         <PageMeta
+            title="Admin"
+            siteName={siteSettings?.siteName}
+            imageUrl={siteSettings?.logoUrl}
+            description={siteSettings?.siteDescription}
+         />
          <NavWrapper isAdmin={true} setPageToEdit={setPageToEdit} />
          <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', height: '100vh' }}>
             {/* Section Navigator (Drawer) */}

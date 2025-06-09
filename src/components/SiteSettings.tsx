@@ -27,6 +27,8 @@ const defaultSettings: SiteSettingsData = {
    customHTMLBodyEnd: '',
    logoUrl: '',
    faviconUrl: '',
+   siteName: '',
+   siteDescription: '',
 };
 const availableFonts = ['Open Sans', 'Roboto', 'Lato', 'Montserrat', 'Poppins', 'Arial', 'Verdana'];
 
@@ -87,6 +89,24 @@ const SiteSettings: React.FC<SiteSettingsProps> = ({ open, onClose, siteSettings
                      fullWidth
                      value={settings.textColor}
                      onChange={(e) => handleChange('textColor', e.target.value)}
+                  />
+               </Grid>
+
+               <Grid item xs={12} sm={6}>
+                  <TextField
+                     label="Site Name"
+                     fullWidth
+                     value={settings.siteName}
+                     onChange={(e) => handleChange('siteName', e.target.value)}
+                  />
+               </Grid>
+
+               <Grid item xs={12} sm={6}>
+                  <TextField
+                     label="Site Description"
+                     fullWidth
+                     value={settings.siteDescription}
+                     onChange={(e) => handleChange('siteDescription', e.target.value)}
                   />
                </Grid>
 

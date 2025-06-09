@@ -7,4 +7,6 @@ export interface SiteSettingsData {
    customHTMLBodyEnd: string;
    logoUrl?: string;
    faviconUrl?: string;
+   siteName?: string;
+   siteDescription?: string;
 }

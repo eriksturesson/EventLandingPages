@@ -1,5 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { HelmetProvider } from 'react-helmet-async';
 import App from './App';
 import { AuthProvider } from './contexts/AuthContext';
 import { DbContentProvider } from './contexts/DBContentContext';
@@ -13,13 +14,15 @@ const root = createRoot(domNode);
 
 root.render(
    <React.StrictMode>
-      <DbContentProvider>
-         <SiteSettingsProvider>
-            <AuthProvider>
-               <App />
-            </AuthProvider>
-         </SiteSettingsProvider>
-      </DbContentProvider>
+      <HelmetProvider>
+         <DbContentProvider>
+            <SiteSettingsProvider>
+               <AuthProvider>
+                  <App />
+               </AuthProvider>
+            </SiteSettingsProvider>
+         </DbContentProvider>
+      </HelmetProvider>
    </React.StrictMode>
    //  document.getElementById('root')
 );
