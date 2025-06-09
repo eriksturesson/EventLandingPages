@@ -15,7 +15,7 @@ const initSectionDataOnNewCreation: InitContent = {
       mediaType: 'video',
       time: 'ONS 6 SEP KL.18.00 - 21.00',
       location: 'M / S VINDHEM, SKEPPSBRON - KAJPLATS 101',
-      mediaSize: 100,
+      overlayOpacity: 100,
    },
    speakers: {
       speakerskey1: {

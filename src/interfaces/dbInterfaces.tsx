@@ -18,7 +18,7 @@ export interface DBFullScreenMedia {
    location?: string;
    media?: string; // url to storage
    mediaType?: 'video' | 'image';
-   overlayOpacity: number;
+   overlayOpacity?: number;
 }
 
 export interface DBHomePageContentPitchCards {
