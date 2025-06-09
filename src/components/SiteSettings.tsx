@@ -10,13 +10,12 @@ import {
    Typography,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useSiteSettings } from '../contexts/SiteSettingsContext';
 import { SiteSettingsData } from '../interfaces/SettingsInterfaces';
 
 interface SiteSettingsProps {
    open: boolean;
    onClose: () => void;
-   initialSettings?: SiteSettingsData;
+   siteSettings: SiteSettingsData | null;
    onSave: (settings: SiteSettingsData) => void;
 }
 const defaultSettings: SiteSettingsData = {
@@ -31,18 +30,15 @@ const defaultSettings: SiteSettingsData = {
 };
 const availableFonts = ['Open Sans', 'Roboto', 'Lato', 'Montserrat', 'Poppins', 'Arial', 'Verdana'];
 
-const SiteSettings: React.FC<SiteSettingsProps> = ({ open, onClose, initialSettings, onSave }) => {
-   const { siteSettings } = useSiteSettings();
-   const [settings, setSettings] = useState<SiteSettingsData>(initialSettings ?? siteSettings ?? defaultSettings);
+const SiteSettings: React.FC<SiteSettingsProps> = ({ open, onClose, siteSettings, onSave }) => {
+   const [settings, setSettings] = useState<SiteSettingsData>(siteSettings ?? defaultSettings);
 
    useEffect(() => {
       // Om initialSettings ändras (t.ex. ny data från föräldern) vill vi uppdatera state
-      if (initialSettings) {
-         setSettings(initialSettings);
-      } else if (siteSettings) {
-         setSettings(siteSettings);
+      if (open) {
+         if (siteSettings) setSettings(siteSettings);
       }
-   }, [initialSettings, siteSettings]);
+   }, [open, siteSettings]);
 
    const handleChange = (field: keyof SiteSettingsData, value: string) => {
       setSettings((prev) => ({ ...prev, [field]: value }));

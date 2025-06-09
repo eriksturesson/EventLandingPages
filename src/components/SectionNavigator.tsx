@@ -19,6 +19,7 @@ import React, { useState } from 'react';
 
 import { User } from 'firebase/auth';
 import { useDbContent } from '../contexts/DBContentContext';
+import { useSiteSettings } from '../contexts/SiteSettingsContext';
 import { signOutUser } from '../helpers/signoutUser';
 import { SectionContent } from '../interfaces/sectionInterfaces';
 import { SiteSettingsData } from '../interfaces/SettingsInterfaces';
@@ -37,21 +38,13 @@ const SectionNavigator: React.FC<Props> = ({ sections, handleDrop, user, pageID 
    const [open, setOpen] = useState(false);
    const { websiteID } = useDbContent();
    const [siteSettingsOpen, setSiteSettingsOpen] = useState(false);
-   // Dummy initial settings (kan sen laddas från DB om du vill)
-   const [siteSettings, setSiteSettings] = useState<SiteSettingsData>({
-      font: 'Open Sans',
-      primaryColor: '#000000',
-      textColor: '#000000',
-      customCSS: '',
-      customHTMLHead: '',
-      customHTMLBodyEnd: '',
-      logoUrl: '',
-      faviconUrl: '',
-   });
+   const { siteSettings, setSiteSettings } = useSiteSettings();
+
    const theme = useTheme();
    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
    const refBelowWebsiteID = pageID ? `customPages/${pageID}/content/` : `homepageContent/`;
    const saveSiteSettings = async (newSettings: SiteSettingsData) => {
+      if (!newSettings) return;
       await readAndWriteToFirebase({
          method: 'update',
          ref: `websites/${websiteID}/settings/`,
@@ -174,7 +167,7 @@ const SectionNavigator: React.FC<Props> = ({ sections, handleDrop, user, pageID 
          <SiteSettings
             open={siteSettingsOpen}
             onClose={() => setSiteSettingsOpen(false)}
-            initialSettings={siteSettings}
+            siteSettings={siteSettings}
             onSave={(newSettings) => saveSiteSettings(newSettings)}
          />
       </>

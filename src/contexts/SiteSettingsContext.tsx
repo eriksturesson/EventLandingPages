@@ -5,11 +5,13 @@ import { useDbContent } from './DBContentContext';
 
 interface SiteSettingsContextValue {
    siteSettings: SiteSettingsData | null;
+   setSiteSettings: React.Dispatch<React.SetStateAction<SiteSettingsData | null>>;
    loading: boolean;
 }
 
 const SiteSettingsContext = createContext<SiteSettingsContextValue>({
    siteSettings: null,
+   setSiteSettings: () => null,
    loading: true,
 });
 
@@ -62,5 +64,9 @@ export const SiteSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ 
       fetchSettings();
    }, [websiteID]);
 
-   return <SiteSettingsContext.Provider value={{ siteSettings, loading }}>{children}</SiteSettingsContext.Provider>;
+   return (
+      <SiteSettingsContext.Provider value={{ siteSettings, setSiteSettings, loading }}>
+         {children}
+      </SiteSettingsContext.Provider>
+   );
 };
