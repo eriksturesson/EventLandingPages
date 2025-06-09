@@ -5,89 +5,105 @@ import { useDbContent } from '../../contexts/DBContentContext';
 import { DBFullScreenMedia } from '../../interfaces/dbInterfaces';
 import { SectionProps } from '../../interfaces/sectionInterfaces';
 import { ImageButtonFileUpload } from '../smallComponents/FileUploads';
-import TextEditDialog from '../smallComponents/TextEditDialog';
-import { handleSaveTexts, SaveTextsButton } from '../smallComponents/TextEdits';
+import TextEditDialog, { FullScreenMediaTextFields } from '../smallComponents/TextEditDialog';
+import { handleSaveTexts } from '../smallComponents/TextEdits';
 
-export function FullScreenMedia(props: SectionProps): JSX.Element {
-   const { adminEditor, data, pageID } = props;
+export function FullScreenMedia({ adminEditor, data, pageID }: SectionProps): JSX.Element {
    const { websiteID } = useDbContent();
    const sectionID = data.sectionID;
-   const content = data.content ? data.content : null;
-   let media, mediaType, initMediaSize, title, description, time, location;
+   const content = data.content as DBFullScreenMedia | null;
 
-   if (content) {
-      ({ media, mediaType, mediaSize: initMediaSize, title, description, time, location } = content as DBFullScreenMedia);
-   } else {
-      // Provide default values or take any other necessary action when content is null
-      // Example:
-      media = null;
-      mediaType = null;
-      initMediaSize = 0;
-      title = 'Default Title';
-      description = 'Default Description';
-      time = null;
-      location = null;
-   }
-   const [isEditing, setEditing] = useState<boolean>(false);
-   const [mediaSize, setMediaSize] = useState<number>(initMediaSize);
-   const [textFields, setTextFields] = useState({ title, description, time, location });
+   const [isEditing, setEditing] = useState(false);
+   const [overlayOpacity, setOverlayOpacity] = useState(content?.overlayOpacity ?? 0);
+   const [textFields, setTextFields] = useState<FullScreenMediaTextFields>({
+      title: content?.title || '',
+      description: content?.description || '',
+      time: content?.time || '',
+      location: content?.location || '',
+   });
+
    const refBelowWebsiteID = pageID
       ? `customPages/${pageID}/content/${sectionID}/content/`
       : `homepageContent/${sectionID}/content/`;
 
-   const videoOrImage: 'video' | 'image' | null = mediaType ? mediaType : null;
-   // let videoOrImage = image; // used for testing only
-
-   const textEditHandler = function (data: any) {
-      console.log(data);
-      handleSaveTexts({ refBelowWebsiteID, data, websiteID });
-
+   const handleTextSubmit = (updatedData: FullScreenMediaTextFields) => {
+      handleSaveTexts({ refBelowWebsiteID, data: updatedData, websiteID });
       setEditing(false);
-
-      setTextFields(data);
+      setTextFields(updatedData);
    };
 
-   let headerContent: JSX.Element = <></>;
-   if (videoOrImage === 'video' && media) {
-      headerContent = (
-         <video autoPlay muted loop className="video-container" style={{ width: `${mediaSize}%` }}>
-            <source src={media} type={`video/mp4`} />
-            Your browser does not support the video tag.
-         </video>
-      );
-   } else if (videoOrImage === 'image' && media) {
-      headerContent = (
+   const saveOverlayOpacity = () => {
+      handleSaveTexts({
+         refBelowWebsiteID,
+         data: { overlayOpacity },
+         websiteID,
+      });
+   };
+
+   const renderMedia = () => {
+      if (!content?.media) return null;
+      if (content.mediaType === 'video') {
+         return (
+            <video
+               autoPlay
+               muted
+               loop
+               className="video-container"
+               style={{ width: '100%', height: 'auto', display: 'block' }}
+            >
+               <source src={content.media} type="video/mp4" />
+               Your browser does not support the video tag.
+            </video>
+         );
+      }
+      return (
          <img
-            /* className="top-image" */ src={media}
-            alt="headerImage"
-            style={{ width: '100%' /* removing styles from '.adminEdit img': */, filter: 'none', opacity: 1 }}
-         ></img>
+            src={content.media}
+            alt="header"
+            style={{
+               width: '100%',
+               height: 'auto',
+               display: 'block',
+            }}
+         />
       );
-   }
+   };
 
    return (
-      <Stack
-         alignItems="center"
-         justifyContent="space-between"
-         // sx={adminEditor ? { height: '100%', maxHeight: '100vh' } : {}}
-      >
+      <Stack alignItems="center" justifyContent="space-between">
          <Stack
             className="header-container"
             alignItems="center"
             justifyContent="space-between"
-            sx={{ width: '100%', height: 'auto' }}
+            sx={{ width: '100%', height: 'auto', position: 'relative' }}
          >
-            {/* <Box className="header-container" sx={{ width: `${mediaSize}vw`, height: 'auto' }}> */}
-            {headerContent}
-            {isEditing && null}
-
+            {renderMedia()}
+            {/* Svart overlay som täcker hela media och har justerbar opacity */}
+            <div
+               style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  backgroundColor: 'black',
+                  opacity: overlayOpacity / 100,
+                  pointerEvents: 'none', // så att overlay inte blockar klick osv
+                  transition: 'opacity 0.3s ease',
+                  zIndex: 1,
+               }}
+            />
             <div
                className="box-text-over-video black-layer"
                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  color: 'white',
+                  textAlign: 'center',
+                  zIndex: 2,
                   width: '100%',
-                  height: mediaSize === 34338563 ? '100%' : 'auto',
-                  transform: `scale(${mediaSize}%)`,
-                  transformOrigin: 'top center',
                }}
             >
                <h1 className="text-over-video">{textFields.title}</h1>
@@ -98,9 +114,10 @@ export function FullScreenMedia(props: SectionProps): JSX.Element {
                <p>
                   <img className="move-arrow" src={arrowDown} />
                </p>
-               {isEditing && <TextEditDialog textFields={textFields} onEditing={setEditing} onSubmit={textEditHandler} />}
+               {isEditing && <TextEditDialog textFields={textFields} onEditing={setEditing} onSubmit={handleTextSubmit} />}
             </div>
          </Stack>
+
          {adminEditor && (
             <Stack
                spacing={4}
@@ -115,27 +132,22 @@ export function FullScreenMedia(props: SectionProps): JSX.Element {
                   boxSizing: 'border-box',
                }}
             >
-               <Button
-                  onClick={() => {
-                     setEditing(true);
-                  }}
-               >
+               <Button variant="contained" onClick={() => setEditing(true)}>
                   Edit text
                </Button>
                <Stack spacing={2} direction="row">
-                  <ImageButtonFileUpload order={1} sectionID={sectionID} sectionName={'fullScreenMedia'} pageID={pageID} />
+                  <ImageButtonFileUpload order={1} sectionID={sectionID} sectionName="fullScreenMedia" pageID={pageID} />
                   <Slider
-                     aria-label="Always visible"
-                     value={mediaSize}
+                     aria-label="Media size"
+                     value={overlayOpacity}
                      sx={{ width: '8em', flexShrink: 0 }}
                      valueLabelDisplay="auto"
-                     disabled={false}
-                     min={10}
-                     onChange={(event: any) => {
-                        setMediaSize(event.target.value);
-                     }}
+                     min={0}
+                     onChange={(event, value) => setOverlayOpacity(value as number)}
                   />
-                  <SaveTextsButton refBelowWebsiteID={refBelowWebsiteID} data={{ mediaSize }} />
+                  <Button variant="contained" onClick={saveOverlayOpacity}>
+                     Save slidersize
+                  </Button>
                </Stack>
             </Stack>
          )}

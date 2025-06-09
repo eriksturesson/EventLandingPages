@@ -210,25 +210,22 @@ export function ImageButtonFileUpload(props: ParticipantCardFileUploadProps): JS
    const { websiteID } = useDbContent();
    const { order, sectionName, sectionID, id, pageID } = props;
    return (
-      <Button variant="contained" sx={{ whiteSpace: 'nowrap', minWidth: 'max-content' }} /* component="label" */>
-         <label htmlFor={`fileInput-${sectionID}-${id}`} style={{ cursor: 'pointer' }}>
-            Upload new image
-         </label>
-         {/*<input hidden accept="image/*" type="file" onChange={(e) => handleFileUpload({ event: e, order: order, sectionName: sectionName, sectionID: sectionID })} />*/}
+      <Button variant="contained" component="label" sx={{ whiteSpace: 'nowrap', minWidth: 'max-content' }}>
+         Upload new image or video
          <input
-            id={`fileInput-${sectionID}-${id}`}
             hidden
-            accept="image/*"
+            accept="image/*,video/*"
             type="file"
+            id={`fileInput-${sectionID}-${id}`}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                fileUpload({
                   event: e,
-                  order: order,
-                  sectionName: sectionName,
-                  sectionID: sectionID,
-                  id: id,
-                  websiteID: websiteID,
-                  pageID: pageID,
+                  order,
+                  sectionName,
+                  sectionID,
+                  id,
+                  websiteID,
+                  pageID,
                })
             }
          />

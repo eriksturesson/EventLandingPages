@@ -1,80 +1,59 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl } from '@mui/material';
-import { Dispatch } from 'react';
+import { Dispatch, useState } from 'react';
 import { EditText } from './TextEdits';
 
-interface Props {
-   textFields: any;
-   onEditing: Dispatch<boolean>;
-   onSubmit: (data: any) => void;
+export interface FullScreenMediaTextFields {
+   title?: string;
+   description?: string;
+   time?: string;
+   location?: string;
 }
 
-function TextEditDialog(props: Props): JSX.Element {
-   const { textFields, onEditing, onSubmit } = props;
+interface Props {
+   textFields: FullScreenMediaTextFields;
+   onEditing: Dispatch<boolean>;
+   onSubmit: (data: FullScreenMediaTextFields) => void;
+}
 
-   const { title, description, time, location } = textFields;
+export default function TextEditDialog({ textFields, onEditing, onSubmit }: Props): JSX.Element {
+   const [values, setValues] = useState<FullScreenMediaTextFields>(textFields);
 
-   const tempTextContent = {
-      ...textFields,
+   const handleChange = (field: keyof FullScreenMediaTextFields) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      setValues((prev) => ({
+         ...prev,
+         [field]: event.target.value,
+      }));
    };
 
-   const handleTextSave = () => {
-      onSubmit(tempTextContent);
+   const handleSave = () => {
+      onSubmit(values);
+      onEditing(false);
    };
 
    return (
-      <Dialog fullWidth open={true}>
-         <DialogTitle>Change text fields</DialogTitle>
+      <Dialog fullWidth open onClose={() => onEditing(false)}>
+         <DialogTitle>Edit Text Fields</DialogTitle>
          <DialogContent>
             <FormControl
                sx={{
                   display: 'flex',
                   flexDirection: 'column',
+                  gap: 2,
+                  mt: 1,
                }}
             >
-               <EditText
-                  value={title ? title : ''}
-                  onChange={(event: any) => {
-                     tempTextContent.title = event.target.value;
-                  }}
-                  labelName={'Title'}
-               />
-               <EditText
-                  value={description ? description : ''}
-                  onChange={(event: any) => {
-                     // setDescription(event.target.value);
-                     tempTextContent.description = event.target.value;
-                  }}
-                  labelName={'Description'}
-               />
-               <EditText
-                  value={time}
-                  onChange={(event: any) => {
-                     // setTime(event.target.value);
-                     tempTextContent.time = event.target.value;
-                  }}
-                  labelName={'Time'}
-               />
-               <EditText
-                  value={location}
-                  onChange={(event: any) => {
-                     // setLocation(event.target.value);
-                     tempTextContent.location = event.target.value;
-                  }}
-                  labelName={'Location'}
-               />
+               <EditText labelName="Title" value={values.title || ''} onChange={handleChange('title')} />
+               <EditText labelName="Description" value={values.description || ''} onChange={handleChange('description')} />
+               <EditText labelName="Time" value={values.time || ''} onChange={handleChange('time')} />
+               <EditText labelName="Location" value={values.location || ''} onChange={handleChange('location')} />
             </FormControl>
          </DialogContent>
          <DialogActions>
-            <Button
-               onClick={() => {
-                  onEditing(false);
-               }}
-            >
-               Cancel
+            <Button onClick={() => onEditing(false)}>Cancel</Button>
+            <Button variant="contained" onClick={handleSave}>
+               Save
             </Button>
-            <Button onClick={handleTextSave}>Save</Button>
          </DialogActions>
       </Dialog>
    );
 }
-export default TextEditDialog;
