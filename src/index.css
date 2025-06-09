@@ -1,28 +1,3 @@
-/* body {
-   background-color: white;
-   font-size: 16px;
-   margin: 0;
-} */
-
-/* DETTA ÄR OM WRAPPERN FÖR MENYN ÄR FIXED
-  
-  @media only screen and (max-width : 400px) {
-    body {
-      margin-top: 3rem;
-    }
-  }
-  
-  @media only screen and (max-width : 700px) {
-    body {
-      margin-top: 4rem;
-    }
-  } */
-
-/* #root {
-   display: flex;
-   flex-direction: column;
-} */
-
 .eriks-nav-wrapper {
    min-height: 56px;
    background-color: white;
