@@ -9,8 +9,17 @@ import { QuillContent } from '../../interfaces/dbInterfaces';
 import { SectionProps } from '../../interfaces/sectionInterfaces';
 import { auth, db } from '../../utils/firebase';
 
-function saveQuillToDB(data: any, sectionID: string, pageID: string | null): void {
-   const { websiteID } = useDbContent();
+function saveQuillToDB({
+   data,
+   sectionID,
+   pageID,
+   websiteID,
+}: {
+   data: any;
+   sectionID: string;
+   pageID: string | null;
+   websiteID: string;
+}): void {
    let currentdate = new Date();
    let timeSavedData =
       currentdate.getFullYear() +
@@ -47,29 +56,41 @@ export function QuillComponent(props: SectionProps): JSX.Element {
    const { data, adminEditor, pageID } = props;
    const { sectionName, sectionID, sectionOrder, createdAt, updatedAt } = data;
    let quillContent = data.content as QuillContent | undefined;
+   const { websiteID } = useDbContent();
    // console.log('quillContent', quillContent);
 
    const [value, setValue] = useState(quillContent && quillContent.text ? quillContent.text : ''); // Initialize with an empty string
    async function handleSave() {
-      saveQuillToDB(value, sectionID, pageID);
+      saveQuillToDB({ data: value, sectionID, pageID, websiteID });
       setValue(value);
    }
+
+   const quillModules = {
+      toolbar: [
+         [{ header: [1, 2, 3, 4, 5, 6, false] }],
+         ['bold', 'italic', 'underline', 'strike'],
+         [{ list: 'ordered' }, { list: 'bullet' }],
+         ['link', 'image'],
+         ['clean'], // remove formatting button
+      ],
+   };
+
+   const quillFormats = ['header', 'bold', 'italic', 'underline', 'strike', 'list', 'bullet', 'link', 'image'];
    if (adminEditor) {
       return (
          <>
             <div className="myquillComponent" style={{ textAlign: 'center', marginTop: '1rem' }}>
-               <ReactQuill theme="snow" value={value} onChange={setValue} />
+               <ReactQuill theme="snow" modules={quillModules} formats={quillFormats} value={value} onChange={setValue} />
                <div
                   style={{
                      justifyContent: 'center',
                      display: 'flex',
                      marginTop: '1rem',
                   }}
-               >
-                  <Button variant="contained" onClick={handleSave} endIcon={<SaveIcon />}>
-                     Save
-                  </Button>
-               </div>
+               ></div>
+               <Button variant="contained" onClick={handleSave} endIcon={<SaveIcon />}>
+                  Save
+               </Button>
             </div>
          </>
       );
