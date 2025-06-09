@@ -249,7 +249,8 @@ export function EditorOfImage(props: EditorOfImagesProps) {
             position: 'relative',
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center',
+
+            alignItems: sectionName === 'pitchCards' ? 'flex-start' : 'center',
             zIndex: 3,
             marginBottom: '2rem',
          }}

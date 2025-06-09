@@ -25,15 +25,17 @@ export function EditText({
    value,
    labelName,
    rows,
+   style = { padding: '2rem', width: '100%', alignContent: 'center' },
 }: {
    onChange: any;
    value: string;
    labelName?: string;
    type?: 'header' | 'description';
    rows?: number;
+   style?: React.CSSProperties;
 }): JSX.Element {
    return (
-      <Box style={{ padding: '2rem', width: '100%', alignContent: 'center' }}>
+      <Box style={style}>
          <TextField
             id="outlined-textarea"
             label={labelName ? labelName : type ? type : 'Header'}

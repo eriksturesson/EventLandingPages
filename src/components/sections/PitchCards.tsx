@@ -1,4 +1,4 @@
-import { Box, Grid, Paper } from '@mui/material';
+import { Box, Button, Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 import { ref as dbRef, set } from 'firebase/database';
 import { deleteObject, ref } from 'firebase/storage';
 import { useState } from 'react';
@@ -35,7 +35,7 @@ export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
       setDescription(text);
    };
 
-   const removePitchCard = (id: string, imgStorageRef: string) => {
+   const removePitchCard = (id: string, img: string | undefined) => {
       return () => {
          //Remove from db
          const path = pageID
@@ -44,53 +44,95 @@ export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
          const pitchCardsRef = dbRef(db, path);
          set(pitchCardsRef, null);
          // Create a reference to the file to delete from Storage
-         const pitchCardImgRefInStorage = ref(storage, imgStorageRef);
+         if (img) {
+            const pitchCardImgRefInStorage = ref(storage, img);
 
-         // Delete the file
-         deleteObject(pitchCardImgRefInStorage)
-            .then(() => {
-               // File deleted successfully
-               console.log('File deleted successfully');
-            })
-            .catch((error) => {
-               // Uh-oh, an error occurred!
-               console.log('Error deleting file');
-            });
+            // Delete the file
+
+            deleteObject(pitchCardImgRefInStorage)
+               .then(() => {
+                  // File deleted successfully
+                  console.log('File deleted successfully');
+               })
+               .catch((error) => {
+                  // Uh-oh, an error occurred!
+                  console.log('Error deleting file');
+               });
+         }
       };
    };
 
-   return adminEditor ? (
-      <Paper elevation={5} sx={{ p: 2, borderRadius: 2, bgcolor: '#f9f9f9', mb: 3, overflow: 'hidden' }}>
-         {/*onClick={image ? removePitchCard(id, image) : undefined}*/}
-         <EditorOfImage
-            sectionID={sectionID}
-            order={order}
-            sectionName={sectionName}
-            image={image}
-            id={id}
-            pageID={pageID}
-         />
-         <EditText onChange={handleTitleChange} value={title ? title : ''} />
-         <EditText onChange={handleDescriptionChange} value={description ? description : ''} />
-         <SaveTextsButton
-            refBelowWebsiteID={
-               pageID
-                  ? `customPages/${pageID}/content/${sectionID}/content/${id}`
-                  : `homepageContent/${sectionID}/content/${id}`
-            }
-            data={{ title: title, description: description, id: id, order: order }}
-         />
-      </Paper>
-   ) : (
-      <Box className="pitchcard-container" id={id}>
-         <Box className="pitchcard-box">
-            <img className="visningsbilder" alt="visningsbild1" src={image} />
+   if (adminEditor) {
+      return (
+         <Card
+            sx={{
+               p: 2,
+               borderRadius: 2,
+               bgcolor: '#fafafa',
+               mb: 3,
+               display: 'flex',
+               flexDirection: 'column',
+               height: '100%',
+            }}
+         >
+            <Box
+               sx={{
+                  position: 'relative',
+                  borderRadius: 1,
+                  overflow: 'hidden',
+                  objectFit: 'cover',
+                  objectPosition: 'top',
+                  height: '200px',
+                  width: '100%',
+               }}
+            >
+               <EditorOfImage
+                  sectionID={sectionID}
+                  order={order}
+                  sectionName={sectionName}
+                  image={image}
+                  id={id}
+                  pageID={pageID}
+               />
+            </Box>
+            <EditText style={{ paddingTop: '2rem' }} onChange={handleTitleChange} value={title} />
+            <EditText
+               style={{ paddingTop: '2rem' }}
+               labelName="Pitch"
+               onChange={handleDescriptionChange}
+               rows={10}
+               value={description}
+            />
+            <Box>
+               <SaveTextsButton
+                  refBelowWebsiteID={
+                     pageID
+                        ? `customPages/${pageID}/content/${sectionID}/content/${id}`
+                        : `homepageContent/${sectionID}/content/${id}`
+                  }
+                  data={{ title, description, id, order }}
+               />
+               <Button variant="outlined" color="error" onClick={removePitchCard(id, image)} disabled={!image}>
+                  Ta bort
+               </Button>
+            </Box>
+         </Card>
+      );
+   }
 
-            <h1>{title}</h1>
-
-            <p>{description}</p>
-         </Box>
-      </Box>
+   // Icke-admin vy: Visa snygg Card istället för egen Box + img
+   return (
+      <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+         <CardMedia component="img" image={image} alt={title} sx={{ height: 200, objectFit: 'cover' }} />
+         <CardContent sx={{ flexGrow: 1 }}>
+            <Typography variant="h6" component="h1" gutterBottom>
+               {title}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+               {description}
+            </Typography>
+         </CardContent>
+      </Card>
    );
 }
 
@@ -105,7 +147,7 @@ export function PitchCardsComponent(props: SectionProps): JSX.Element {
       id: uuidv4(),
    };
    return (
-      <Grid container spacing={2}>
+      <Grid container sx={{ p: 2 }} spacing={2}>
          {pitchCardsDB &&
             Object.values(pitchCardsDB)
                .sort((a, b) => a.order - b.order)
