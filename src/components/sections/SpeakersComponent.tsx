@@ -1,5 +1,5 @@
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Box, Grid, Paper, SvgIcon, TextField } from '@mui/material';
+import { Box, Grid, Paper, SvgIcon, TextField, Typography } from '@mui/material';
 import { ref as dbRef, set } from 'firebase/database';
 import { deleteObject, ref } from 'firebase/storage';
 import { useEffect, useState } from 'react';
@@ -63,18 +63,22 @@ export function SpeakersComponent(props: SectionProps): JSX.Element {
             {speakers &&
                Object.values(speakers)
                   .sort((a, b) => a.order - b.order)
-                  .map((speaker) => (
-                     <Grid item xs={12} md={6} lg={4} key={speaker.id}>
-                        <OneSpeaker
-                           sectionID={sectionID}
-                           sectionName={sectionName}
-                           adminEditor={adminEditor}
-                           speaker={speaker}
-                           onRemove={handleRemove}
-                           pageID={pageID}
-                        />
-                     </Grid>
-                  ))}
+                  .map((speaker) => {
+                     const count = speakers.length;
+                     const lgSize = count === 1 ? 12 : count === 2 ? 6 : 4;
+                     return (
+                        <Grid item xs={12} md={6} lg={lgSize} key={speaker.id}>
+                           <OneSpeaker
+                              sectionID={sectionID}
+                              sectionName={sectionName}
+                              adminEditor={adminEditor}
+                              speaker={speaker}
+                              onRemove={handleRemove}
+                              pageID={pageID}
+                           />
+                        </Grid>
+                     );
+                  })}
 
             {adminEditor && (
                <Grid item xs={12} md={6} lg={4} key={newSpeaker.id}>
@@ -229,8 +233,13 @@ export function OneSpeaker({
             alignItems: 'center',
          }}
       >
-         <h1 className="speaker-description">{title}</h1>
-         <h2 className="speaker-description">{titleDescription}</h2>
+         <Typography variant="h4" gutterBottom>
+            {title}
+         </Typography>
+         <Typography variant="subtitle1" gutterBottom>
+            {titleDescription}
+         </Typography>
+
          <Box
             component="img"
             src={image}
@@ -245,9 +254,16 @@ export function OneSpeaker({
                display: 'block',
             }}
          />
-         <h2 className="speaker-description">{fullName}</h2>
-         <h2 className="speaker-description">{description}</h2>
-         <h2 className="speaker-description">{pitch}</h2>
+
+         <Typography variant="h6" sx={{ mt: 2 }}>
+            {fullName}
+         </Typography>
+         <Typography variant="body1" sx={{ mt: 1 }}>
+            {description}
+         </Typography>
+         <Typography variant="body2" sx={{ mt: 1 }}>
+            {pitch}
+         </Typography>
       </Box>
    );
 }

@@ -143,26 +143,30 @@ export function ParticipantComponent(props: SectionProps): JSX.Element {
          {participants &&
             Object.values(participants)
                .sort((a, b) => a.order - b.order)
-               .map((participant) => (
-                  <OneParticipant
-                     key={'oneparticipant' + participant.id}
-                     adminEditor={adminEditor}
-                     onRemove={handleRemove}
-                     sectionID={sectionID}
-                     pageID={pageID}
-                     sectionName={sectionName}
-                     oneParticipant={
-                        {
-                           order: participant.order,
-                           image: participant.image || addNewSpeakerExample,
-                           name: participant.name || '',
-                           id: participant.id,
-                           title: participant.title || '',
-                           organization: participant.organization || '',
-                        } as DBOneParticipant
-                     }
-                  />
-               ))}
+               .map((participant) => {
+                  const count = participants.length;
+                  const lgSize = count === 1 ? 12 : count === 2 ? 6 : 4;
+                  return (
+                     <OneParticipant
+                        key={'oneparticipant' + participant.id}
+                        adminEditor={adminEditor}
+                        onRemove={handleRemove}
+                        sectionID={sectionID}
+                        pageID={pageID}
+                        sectionName={sectionName}
+                        oneParticipant={
+                           {
+                              order: participant.order,
+                              image: participant.image || addNewSpeakerExample,
+                              name: participant.name || '',
+                              id: participant.id,
+                              title: participant.title || '',
+                              organization: participant.organization || '',
+                           } as DBOneParticipant
+                        }
+                     />
+                  );
+               })}
 
          {adminEditor && (
             <OneParticipant
