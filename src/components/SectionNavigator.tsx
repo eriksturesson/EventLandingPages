@@ -156,6 +156,7 @@ const SectionNavigator: React.FC<Props> = ({ sections, handleDrop, user, pageID 
                         Save current order:
                      </Typography>
                      <SaveTextsButton
+                        buttonText="Save Order"
                         data={sections.reduce((acc, section) => ({ ...acc, [section.sectionID]: section }), {})}
                         refBelowWebsiteID={refBelowWebsiteID}
                      />
