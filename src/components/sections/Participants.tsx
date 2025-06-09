@@ -1,5 +1,5 @@
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Box, SvgIcon } from '@mui/material';
+import { Box, Grid, SvgIcon } from '@mui/material';
 import { ref as dbRef, set } from 'firebase/database';
 import { deleteObject, ref } from 'firebase/storage';
 import { useEffect, useState } from 'react';
@@ -138,17 +138,18 @@ export function ParticipantComponent(props: SectionProps): JSX.Element {
       }
       setParticipants((prev) => prev.filter((p) => p.id !== id));
    };
+   const participantsCount = participants.length + (adminEditor ? 1 : 0); // +1 om adminEditor för nya deltagaren
+
+   // Max 6 per rad, annars delar vi 12 med antalet deltagare
+   const colsPerItem = participantsCount >= 6 ? 2 : Math.floor(12 / participantsCount);
    return (
       <div className="wrapper-participants">
          {participants &&
             Object.values(participants)
                .sort((a, b) => a.order - b.order)
-               .map((participant) => {
-                  const count = participants.length;
-                  const lgSize = count === 1 ? 12 : count === 2 ? 6 : 4;
-                  return (
+               .map((participant) => (
+                  <Grid item xs={12} sm={6} md={colsPerItem} key={'oneparticipant' + participant.id}>
                      <OneParticipant
-                        key={'oneparticipant' + participant.id}
                         adminEditor={adminEditor}
                         onRemove={handleRemove}
                         sectionID={sectionID}
@@ -165,27 +166,29 @@ export function ParticipantComponent(props: SectionProps): JSX.Element {
                            } as DBOneParticipant
                         }
                      />
-                  );
-               })}
+                  </Grid>
+               ))}
 
          {adminEditor && (
-            <OneParticipant
-               adminEditor={adminEditor}
-               sectionID={sectionID}
-               onRemove={handleRemove}
-               pageID={pageID}
-               sectionName={sectionName}
-               oneParticipant={
-                  {
-                     order: newParticipant.order,
-                     image: newParticipant.image || addNewSpeakerExample,
-                     name: '',
-                     id: newParticipant.id,
-                     title: '',
-                     organization: '',
-                  } as DBOneParticipant
-               }
-            />
+            <Grid item xs={12} sm={6} md={colsPerItem} key={'oneparticipant' + newParticipant.id}>
+               <OneParticipant
+                  adminEditor={adminEditor}
+                  sectionID={sectionID}
+                  onRemove={handleRemove}
+                  pageID={pageID}
+                  sectionName={sectionName}
+                  oneParticipant={
+                     {
+                        order: newParticipant.order,
+                        image: newParticipant.image || addNewSpeakerExample,
+                        name: '',
+                        id: newParticipant.id,
+                        title: '',
+                        organization: '',
+                     } as DBOneParticipant
+                  }
+               />
+            </Grid>
          )}
       </div>
    );

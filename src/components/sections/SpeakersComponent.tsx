@@ -57,6 +57,7 @@ export function SpeakersComponent(props: SectionProps): JSX.Element {
       titleDescription: '',
       image: '',
    };
+
    return (
       <>
          <Grid container spacing={2}>
