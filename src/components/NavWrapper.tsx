@@ -6,8 +6,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Box, Button, Drawer, IconButton, List, ListItem, ListItemText, Modal, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import logga from '../assets/LOGGA FÄRDIGT UTKAST.jpg';
 import { useDbContent } from '../contexts/DBContentContext';
+import { useSiteSettings } from '../contexts/SiteSettingsContext';
 import { PageMetadata } from '../interfaces/dbInterfaces';
 import { readAndWriteToFirebase } from '../utils/firebaseFunctions';
 const modalStyle = {
@@ -30,6 +30,7 @@ const NavWrapper = ({
    setPageToEdit?: React.Dispatch<React.SetStateAction<string | null>>;
 }): JSX.Element => {
    const { customPageMetaData, setCustomPagesMetaData, websiteID } = useDbContent();
+   const { siteSettings } = useSiteSettings();
    const [menuOpen, setMenuOpen] = useState(false);
    const [modalOpen, setModalOpen] = useState(false);
    const [isEditMode, setIsEditMode] = useState(false);
@@ -98,17 +99,17 @@ const NavWrapper = ({
          sx={{
             backgroundColor: 'transparent',
             backdropFilter: 'blur(8px)',
-            marginTop: -1,
+
             paddingBottom: 0,
             flexGrow: 1,
             boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
             position: 'relative',
          }}
       >
-         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 2 }}>
+         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 2, height: '60px' }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-               <Box sx={{ backgroundColor: 'white', px: 3, py: 0.5, borderRadius: 3 }}>
-                  <img src={logga} alt="Logo" style={{ width: '120px', height: '50px' }} />
+               <Box sx={{ backgroundColor: 'white', py: 0.5, borderRadius: 3, pt: 0, pb: 0 }}>
+                  <img src={siteSettings?.logoUrl ?? ''} alt="logo" style={{ width: 'auto', height: '40px' }} />
                </Box>
             </Box>
 
