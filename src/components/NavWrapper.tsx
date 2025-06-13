@@ -207,7 +207,7 @@ const NavWrapper = ({
                }}
             >
                <List>
-                  {isAdmin && (
+                  {isAdmin ? (
                      <ListItem>
                         <Button
                            startIcon={<AddIcon />}
@@ -221,7 +221,12 @@ const NavWrapper = ({
                            Create page
                         </Button>
                      </ListItem>
+                  ) : (
+                     <ListItem key={'homepage-list-item'} component="a" href={'/'}>
+                        <ListItemText primary={'Home'} />
+                     </ListItem>
                   )}
+
                   {customPageMetaData.map((item) => (
                      <ListItem
                         key={item.pageID}
