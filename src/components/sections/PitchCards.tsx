@@ -127,7 +127,7 @@ export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
             component="img"
             image={image}
             alt={title}
-            sx={{ height: 200, objectFit: 'cover', objectPosition: 'top' }}
+            sx={{ height: 300, objectFit: 'cover', objectPosition: 'top' }}
          />
          <CardContent sx={{ flexGrow: 1 }}>
             <Typography variant="h6" component="h1" gutterBottom>
