@@ -77,13 +77,11 @@ export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
          >
             <Box
                sx={{
-                  position: 'relative',
                   borderRadius: 1,
-                  overflow: 'hidden',
+                  overflow: image ? 'hidden' : undefined,
                   objectFit: 'cover',
                   objectPosition: 'top',
-                  height: '200px',
-                  width: '100%',
+                  height: image ? '500px' : undefined,
                }}
             >
                <EditorOfImage
@@ -95,14 +93,16 @@ export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
                   pageID={pageID}
                />
             </Box>
-            <EditText style={{ paddingTop: '2rem' }} onChange={handleTitleChange} value={title} />
-            <EditText
-               style={{ paddingTop: '2rem' }}
-               labelName="Pitch"
-               onChange={handleDescriptionChange}
-               rows={10}
-               value={description}
-            />
+            <Box sx={{ justifyContent: 'space-between', alignItems: 'center', mt: 2 }}>
+               <EditText style={{ paddingTop: '2rem' }} onChange={handleTitleChange} value={title} />
+               <EditText
+                  style={{ paddingTop: '2rem' }}
+                  labelName="Pitch"
+                  onChange={handleDescriptionChange}
+                  rows={10}
+                  value={description}
+               />
+            </Box>
             <Box>
                <SaveTextsButton
                   refBelowWebsiteID={
@@ -123,7 +123,12 @@ export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
    // Icke-admin vy: Visa snygg Card istället för egen Box + img
    return (
       <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-         <CardMedia component="img" image={image} alt={title} sx={{ height: 200, objectFit: 'cover' }} />
+         <CardMedia
+            component="img"
+            image={image}
+            alt={title}
+            sx={{ height: 200, objectFit: 'cover', objectPosition: 'top' }}
+         />
          <CardContent sx={{ flexGrow: 1 }}>
             <Typography variant="h6" component="h1" gutterBottom>
                {title}
