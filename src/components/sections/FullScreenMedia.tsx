@@ -1,11 +1,11 @@
-import { Button, Slider, Stack } from '@mui/material';
+import { Box, Button, Slider, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
 import arrowDown from '../../assets/baseline_keyboard_arrow_down_white_18dp.png';
 import { useDbContent } from '../../contexts/DBContentContext';
 import { DBFullScreenMedia } from '../../interfaces/dbInterfaces';
 import { SectionProps } from '../../interfaces/sectionInterfaces';
 import { ImageButtonFileUpload } from '../smallComponents/FileUploads';
-import TextEditDialog, { FullScreenMediaTextFields } from '../smallComponents/TextEditDialog';
+import { FullScreenMediaTextFields } from '../smallComponents/TextEditDialog';
 import { handleSaveTexts } from '../smallComponents/TextEdits';
 
 export function FullScreenMedia({ adminEditor, data, pageID }: SectionProps): JSX.Element {
@@ -71,51 +71,87 @@ export function FullScreenMedia({ adminEditor, data, pageID }: SectionProps): JS
 
    return (
       <Stack alignItems="center" justifyContent="space-between">
-         <Stack
-            className="header-container"
-            alignItems="center"
-            justifyContent="space-between"
-            sx={{ width: '100%', height: 'auto', position: 'relative' }}
-         >
-            {renderMedia()}
-            {/* Svart overlay som täcker hela media och har justerbar opacity */}
-            <div
-               style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  backgroundColor: 'black',
-                  opacity: overlayOpacity / 100,
-                  pointerEvents: 'none', // så att overlay inte blockar klick osv
-                  transition: 'opacity 0.3s ease',
-                  zIndex: 1,
-               }}
-            />
-            <div
-               className="box-text-over-video black-layer"
-               style={{
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  color: 'white',
-                  textAlign: 'center',
-                  zIndex: 2,
-                  width: '100%',
+         <Stack alignItems="center" justifyContent="space-between">
+            <Stack
+               alignItems="center"
+               justifyContent="space-between"
+               sx={{ width: '100%', height: 'auto', position: 'relative' }}
+            >
+               {renderMedia()}
+
+               {/* Overlay */}
+               <Box
+                  sx={{
+                     position: 'absolute',
+                     top: 0,
+                     left: 0,
+                     width: '100%',
+                     height: '100%',
+                     backgroundColor: 'black',
+                     opacity: overlayOpacity / 100,
+                     pointerEvents: 'none',
+                     transition: 'opacity 0.3s ease',
+                     zIndex: 1,
+                  }}
+               />
+
+               {/* Text ovanpå video - syns bara på desktop */}
+               <Stack
+                  color="white"
+                  textAlign="center"
+                  zIndex={2}
+                  width="100%"
+                  alignItems="center"
+                  spacing={1}
+                  px={2}
+                  sx={{
+                     position: 'absolute',
+                     top: '50%',
+                     left: '50%',
+                     transform: 'translate(-50%, -50%)',
+                     display: { xs: 'none', sm: 'flex' }, // göm på xs (mobil), visa på sm och uppåt
+                  }}
+               >
+                  <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
+                     {textFields.title}
+                  </Typography>
+                  {textFields.description && <Typography variant="h5">{textFields.description}</Typography>}
+                  {(textFields.time || textFields.location) && (
+                     <Typography variant="h6">
+                        {textFields.time}
+                        {textFields.time && textFields.location && ' • '}
+                        {textFields.location}
+                     </Typography>
+                  )}
+                  <Box mt={2}>
+                     <Box component="img" src={arrowDown} alt="Scroll down" sx={{ height: '2em' }} />
+                  </Box>
+               </Stack>
+            </Stack>
+
+            {/* Text UNDER video - bara på mobil */}
+            <Stack
+               textAlign="center"
+               alignItems="center"
+               spacing={0.5}
+               px={2}
+               sx={{
+                  display: { xs: 'flex', sm: 'none' }, // visa bara på mobil
+                  mt: 2,
                }}
             >
-               <h1 className="text-over-video">{textFields.title}</h1>
-               <h3 className="text-over-video">{textFields.description}</h3>
-               <h2 className="text-over-video">
-                  {textFields.time} {'•'} {textFields.location}
-               </h2>
-               <p>
-                  <img className="move-arrow" src={arrowDown} />
-               </p>
-               {isEditing && <TextEditDialog textFields={textFields} onEditing={setEditing} onSubmit={handleTextSubmit} />}
-            </div>
+               <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
+                  {textFields.title}
+               </Typography>
+               {textFields.description && <Typography variant="body1">{textFields.description}</Typography>}
+               {(textFields.time || textFields.location) && (
+                  <Typography variant="body2" sx={{ opacity: 0.7 }}>
+                     {textFields.time}
+                     {textFields.time && textFields.location && ' • '}
+                     {textFields.location}
+                  </Typography>
+               )}
+            </Stack>
          </Stack>
 
          {adminEditor && (

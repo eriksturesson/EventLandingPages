@@ -248,6 +248,7 @@ export function OneSpeaker({
             sx={{
                width: '100%',
                maxWidth: '300px',
+               aspectRatio: '1 / 1',
                borderRadius: '50%',
                objectFit: 'cover',
                mx: 'auto',
