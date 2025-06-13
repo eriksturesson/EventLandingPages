@@ -10,7 +10,8 @@
 # Don't ignore dist or build for Firebase Functions
 /build/
 # Uncomment this if you have frontend-only dist folder
-dist/*
+dist/
+
 
 # Public folder (only ignore if not used for hosting)
 # /public
