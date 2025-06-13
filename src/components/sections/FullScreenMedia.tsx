@@ -112,7 +112,7 @@ export function FullScreenMedia({ adminEditor, data, pageID }: SectionProps): JS
                      display: { xs: 'none', sm: 'flex' }, // göm på xs (mobil), visa på sm och uppåt
                   }}
                >
-                  <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
+                  <Typography variant="h2" sx={{ fontWeight: 'bold', color: 'white' }}>
                      {textFields.title}
                   </Typography>
                   {textFields.description && <Typography variant="h5">{textFields.description}</Typography>}
