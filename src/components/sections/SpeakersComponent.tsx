@@ -246,9 +246,8 @@ export function OneSpeaker({
             src={image}
             alt={fullName}
             sx={{
-               maxWidth: '100%',
-               width: '400px',
-               height: '400px',
+               width: '100%',
+               maxWidth: '300px',
                borderRadius: '50%',
                objectFit: 'cover',
                mx: 'auto',
