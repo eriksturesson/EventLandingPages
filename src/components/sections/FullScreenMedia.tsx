@@ -40,33 +40,24 @@ export function FullScreenMedia({ adminEditor, data, pageID }: SectionProps): JS
       });
    };
 
+   const mediaStyle: React.CSSProperties = {
+      width: adminEditor ? '100%' : '100vw',
+      height: 'auto',
+      display: 'block',
+      objectFit: 'cover',
+   };
+
    const renderMedia = () => {
       if (!content?.media) return null;
       if (content.mediaType === 'video') {
          return (
-            <video
-               autoPlay
-               muted
-               loop
-               className="video-container"
-               style={{ width: '100%', height: 'auto', display: 'block' }}
-            >
+            <video autoPlay muted loop className="video-container" style={mediaStyle}>
                <source src={content.media} type="video/mp4" />
                Your browser does not support the video tag.
             </video>
          );
       }
-      return (
-         <img
-            src={content.media}
-            alt="header"
-            style={{
-               width: '100%',
-               height: 'auto',
-               display: 'block',
-            }}
-         />
-      );
+      return <img src={content.media} alt="header" style={mediaStyle} />;
    };
 
    return (
