@@ -203,7 +203,7 @@ const NavWrapper = ({
                open={menuOpen}
                onClose={toggleDrawer}
                PaperProps={{
-                  sx: { width: 250, backgroundColor: 'primary.main', color: 'white' },
+                  sx: { width: 250 },
                }}
             >
                <List>
@@ -222,7 +222,12 @@ const NavWrapper = ({
                         </Button>
                      </ListItem>
                   ) : (
-                     <ListItem key={'homepage-list-item'} component="a" href={'/'}>
+                     <ListItem
+                        sx={{ textDecoration: 'none', color: 'inherit' }}
+                        key={'homepage-list-item'}
+                        component="a"
+                        href={'/'}
+                     >
                         <ListItemText primary={'Home'} />
                      </ListItem>
                   )}
@@ -231,10 +236,21 @@ const NavWrapper = ({
                      <ListItem
                         key={item.pageID}
                         component="a"
+                        sx={{ textDecoration: 'none', color: 'inherit' }}
                         href={isAdmin ? undefined : item.pageLink}
                         onClick={isAdmin ? () => openModal(item) : undefined}
                      >
-                        {isAdmin ? <EditIcon sx={{ mr: 1 }} /> : null}
+                        {isAdmin ? (
+                           <EditIcon
+                              sx={{
+                                 mr: 1,
+                                 '&:hover': {
+                                    backgroundColor: 'action.hover',
+                                    cursor: 'pointer',
+                                 },
+                              }}
+                           />
+                        ) : null}
                         <ListItemText primary={item.pageName} />
                         {isAdmin && (
                            <IconButton
