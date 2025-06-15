@@ -1,4 +1,5 @@
 import { Box, Divider, Grid, Paper, Typography } from '@mui/material';
+import { motion } from 'motion/react';
 import React from 'react';
 import { SectionContent, SectionProps } from '../interfaces/sectionInterfaces';
 import { CallToActionButtonComponent } from './sections/CallToActionButton';
@@ -84,7 +85,25 @@ export const SectionLoader: React.FC<Props> = function (props) {
                               </Paper>
                            </>
                         ) : (
-                           <Component data={section} adminEditor={props.adminEditor} pageID={pageID} />
+                           <motion.div
+                              initial="hidden"
+                              whileInView="visible"
+                              viewport={{ once: true, amount: 0.1 }}
+                              variants={{
+                                 hidden: { opacity: 0, y: 50 }, // Startposition: osynlig och nedanför
+                                 visible: { opacity: 1, y: 0 }, // Slutposition när synlig
+                              }}
+                              transition={{
+                                 type: 'spring',
+
+                                 stiffness: 100,
+                                 damping: 25,
+                              }}
+                           >
+                              <motion.div variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}>
+                                 <Component data={section} adminEditor={props.adminEditor} pageID={pageID} />
+                              </motion.div>
+                           </motion.div>
                         )}
                      </Grid>
                   </Grid>
