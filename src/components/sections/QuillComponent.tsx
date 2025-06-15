@@ -102,7 +102,7 @@ export function QuillComponent(props: SectionProps): JSX.Element {
                display: 'flex',
 
                '& img': {
-                  maxWidth: '100%',
+                  maxWidth: '90%',
                   height: 'auto',
                   borderRadius: 2,
                   maxHeight: 400, // exempelvis

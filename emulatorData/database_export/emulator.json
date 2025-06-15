@@ -1,185 +1,204 @@
 {
    "websites": {
       "myWebsiteID123456789": {
-         "homepageContent": {
-            "-NamF-T2Fe-BIb-0LrQq": {
+         "customPages": {
+            "53856054-51e9-4564-9c01-3a9cdda2aa12": {
                "content": {
-                  "description": "This is the description of the event",
-                  "image": "https://images.unsplash.com/photo-1682685797898-6d7587974771?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-                  "video": "/static/media/VideoStockholmCityAffarsnatverk_Trim_min.c6da3db146032dc5a9e0.mp4",
-                  "mediaSize": 100,
-                  "title": "Welcome to the event!",
-                  "time": "2023-09-01 - 19.00",
-                  "location": "City"
+                  "-OSFvBPh1Wloqn-bk5WW": {
+                     "content": {
+                        "text": "<h1>ARRANGERANDE KLUBBAR</h1><p>Vill du veta mer om Rotary - ett yrkesnätverk som också gör goda samhällsinsatser? Då ska du gästa en av våra rotaryklubbar och kan ta kontakt med följande personer nedan. Hitta en klubb där tid och plats passar för dig!</p><p><br></p><p><br></p><h2>Stockholm City Capital</h2><p>Träffas: Tisdagar 07:15</p><p><a href=\"https://stockholm-capital.rotary2355.se/\" rel=\"noopener noreferrer\" target=\"_blank\">https://stockholm-capital.rotary2355.se/</a></p><p>Scandic Anglais</p><p>Humlegårdsgatan 23, 10244 Stockholm</p><p><br></p><p><br></p><h2>Stockholm International Rotaryklubb</h2><p>Träffas: Torsdagar kl.18.00</p><p><a href=\"https://stockholm-international.rotary2355.se/\" rel=\"noopener noreferrer\" target=\"_blank\">https://stockholm-international.rotary2355.se/</a></p><p>Hotel Hellsten</p><p>Luntmakargatan 58, 113 51 Stockholm</p><p><br></p><p><br></p><h2>Stockholm Kungsträdgården Rotaryklubb</h2><p>Träffas: Måndagar kl.12:00</p><p><a href=\"https://stockholm-kungstradgarden.rotary2355.se/\" rel=\"noopener noreferrer\" target=\"_blank\">https://stockholm-kungstradgarden.rotary2355.se/sv/</a></p><p>Odd Fellow</p><p>Västra Trädgårdsgatan 11 A, 111 53 Stockholm</p><p><br></p><p><br></p><h2>Stockholm City Rotaryklubb</h2><p>Träffas: Tisdagar kl.12:00</p><p><a href=\"https://stockholm-city.rotary2355.se/\" rel=\"noopener noreferrer\" target=\"_blank\">https://stockholm-city.rotary2355.se/</a></p><p>Odd Fellow</p><p>Västra Trädgårdsgatan 11 A, 111 53 Stockholm</p><p><br></p><p><br></p><h2>Stockholm Global City Rotaryklubb</h2><p>Träffas: Onsdagar kl.18:00</p><p><a href=\"https://stockholm-global-city.rotary2355.se/\" rel=\"noopener noreferrer\" target=\"_blank\">https://stockholm-global-city.rotary2355.se/</a></p><p>Jakobsbergsgatan 22,111 44 Stockholm</p><p><br></p><p><br></p><h2>Stockholm Rotaryklubb</h2><p>Träffas: Tisdagar kl.11:45</p><p><a href=\"https://stockholm.rotary2355.se/\" rel=\"noopener noreferrer\" target=\"_blank\">https://stockholm.rotary2355.se/</a></p><p>Södra Blasieholmshamnen 8, 103 27 Stockholm</p><p><br></p><p><br></p><h2>Stockholm Sergel Rotaryklubb</h2><p>Träffas: Fredagar 11:45</p><p><a href=\"https://stockholm-sergel.se/\" rel=\"noopener noreferrer\" target=\"_blank\">https://stockholm-sergel.se/</a></p><p>Odd Fellow</p><p>Västra Trädgårdsgatan 11 A, 111 53 Stockholm</p><p><br></p><p><br></p><h2>Stockholm-Skanstull Rotaryklubb</h2><p>Träffas: Måndagar kl.12:00</p><p><a href=\"https://portal.clubrunner.ca/15805\" rel=\"noopener noreferrer\" target=\"_blank\">https://portal.clubrunner.ca/15805</a></p><p>Odd Fellow</p><p>Västra Trädgårdsgatan 11 A, 111 53 Stockholm</p><p><br></p><p><br></p><h2>Stockholms Västra Rotaryklubb</h2><p>Träffas: Torsdagar kl.11:45</p><p><a href=\"https://stockholms-vastra.rotary2355.se/sv/\" rel=\"noopener noreferrer\" target=\"_blank\">https://stockholms-vastra.rotary2355.se/sv/</a></p><p>Odd Fellow</p><p>Västra Trädgårdsgatan 11 A, 111 53 Stockholm</p><p><br></p><p><br></p><h2>Stockholm Östermalms Rotaryklubb</h2><p>Träffas: Fredagar kl.07:30</p><p><a href=\"https://stockholm-ostermalm.rotary2355.se/sv/\" rel=\"noopener noreferrer\" target=\"_blank\">https://stockholm-ostermalm.rotary2355.se/sv/</a></p><p>Viktor Rydbergs Gymnasium</p><p>Kungstensgatan 6, 114 25 Stockholm</p>",
+                        "timestamp": "2025-5-10:8:29:26"
+                     },
+                     "createdAt": "2025-06-08T19:03:02.043Z",
+                     "sectionID": "-OSFvBPh1Wloqn-bk5WW",
+                     "sectionName": "quillContent",
+                     "sectionOrder": 1,
+                     "updatedAt": "2025-06-08T19:03:02.043Z"
+                  }
                },
-               "createdAt": "2023-08-01T17:58:08.435Z",
-               "sectionID": "-NamF-T2Fe-BIb-0LrQq",
+               "metadata": {
+                  "pageID": "53856054-51e9-4564-9c01-3a9cdda2aa12",
+                  "pageLink": "arrangorer",
+                  "pageName": "Arrangörer"
+               }
+            },
+            "b8b9494c-b587-4153-bce9-0e655d268fe9": {
+               "content": {
+                  "-OSFvbHk7_gWuQuGdIUS": {
+                     "content": {
+                        "text": "<h1>TIDIGARE PROGRAM</h1><h1>ÅR 2016</h1><h2>2016-11-11</h2><p><strong>Günther Mårder, VD Företagarna</strong></p><p>\"OMVÄRLDSFÖRÄNDRINGAR, SOM PÅVERKAR FÖRETAGSVERKSAMHEETEN\"</p><p><br></p><p><br></p><p><br></p><h1>ÅR 2017</h1><h2>2017-02-17</h2><p><strong>Hans Börsvik, VD, styrord PwC</strong></p><p>\"VÄRDESTYRT LEDARSKAP\"</p><p><br></p><p><br></p><p><br></p><h2>2017-04-21</h2><p><strong>Christian Ekström, VD Skattebetalarna</strong></p><p>\"SVERIGE OCH SKATTERNA\"</p><p><br></p><p><br></p><p><br></p><h2>2017-05-19</h2><p><strong>TALARE UTEBLEV</strong></p><p>\"LÄNGRE MINGEL\"</p><p><br></p><p><br></p><p><br></p><h2>2017-09-08</h2><p><strong>Maria Rankka, VD Stockholms Handelskammare</strong></p><p>\"FRÅN HUVUDSTAD TILL HUVUDSTADSREGION - STOCKHOLMS UTMANINGAR OCH MÖJLIGHETER\"</p><p><br></p><p><br></p><p><br></p><h2>2017-10-13</h2><p><strong>Johan Holmsäter, grundare Friskis &amp; Svettis</strong></p><p>\"LEV SKÖNARE, BYGG FRISKSYSTEM\"</p><p><br></p><p><br></p><p><br></p><h2>2017-11-10</h2><p><strong>Hans Amell, tidigare McKinsey-konsult</strong></p><p>\"BUSINESS AGILITY, DIN LIVSLINJE TILL AFFÄRSFRAMGÅNG\"</p><p><br></p><p><br></p><p><br></p><h1>ÅR 2018</h1><h2>2018-02-16</h2><p><strong>Magnus Henrekson, Proffessor, VD Institutet för Näringslivsforskning</strong></p><p>\"SYNEN PÅ KUNSKAP ÄR SKOLANS STÖRSTA PROBLEM\"</p><p><br></p><p><br></p><p><br></p><h2>2018-04-20</h2><p><strong>Annika Creutzer, ekonomijournalist</strong></p><p>\"SMÅFÖRETAGARNA - MORGONDAGENS FATTIGPENSIONÄRER?\"</p><p><br></p><p><br></p><p><br></p><h2>2018-05-18</h2><p><strong>Erik Stenfors, VD Hanza Holding AB</strong></p><p>\"VARNING FÖR FARTGROP: ERFARENHETER FRÅN ATT UTVECKLA INTERNATIONELLA FÖRETAG\"</p><p><br></p><p><br></p><p><br></p><h2>2018-09-14</h2><p><strong>Peppe Ekmark, Säljproffs</strong></p><p>\"ATT SKAPA RESULTAT UTÖVER DET VANLIGA\"</p><p><br></p><p><br></p><p><br></p><h2>2018-10-12</h2><p><strong>Jonas Arnberg, VD HUI Research</strong></p><p>\"DIGITAL TRANSFORMATION - FÖRUTSÄTTNINGARNA FÖR HANDELN ÄNDRAS SNABBT\"</p><p><br></p><p><br></p><p><br></p><h2>2018-11-16</h2><p><strong>Ewa Bûlov &amp; Gustaf-Wilhelm Hellstedt</strong></p><p>\"KOST OCH HÄLSA\"</p><p><br></p><p><br></p><p><br></p><h1>ÅR 2019</h1><h2>2019-01-10</h2><p><strong>KICK-OF / AFTERWORK</strong></p><p>VI TRÄFFAS AVSLAPPNAT PÅ WAZA RESTAURANG OCH BRYGGERI</p><p><br></p><p><br></p><p><br></p><h2>2019-02-15</h2><p><strong>Marie Bemler, Ingenjör på Scania</strong></p><p>\"DIGITALISERING OCH SJÄLVKÖRANDE FORDON\"</p><p><br></p><p><br></p><p><br></p><h2>2019-03-14</h2><p><strong>AFTERWORK</strong></p><p>VI TRÄFFAS AVSLAPPNAT PÅ WAZA RESTAURANG &amp; BRYGGERI</p><p><br></p><p><br></p><p><br></p><h2>2019-04-12</h2><p><strong>Raoul Hasselgren</strong></p><p>\"EN STYRELSELEDAMOTS TESTAMENTE\"</p><p><br></p><p><br></p><p><br></p><h2>2019-04-29</h2><p><strong>AFTERWORK</strong></p><p>VI TRÄFFAS AVSLAPPNAT PÅ WAZA RESTAURANG &amp; BRYGGERI</p><p><br></p><p><br></p><p><br></p><h2>2019-05-10</h2><p><strong>Fredrik Holmgren, VD på Pedab och Business advisor</strong></p><p>\"AI OCH MASKININLÄRNING\"</p><p><br></p><p><br></p><p><br></p><h2>2019-09-13</h2><p><strong>Adnan Yousuf, Grundare på BLING</strong></p><p>\"BLING - SAMHÄLLSFÖRÄNDRING GENOM ENTREPRENÖRSKAP\"</p><p><br></p><p><br></p><p><br></p><h2>2019-09-24</h2><p><strong>AFTERWORK</strong></p><p>VI TRÄFFAS AVSLAPPNAT PÅ WAZA RESTAURANG &amp; BRYGGERI</p><p><br></p><p><br></p><p><br></p><h2>2019-10-11</h2><p><strong>TALARE UTEBLEV</strong></p><p>\"LÄNGRE MINGEL\"</p><p><br></p><p><br></p><p><br></p><h2>2019-11-15</h2><p><strong>Lena Linn - Branding Expert, Business Mentor &amp; Board Member</strong></p><p>\"VÄRDESKAPANDE VARUMÄRKESBYGGANDE\"</p><p><br></p><p><br></p><p><br></p><h1>ÅR 2020</h1><h2>2020-02-14</h2><p><strong>Jenny Wiener, Skandia - Affärsansvarig risk och hälsa</strong></p><p>\"TILLVÄXT SKAPAS AV FRISKA MEDARBETARE\"</p><p><br></p><p><br></p><p><br></p><h2>2020-04-03</h2><p><strong>INSTÄLLT PGA CORONAVIRUSET</strong></p><p><br></p><p><br></p><p><br></p><h2>2020-05-08</h2><p><strong>INSTÄLLT PGA CORONAVIRUSET</strong></p><p><br></p><p><br></p><p><br></p><h2>2020-09-18</h2><p><strong>DISTANSMÖTE - Magnus Rude, Poolia Executive Search</strong></p><p>\"BESLUTSFATTARE I REKRYTERINGSPROCESSEN\"</p><p><br></p><p><br></p><p><br></p><h2>2020-10-15</h2><p><strong>DISTANSMÖTE - Gunvor Engström</strong></p><p>\"SÅ BYGGER DU EN KARRIÄR\"</p><p><br></p><p><br></p><p><br></p><h2>2020-11-19</h2><p><strong>INSTÄLLT PGA UTEBLIVEN TALARE</strong></p><p><br></p><p><br></p><h1>ÅR 2021</h1><h2>2021-02-11</h2><p><strong>Kurt Larsson, Executive Coach</strong></p><p>\"HUR MYCKET SKA DU VINNA ELLER FÖRLORA PÅ GRUND AV DITT OMEDVETNA KROPPSSPRÅK?\"</p><p><br></p><p><br></p><p><br></p><h2>2021-03-24</h2><p><strong>Louise Bennetoft, Research Manager på Interim Search AB</strong></p><p>\"SÅ BLIR DU INTERIMSKONSULT\"</p><p><br></p><p><br></p><p><br></p><h2>2021-05-20</h2><p><strong>Dr. Mikael Sandström</strong></p><p>\"HUR ÄR DET ATT VARA LÄKARE PÅ TV?\"</p><p><br></p><p><br></p><p><br></p><h2>2021-09-23</h2><p><strong>INSTÄLLT PGA UTEBLIVEN TALARE</strong></p><p><br></p><p><br></p><p><br></p><h2>2021-10-20</h2><p><strong>Fredrik Ekström, Stockholmsbörsens VD</strong></p><p>\"KAPITALMARKNADEN - NULÄGE, FRAMTID OCH AKTUELLA TRENDER\"</p><p><br></p><p><br></p><p><br></p><h2>2021-11-23</h2><p><strong>Thomas Byström, regionchef Stockholm, Mälardalen på Företagarna</strong></p><p>\"UPPSTART EFTER COVID-19 - VARFÖR ÄR SMÅFÖRETAGEN EN SÅ VIKTIG DEL I DETTA?\"</p><p><br></p><p><br></p><p><br></p><h1>ÅR 2022</h1><h2>2022-02-10</h2><p><strong>Peter Åberg - FN's ordförande i Stockholm</strong></p><p>\"HÅLLBART LEDARSKAP\"</p><p><br></p><p><br></p><p><br></p><h2>2022-03-23</h2><p><strong>Anders Mannesten - Expedition Rädda Östersjön</strong></p><p>\"TILLSAMMANS FÖR ETT RENARE HAV\"</p><p><br></p><p><br></p><p><br></p><h2>2022-05-20</h2><p><strong>Per Brilioth, CEO på VNV Global</strong></p><p>\"UTMANINGAR OCH FRAMGÅNGAR SOM VC INVESTERARE\"</p><p><br></p><p><br></p><p><br></p><h2>2022-09-20</h2><p><strong>Cecilia Hertz, medgrundare I.S.A.A.C samt försvars- och rymdkonsult</strong></p><p>\"SÅ STARTADE JAG FRAMTIDENS RYMDBOLAG MED CHRISTER FUGLESANG\"</p><p><br></p><p><br></p><p><br></p><h2>2022-10-07</h2><p><strong>Lunch tillsammans med Rotaract och deras talare Erik Halkjaer från RSF</strong></p><p>\"PRESSFRIHETEN I VÅR OMVÄRLD OCH HUR DEN PÅVERKATS AV KONFLIKTEN I UKRAINA\"</p><p><br></p><p><br></p><p><br></p><h2>2022-11-24</h2><p><strong>Johan Malmliden, CEO Omegapoint Group AB</strong></p><p>\"CYBERHOT OCH RISKBILD. VAR BÖRJAR MAN SÄKERHETSARBETET OCH VAD ÄR EN RIMLIG SÄKER NIVÅ\"</p><p><br></p><p><br></p><p><br></p><h1>ÅR 2023</h1><h2>2023-02-21</h2><p><strong>Kaarlo Airaxin - Senior Advisor Investor Relations på Laika</strong></p><p>\"SÅ HJÄLPER DU MARKNADEN ATT INVESTERA I DITT FÖRETAG\"</p><p><br></p><p><br></p><p><br></p><h2>2023-03-29</h2><p><strong>Birgitta Dickson (inkommande guvernör) &amp; Rolf Dickson Könberg, grundare av en rad bolag inom fastighetsutveckling</strong></p><p>\"FAMILJEFÖRETAGET - DEN PERFEKTA FORMEN FÖR ENTREPRENÖRER ATT GÖRA ROLIGA OCH LÖNSAMMA AFFÄRER\"</p><p><br></p><p><br></p><p><br></p><h2>2023-04-28</h2><p><strong>Nätverkslunch ihop utan talare</strong></p><p>\"*VI LÄR KÄNNA VARANDRA MER*\"</p><p><br></p><p><br></p><p><br></p><h2>2023-05-23</h2><p><strong>Klara Alias \"35 under 35\" - vår Aprilgäst har gjort snabb karriär inom bygg- och fastighetsbranschen</strong></p><p>\"FASTIGHETER OCH MIN KARRIÄR-RESA\"</p><p><br></p><p><br></p><p><br></p><h2>2023-06-13</h2><p><strong>Afterwork ihop på Hotel at Six, Brunkebergs Torg</strong></p><p>\"MINGEL\"</p><p><br></p><p><br></p><p><br></p><h2>2023-08-22</h2><p><strong>Afterwork på SUS, Brunkebergs Torg</strong></p><p>\"MINGEL\"</p><p><br></p><p><br></p><p><br></p><h2>2023-09-01</h2><p><strong>Universum om hur man blir en attraktiv arbetgivare</strong></p><p>Insikter om talangmarknaden i Sverige och hur man blir en attraktiv arbetsgivare</p><p><br></p><p><br></p><p><br></p><h2>2023-10-10</h2><p><strong>Oktoberfest på Man in the Moon</strong></p><p>Vi äter, minglar och nätverkar ihop</p><p><br></p><p><br></p><p><br></p><h2>2023-10-27</h2><p><strong>Frukostbesök hos Rotary Östermalm</strong></p><p>Vi besöker frukostklubben Rotary Östermalm för att träffa deras Rotarianer och lära känna varandra mer</p><p><br></p><p><br></p><p><br></p><h2>2023-11-08</h2><p><strong>Vi besöker Impact Hub ihop med Rotary Stockholm Global City</strong></p><p>Impact Hub knyter samman entreprenörer och innovatörer med stora organisationer, partners, investerare och den offentliga sektorn</p><p><br></p><p><br></p><p><br></p><h1>ÅR 2024</h1><h2>2024-01-16</h2><p><strong>Kick-off på Haymarkety</strong></p><p>Vi startar året ihop med en kick-off på Haymarket</p><p><br></p><p><br></p><p><br></p><h2>2024-02-12</h2><p><strong>Oskar Andermo - \"Hur framtidssäkrar du dig?</strong></p><p>Tillsammans med och hos värdklubben Rotary Kungsträdgården lyssnar vi på Oskar Andermo</p><p><br></p><p><br></p><p><br></p><h2>2024-03-08</h2><p><strong>Lunch med Krister Nilsson</strong></p><p>AI igår idag och imorgon</p><p><br></p><p><br></p><p><br></p><h2>2024-04-17</h2><p><strong>Nätverksmingel</strong></p><p>Vi nätverkar med varandra!</p><p><br></p><p><br></p><p><br></p><h2>2024-05-31</h2><p><strong>Lunch med Anna Maria Corazza</strong></p><p>Hur påverkas du och svenska näringslivet av Europasamarbetet. Hur kan vi förenkla och stärka samarbetet?</p><p><br></p><p><br></p><p><br></p><h2>2024-06-12</h2><p><strong>Sommar-kickoff och AW på TAK</strong></p><p>Vi nätverkar, minglar och önskar varandra en god sommar!</p><p><br></p><p><br></p><p><br></p><h2>2024-08-28</h2><p><strong>Höst-kickoff och AW på TAK</strong></p><p>Vi nätverkar, minglar och startar hösten!</p><p><br></p><p><br></p><p><br></p><h2>2024-09-06</h2><p><strong>Lunch med Evrim Erdal, Näringslivsansvarig i Solna Stad</strong></p><p>Hur lyckas man behålla det goda företagsklimatet?</p><p><br></p><p><br></p><p><br></p><h2>2024-10-16</h2><p><strong>Lunch med Mikael Grawe, varumärkeschef på Forvis Mazars Sweden</strong></p><p>Så kommunicerar ni bättre och säljer mer</p><p><br></p><p><br></p><p><br></p><h2>2024-11-06</h2><p><strong>Afterwork med Johan Wigfeldt (GDPR-expert)</strong></p><p>Tillsammans med Rotary Global City kör vi Afterwork med talare på Impact Hub</p><p><br></p><p><br></p><p><br></p><h2>2025-02-05</h2><p><strong>Lunch med Kristoffer Erlandsson</strong></p><p>Arbetar du med förändringsprocesser eller organisationsutveckling och du funderar på hur man kan förändra aktörernas \"mindset”?</p><p><br></p><p><br></p><h2>&nbsp;2025-04-03</h2><p><strong>&nbsp;Lunch med David Leeb, CMO @ Safello</strong></p><p>&nbsp;David Leeb, CMO på Safello besöker oss! Vad du bör veta om Krypto! Kom och ställ alla frågor du har gällande Krypto!</p><p>&nbsp;</p><p><br></p><h2>&nbsp;2025-04-24</h2><p><strong>&nbsp;DISTANSMÖTE: Anthonia Adenaya Huard, Regional Director at Business Sweden.</strong></p><p>&nbsp;During her talk, Anthonia will touch upon what the new Trade and Development Agenda of the Swedish Government means for Swedish companies outside of Sweden She will explain the Team Sweden approach and how this could support Swedish companies to participate in large infrastructural projects globally, especially in Africa with examples of such projects. How could Swedish companies act to benefit from such projects?</p><p><br></p><h2>&nbsp;2025-06-10</h2><p><strong>&nbsp;Afterwork: Tisdag 10:e juni kl.18.00 - 20.00</strong></p><p>Vi kör Sommaravslutning ihop på TAK!</p>",
+                        "timestamp": "2025-5-11:10:17:14"
+                     },
+                     "createdAt": "2025-06-08T19:04:52.105Z",
+                     "sectionID": "-OSFvbHk7_gWuQuGdIUS",
+                     "sectionName": "quillContent",
+                     "sectionOrder": 1,
+                     "updatedAt": "2025-06-08T19:04:52.105Z"
+                  }
+               },
+               "metadata": {
+                  "pageID": "b8b9494c-b587-4153-bce9-0e655d268fe9",
+                  "pageLink": "tidigareprogram",
+                  "pageName": "Tidigare program"
+               }
+            }
+         },
+         "homepageContent": {
+            "-OSFp-kSK8X2blw6g4a3": {
+               "content": {
+                  "buttonColor": "blue",
+                  "buttonInfo": "Du måste vara Rotarian eller gäst till en Rotarian för att anmäla dig. På vissa träffar swishar du i förväg för lunch/middag, då skriver vi det.",
+                  "buttonText": "Anmälan",
+                  "formLink": "https://9c831b73.sibforms.com/serve/MUIFAEefptT6bBKJpxpOxpaVQoU1CBX_HelP7kKM0r2tV5X3Liv-H1Q3NKOL7VGvftV-bU9gFOkCw2788ghDFuuXwWdhWP6d3KtW9VUrai4DHy3UCZ11jb2mb3gSRaPiICnLFm_evGZmcxiCxjbkYCrSq89dBVvT5fZIMaOLuv8yxySfQF7pwXWaMkMxPcjLUogok2QCgPaHtDWs"
+               },
+               "createdAt": "2025-06-08T18:36:01.499Z",
+               "sectionID": "-OSFp-kSK8X2blw6g4a3",
+               "sectionName": "callToActionButton",
+               "sectionOrder": 1,
+               "updatedAt": "2025-06-08T18:36:01.499Z"
+            },
+            "-OSFpZoagbE6i60hyaKQ": {
+               "content": {
+                  "23192a0c-04ca-40a0-8ced-17e45837c0e3": {
+                     "description": "Rotary is a global network of 1.2 million neighbors, friends, leaders, and problem-solvers who see a world where people unite and take action to create lasting change – across the globe, in our communities, and in ourselves.\n\nSolving real problems takes real commitment and vision. For more than 110 years, Rotary's people of action have used their passion, energy, and intelligence to take action on sustainable projects. From literacy and peace to water and health, we are always working to better our world, and we stay committed to the end.\n\nRead more at Rotary.org.",
+                     "id": "23192a0c-04ca-40a0-8ced-17e45837c0e3",
+                     "image": "https://firebasestorage.googleapis.com/v0/b/skalbar-eventplattform-med-cms.appspot.com/o/websites%2F-OSFHb6icVG06L-SsOxC%2F23192a0c-04ca-40a0-8ced-17e45837c0e3%2FDSC01125-min.jpg?alt=media&token=0bb1587d-d826-4795-b3ef-28719b7456a9",
+                     "order": 1,
+                     "title": "About Rotary"
+                  },
+                  "4b4de503-1a59-40f4-9376-9f0f85a0fb39": {
+                     "description": "Rotaryklubbar består av Rotarianer som träffas generellt en gång i veckan för ett frukost-, lunch- eller middagsmöte. Affärsnätverket i Stockholm City är ett samarbete där 10 olika klubbar gått samman för att. träffas med ett större fokus på att främja nätverket som finns för att hjälpa dagens yrkesverksamma att lyckas i karriären genom goda värderingar och värdefulla kontakter. Vi inspirerar, utbildar och uppdaterar också våra Rotarianer med spännande föreläsare i samband med lunchträffarna.",
+                     "id": "4b4de503-1a59-40f4-9376-9f0f85a0fb39",
+                     "image": "https://firebasestorage.googleapis.com/v0/b/skalbar-eventplattform-med-cms.appspot.com/o/websites%2F-OSFHb6icVG06L-SsOxC%2F4b4de503-1a59-40f4-9376-9f0f85a0fb39%2FDSC01125-min.jpg?alt=media&token=06b93dfc-a4b4-4b49-9b73-f2ae7950f86b",
+                     "order": 1,
+                     "title": "Stockholm City Affärsnätverk"
+                  },
+                  "deabf9ec-1be8-4068-89b8-cbebfd4e237d": {
+                     "description": "När du följt med som gäst några gånger till en kontakt som bjudit in dig kanske du börjar fundera på om du vill gå med i Rotary? Då får du gärna besöka olika Rotaryklubbar, förslagsvis någon av oss 10 som arrangerar detta affärsnätverk. Man blir medlem genom att skicka in en ansökan till klubben man vill gå med i men man måste även i varje klubb vara gäst för att få komma. Det rekommenderas att man går flera gånger som gäst på samma klubb så att Rotarianerna får en bra känsla av vem gästen är innan en ansökan inkommer. Annars finns risk att det blir avslag på ansökan.",
+                     "id": "deabf9ec-1be8-4068-89b8-cbebfd4e237d",
+                     "image": "https://firebasestorage.googleapis.com/v0/b/skalbar-eventplattform-med-cms.appspot.com/o/websites%2F-OSFHb6icVG06L-SsOxC%2Fdeabf9ec-1be8-4068-89b8-cbebfd4e237d%2FDSC02755-min.jpg?alt=media&token=fb397873-1182-4906-ad78-76d264fa8fc2",
+                     "order": 1,
+                     "title": "Hur går jag med i Rotary?"
+                  }
+               },
+               "createdAt": "2025-06-08T18:38:29.146Z",
+               "sectionID": "-OSFpZoagbE6i60hyaKQ",
+               "sectionName": "pitchCards",
+               "sectionOrder": 2,
+               "updatedAt": "2025-06-08T18:38:29.146Z"
+            },
+            "-OSFqOfy4tEF5tybJWQ_": {
+               "content": {
+                  "buttonColor": "blue",
+                  "buttonInfo": "Du måste vara Rotarian eller gäst till en Rotarian för att anmäla dig. På vissa träffar swishar du i förväg för lunch/middag, då skriver vi det.",
+                  "buttonText": "Anmälan",
+                  "formLink": "https://9c831b73.sibforms.com/serve/MUIFAEefptT6bBKJpxpOxpaVQoU1CBX_HelP7kKM0r2tV5X3Liv-H1Q3NKOL7VGvftV-bU9gFOkCw2788ghDFuuXwWdhWP6d3KtW9VUrai4DHy3UCZ11jb2mb3gSRaPiICnLFm_evGZmcxiCxjbkYCrSq89dBVvT5fZIMaOLuv8yxySfQF7pwXWaMkMxPcjLUogok2QCgPaHtDWs"
+               },
+               "createdAt": "2025-06-08T18:42:05.682Z",
+               "sectionID": "-OSFqOfy4tEF5tybJWQ_",
+               "sectionName": "callToActionButton",
+               "sectionOrder": 4,
+               "updatedAt": "2025-06-08T18:42:05.682Z"
+            },
+            "-OSFqZeyU_Yjy77bU54w": {
+               "content": {
+                  "text": "<h1>Program våren 2025</h1><p><br></p><h2>Lunch med Fearless Minds: Fredag 12:e sep kl.12.00 - 13.00</h2><p><strong>Fearless Minds – Bygg högpresterande team med ett fearless mindset</strong></p><p><a href=\"https://www.fearlessminds.se/\" rel=\"noopener noreferrer\" target=\"_blank\"><img src=\"https://firebasestorage.googleapis.com/v0/b/stockholm-city-affarsnatverk.appspot.com/o/Fearless%20Minds%20bild.png?alt=media&amp;token=55cd7570-a4db-486e-875d-2cb843b046cc\"></a></p><p><br></p><p>I en värld av snabb förändring, hybridarbete och ökade krav på innovation hjälper Fearless Minds organisationer att skapa starka, högpresterande team genom psykologisk trygghet och ett fearless mindset. Genom att utveckla ett fearless mindset frigör du – både biologiskt och psykologiskt – kreativitet, intelligens, intuition, empati och problemlösningsförmåga. Det är nyckeln till att arbeta smart, inte hårt – och att stärka både individer och team för att möta dagens omvärld som präglas av stort osäkerhet och förändring.</p><p><br></p><p>Fearless Minds har samarbetat med ledande företag såsom H&amp;M, TUI, Oriflame, Dustin och Newsec.</p><p><br></p><p><a href=\"https://www.fearlessminds.se/\" rel=\"noopener noreferrer\" target=\"_blank\"><img src=\"https://firebasestorage.googleapis.com/v0/b/stockholm-city-affarsnatverk.appspot.com/o/Pa%CC%8A%20scen.jpg?alt=media&amp;token=734cfe9e-3173-4c89-828b-92aa767f96b6\"></a></p>",
+                  "timestamp": "2025-5-11:10:18:33"
+               },
+               "createdAt": "2025-06-08T18:42:50.668Z",
+               "sectionID": "-OSFqZeyU_Yjy77bU54w",
+               "sectionName": "quillContent",
+               "sectionOrder": 3,
+               "updatedAt": "2025-06-08T18:42:50.668Z"
+            },
+            "-OSFqyQ2jFMWtlmSVbRk": {
+               "content": {
+                  "adressTitle": "Plats vid ordinarie luncher",
+                  "contactAddress1": "Västra Trädgårdsgatan 11A",
+                  "contactAddress2": "111 53 Stockholm",
+                  "contactEmail": "hej@stockholmcityaffarsnatverk.se",
+                  "contactName": "OBS: Vi får mailen men har svårt att hinna svara.",
+                  "contactPhone": "",
+                  "contactTitle": "Kontakt",
+                  "integrityPolicy": "https://firebasestorage.googleapis.com/v0/b/stockholm-city-affarsnatverk.appspot.com/o/Integritetspolicy%201.1%20-%20Stockholm%20City%20Aff%C3%A4rsn%C3%A4tverk.pdf?alt=media&token=07f848fd-58a8-418c-ad5a-23c0ca728219",
+                  "integrityPolicyDescription": "Vår integritetspolicy",
+                  "mapImage": "https://firebasestorage.googleapis.com/v0/b/skalbar-eventplattform-med-cms.appspot.com/o/websites%2F-OSFHb6icVG06L-SsOxC%2FmapImage%2FRotary_Karta_till_Stockholm_City_Affarsnatverk.png?alt=media&token=c2f83e89-de32-44e9-9b15-091850031f97"
+               },
+               "createdAt": "2025-06-08T18:44:36.145Z",
+               "sectionID": "-OSFqyQ2jFMWtlmSVbRk",
+               "sectionName": "footer",
+               "sectionOrder": 7,
+               "updatedAt": "2025-06-08T18:44:36.145Z"
+            },
+            "-OSIvF81epHaYu8zV8qr": {
+               "content": {
+                  "description": "Välkommen på våra träffar!",
+                  "id": "video",
+                  "location": "",
+                  "media": "https://firebasestorage.googleapis.com/v0/b/skalbar-eventplattform-med-cms.appspot.com/o/websites%2F-OSFHb6icVG06L-SsOxC%2Fvideo%2Frotary-video-min.mp4?alt=media&token=7bca761d-dcf9-454f-847d-d62febf9c105",
+                  "mediaType": "video",
+                  "order": 1,
+                  "time": "",
+                  "title": "Stockholm City Affärsnätverk"
+               },
+               "createdAt": "2025-06-09T09:02:10.348Z",
+               "sectionID": "-OSIvF81epHaYu8zV8qr",
                "sectionName": "fullScreenMedia",
                "sectionOrder": 0,
-               "updatedAt": "2023-08-01T17:58:08.435Z"
+               "updatedAt": "2025-06-09T09:02:10.348Z"
             },
-
-            "-NamF-To_0jC5ZDGxeWr": {
+            "-OSJznwtaWMoZ06vePBi": {
                "content": {
-                  "speakerskey1": {
-                     "description": "With experience in ...",
-                     "fullName": "Jane Jones",
-                     "id": "speakerskey1",
-                     "image": "/static/media/speakerImgExample1.afc65f97e9cbc4a767fa.jpg",
-                     "order": 1,
-                     "pitch": "I am a speaker",
-                     "title": "CEO of Company X",
-                     "titleDescription": "I am the CEO of Company X"
-                  },
-                  "speakerskey2": {
-                     "description": "My name is Sofie Wattson and I am a speaker",
-                     "fullName": "Sofie Wattson",
-                     "id": "speakerskey2",
-                     "image": "/static/media/speakerImgExample2.602dd61a6e5300b45b89.jpg",
+                  "696f244a-e798-4959-9124-5f01a2df830b": {
+                     "description": "Medlem i Kungsträdgårdens Rotaryklubb | Strategic Sales på IDEMIA",
+                     "fullName": "Åsa Granberg",
+                     "id": "696f244a-e798-4959-9124-5f01a2df830b",
+                     "image": "https://firebasestorage.googleapis.com/v0/b/skalbar-eventplattform-med-cms.appspot.com/o/websites%2F-OSFHb6icVG06L-SsOxC%2F696f244a-e798-4959-9124-5f01a2df830b%2FAsaGranberg.jpg?alt=media&token=097a0398-fc2b-4168-9bff-f003c161ded4",
                      "order": 2,
-                     "pitch": "I am a speaker",
-                     "title": "CEO of Company Y",
-                     "titleDescription": "I am the CEO of Company Y"
+                     "pitch": "Åsa är en ledande managementkonsult och expert inom finansbranschen med över 20 års erfarenhet. Hon har arbetat på och gjort affärer med högsta ledningen på samtliga av Wall Streets största investmentbanker, såsom Goldman Sachs, Merrill Lynch, Morgan Stanley, Bear Stearns och Lehman Brothers.",
+                     "title": "Ordförande & Talaransvarig",
+                     "titleDescription": "Kontakt för talare och event"
                   },
-                  "speakerskey3": {
-                     "description": "My name is John Doe and I am a speaker",
-                     "fullName": "John Doe",
-                     "id": "speakerskey3",
-                     "image": "/static/media/speakerImgExample3.1768514f5305e1f56e70.jpg",
-                     "order": 3,
-                     "pitch": "I am a speaker",
-                     "title": "CEO of Company Z",
-                     "titleDescription": "I am the CEO of Company Z"
+                  "c8cead0e-b4e3-4483-bf8b-440370dca755": {
+                     "description": "Medlem i Östermalms Rotaryklubb",
+                     "fullName": "Erik Sturesson",
+                     "id": "c8cead0e-b4e3-4483-bf8b-440370dca755",
+                     "image": "https://firebasestorage.googleapis.com/v0/b/skalbar-eventplattform-med-cms.appspot.com/o/websites%2F-OSFHb6icVG06L-SsOxC%2Fc8cead0e-b4e3-4483-bf8b-440370dca755%2FErikSturesson.jpg?alt=media&token=edb78ad6-5001-4cf5-a24a-5451cd8e6b5b",
+                     "order": 1,
+                     "pitch": "VD och medgrundare av Student Node AB, år 2014, som blev uppköpt av börsnoterade Poolia, år 2019. Student Node har Sveriges ledande IT-system för arbetsmarknadsdagar och en matchningsalgoritm som skickar ut rätt jobb till kandidater (från Poolia). I augusti kommer jag lämna för nästa utmaning och Student Node kommer avvecklas.",
+                     "title": "IT-ansvarig",
+                     "titleDescription": "Kontakt för hemsidan"
                   }
                },
-               "createdAt": "2023-08-01T17:58:08.484Z",
-               "sectionID": "-NamF-To_0jC5ZDGxeWr",
+               "createdAt": "2025-06-09T14:01:42.600Z",
+               "sectionID": "-OSJznwtaWMoZ06vePBi",
                "sectionName": "speakers",
-               "sectionOrder": 2,
-               "updatedAt": "2023-08-01T17:58:08.484Z"
+               "sectionOrder": 6,
+               "updatedAt": "2025-06-09T14:01:42.600Z"
             },
-            "-NamF-UJQGN9lk0-kurh": {
+            "-OSK122kpeCGy8pfMZXI": {
                "content": {
-                  "participantskey1": {
-                     "id": "participantskey1",
-                     "image": "/static/media/speakerImgExample1.afc65f97e9cbc4a767fa.jpg",
-                     "name": "Jane Jones",
-                     "order": 1,
-                     "organization": "Company X",
-                     "title": "CEO"
-                  },
-                  "participantskey2": {
-                     "id": "participantskey2",
-                     "image": "/static/media/speakerImgExample2.602dd61a6e5300b45b89.jpg",
-                     "name": "Sofie Wattson",
-                     "order": 2,
-                     "organization": "Company Y",
-                     "title": "CEO"
-                  },
-                  "participantskey3": {
-                     "id": "participantskey3",
-                     "image": "/static/media/speakerImgExample3.1768514f5305e1f56e70.jpg",
-                     "name": "John Doe",
-                     "order": 3,
-                     "organization": "Company Z",
-                     "title": "CEO"
-                  }
+                  "text": "<h1>Ansvariga</h1>",
+                  "timestamp": "2025-5-9:16:11:39"
                },
-               "createdAt": "2023-08-01T17:58:08.516Z",
-               "sectionID": "-NamF-UJQGN9lk0-kurh",
-               "sectionName": "participants",
-               "sectionOrder": 3,
-               "updatedAt": "2023-08-01T17:58:08.516Z"
-            },
-            "-NamF-Ug7haziqHkeKPA": {
-               "content": {
-                  "organizerskey1": {
-                     "id": "organizerskey1",
-                     "logo": "/static/media/speakerImgExample1.afc65f97e9cbc4a767fa.jpg",
-                     "order": 1
-                  },
-                  "organizerskey2": {
-                     "id": "organizerskey2",
-                     "logo": "/static/media/speakerImgExample2.602dd61a6e5300b45b89.jpg",
-                     "order": 2
-                  }
-               },
-               "createdAt": "2023-08-01T17:58:08.540Z",
-               "sectionID": "-NamF-Ug7haziqHkeKPA",
-               "sectionName": "organizers",
-               "sectionOrder": 4,
-               "updatedAt": "2023-08-01T17:58:08.540Z"
-            },
-            "-NamF-V2tor8DxXjBPq1": {
-               "content": { "text": "Example text from quill editor" },
-               "createdAt": "2023-08-01T17:58:08.563Z",
-               "sectionID": "-NamF-V2tor8DxXjBPq1",
+               "createdAt": "2025-06-09T14:11:28.731Z",
+               "sectionID": "-OSK122kpeCGy8pfMZXI",
                "sectionName": "quillContent",
                "sectionOrder": 5,
-               "updatedAt": "2023-08-01T17:58:08.563Z"
-            },
-            "-NamF-VRrOqmF_NLQouD": {
-               "content": {
-                  "pitchCardskey1": {
-                     "description": "This is the description of Pitch Card 1",
-                     "id": "pitchCardskey1",
-                     "image": "/static/media/speakerImgExample1.afc65f97e9cbc4a767fa.jpg",
-                     "order": 1,
-                     "title": "Pitch Card 1"
-                  },
-                  "pitchCardskey2": {
-                     "description": "This is the description of Pitch Card 2",
-                     "id": "pitchCardskey2",
-                     "image": "/static/media/speakerImgExample2.602dd61a6e5300b45b89.jpg",
-                     "order": 2,
-                     "title": "Pitch Card 2"
-                  },
-                  "pitchCardskey3": {
-                     "description": "This is the description of Pitch Card 3",
-                     "id": "pitchCardskey3",
-                     "image": "/static/media/speakerImgExample3.1768514f5305e1f56e70.jpg",
-                     "order": 3,
-                     "title": "Pitch Card 3"
-                  }
-               },
-               "createdAt": "2023-08-01T17:58:08.588Z",
-               "sectionID": "-NamF-VRrOqmF_NLQouD",
-               "sectionName": "pitchCards",
-               "sectionOrder": 6,
-               "updatedAt": "2023-08-01T17:58:08.588Z"
-            },
-            "-NamF-Vn8SYgnUnKNM7F": {
-               "content": {
-                  "buttonColor": "green",
-                  "buttonInfo": "Extra example info below button",
-                  "buttonText": "Example button text",
-                  "formLink": "https://www.google.com/"
-               },
-               "createdAt": "2023-08-01T17:58:08.611Z",
-               "sectionID": "-NamF-Vn8SYgnUnKNM7F",
-               "sectionName": "callToActionButton",
-               "sectionOrder": 7,
-               "updatedAt": "2023-08-01T17:58:08.611Z"
-            },
-            "-NamF-TQVEtqtU1N_oYo": {
-               "content": {
-                  "adressTitle": "Example adress title",
-                  "contactAddress1": "Example adress 1",
-                  "contactAddress2": "Example adress 2",
-                  "contactEmail": "example@example.com",
-                  "contactName": "Example contact name",
-                  "contactPhone": "+00 123 45 678",
-                  "contactTitle": "Example contact title",
-                  "integrityPolicy": "https://www.google.com/",
-                  "integrityPolicyDescription": "Our Integrity Policy",
-                  "mapImage": "/static/media/mapImageExample.d4ee5e1c10f876e3ab39.png"
-               },
-               "createdAt": "2023-08-01T17:58:08.459Z",
-               "sectionID": "-NamF-TQVEtqtU1N_oYo",
-               "sectionName": "footer",
-               "sectionOrder": 8,
-               "updatedAt": "2023-08-01T17:58:08.459Z"
+               "updatedAt": "2025-06-09T14:11:28.731Z"
             }
+         },
+         "settings": {
+            "customCSS": "h1 {\n  color: #f7a81b;\n  text-align: center;\n  font-family: \"open sanse\", condensed;\n  font-weight: bold;\n  font-size: 3rem;\n}\n\nh2 {\n  color: #0c3c7c;\n  text-align: center;\n  font-family: \"open sanse\", condensed;\n  font-weight: bold;\n  font-size: 2rem;\n}\n\nh3 {\n  color: #0c3c7c;\n  text-align: center;\n  font-family: \"open sanse\", condensed;\n  font-weight: bold;\n  font-size: 1.5rem;\n}\n\nh4 {\n  color: #0c3c7c;\n  text-align: center;\n  font-family: \"open sanse\", condensed;\n  font-weight: bold;\n  font-size: 1rem;\n}\n\np {\n  color: #0c3c7c;\n  text-align: center;\n  font-family: \"open sanse\", condensed;\n  font-size: 1rem;\n}\n",
+            "customHTMLBodyEnd": "",
+            "customHTMLHead": "",
+            "faviconUrl": "https://firebasestorage.googleapis.com/v0/b/reacteriksturessonse.appspot.com/o/RotaryMoE_RGB.png?alt=media&token=a32e723b-5ba9-44da-b5a3-89bf137ca2eb",
+            "font": "Open Sans",
+            "logoUrl": "https://firebasestorage.googleapis.com/v0/b/skalbar-eventplattform-med-cms.appspot.com/o/websites%2F-OSFHb6icVG06L-SsOxC%2Fimage%2FLogo-affarsnatverk-cropped.PNG?alt=media&token=27afc71e-122b-4fdf-a6a1-a7d76b3a04a5",
+            "primaryColor": "#f7a81b",
+            "siteDescription": "Anmäl dig till kommande träffar!",
+            "siteName": "Stockholm City Affärsnätverk",
+            "textColor": "#0c3c7c"
          }
       }
    },
