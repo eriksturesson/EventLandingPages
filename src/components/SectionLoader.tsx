@@ -88,7 +88,7 @@ export const SectionLoader: React.FC<Props> = function (props) {
                            <motion.div
                               initial="hidden"
                               whileInView="visible"
-                              viewport={{ once: true, amount: 0.1 }}
+                              viewport={{ once: true, amount: 0 }}
                               variants={{
                                  hidden: { opacity: 0, y: 50 }, // Startposition: osynlig och nedanför
                                  visible: { opacity: 1, y: 0 }, // Slutposition när synlig
