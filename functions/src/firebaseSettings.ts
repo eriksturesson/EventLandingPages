@@ -11,9 +11,7 @@ if (isDev) {
 const app =
    getApps().length === 0
       ? initializeApp({
-           databaseURL: isDev
-              ? 'http://localhost:9000?ns=emulator'
-              : 'https://skalbar-eventplattform-med-cms-default-rtdb.firebaseio.com',
+           databaseURL: isDev ? 'http://localhost:9000?ns=emulator' : process.env.FIREBASE_DATABASE_URL,
         })
       : getApps()[0];
 

@@ -66,4 +66,5 @@ jobs:
            run: firebase deploy --non-interactive
            env:
               FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+              FIREBASE_DATABASE_URL: ${{ secrets.FIREBASE_DATABASE_URL }}
               NODE_ENV: production
