@@ -1,52 +1,24 @@
 import { Box, Button, MenuItem, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth, UserRole } from '../contexts/AuthContext';
 import { useDbContent } from '../contexts/DBContentContext';
-import { DBAdminUser } from '../interfaces/dbInterfaces';
 import { inviteAdminURL } from '../utils/firebase';
-import { readAndWriteToFirebase } from '../utils/firebaseFunctions';
-
-type InviterRole = 'superuser' | 'admin' | 'content creator' | null;
 
 const InviteAdmin: React.FC = () => {
    const [email, setEmail] = useState('');
-   const [inviteeRole, setInviteeRole] = useState<'admin' | 'content creator'>('content creator');
-   const [inviterRole, setInviterRole] = useState<InviterRole>(null);
+   const { role } = useAuth();
+   const [inviteeRole, setInviteeRole] = useState<UserRole>(role ? role : 'content creator');
+   const [inviterRole, setInviterRole] = useState<UserRole>(null);
    const [loading, setLoading] = useState(false);
    const [error, setError] = useState<string | null>(null);
    const [inviteURL, setInviteURL] = useState<string | null>(null);
-
    const { user } = useAuth();
    const { websiteID } = useDbContent();
-
-   // Fetch inviterRole from backend on mount or when user changes
    useEffect(() => {
-      if (!user) {
-         setInviterRole(null);
-         return;
+      if (role) {
+         setInviterRole(role);
       }
-      const fetchRole = async () => {
-         try {
-            const idToken = await user.getIdToken();
-            // Your backend endpoint to get role of logged in user for a specific website
-            const data: DBAdminUser = await readAndWriteToFirebase({
-               method: 'get',
-               ref: `admins/${websiteID}/${user.uid}/role`, // Adjust this path as needed)
-            });
-
-            if (!data || !data.role) {
-               throw new Error('Failed to fetch inviter role');
-            }
-            // Assuming backend returns { role: 'admin' | 'superuser' | 'content creator' }
-            setInviterRole(data.role);
-         } catch (err) {
-            console.error('Failed to fetch inviter role', err);
-            setInviterRole(null);
-         }
-      };
-      fetchRole();
-   }, [user]);
-
+   }, [role]);
    const handleSubmit = async () => {
       setLoading(true);
       setError(null);
@@ -117,8 +89,9 @@ const InviteAdmin: React.FC = () => {
    }
 
    return (
-      <Box sx={{ mt: 3, mb: 3, display: 'flex', flexDirection: 'column', gap: 2, maxWidth: 400 }}>
-         <Typography variant="h6">Invite New Admin</Typography>
+      <Box sx={{ mt: 3, mb: 3, display: 'flex', flexDirection: 'column', gap: 2, mx: 'auto', maxWidth: 400 }}>
+         <Typography variant="h4">Invite New Admin</Typography>
+         <Typography variant="body1">You are authorized to invited other admins since you are {role}</Typography>
 
          <TextField
             label="Email"

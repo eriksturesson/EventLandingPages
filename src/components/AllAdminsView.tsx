@@ -20,13 +20,10 @@ type Admin = {
 
 const AllAdminsView: React.FC = () => {
    const [open, setOpen] = useState(false);
-   const { user } = useAuth();
+   const { user, role } = useAuth();
    const { websiteID } = useDbContent(); // Assuming websiteID is available in Auth context
-   const [userRole, setUserRole] = useState<'admin' | 'content creator' | 'superuser'>('content creator'); // Replace with actual user role logic
    const [admins, setAdmins] = useState<DBAdminUserWithAuthMeta[]>([]);
    const [loading, setLoading] = useState(false);
-   user?.metadata.lastSignInTime;
-   user?.metadata.creationTime;
    const fetchAdmins = async () => {
       setLoading(true);
       try {
@@ -54,18 +51,6 @@ const AllAdminsView: React.FC = () => {
          // Sätt admins till state
          setAdmins(fetchedAdmins);
          // Hitta nuvarande användare i listan
-         const currentUserData = admins.find((admin) => admin.id === user?.uid);
-         if (
-            currentUserData?.role === 'admin' ||
-            currentUserData?.role === 'content creator' ||
-            currentUserData?.role === 'superuser'
-         ) {
-            console.log('Current user role:', currentUserData.role);
-            setUserRole(currentUserData.role);
-         } else {
-            console.warn('No role found for current user');
-            setUserRole('content creator'); // Fallback
-         }
       } catch (error) {
          console.error('Failed to fetch admins:', error);
          setAdmins([]);
@@ -128,10 +113,10 @@ const AllAdminsView: React.FC = () => {
          </Button>
 
          <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="lg">
-            {userRole === 'admin' && <InviteAdmin />}
+            {(role === 'admin' || role === 'superuser') && <InviteAdmin />}
 
             <DialogTitle>All Admins</DialogTitle>
-            <DialogContent style={{ height: 500, width: '100%' }}>
+            <DialogContent style={{ height: 500, width: '100%', overflowY: 'auto' }}>
                {loading ? (
                   <Typography variant="body1" sx={{ mt: 2 }}>
                      Loading admins...
