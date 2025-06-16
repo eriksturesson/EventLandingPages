@@ -14,12 +14,7 @@ export default defineConfig({
             main: 'index.html',
          },
       },
-      minify: 'terser', // se till att terser används
-      terserOptions: {
-         compress: {
-            drop_console: true, // tar bort alla console.log, debug, info osv i produktion
-         },
-      },
+      minify: 'esbuild',
    },
    server: {
       // this ensures that the browser opens upon server start
