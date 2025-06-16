@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import './App.css';
 import Admin from './components/Admin';
+import CreateAdmin from './components/CreateAdmin';
 import CustomPage from './components/CustomPage';
 import Home from './components/Home';
 import { LoadingSpinner } from './components/Loading';
@@ -26,6 +27,7 @@ const App = (): JSX.Element => {
          <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/create-admin" element={<CreateAdmin />} />
             {/* Dynamiska custom pages */}
             {customPageMetaData.map((page) => (
                <Route key={page.pageID} path={`/${page.pageLink}`} element={<CustomPage pageID={page.pageID} />} />

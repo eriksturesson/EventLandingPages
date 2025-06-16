@@ -50,20 +50,22 @@ const InviteAdmin: React.FC = () => {
             },
             body: JSON.stringify({ email, role: inviteeRole, websiteID }),
          });
+         const res = await response.json();
 
          if (!response.ok) {
-            const data = await response.json();
-            if (response.status === 409 && data.inviteID) {
-               setError(`En giltig inbjudan finns redan och är aktiv till ${new Date(data.invitedAt).toLocaleString()}.`);
-               setInviteURL(`${window.location.host}/create-admin?id=${data.inviteID}`);
+            if (response.status === 409 && res.data.inviteID) {
+               setError(
+                  `En giltig inbjudan finns redan och är aktiv till ${new Date(res.data.invitedAt).toLocaleString()}.`
+               );
+               setInviteURL(`${window.location.host}/create-admin?id=${res.data.inviteID}&email=${res.data.email}`);
+               setLoading(false);
+               return;
             } else {
-               throw new Error(data.message || 'Failed to send invite');
+               throw new Error(res.data.message || 'Failed to send invite');
             }
-            const errText = await response.text();
-            throw new Error(errText || 'Failed to send invite');
          }
 
-         const { inviteID } = await response.json();
+         const { inviteID } = res.data;
          if (!inviteID) {
             throw new Error('Invite ID not returned from server');
          }
@@ -73,6 +75,7 @@ const InviteAdmin: React.FC = () => {
          setInviteeRole('content creator');
          setInviteURL(inviteUrl);
       } catch (err: any) {
+         console.error('Error in handleSubmit:', err);
          setError(err.message || 'Unknown error');
       }
       setLoading(false);

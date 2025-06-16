@@ -1,4 +1,4 @@
-import { BackendError, httpErrorFormatter, type BackendErrorOptions } from 'backend-error';
+import { BackendError, httpErrorFormatter } from 'backend-error';
 import type { Request, Response } from 'express';
 import { getAuth } from 'firebase-admin/auth';
 import { getDatabase } from 'firebase-admin/database';
@@ -51,10 +51,9 @@ export async function inviteAdminController(req: Request, res: Response): Promis
 
       let inviteID = await inviteAdminService({ email, role, websiteID, invitedBy: uidFromToken });
 
-      return res.status(200).json({ inviteID, message: 'Admin invite created successfully.' });
+      return res.status(200).json({ inviteID, email, message: 'Admin invite created successfully.' });
    } catch (error) {
-      console.error('Error in inviteAdminController:', error);
-      const err: BackendErrorOptions = httpErrorFormatter(error);
-      return res.status(err.code || 500).send(err.message || 'Internal Server Error');
+      const err = httpErrorFormatter(error);
+      return res.status(err.status).json(err.body);
    }
 }

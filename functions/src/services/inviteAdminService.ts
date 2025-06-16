@@ -32,6 +32,7 @@ export async function inviteAdminService(args: InviteAdminProps): Promise<string
       throw new BackendError({
          code: 409,
          data: {
+            email: validInvite.email,
             inviteID: validInvite.inviteID,
             invitedAt: validInvite.invitedAt,
          },
