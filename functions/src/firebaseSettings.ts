@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { getApps, initializeApp } from 'firebase-admin/app';
+import { App, getApps, initializeApp } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
 import { getDatabase } from 'firebase-admin/database';
 dotenv.config();
@@ -9,11 +9,15 @@ if (isDev) {
    process.env.FIREBASE_AUTH_EMULATOR_HOST = 'localhost:9099';
 }
 
-const app =
+const app: App =
    getApps().length === 0
-      ? initializeApp({
-           databaseURL: isDev ? 'http://localhost:9000?ns=emulator' : process.env.FIREBASE_DATABASE_URL,
-        })
+      ? initializeApp(
+           isDev
+              ? {
+                   databaseURL: 'http://localhost:9000?ns=emulator',
+                }
+              : undefined
+        )
       : getApps()[0];
 
 const db = getDatabase(app);
