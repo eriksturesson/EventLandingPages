@@ -2,6 +2,8 @@ import { Alert, Box, Button, TextField, Typography } from '@mui/material';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useDbContent } from '../contexts/DBContentContext';
+import { createAdminURL } from '../utils/firebase';
 
 const CreateAdmin = () => {
    const location = useLocation();
@@ -13,7 +15,7 @@ const CreateAdmin = () => {
    const [email, setEmail] = useState(emailFromUrl ?? '');
    const [password, setPassword] = useState('');
    const [message, setMessage] = useState<{ type: 'error' | 'success'; text: string } | null>(null);
-
+   const { websiteID } = useDbContent();
    const auth = getAuth();
 
    const handleCreate = async () => {
@@ -24,7 +26,20 @@ const CreateAdmin = () => {
       try {
          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
          setMessage({ type: 'success', text: `Admin created with UID: ${userCredential.user.uid}` });
-         // Optionally send the id and UID to backend for linking
+         const idToken = await userCredential.user.getIdToken();
+         const response = await fetch(createAdminURL, {
+            method: 'POST',
+            headers: {
+               'Content-Type': 'application/json',
+               Authorization: `Bearer ${idToken}`,
+            },
+            body: JSON.stringify({ email, inviteID: id, userID: userCredential.user.uid, websiteID }),
+         });
+         if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Failed to create admin');
+         }
+         setMessage({ type: 'success', text: 'created user' });
       } catch (error: any) {
          setMessage({ type: 'error', text: `Error creating user: ${error.message}` });
       }
