@@ -10,10 +10,10 @@
             ".write": "$user_id === auth.uid"
          }
       },
-      "adminUsers": {
-         "$user_id": {
-            ".read": "$user_id === auth.uid",
-            ".write": "$user_id === auth.uid"
+      "admins": {
+         "$websiteId": {
+            ".read": "auth != null && root.child('admins/' + $websiteId + '/' + auth.uid).exists()",
+            ".write": "auth != null && root.child('admins/' + $websiteId + '/' + auth.uid + '/role').val() === 'admin'"
          }
       },
       "websites": {
@@ -30,5 +30,5 @@
          ".read": true,
          ".write": true
       }
-      }
+   }
 }

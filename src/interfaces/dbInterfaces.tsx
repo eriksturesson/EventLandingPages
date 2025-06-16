@@ -139,12 +139,21 @@ export type InitContent = {
 };
 
 export interface DBAdminUser {
-   [websiteID: string]: string;
+   id: string;
    email: string;
-   lastTimeSavedData: string;
+   invitedBy: string;
+   active: boolean;
+   invitedAt: string; // ISO string
+   lastLogin: string; // ISO string
+   role: 'admin' | 'content creator';
 }
+
 export interface DBAdminUsers {
    [userID: string]: DBAdminUser;
+}
+
+export interface DBAdminWebsiteKeys {
+   [websiteID: string]: DBAdminUsers;
 }
 
 export interface PageMetadata {
@@ -177,7 +186,7 @@ export interface DBWebsiteIdKey {
 }
 
 export interface DBRoot {
-   adminUsers: DBAdminUsers;
+   admins: DBAdminWebsiteKeys;
    websiteIds: DBWebsiteIdKey;
    websites: DBEachWebsiteKey;
 }

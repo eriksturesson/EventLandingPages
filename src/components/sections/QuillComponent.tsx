@@ -7,7 +7,7 @@ import 'react-quill/dist/quill.snow.css';
 import { useDbContent } from '../../contexts/DBContentContext';
 import { QuillContent } from '../../interfaces/dbInterfaces';
 import { SectionProps } from '../../interfaces/sectionInterfaces';
-import { auth, db } from '../../utils/firebase';
+import { db } from '../../utils/firebase';
 
 function saveQuillToDB({
    data,
@@ -41,15 +41,6 @@ function saveQuillToDB({
       text: data,
       timestamp: timeSavedData,
    });
-
-   // Insert log to database //
-   if (auth.currentUser) {
-      set(ref(db, 'adminUsers/' + auth.currentUser.uid), {
-         websiteID: websiteID,
-         email: auth.currentUser.email,
-         lastTimeSavedData: timeSavedData,
-      });
-   }
 }
 
 export function QuillComponent(props: SectionProps): JSX.Element {

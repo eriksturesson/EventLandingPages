@@ -24,6 +24,7 @@ import { signOutUser } from '../helpers/signoutUser';
 import { SectionContent } from '../interfaces/sectionInterfaces';
 import { SiteSettingsData } from '../interfaces/SettingsInterfaces';
 import { readAndWriteToFirebase } from '../utils/firebaseFunctions';
+import AllAdminsView from './AllAdminsView';
 import SiteSettings from './SiteSettings';
 import { SaveTextsButton } from './smallComponents/SaveTextsButton';
 
@@ -156,6 +157,8 @@ const SectionNavigator: React.FC<Props> = ({ sections, handleDrop, user, pageID 
                   </Box>
                )}
             </Box>
+            <Divider sx={{ my: 2 }} />
+            <AllAdminsView />
             <Divider sx={{ my: 2 }} />
             <IconButton onClick={() => setSiteSettingsOpen(true)} color="primary">
                <SettingsIcon /> Settings
