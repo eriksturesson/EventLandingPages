@@ -100,6 +100,8 @@ export function QuillComponent(props: SectionProps): JSX.Element {
             sx={{
                justifyContent: 'center',
                display: 'flex',
+               pl: 2,
+               pr: 2,
 
                '& img': {
                   maxWidth: '90%',
