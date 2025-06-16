@@ -14,7 +14,7 @@ const InviteAdmin: React.FC = () => {
    const [inviterRole, setInviterRole] = useState<InviterRole>(null);
    const [loading, setLoading] = useState(false);
    const [error, setError] = useState<string | null>(null);
-   const [success, setSuccess] = useState(false);
+   const [inviteURL, setInviteURL] = useState<string | null>(null);
 
    const { user } = useAuth();
    const { websiteID } = useDbContent();
@@ -34,6 +34,9 @@ const InviteAdmin: React.FC = () => {
                ref: `admins/${websiteID}/${user.uid}/role`, // Adjust this path as needed)
             });
 
+            if (!data || !data.role) {
+               throw new Error('Failed to fetch inviter role');
+            }
             // Assuming backend returns { role: 'admin' | 'superuser' | 'content creator' }
             setInviterRole(data.role);
          } catch (err) {
@@ -47,7 +50,7 @@ const InviteAdmin: React.FC = () => {
    const handleSubmit = async () => {
       setLoading(true);
       setError(null);
-      setSuccess(false);
+      setInviteURL(null);
 
       if (!email) {
          setError('Email is required');
@@ -77,13 +80,26 @@ const InviteAdmin: React.FC = () => {
          });
 
          if (!response.ok) {
+            const data = await response.json();
+            if (response.status === 409 && data.inviteID) {
+               setError(`En giltig inbjudan finns redan och är aktiv till ${new Date(data.invitedAt).toLocaleString()}.`);
+               setInviteURL(`${window.location.host}/create-admin?id=${data.inviteID}`);
+            } else {
+               throw new Error(data.message || 'Failed to send invite');
+            }
             const errText = await response.text();
             throw new Error(errText || 'Failed to send invite');
          }
 
-         setSuccess(true);
+         const { inviteID } = await response.json();
+         if (!inviteID) {
+            throw new Error('Invite ID not returned from server');
+         }
+         const inviteUrl = `${window.location.host}/create-admin?id=${inviteID}`;
+
          setEmail('');
          setInviteeRole('content creator');
+         setInviteURL(inviteUrl);
       } catch (err: any) {
          setError(err.message || 'Unknown error');
       }
@@ -133,7 +149,12 @@ const InviteAdmin: React.FC = () => {
          </Button>
 
          {error && <Typography color="error">{error}</Typography>}
-         {success && <Typography color="success.main">Invitation sent!</Typography>}
+         {inviteURL && (
+            <>
+               <Typography variant="subtitle1">Invitation sent! Share this link with the new admin:</Typography>
+               <Typography color="success.main">{inviteURL}</Typography>
+            </>
+         )}
       </Box>
    );
 };

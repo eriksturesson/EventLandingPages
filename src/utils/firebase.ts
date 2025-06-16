@@ -62,3 +62,4 @@ if (devSettings === 'development') {
 
 export const createAdminURL: string = beginingOfCloudFunctionRequestUrl + 'createAdmin';
 export const inviteAdminURL: string = beginingOfCloudFunctionRequestUrl + 'inviteAdmin';
+export const getAdminsURL: string = beginingOfCloudFunctionRequestUrl + 'getAdmins';

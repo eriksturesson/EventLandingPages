@@ -11,18 +11,18 @@
          }
       },
       "admins": {
-         "$websiteId": {
+         "$websiteID": {
             "$userId": {
-               ".read": "auth != null && root.child('admins/' + $websiteId + '/' + auth.uid).exists()",
-               ".write": "auth != null && (root.child('admins/' + $websiteId + '/' + auth.uid + '/role').val() === 'admin' || root.child('admins/' + $websiteId + '/' + auth.uid + '/role').val() === 'superuser')"
+               ".read": "auth != null && root.child('admins/' + $websiteID + '/' + auth.uid).exists()",
+               ".write": "auth != null && (root.child('admins/' + $websiteID + '/' + auth.uid + '/role').val() === 'admin' || root.child('admins/' + $websiteID + '/' + auth.uid + '/role').val() === 'superuser')"
             }
          }
       },
       "invitedAdmins": {
-         "$websiteId": {
-            "$inviteId": {
-               ".read": "auth != null && root.child('admins/' + $websiteId + '/' + auth.uid).exists() && (root.child('admins/' + $websiteId + '/' + auth.uid + '/role').val() === 'admin' || root.child('admins/' + $websiteId + '/' + auth.uid + '/role').val() === 'content creator' || root.child('admins/' + $websiteId + '/' + auth.uid + '/role').val() === 'superuser')",
-               ".write": "auth != null && (root.child('admins/' + $websiteId + '/' + auth.uid + '/role').val() === 'admin' || root.child('admins/' + $websiteId + '/' + auth.uid + '/role').val() === 'superuser')"
+         "$websiteID": {
+            "$inviteID": {
+               ".read": "auth != null && root.child('admins/' + $websiteID + '/' + auth.uid).exists() && (root.child('admins/' + $websiteID + '/' + auth.uid + '/role').val() === 'admin' || root.child('admins/' + $websiteID + '/' + auth.uid + '/role').val() === 'content creator' || root.child('admins/' + $websiteID + '/' + auth.uid + '/role').val() === 'superuser')",
+               ".write": "auth != null && (root.child('admins/' + $websiteID + '/' + auth.uid + '/role').val() === 'admin' || root.child('admins/' + $websiteID + '/' + auth.uid + '/role').val() === 'superuser')"
             }
          }
       },

@@ -143,11 +143,12 @@ export interface DBAdminUser {
    email: string;
    invitedBy: string;
    active: boolean;
-   invitedAt: string; // ISO string
-   lastLogin: string; // ISO string
-   role: 'admin' | 'content creator';
+   role: 'admin' | 'content creator' | 'superuser';
 }
-
+export interface DBAdminUserWithAuthMeta extends DBAdminUser {
+   lastLogin?: string; // ISO 8601
+   createdAt?: string; // ISO 8601
+}
 export interface DBAdminUsers {
    [userID: string]: DBAdminUser;
 }
@@ -185,7 +186,25 @@ export interface DBWebsiteIdKey {
    [websiteID: string]: DBWebsiteIDs;
 }
 
+export interface InvitedAdmin {
+   email: string;
+   role: 'admin' | 'content creator' | 'superuser';
+   websiteID: string;
+   invitedBy: string;
+   invitedAt: string; // ISO date string
+   accepted: boolean;
+   inviteID: string;
+}
+
+export interface InvitedIDKeys {
+   [inviteID: string]: InvitedAdmin;
+}
+export interface InvitedAdminsWebsiteKeys {
+   [websiteID: string]: InvitedIDKeys;
+}
+
 export interface DBRoot {
+   invitedAdmins: InvitedAdminsWebsiteKeys;
    admins: DBAdminWebsiteKeys;
    websiteIds: DBWebsiteIdKey;
    websites: DBEachWebsiteKey;

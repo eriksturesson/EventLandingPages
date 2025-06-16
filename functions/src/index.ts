@@ -1,14 +1,13 @@
 import type { Request, Response } from 'express';
-import { ParamsDictionary } from 'express-serve-static-core';
-import { initializeApp } from 'firebase-admin/app';
-import { getAuth } from 'firebase-admin/auth';
-import { getDatabase } from 'firebase-admin/database';
 import { onRequest } from 'firebase-functions/v2/https';
+import { getAdminsController } from './controllers/getAdminsController';
 import { inviteAdminController } from './controllers/inviteAdminController';
+import { auth, db } from './firebaseSettings';
 import { DBAdminUser } from './interfaces/dbInterfaces';
-const defaultApp = initializeApp();
-console.log(defaultApp.name); // '[DEFAULT]'
 
+export const getAdmins = onRequest(async (req: Request, res: Response): Promise<any> => {
+   return getAdminsController(req, res);
+});
 export const inviteAdmin = onRequest((req: Request, res: Response) => {
    return inviteAdminController(req, res);
 });
@@ -29,8 +28,6 @@ export const createAdmin = onRequest(async (req: Request, res: Response): Promis
       return res.status(401).send('Unauthorized: Missing userID in headers.');
    }
    try {
-      const db = getDatabase(defaultApp);
-
       // Verify that the requester userID is authorized by checking adminUsers in DB
       const snapshot = await db.ref(`adminUsers/${requesterUserID}`).get();
       if (!snapshot.exists()) {
@@ -41,7 +38,7 @@ export const createAdmin = onRequest(async (req: Request, res: Response): Promis
       //Check they were really invited and by when (max 24h)
 
       // Create the user
-      const userRecord = await getAuth(defaultApp).createUser({
+      const userRecord = await auth.createUser({
          email: req.body.email,
          password: req.body.password,
          displayName: req.body.displayName || 'Admin',
@@ -49,7 +46,7 @@ export const createAdmin = onRequest(async (req: Request, res: Response): Promis
       });
 
       // Assign admin role
-      await getAuth(defaultApp).setCustomUserClaims(userRecord.uid, { admin: true });
+      await auth.setCustomUserClaims(userRecord.uid, { admin: true });
 
       // Save data in Realtime Database under "adminUsers/{uid}"
 
@@ -72,6 +69,3 @@ export const createAdmin = onRequest(async (req: Request, res: Response): Promis
       return;
    }
 });
-function inviteAdminFunction(req: Request<ParamsDictionary>, res: Response<any>) {
-   throw new Error('Function not implemented.');
-}

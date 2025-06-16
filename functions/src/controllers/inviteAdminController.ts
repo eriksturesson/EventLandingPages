@@ -4,7 +4,7 @@ import { getAuth } from 'firebase-admin/auth';
 import { getDatabase } from 'firebase-admin/database';
 import { inviteAdminService } from '../services/inviteAdminService';
 
-export async function inviteAdminController(req: Request, res: Response): Promise<void> {
+export async function inviteAdminController(req: Request, res: Response): Promise<any> {
    // Set CORS headers for preflight and actual requests
    res.setHeader('Access-Control-Allow-Origin', '*'); // Or restrict to specific domain(s)
    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -49,12 +49,12 @@ export async function inviteAdminController(req: Request, res: Response): Promis
          throw BackendError.BadRequest('websiteID is required and must be a non-empty string.');
       }
 
-      await inviteAdminService({ email, role, websiteID, invitedBy: uidFromToken });
+      let inviteID = await inviteAdminService({ email, role, websiteID, invitedBy: uidFromToken });
 
-      res.status(200).send('Admin invitation request received.');
+      return res.status(200).json({ inviteID, message: 'Admin invite created successfully.' });
    } catch (error) {
       console.error('Error in inviteAdminController:', error);
       const err: BackendErrorOptions = httpErrorFormatter(error);
-      res.status(err.code || 500).send(err.message || 'Internal Server Error');
+      return res.status(err.code || 500).send(err.message || 'Internal Server Error');
    }
 }

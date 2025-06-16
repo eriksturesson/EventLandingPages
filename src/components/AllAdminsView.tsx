@@ -3,7 +3,9 @@ import { Button, Dialog, DialogContent, DialogTitle, Tooltip, Typography } from 
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { readAndWriteToFirebase } from '../utils/firebaseFunctions';
+import { useDbContent } from '../contexts/DBContentContext';
+import { DBAdminUserWithAuthMeta } from '../interfaces/dbInterfaces';
+import { getAdminsURL } from '../utils/firebase';
 import InviteAdmin from './InviteAdmin';
 
 type Admin = {
@@ -19,30 +21,50 @@ type Admin = {
 const AllAdminsView: React.FC = () => {
    const [open, setOpen] = useState(false);
    const { user } = useAuth();
-   const [userRole, setUserRole] = useState<'admin' | 'content creator'>('content creator'); // Replace with actual user role logic
-   const [admins, setAdmins] = useState<Admin[]>([]);
+   const { websiteID } = useDbContent(); // Assuming websiteID is available in Auth context
+   const [userRole, setUserRole] = useState<'admin' | 'content creator' | 'superuser'>('content creator'); // Replace with actual user role logic
+   const [admins, setAdmins] = useState<DBAdminUserWithAuthMeta[]>([]);
    const [loading, setLoading] = useState(false);
-
+   user?.metadata.lastSignInTime;
+   user?.metadata.creationTime;
    const fetchAdmins = async () => {
       setLoading(true);
       try {
-         const result = await readAndWriteToFirebase({ method: 'get', ref: 'admins' });
-         // Always try to determine current user's role
-         const currentUserData = result?.[user?.uid ?? ''];
-         if (currentUserData?.role === 'admin' || currentUserData?.role === 'content creator') {
+         const idToken = user ? await user.getIdToken() : null;
+         if (!idToken) {
+            console.error('User is not authenticated');
+            setLoading(false);
+            return;
+         }
+         const response = await fetch(getAdminsURL, {
+            method: 'GET',
+            headers: {
+               'Content-Type': 'application/json',
+               Authorization: `Bearer ${idToken}`,
+               'x-website-id': websiteID,
+            },
+         });
+
+         if (!response.ok) {
+            throw new Error(`Failed to fetch admins: ${response.statusText}`);
+         }
+
+         const fetchedAdmins: DBAdminUserWithAuthMeta[] = await response.json();
+
+         // Sätt admins till state
+         setAdmins(fetchedAdmins);
+         // Hitta nuvarande användare i listan
+         const currentUserData = admins.find((admin) => admin.id === user?.uid);
+         if (
+            currentUserData?.role === 'admin' ||
+            currentUserData?.role === 'content creator' ||
+            currentUserData?.role === 'superuser'
+         ) {
+            console.log('Current user role:', currentUserData.role);
             setUserRole(currentUserData.role);
          } else {
             console.warn('No role found for current user');
             setUserRole('content creator'); // Fallback
-         }
-         if (result) {
-            const adminsArray: Admin[] = Object.entries(result).map(([id, adminData]) => ({
-               id,
-               ...(adminData as Omit<Admin, 'id'>),
-            }));
-            setAdmins(adminsArray);
-         } else {
-            setAdmins([]);
          }
       } catch (error) {
          console.error('Failed to fetch admins:', error);
