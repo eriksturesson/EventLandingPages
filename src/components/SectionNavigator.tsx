@@ -20,6 +20,7 @@ import React, { useState } from 'react';
 import { User } from 'firebase/auth';
 import { useDbContent } from '../contexts/DBContentContext';
 import { useSiteSettings } from '../contexts/SiteSettingsContext';
+import { normalizeOrders } from '../helpers/cleanSectionOrders';
 import { signOutUser } from '../helpers/signoutUser';
 import { SectionContent } from '../interfaces/sectionInterfaces';
 import { SiteSettingsData } from '../interfaces/SettingsInterfaces';
@@ -153,6 +154,18 @@ const SectionNavigator: React.FC<Props> = ({ sections, handleDrop, user, pageID 
                         data={sections.reduce((acc, section) => ({ ...acc, [section.sectionID]: section }), {})}
                         refBelowWebsiteID={refBelowWebsiteID}
                      />
+                     <Typography variant="body2" gutterBottom>
+                        Fix button
+                     </Typography>
+                     <Button
+                        variant="contained"
+                        onClick={() => {
+                           const updated = normalizeOrders(sections);
+                           // Save `updated` back to your DB if needed
+                        }}
+                     >
+                        Normalize Order
+                     </Button>
                   </Box>
                )}
             </Box>
@@ -161,7 +174,7 @@ const SectionNavigator: React.FC<Props> = ({ sections, handleDrop, user, pageID 
                <SettingsIcon /> Settings
             </IconButton>
             <Box sx={{ mt: 4, textAlign: 'center', color: 'text.secondary' }}>
-               <Typography variant="caption">v0.9.0.1</Typography>
+               <Typography variant="caption">v1.0.0.1</Typography>
             </Box>
          </Drawer>
          <SiteSettings

@@ -1,6 +1,7 @@
 import { Box, Divider, Grid, Paper, Typography } from '@mui/material';
 import { motion } from 'motion/react';
 import React from 'react';
+import { calculateNextOrder } from '../helpers/calculateNextOrder';
 import { SectionContent, SectionProps } from '../interfaces/sectionInterfaces';
 import { CallToActionButtonComponent } from './sections/CallToActionButton';
 import { FooterComponent } from './sections/FooterComponent';
@@ -39,7 +40,7 @@ export const SectionLoader: React.FC<Props> = function (props) {
    // console.log('sections', sections);
    if (data && data.length > 0) {
       const sortedData = data.sort((a, b) => a.sectionOrder - b.sectionOrder);
-
+      const length = sortedData.length;
       return (
          <Box sx={{ textAlign: 'center', contentAlign: 'center' }}>
             {sortedData.map((section) => {
@@ -80,7 +81,10 @@ export const SectionLoader: React.FC<Props> = function (props) {
                               </Paper>
                               <Paper elevation={6} sx={{ p: 2, mt: 2, mb: 2 }}>
                                  <Grid item sm={12}>
-                                    <CreateSection sectionOrder={section.sectionOrder + 1} pageID={pageID} />
+                                    <CreateSection
+                                       sectionOrder={calculateNextOrder(sortedData, section.sectionOrder)}
+                                       pageID={pageID}
+                                    />
                                  </Grid>
                               </Paper>
                            </>
