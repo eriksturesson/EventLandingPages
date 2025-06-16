@@ -1,4 +1,5 @@
 {
+   "type": "module",
    "scripts": {
       "emulators": "firebase emulators:start",
       "emulatorsData": "firebase emulators:start --import=./emulatorData",
