@@ -5,9 +5,9 @@ import { getAdminsService } from '../services/getAdminsService';
 
 export async function getAdminsController(req: Request, res: Response): Promise<any> {
    // Set CORS headers
-   res.setHeader('Access-Control-Allow-Origin', '*');
-   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, x-website-id');
+   res.set('Access-Control-Allow-Origin', '*');
+   res.set('Access-Control-Allow-Methods', 'GET, OPTIONS');
+   res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization, x-website-id');
    if (req.method === 'OPTIONS') {
       res.status(204).send();
       return;

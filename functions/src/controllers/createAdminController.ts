@@ -5,9 +5,9 @@ import { storeNewAdminService } from '../services/storeNewAdminService';
 
 export async function createAdminController(req: Request, res: Response): Promise<any> {
    // Set CORS headers for preflight and actual requests
-   res.setHeader('Access-Control-Allow-Origin', '*'); // Or restrict to specific domain(s)
-   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+   res.set('Access-Control-Allow-Origin', '*'); // Or restrict to specific domain(s)
+   res.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
+   res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
    if (req.method === 'OPTIONS') {
       res.status(204).send(); // Preflight
       return;
