@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useDbContent } from '../contexts/DBContentContext';
 import { useSiteSettings } from '../contexts/SiteSettingsContext';
+import { normalizeOrders } from '../helpers/cleanSectionOrders';
 import { SectionContent } from '../interfaces/sectionInterfaces';
 import { Login } from './Login';
 import NavWrapper from './NavWrapper';
@@ -47,12 +48,12 @@ const Admin: React.FC = () => {
       const reordered = [...newSections.slice(0, targetIndex), ...droppedItem, ...newSections.slice(targetIndex)].map(
          (item, index) => ({ ...item, sectionOrder: index })
       );
+      const normalized = normalizeOrders(reordered); // ✅ fixar dubbletter och korrekt ordning
 
-      setCurrentPageContent(reordered);
+      setCurrentPageContent(normalized);
    };
 
-   const orderedSections = [...currentPageContent].sort((a, b) => a.sectionOrder - b.sectionOrder);
-
+   const orderedSections = normalizeOrders(currentPageContent);
    if (!user) return <Login />;
    const customPageAdminEdits = customPageMetaData.find((page) => page.pageID === pageToEdit);
    return (
