@@ -1,5 +1,5 @@
 import { Cancel, CheckCircle } from '@mui/icons-material';
-import { Button, Dialog, DialogContent, DialogTitle, Tooltip, Typography } from '@mui/material';
+import { Button, Dialog, DialogContent, Tooltip, Typography } from '@mui/material';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
@@ -113,10 +113,9 @@ const AllAdminsView: React.FC = () => {
          </Button>
 
          <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="lg">
-            {(role === 'admin' || role === 'superuser') && <InviteAdmin />}
-
-            <DialogTitle>All Admins</DialogTitle>
             <DialogContent style={{ height: 500, width: '100%', overflowY: 'auto' }}>
+               {(role === 'admin' || role === 'superuser') && <InviteAdmin />}
+               <Typography variant="h4">All admins</Typography>
                {loading ? (
                   <Typography variant="body1" sx={{ mt: 2 }}>
                      Loading admins...
