@@ -12,8 +12,18 @@
       },
       "admins": {
          "$websiteId": {
-            ".read": "auth != null && root.child('admins/' + $websiteId + '/' + auth.uid).exists()",
-            ".write": "auth != null && root.child('admins/' + $websiteId + '/' + auth.uid + '/role').val() === 'admin'"
+            "$userId": {
+               ".read": "auth != null && root.child('admins/' + $websiteId + '/' + auth.uid).exists()",
+               ".write": "auth != null && (root.child('admins/' + $websiteId + '/' + auth.uid + '/role').val() === 'admin' || root.child('admins/' + $websiteId + '/' + auth.uid + '/role').val() === 'superuser')"
+            }
+         }
+      },
+      "invitedAdmins": {
+         "$websiteId": {
+            "$inviteId": {
+               ".read": "auth != null && root.child('admins/' + $websiteId + '/' + auth.uid).exists() && (root.child('admins/' + $websiteId + '/' + auth.uid + '/role').val() === 'admin' || root.child('admins/' + $websiteId + '/' + auth.uid + '/role').val() === 'content creator' || root.child('admins/' + $websiteId + '/' + auth.uid + '/role').val() === 'superuser')",
+               ".write": "auth != null && (root.child('admins/' + $websiteId + '/' + auth.uid + '/role').val() === 'admin' || root.child('admins/' + $websiteId + '/' + auth.uid + '/role').val() === 'superuser')"
+            }
          }
       },
       "websites": {

@@ -145,7 +145,7 @@ export interface DBAdminUser {
    active: boolean;
    invitedAt: string; // ISO string
    lastLogin: string; // ISO string
-   role: 'admin' | 'content creator' | 'superuser';
+   role: 'admin' | 'content creator';
 }
 
 export interface DBAdminUsers {

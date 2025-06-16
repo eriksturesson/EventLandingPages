@@ -2,7 +2,9 @@ import { Cancel, CheckCircle } from '@mui/icons-material';
 import { Button, Dialog, DialogContent, DialogTitle, Tooltip, Typography } from '@mui/material';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
+import { useAuth } from '../contexts/AuthContext';
 import { readAndWriteToFirebase } from '../utils/firebaseFunctions';
+import InviteAdmin from './InviteAdmin';
 
 type Admin = {
    id: string;
@@ -16,6 +18,8 @@ type Admin = {
 
 const AllAdminsView: React.FC = () => {
    const [open, setOpen] = useState(false);
+   const { user } = useAuth();
+   const [userRole, setUserRole] = useState<'admin' | 'content creator'>('content creator'); // Replace with actual user role logic
    const [admins, setAdmins] = useState<Admin[]>([]);
    const [loading, setLoading] = useState(false);
 
@@ -23,6 +27,14 @@ const AllAdminsView: React.FC = () => {
       setLoading(true);
       try {
          const result = await readAndWriteToFirebase({ method: 'get', ref: 'admins' });
+         // Always try to determine current user's role
+         const currentUserData = result?.[user?.uid ?? ''];
+         if (currentUserData?.role === 'admin' || currentUserData?.role === 'content creator') {
+            setUserRole(currentUserData.role);
+         } else {
+            console.warn('No role found for current user');
+            setUserRole('content creator'); // Fallback
+         }
          if (result) {
             const adminsArray: Admin[] = Object.entries(result).map(([id, adminData]) => ({
                id,
@@ -35,8 +47,9 @@ const AllAdminsView: React.FC = () => {
       } catch (error) {
          console.error('Failed to fetch admins:', error);
          setAdmins([]);
+      } finally {
+         setLoading(false);
       }
-      setLoading(false);
    };
 
    // Fetch admins when modal opens
@@ -93,6 +106,8 @@ const AllAdminsView: React.FC = () => {
          </Button>
 
          <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="lg">
+            {userRole === 'admin' && <InviteAdmin />}
+
             <DialogTitle>All Admins</DialogTitle>
             <DialogContent style={{ height: 500, width: '100%' }}>
                {loading ? (

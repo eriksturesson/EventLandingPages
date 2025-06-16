@@ -60,4 +60,5 @@ if (devSettings === 'development') {
    connectStorageEmulator(storage, 'localhost', 9199);
 }
 
-export const ourUpcommingCloudFunctionRequestUrl: string = beginingOfCloudFunctionRequestUrl + 'OurUpcommingFunctionName';
+export const createAdminURL: string = beginingOfCloudFunctionRequestUrl + 'createAdmin';
+export const inviteAdminURL: string = beginingOfCloudFunctionRequestUrl + 'inviteAdmin';

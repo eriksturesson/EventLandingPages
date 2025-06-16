@@ -1,19 +1,17 @@
 import type { Request, Response } from 'express';
+import { ParamsDictionary } from 'express-serve-static-core';
 import { initializeApp } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
 import { getDatabase } from 'firebase-admin/database';
 import { onRequest } from 'firebase-functions/v2/https';
+import { inviteAdminController } from './controllers/inviteAdminController';
+import { DBAdminUser } from './interfaces/dbInterfaces';
 const defaultApp = initializeApp();
 console.log(defaultApp.name); // '[DEFAULT]'
 
-export interface DBAdminUser {
-   [websiteID: string]: string;
-   email: string;
-   lastTimeSavedData: string;
-}
-export interface DBAdminUsers {
-   [userID: string]: DBAdminUser;
-}
+export const inviteAdmin = onRequest((req: Request, res: Response) => {
+   return inviteAdminController(req, res);
+});
 
 export const createAdmin = onRequest(async (req: Request, res: Response): Promise<any> => {
    // Check that the request is a POST and contains required data
@@ -39,9 +37,8 @@ export const createAdmin = onRequest(async (req: Request, res: Response): Promis
          return res.status(403).send('Forbidden: User not authorized to create admins.');
       }
       const adminInviter = snapshot.val() as DBAdminUser;
-      if (adminInviter[req.body.websiteID] !== 'true') {
-         return res.status(403).send('Forbidden: User not authorized to create admins for this website.');
-      }
+
+      //Check they were really invited and by when (max 24h)
 
       // Create the user
       const userRecord = await getAuth(defaultApp).createUser({
@@ -75,3 +72,6 @@ export const createAdmin = onRequest(async (req: Request, res: Response): Promis
       return;
    }
 });
+function inviteAdminFunction(req: Request<ParamsDictionary>, res: Response<any>) {
+   throw new Error('Function not implemented.');
+}
