@@ -10,6 +10,7 @@ export default defineConfig({
       outDir: 'dist',
       emptyOutDir: true,
       rollupOptions: {
+         maxParallelFileOps: 10,
          input: {
             main: 'index.html',
          },
