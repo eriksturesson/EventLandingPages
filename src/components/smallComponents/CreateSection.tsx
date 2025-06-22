@@ -34,7 +34,7 @@ export function CreateSection({ sectionOrder, pageID }: { sectionOrder: number; 
    const [open, setOpen] = useState(false);
    const handleOpen = () => setOpen(true);
    const handleClose = () => setOpen(false);
-
+   const smallScreen = window.innerWidth < 600;
    const allSections: JSX.Element[] = sectionTypes.map((sectionType: SectionTypes, i) => {
       return (
          <Grid sx={{ textAlign: 'center', pt: 2, pb: 2 }} item xs={12} sm={12} md={6} key={i}>
@@ -57,7 +57,7 @@ export function CreateSection({ sectionOrder, pageID }: { sectionOrder: number; 
          <Divider sx={{ mb: '2rem', mt: '2rem' }}>
             <Box sx={{ pt: 2, pb: 2 }}>
                <Button endIcon={<AddCircleIcon />} variant="contained" size="large" onClick={handleOpen}>
-                  Create new Section
+                  {smallScreen ? 'New Section' : 'Create new Section'}
                </Button>
             </Box>
          </Divider>
