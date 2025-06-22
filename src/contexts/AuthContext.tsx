@@ -1,4 +1,4 @@
-import { onAuthStateChanged, User } from 'firebase/auth';
+import { onAuthStateChanged, signOut, User } from 'firebase/auth';
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import { auth } from '../utils/firebase';
 import { readAndWriteToFirebase } from '../utils/firebaseFunctions';
@@ -9,6 +9,7 @@ interface AuthContextType {
    loggedIn: boolean | null;
    user: User | null;
    role: UserRole;
+   signOutUser: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -24,7 +25,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
    const { websiteID } = useDbContent();
    const [user, setUser] = useState<User | null>(null);
    const [role, setRole] = useState<UserRole>(null);
-
+   const signOutUser = () => {
+      signOut(auth);
+   };
    useEffect(() => {
       console.log('websiteID in useEffect:', websiteID);
       if (!websiteID) return;
@@ -59,5 +62,5 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       return () => unsubscribe();
    }, [websiteID]);
 
-   return <AuthContext.Provider value={{ loggedIn, user, role }}>{children}</AuthContext.Provider>;
+   return <AuthContext.Provider value={{ loggedIn, user, role, signOutUser }}>{children}</AuthContext.Provider>;
 };

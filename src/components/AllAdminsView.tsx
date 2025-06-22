@@ -67,8 +67,6 @@ const AllAdminsView: React.FC = () => {
    }, [open]);
 
    const columns: GridColDef[] = [
-      { field: 'email', headerName: 'Email', flex: 1, minWidth: 180 },
-      { field: 'invitedBy', headerName: 'Invited By', flex: 1, minWidth: 180 },
       {
          field: 'active',
          headerName: 'Active',
@@ -85,6 +83,9 @@ const AllAdminsView: React.FC = () => {
                </Tooltip>
             ),
       },
+      { field: 'email', headerName: 'Email', flex: 1, minWidth: 180 },
+      { field: 'invitedByEmail', headerName: 'Invited By', flex: 1, minWidth: 180 },
+
       {
          field: 'invitedAt',
          headerName: 'Invited At',

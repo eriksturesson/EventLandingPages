@@ -4,7 +4,8 @@
          "EMZ6iT9NqfJvf8iYpWZ7vw0vIo8B": {
             "id": "EMZ6iT9NqfJvf8iYpWZ7vw0vIo8B",
             "email": "test.testersson@gmail.com",
-            "invitedBy": "myRandomUserIDOfAdminThatInvitedMe",
+            "invitedByUserID": "myRandomUserIDOfAdminThatInvitedMe",
+            "invitedByEmail": "developer",
             "active": true,
             "invitedAt": "2023-10-01T12:00:00Z",
             "role": "superuser"

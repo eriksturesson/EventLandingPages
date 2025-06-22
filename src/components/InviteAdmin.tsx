@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth, UserRole } from '../contexts/AuthContext';
 import { useDbContent } from '../contexts/DBContentContext';
 import { inviteAdminURL } from '../utils/firebase';
+import { LoadingSpinner } from './Loading';
 
 const InviteAdmin: React.FC = () => {
    const [email, setEmail] = useState('');
@@ -69,7 +70,7 @@ const InviteAdmin: React.FC = () => {
          if (!inviteID) {
             throw new Error('Invite ID not returned from server');
          }
-         const inviteUrl = `${window.location.host}/create-admin?id=${inviteID}`;
+         const inviteUrl = `${window.location.host}/create-admin?id=${res.data.inviteID}&email=${res.data.email}`;
 
          setEmail('');
          setInviteeRole('content creator');
@@ -85,7 +86,7 @@ const InviteAdmin: React.FC = () => {
    const allowedInviteeRoles = inviterRole === 'superuser' || inviterRole === 'admin' ? ['admin', 'content creator'] : [];
 
    if (!inviterRole) {
-      return <Typography>Loading user role...</Typography>;
+      return <LoadingSpinner />;
    }
    if (allowedInviteeRoles.length === 0) {
       return <Typography color="error">You do not have permission to invite admins.</Typography>;
@@ -94,7 +95,9 @@ const InviteAdmin: React.FC = () => {
    return (
       <Box sx={{ mt: 3, mb: 3, display: 'flex', flexDirection: 'column', gap: 2, mx: 'auto', maxWidth: 400 }}>
          <Typography variant="h4">Invite New Admin</Typography>
-         <Typography variant="body1">You are authorized to invited other admins since you are {role}</Typography>
+         <Typography variant="body1">
+            You are authorized to invited other admins since you are <b>{role}</b>
+         </Typography>
 
          <TextField
             label="Email"
@@ -127,7 +130,7 @@ const InviteAdmin: React.FC = () => {
          {error && <Typography color="error">{error}</Typography>}
          {inviteURL && (
             <>
-               <Typography variant="subtitle1">Invitation sent! Share this link with the new admin:</Typography>
+               <Typography variant="subtitle1">Share this link with the new admin:</Typography>
                <Typography color="success.main">{inviteURL}</Typography>
             </>
          )}
