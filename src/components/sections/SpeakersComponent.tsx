@@ -118,6 +118,7 @@ export function OneSpeaker({
    const [fullName, setFullName] = useState(speaker.fullName || '');
    const [description, setDescription] = useState(speaker.description || '');
    const [pitch, setPitch] = useState(speaker.pitch || '');
+   const smallScreen = window.innerWidth < 600;
 
    return adminEditor ? (
       <Paper elevation={5} sx={{ p: 2, borderRadius: 2, bgcolor: '#f9f9f9', mb: 3 }}>
@@ -158,9 +159,10 @@ export function OneSpeaker({
             />
             <Box
                sx={{
-                  maxWidth: '300',
                   width: '100%',
-                  height: '300',
+                  marginTop: '1rem',
+                  marginBottom: '1rem',
+                  maxHeight: smallScreen ? '200px' : '400px',
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
