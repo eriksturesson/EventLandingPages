@@ -24,7 +24,7 @@ export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
    const { websiteID } = useDbContent();
    const [title, setTitle] = useState(pitchCard.title || '');
    const [description, setDescription] = useState(pitchCard.description || '');
-
+   const smallScreen = window.innerWidth < 600;
    const handleTitleChange = (event: any) => {
       let text: string = event.target.value;
       setTitle(text);
@@ -82,6 +82,7 @@ export function OnePitchCard(props: OnePitchCardProps): JSX.Element {
                   objectFit: 'cover',
                   objectPosition: 'top',
                   height: image ? '500px' : undefined,
+                  maxHeight: smallScreen ? '300px' : '400px',
                }}
             >
                <EditorOfImage
