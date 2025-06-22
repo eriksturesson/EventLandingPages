@@ -3,6 +3,7 @@ import {
    Box,
    Button,
    FormControl,
+   Grid,
    InputLabel,
    MenuItem,
    Select,
@@ -146,99 +147,61 @@ export function CallToActionButtonComponent(props: SectionProps): JSX.Element {
                   </Select>
                </FormControl>
             </Box>
-            <Box
-               sx={{
-                  display: 'inline-flex',
-                  flexDirection: 'row',
-                  padding: '1rem',
-               }}
+            <Grid
                component="form"
+               container
+               spacing={2}
+               padding="1rem"
                textAlign="center"
                noValidate
                autoComplete="off"
-               //onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleButtonChange(e, websiteID)}
                onSubmit={() => saveButtonDataToDB(homepageButtonContent, websiteID, sectionID, pageID)}
             >
-               <TextField
-                  name="formLink"
-                  id="formLinkField"
-                  label="Link to form"
-                  sx={{ padding: '1rem' }}
-                  variant="filled"
-                  InputLabelProps={{ shrink: true }}
-                  value={homepageButtonContent.formLink}
-                  //onChange={(e) => setFormLink(e.target.value)}
-                  onChange={handleChange}
-                  /*
-                onChange={(e) => setHomepageButtonContent({
-                    ...homepageButtonContent,
-                    formLink: e.target.value
-                })
-                }
-                */
-               />
-               <TextField
-                  name="buttonText"
-                  id="buttonTextField"
-                  label="Button text"
-                  sx={{ padding: '1rem' }}
-                  variant="filled"
-                  InputLabelProps={{ shrink: true }}
-                  value={homepageButtonContent.buttonText}
-                  //onChange={(e) => setButtonText(e.target.value)}
-                  onChange={handleChange}
-                  /*
-                onChange={(e) => setHomepageButtonContent({
-                    ...homepageButtonContent,
-                    buttonText: e.target.value
-                })
-                }
-                */
-               />
-
-               <TextField
-                  name="buttonInfo"
-                  id="buttonInfoField"
-                  sx={{ padding: '1rem' }}
-                  label="Button info"
-                  variant="filled"
-                  InputLabelProps={{ shrink: true }}
-                  value={homepageButtonContent.buttonInfo}
-                  //onChange={(e) => setButtonInfo(e.target.value)}
-                  onChange={handleChange}
-                  /*
-                onChange={(e) => setHomepageButtonContent({
-                    ...homepageButtonContent,
-                    buttonInfo: e.target.value
-                })
-                }
-                */
-               />
-               <Button type="submit" variant="contained" endIcon={<SaveIcon />}>
-                  Save
-               </Button>
-            </Box>
+               <Grid item xs={12} sm={6}>
+                  <TextField
+                     name="formLink"
+                     id="formLinkField"
+                     label="Link to form"
+                     variant="filled"
+                     InputLabelProps={{ shrink: true }}
+                     fullWidth
+                     value={homepageButtonContent.formLink}
+                     onChange={handleChange}
+                  />
+               </Grid>
+               <Grid item xs={12} sm={6}>
+                  <TextField
+                     name="buttonText"
+                     id="buttonTextField"
+                     label="Button text"
+                     variant="filled"
+                     InputLabelProps={{ shrink: true }}
+                     fullWidth
+                     value={homepageButtonContent.buttonText}
+                     onChange={handleChange}
+                  />
+               </Grid>
+               <Grid item xs={12}>
+                  <TextField
+                     name="buttonInfo"
+                     id="buttonInfoField"
+                     label="Button info"
+                     variant="filled"
+                     InputLabelProps={{ shrink: true }}
+                     fullWidth
+                     value={homepageButtonContent.buttonInfo}
+                     onChange={handleChange}
+                  />
+               </Grid>
+               <Grid item xs={12} display="flex" alignItems="center" justifyContent="center">
+                  <Button type="submit" variant="contained" endIcon={<SaveIcon />}>
+                     Save
+                  </Button>
+               </Grid>
+            </Grid>
          </>
       );
    } else {
       return <RegisterButtonComponent buttonContent={homepageButtonContent} />;
    }
-}
-
-function REACT_EXAMPLEControlledComponent() {
-   const [inputValue, setInputValue] = useState('');
-
-   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setInputValue(event.target.value);
-   };
-
-   return (
-      <form>
-         <label>
-            Input Value:
-            <input type="text" value={inputValue} onChange={handleChange} />
-         </label>
-         <p>Input Value: {inputValue}</p>
-      </form>
-   );
 }
