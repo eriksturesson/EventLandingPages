@@ -6,8 +6,8 @@
          "emailVerified": true,
          "displayName": "Test User",
          "photoUrl": "",
-         "passwordHash": "fakeHash:salt=123456789$hash=anything",
-         "salt": "123456789"
+         "passwordHash": "fakeHash:salt=testsalt$hash=123456789",
+         "salt": "testsalt"
       }
    ]
 }
