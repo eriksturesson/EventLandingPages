@@ -210,7 +210,7 @@ export function ImageButtonFileUpload(props: ParticipantCardFileUploadProps): JS
    const { websiteID } = useDbContent();
    const { order, sectionName, sectionID, id, pageID } = props;
    return (
-      <Button variant="contained" component="label" sx={{ whiteSpace: 'nowrap', minWidth: 'max-content' }}>
+      <Button variant="contained" component="label">
          Upload new image or video
          <input
             hidden
