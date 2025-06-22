@@ -114,8 +114,8 @@ const NavWrapper = ({
                      borderRadius: 3,
                      pt: 0,
                      pb: 0,
-                     marginLeft: smallScreen ? '3rem' : 0,
-                     paddingLeft: smallScreen ? 0 : '250px',
+                     marginLeft: smallScreen && isAdmin ? '3rem' : 0,
+                     paddingLeft: !smallScreen && isAdmin ? '250px' : 0,
                   }}
                >
                   <img src={siteSettings?.logoUrl ?? ''} alt="logo" style={{ width: 'auto', height: '40px' }} />
