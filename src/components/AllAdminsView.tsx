@@ -1,5 +1,5 @@
 import { Cancel, CheckCircle } from '@mui/icons-material';
-import { Button, Dialog, DialogContent, Tooltip, Typography } from '@mui/material';
+import { Button, Dialog, DialogContent, IconButton, Tooltip, Typography } from '@mui/material';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
@@ -7,16 +7,8 @@ import { useDbContent } from '../contexts/DBContentContext';
 import { DBAdminUserWithAuthMeta } from '../interfaces/dbInterfaces';
 import { getAdminsURL } from '../utils/firebase';
 import InviteAdmin from './InviteAdmin';
-
-type Admin = {
-   id: string;
-   email: string;
-   invitedBy: string;
-   active: boolean;
-   invitedAt: string; // ISO string
-   lastLogin: string; // ISO string
-   role: 'admin' | 'content creator';
-};
+import DeleteIcon from '@mui/icons-material/Delete';
+import { removeAdmin } from '../helpers/removeAdmin';
 
 const AllAdminsView: React.FC = () => {
    const [open, setOpen] = useState(false);
@@ -82,6 +74,30 @@ const AllAdminsView: React.FC = () => {
                   <Cancel color="error" />
                </Tooltip>
             ),
+      },
+      {
+         field: 'remove',
+         headerName: 'Remove',
+         width: 80,
+         sortable: false,
+         renderCell: (params: GridRenderCellParams) => {
+            const { websiteID } = useDbContent(); // Get it here or pass it as a prop
+            const id = params.row.id;
+
+            return (
+               <Tooltip title="Remove Admin">
+                  <IconButton
+                     size="small"
+                     onClick={(e) => {
+                        e.stopPropagation(); // <-- prevents row selection
+                        if (websiteID && id) removeAdmin(websiteID, id).then(() => fetchAdmins());
+                     }}
+                  >
+                     <DeleteIcon color="error" />
+                  </IconButton>
+               </Tooltip>
+            );
+         },
       },
       { field: 'email', headerName: 'Email', flex: 1, minWidth: 180 },
       { field: 'invitedByEmail', headerName: 'Invited By', flex: 1, minWidth: 180 },
