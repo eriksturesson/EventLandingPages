@@ -1,5 +1,6 @@
 import { Box, Divider, Grid, Paper, Typography } from '@mui/material';
 import { motion } from 'motion/react';
+// import { motion } from 'framer-motion';
 import React from 'react';
 import { calculateNextOrder } from '../helpers/calculateNextOrder';
 import { SectionContent, SectionProps } from '../interfaces/sectionInterfaces';
