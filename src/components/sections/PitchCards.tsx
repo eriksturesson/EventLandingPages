@@ -152,7 +152,7 @@ export function PitchCardsComponent(props: SectionProps): JSX.Element {
       id: uuidv4(),
    };
    return (
-      <Grid container sx={{ p: 2 }} spacing={2}>
+      <Grid container sx={{ p: 2, pb: 4 }} spacing={2}>
          {pitchCardsDB &&
             Object.values(pitchCardsDB)
                .sort((a, b) => a.order - b.order)
