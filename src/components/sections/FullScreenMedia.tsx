@@ -1,4 +1,4 @@
-import { Box, Button, Slider, Stack, Typography } from '@mui/material';
+import { Box, Button, Grid, Slider, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
 import arrowDown from '../../assets/baseline_keyboard_arrow_down_white_18dp.png';
 import { useDbContent } from '../../contexts/DBContentContext';
@@ -146,24 +146,17 @@ export function FullScreenMedia({ adminEditor, data, pageID }: SectionProps): JS
          </Stack>
 
          {adminEditor && (
-            <Stack
-               spacing={4}
-               direction="row"
-               justifyContent="center"
-               sx={{
-                  width: '100%',
-                  height: '4em',
-                  backgroundColor: 'lightblue',
-                  padding: '1em',
-                  borderBottom: '2px solid blue',
-                  boxSizing: 'border-box',
-               }}
-            >
-               <Button variant="contained" onClick={() => setEditing(true)}>
-                  Edit text
-               </Button>
-               <Stack spacing={2} direction="row">
+            <Grid container spacing={2} alignItems="center" justifyContent="center" sx={{ mt: 2, mb: 2 }}>
+               <Grid item xs={12} sm="auto" display="flex" justifyContent="center">
+                  <Button variant="contained" onClick={() => setEditing(true)}>
+                     Edit text
+                  </Button>
+               </Grid>
+
+               <Grid item xs={12} sm="auto" display="flex" justifyContent="center">
                   <ImageButtonFileUpload order={1} sectionID={sectionID} sectionName="fullScreenMedia" pageID={pageID} />
+               </Grid>
+               <Grid item xs={12} sm="auto" display="flex" justifyContent="center">
                   <Slider
                      aria-label="Media size"
                      value={overlayOpacity}
@@ -172,11 +165,13 @@ export function FullScreenMedia({ adminEditor, data, pageID }: SectionProps): JS
                      min={0}
                      onChange={(event, value) => setOverlayOpacity(value as number)}
                   />
+               </Grid>
+               <Grid item xs={12} sm="auto" display="flex" justifyContent="center">
                   <Button variant="contained" onClick={saveOverlayOpacity}>
                      Save slidersize
                   </Button>
-               </Stack>
-            </Stack>
+               </Grid>
+            </Grid>
          )}
       </Stack>
    );

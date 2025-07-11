@@ -24,9 +24,13 @@ export async function inviteAdminController(req: Request, res: Response): Promis
       const idToken = authHeader.split('Bearer ')[1];
       const decodedToken = await auth.verifyIdToken(idToken);
       const uidFromToken = decodedToken.uid;
-
+      const emailFromToken = decodedToken.email;
+      if (!uidFromToken || !emailFromToken) {
+         throw BackendError.Unauthorized('Invalid token: missing user ID or email.');
+      }
       const { email, role, websiteID } = req.body;
       const inviterRoleSnap = await db.ref(`admins/${websiteID}/${uidFromToken}/role`).get();
+
       if (!inviterRoleSnap.exists()) {
          throw BackendError.Forbidden('User has no role on this website.');
       }
@@ -46,9 +50,15 @@ export async function inviteAdminController(req: Request, res: Response): Promis
          throw BackendError.BadRequest('websiteID is required and must be a non-empty string.');
       }
 
-      let inviteID = await inviteAdminService({ email, role, websiteID, invitedBy: uidFromToken });
+      let inviteID = await inviteAdminService({
+         email,
+         role,
+         websiteID,
+         invitedByUserID: uidFromToken,
+         invitedByEmail: emailFromToken,
+      });
 
-      return res.status(200).json({ inviteID, email, message: 'Admin invite created successfully.' });
+      return res.status(200).json({ data: { inviteID, email, message: 'Admin invite created successfully.' } });
    } catch (error) {
       const err = httpErrorFormatter(error);
       return res.status(err.status).json(err.body);

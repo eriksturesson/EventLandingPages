@@ -9,11 +9,12 @@ import { Login } from './Login';
 import NavWrapper from './NavWrapper';
 import PageMeta from './PageMeta';
 import { SectionLoader } from './SectionLoader';
+
 import SectionNavigator from './SectionNavigator';
 
 const Admin: React.FC = () => {
    const theme = useTheme();
-   const { user } = useAuth();
+   const { user, role, signOutUser } = useAuth();
    const { homepageContent, setHomepageContent, customPages, setCustomPages, customPageMetaData, websiteID } =
       useDbContent();
 
@@ -54,6 +55,9 @@ const Admin: React.FC = () => {
    };
 
    const orderedSections = normalizeOrders(currentPageContent);
+   if (user && !role) {
+      signOutUser;
+   }
    if (!user) return <Login />;
    const customPageAdminEdits = customPageMetaData.find((page) => page.pageID === pageToEdit);
    return (

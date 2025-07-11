@@ -141,7 +141,10 @@ export type InitContent = {
 export interface DBAdminUser {
    id: string;
    email: string;
-   invitedBy: string;
+   invitedAt: string;
+   inviteID: string;
+   invitedByUserID: string;
+   invitedByEmail: string;
    active: boolean;
    role: 'admin' | 'content creator' | 'superuser';
 }

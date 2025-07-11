@@ -93,13 +93,12 @@ const NavWrapper = ({
          console.error('Error saving item:', error);
       }
    };
-
+   const smallScreen = window.innerWidth < 600;
    return (
       <Box
          sx={{
             backgroundColor: 'transparent',
             backdropFilter: 'blur(8px)',
-
             paddingBottom: 0,
             flexGrow: 1,
             boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
@@ -108,7 +107,17 @@ const NavWrapper = ({
       >
          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 2, height: '60px' }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-               <Box sx={{ backgroundColor: 'white', py: 0.5, borderRadius: 3, pt: 0, pb: 0 }}>
+               <Box
+                  sx={{
+                     backgroundColor: 'white',
+                     py: 0.5,
+                     borderRadius: 3,
+                     pt: 0,
+                     pb: 0,
+                     marginLeft: smallScreen && isAdmin ? '3rem' : 0,
+                     paddingLeft: !smallScreen && isAdmin ? '250px' : 0,
+                  }}
+               >
                   <img src={siteSettings?.logoUrl ?? ''} alt="logo" style={{ width: 'auto', height: '40px' }} />
                </Box>
             </Box>
@@ -187,6 +196,7 @@ const NavWrapper = ({
                sx={{
                   display: { xs: 'flex', md: 'none' },
                   color: 'black',
+
                   border: '1px solid black',
                   borderRadius: '12px',
                   p: 1,

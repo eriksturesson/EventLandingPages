@@ -1,5 +1,5 @@
 import { Alert, Box, Button, TextField, Typography } from '@mui/material';
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDbContent } from '../contexts/DBContentContext';
@@ -24,9 +24,28 @@ const CreateAdmin = () => {
          return;
       }
       try {
-         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-         setMessage({ type: 'success', text: `Admin created with UID: ${userCredential.user.uid}` });
-         const idToken = await userCredential.user.getIdToken();
+         let idToken: string;
+         let userCredential: any;
+         try {
+            // 1. Try creating the user
+            userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            setMessage({ type: 'success', text: `Admin created with UID: ${userCredential.user.uid}` });
+            idToken = await userCredential.user.getIdToken();
+         } catch (error: any) {
+            // 2. If user already exists, sign in instead
+            if (error.code === 'auth/email-already-in-use') {
+               userCredential = await signInWithEmailAndPassword(auth, email, password);
+               setMessage({
+                  type: 'success',
+                  text: `Email already existed, signed in instead. UID: ${userCredential.user.uid}`,
+               });
+               idToken = await userCredential.user.getIdToken();
+            } else {
+               // 3. If it's some other error, throw it
+               throw error;
+            }
+         }
+
          const response = await fetch(createAdminURL, {
             method: 'POST',
             headers: {
@@ -41,6 +60,7 @@ const CreateAdmin = () => {
          }
          setMessage({ type: 'success', text: 'created user' });
       } catch (error: any) {
+         console.error('Error creating admin:', error);
          setMessage({ type: 'error', text: `Error creating user: ${error.message}` });
       }
    };

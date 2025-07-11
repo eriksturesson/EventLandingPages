@@ -1,7 +1,7 @@
 import { BackendError, httpErrorFormatter, type BackendErrorOptions } from 'backend-error';
 import type { Request, Response } from 'express';
 import { auth, db } from '../firebaseSettings';
-import { getAdminsService } from '../services/getAdminsService';
+import { getAdminsAndInvitesService, getAdminsService } from '../services/getAdminsService';
 
 export async function getAdminsController(req: Request, res: Response): Promise<any> {
    // Set CORS headers
@@ -46,9 +46,9 @@ export async function getAdminsController(req: Request, res: Response): Promise<
       if (userRole !== 'admin' && userRole !== 'superuser' && userRole !== 'content creator') {
          throw BackendError.Forbidden('User does not have permission to view admins.');
       }
-
-      const admins = await getAdminsService(websiteID);
-      return res.status(200).json(admins);
+      const { admins, invites } = await getAdminsAndInvitesService(websiteID);
+      //const admins = await getAdminsService(websiteID);
+      return res.status(200).json({ admins, invites });
    } catch (error) {
       console.error('Error in getAdminsController:', error);
       const err: BackendErrorOptions = httpErrorFormatter(error);

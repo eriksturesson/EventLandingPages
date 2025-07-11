@@ -50,12 +50,13 @@ export function FooterComponent(props: SectionProps): JSX.Element {
       return (
          <>
             <Grid container>
-               <Grid item xs={12} md={6} padding={2}>
+               <Grid item xs={12} md={6}>
                   <EditText
                      onChange={(event: any) => setAdressTitle(event.target.value)}
                      value={adressTitle}
                      type="header"
                      labelName="Adress Title"
+                     style={{ marginTop: '1rem' }}
                   />
 
                   <EditText
@@ -63,6 +64,7 @@ export function FooterComponent(props: SectionProps): JSX.Element {
                      value={contactAddress1}
                      type="description"
                      labelName="Contact Address 1"
+                     style={{ marginTop: '1rem' }}
                   />
 
                   <EditText
@@ -70,6 +72,7 @@ export function FooterComponent(props: SectionProps): JSX.Element {
                      value={contactAddress2}
                      type="description"
                      labelName="Contact Address 2"
+                     style={{ marginTop: '1rem' }}
                   />
 
                   <EditText
@@ -77,6 +80,7 @@ export function FooterComponent(props: SectionProps): JSX.Element {
                      value={contactTitle}
                      type="header"
                      labelName="Contact Title"
+                     style={{ marginTop: '1rem' }}
                   />
 
                   <EditText
@@ -84,6 +88,7 @@ export function FooterComponent(props: SectionProps): JSX.Element {
                      value={contactName}
                      type="description"
                      labelName="Contact Name"
+                     style={{ marginTop: '1rem' }}
                   />
 
                   <EditText
@@ -91,6 +96,7 @@ export function FooterComponent(props: SectionProps): JSX.Element {
                      value={contactPhone}
                      type="description"
                      labelName="Contact Phone"
+                     style={{ marginTop: '1rem' }}
                   />
 
                   <EditText
@@ -98,6 +104,7 @@ export function FooterComponent(props: SectionProps): JSX.Element {
                      value={contactEmail}
                      type="description"
                      labelName="Contact Email"
+                     style={{ marginTop: '1rem' }}
                   />
 
                   <EditText
@@ -105,6 +112,7 @@ export function FooterComponent(props: SectionProps): JSX.Element {
                      value={integrityPolicy}
                      type="description"
                      labelName="Link to Integrity Policy"
+                     style={{ marginTop: '1rem' }}
                   />
 
                   <EditText
@@ -112,6 +120,7 @@ export function FooterComponent(props: SectionProps): JSX.Element {
                      value={integrityPolicyDescription}
                      type="description"
                      labelName="Integrity Policy Description"
+                     style={{ marginTop: '1rem' }}
                   />
 
                   <Grid item xs={12}>

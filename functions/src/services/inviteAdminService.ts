@@ -7,11 +7,12 @@ interface InviteAdminProps {
    email: string;
    role: 'admin' | 'content creator';
    websiteID: string;
-   invitedBy: string;
+   invitedByUserID: string;
+   invitedByEmail: string;
 }
 
 export async function inviteAdminService(args: InviteAdminProps): Promise<string> {
-   const { email, role, websiteID, invitedBy } = args;
+   const { email, role, websiteID, invitedByEmail, invitedByUserID } = args;
    const invitedAdminsRef = db.ref(`invitedAdmins/${websiteID}`);
 
    // Läs alla inbjudningar för detta websiteID
@@ -49,7 +50,8 @@ export async function inviteAdminService(args: InviteAdminProps): Promise<string
       email,
       role,
       websiteID,
-      invitedBy,
+      invitedByUserID,
+      invitedByEmail,
       invitedAt: new Date().toISOString(),
       accepted: false, // to track if invite accepted
       inviteID, // store the token/ID

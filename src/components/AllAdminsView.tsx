@@ -1,142 +1,73 @@
-import { Cancel, CheckCircle } from '@mui/icons-material';
-import { Button, Dialog, DialogContent, Tooltip, Typography } from '@mui/material';
-import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
+import { Button, Dialog, DialogContent, Typography } from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
 import { useDbContent } from '../contexts/DBContentContext';
-import { DBAdminUserWithAuthMeta } from '../interfaces/dbInterfaces';
 import { getAdminsURL } from '../utils/firebase';
+import { DBAdminUserWithAuthMeta, InvitedAdmin } from '../interfaces/dbInterfaces';
+import AdminsTable from './AdminsTable';
 import InviteAdmin from './InviteAdmin';
-
-type Admin = {
-   id: string;
-   email: string;
-   invitedBy: string;
-   active: boolean;
-   invitedAt: string; // ISO string
-   lastLogin: string; // ISO string
-   role: 'admin' | 'content creator';
-};
+import InvitesTable from './InvitesTable';
 
 const AllAdminsView: React.FC = () => {
    const [open, setOpen] = useState(false);
-   const { user, role } = useAuth();
-   const { websiteID } = useDbContent(); // Assuming websiteID is available in Auth context
    const [admins, setAdmins] = useState<DBAdminUserWithAuthMeta[]>([]);
-   const [loading, setLoading] = useState(false);
+   const [invites, setInvites] = useState<InvitedAdmin[]>([]);
+   const [loadingAdmins, setLoadingAdmins] = useState(false);
+   const [loadingInvites, setLoadingInvites] = useState(false);
+
+   const { user, role } = useAuth();
+   const { websiteID } = useDbContent();
+
    const fetchAdmins = async () => {
-      setLoading(true);
+      setLoadingAdmins(true);
       try {
-         const idToken = user ? await user.getIdToken() : null;
-         if (!idToken) {
-            console.error('User is not authenticated');
-            setLoading(false);
-            return;
-         }
-         const response = await fetch(getAdminsURL, {
-            method: 'GET',
+         const idToken = await user?.getIdToken();
+         if (!idToken) return;
+
+         const res = await fetch(getAdminsURL, {
             headers: {
-               'Content-Type': 'application/json',
                Authorization: `Bearer ${idToken}`,
                'x-website-id': websiteID,
             },
          });
 
-         if (!response.ok) {
-            throw new Error(`Failed to fetch admins: ${response.statusText}`);
-         }
-
-         const fetchedAdmins: DBAdminUserWithAuthMeta[] = await response.json();
-
-         // Sätt admins till state
-         setAdmins(fetchedAdmins);
-         // Hitta nuvarande användare i listan
-      } catch (error) {
-         console.error('Failed to fetch admins:', error);
+         if (!res.ok) throw new Error('Failed to fetch admins');
+         const data = await res.json();
+         setAdmins(data.admins || []);
+         setInvites(data.invites || []);
+      } catch (e) {
+         console.error(e);
          setAdmins([]);
+         setInvites([]);
       } finally {
-         setLoading(false);
+         setLoadingAdmins(false);
       }
    };
 
-   // Fetch admins when modal opens
    useEffect(() => {
-      if (open) {
-         fetchAdmins();
-      }
+      if (open) fetchAdmins();
    }, [open]);
-
-   const columns: GridColDef[] = [
-      { field: 'email', headerName: 'Email', flex: 1, minWidth: 180 },
-      { field: 'invitedBy', headerName: 'Invited By', flex: 1, minWidth: 180 },
-      {
-         field: 'active',
-         headerName: 'Active',
-         width: 100,
-         sortable: true,
-         renderCell: (params: GridRenderCellParams) =>
-            params.value ? (
-               <Tooltip title="Active">
-                  <CheckCircle color="success" />
-               </Tooltip>
-            ) : (
-               <Tooltip title="Inactive">
-                  <Cancel color="error" />
-               </Tooltip>
-            ),
-      },
-      {
-         field: 'invitedAt',
-         headerName: 'Invited At',
-         flex: 1,
-         minWidth: 150,
-         // Sorting works naturally on ISO date strings
-      },
-      {
-         field: 'lastLogin',
-         headerName: 'Last Login',
-         flex: 1,
-         minWidth: 150,
-      },
-      {
-         field: 'role',
-         headerName: 'Role',
-         width: 150,
-         sortable: true,
-      },
-   ];
 
    return (
       <>
          <Button variant="outlined" onClick={() => setOpen(true)}>
             Show All Admins
          </Button>
-
          <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="lg">
-            <DialogContent style={{ height: 500, width: '100%', overflowY: 'auto' }}>
+            <DialogContent>
                {(role === 'admin' || role === 'superuser') && <InviteAdmin />}
-               <Typography variant="h4">All admins</Typography>
-               {loading ? (
-                  <Typography variant="body1" sx={{ mt: 2 }}>
-                     Loading admins...
-                  </Typography>
-               ) : admins.length === 0 ? (
-                  <Typography variant="body1" sx={{ mt: 2 }}>
-                     No admins found.
-                  </Typography>
-               ) : (
-                  <DataGrid
-                     rows={admins}
-                     columns={columns}
-                     pageSizeOptions={[5, 10, 25]}
-                     paginationModel={{ pageSize: 10, page: 0 }}
-                     sortingOrder={['asc', 'desc']}
-                  />
-               )}
+               <Typography variant="h5" sx={{ mt: 2 }}>
+                  Admins
+               </Typography>
+               <AdminsTable admins={admins} loading={loadingAdmins} refetch={fetchAdmins} />
+
+               <Typography variant="h5" sx={{ mt: 4 }}>
+                  Pending Invites
+               </Typography>
+               <InvitesTable invites={invites} loading={loadingAdmins} onRefresh={fetchAdmins} />
             </DialogContent>
          </Dialog>
       </>
    );
 };
-
 export default AllAdminsView;
