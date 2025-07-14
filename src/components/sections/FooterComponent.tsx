@@ -147,24 +147,21 @@ export function FooterComponent(props: SectionProps): JSX.Element {
                <Grid
                   item
                   xs={12}
+                  md={6}
                   sx={{
                      alignContent: 'center',
                      display: 'flex',
                      justifyContent: 'center',
                      alignItems: 'center',
                      position: 'relative',
-                     // item
-                     // xs={12}
-                     // md={6}
-                     // sx={{
-                     //    alignContent: 'center',
-                     //    display: 'flex',
-                     //    justifyContent: 'center',
-                     //    alignItems: 'center',
-                     //    position: 'relative',
                   }}
                >
-                  <img id="kartbild" alt="karta" src={content?.mapImage ? content.mapImage : mapImageExample} />
+                  <img
+                     id="kartbild"
+                     alt="karta"
+                     src={content?.mapImage ? content.mapImage : mapImageExample}
+                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
                   <Box
                      sx={{
                         alignContent: 'center',
