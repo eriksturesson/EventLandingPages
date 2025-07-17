@@ -45,7 +45,16 @@ export function OneOrganizer({
          />
       </>
    ) : (
-      <CardMedia component="img" image={organizer?.image} alt="Organizer logo" />
+      <Box
+         component="img"
+         src={organizer?.image}
+         alt="Organizer logo"
+         sx={{
+            width: '100%',
+            height: 'auto',
+            objectFit: 'contain',
+         }}
+      />
    );
 }
 
