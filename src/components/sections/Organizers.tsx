@@ -29,10 +29,9 @@ export function OneOrganizer({
    return adminEditor ? (
       <>
          <Box>
-            <SvgIcon
+            <DeleteIcon
                onClick={() => onRemove(id, organizer.image as string)}
                sx={{ color: 'red', cursor: 'pointer' }}
-               component={DeleteIcon}
                fontSize="large"
             />
          </Box>
