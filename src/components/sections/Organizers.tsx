@@ -28,13 +28,15 @@ export function OneOrganizer({
 }): JSX.Element {
    return adminEditor ? (
       <>
-         <Box>
-            <DeleteIcon
-               onClick={() => onRemove(id, organizer.image as string)}
-               sx={{ color: 'red', cursor: 'pointer' }}
-               fontSize="large"
-            />
-         </Box>
+         {organizer.image && (
+            <Box>
+               <DeleteIcon
+                  onClick={() => onRemove(id, organizer.image as string)}
+                  sx={{ color: 'red', cursor: 'pointer' }}
+                  fontSize="large"
+               />
+            </Box>
+         )}
          <EditorOfImage
             sectionID={sectionID}
             order={organizer.order}
