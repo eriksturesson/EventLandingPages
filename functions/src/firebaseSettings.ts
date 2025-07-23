@@ -1,6 +1,7 @@
 import { App, getApps, initializeApp } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
 import { getDatabase } from 'firebase-admin/database';
+
 const isDev = process.env.NODE_ENV !== 'production';
 
 if (isDev) {
