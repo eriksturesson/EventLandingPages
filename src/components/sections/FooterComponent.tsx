@@ -156,7 +156,12 @@ export function FooterComponent(props: SectionProps): JSX.Element {
                      position: 'relative',
                   }}
                >
-                  <img id="kartbild" alt="karta" src={content?.mapImage ? content.mapImage : mapImageExample} />
+                  <img
+                     id="kartbild"
+                     alt="karta"
+                     src={content?.mapImage ? content.mapImage : mapImageExample}
+                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
                   <Box
                      sx={{
                         alignContent: 'center',

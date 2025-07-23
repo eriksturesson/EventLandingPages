@@ -28,14 +28,15 @@ export function OneOrganizer({
 }): JSX.Element {
    return adminEditor ? (
       <>
-         <Box>
-            <SvgIcon
-               onClick={() => onRemove(id, organizer.image as string)}
-               sx={{ color: 'red', cursor: 'pointer' }}
-               component={DeleteIcon}
-               fontSize="large"
-            />
-         </Box>
+         {organizer.image && (
+            <Box>
+               <DeleteIcon
+                  onClick={() => onRemove(id, organizer.image as string)}
+                  sx={{ color: 'red', cursor: 'pointer' }}
+                  fontSize="large"
+               />
+            </Box>
+         )}
          <EditorOfImage
             sectionID={sectionID}
             order={organizer.order}
@@ -46,7 +47,16 @@ export function OneOrganizer({
          />
       </>
    ) : (
-      <CardMedia component="img" image={organizer?.image} alt="Organizer logo" />
+      <Box
+         component="img"
+         src={organizer?.image}
+         alt="Organizer logo"
+         sx={{
+            width: '100%',
+            height: 'auto',
+            objectFit: 'contain',
+         }}
+      />
    );
 }
 
