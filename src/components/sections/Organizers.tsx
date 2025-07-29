@@ -9,6 +9,7 @@ import { DBOrganizersKey, OrganizerObject } from '../../interfaces/dbInterfaces'
 import { SectionProps, SectionTypes } from '../../interfaces/sectionInterfaces';
 import { db, storage } from '../../utils/firebase';
 import { EditorOfImage } from '../smallComponents/FileUploads';
+import ApartmentIcon from '@mui/icons-material/Apartment';
 export function OneOrganizer({
    organizer,
    id,
@@ -28,25 +29,44 @@ export function OneOrganizer({
 }): JSX.Element {
    return adminEditor ? (
       <>
-         {organizer.image && (
-            <Box>
-               <DeleteIcon
-                  onClick={() => onRemove(id, organizer.image as string)}
-                  sx={{ color: 'red', cursor: 'pointer' }}
-                  fontSize="large"
+         {organizer.image ? (
+            <>
+               <Box>
+                  <DeleteIcon
+                     onClick={() => onRemove(id, organizer.image as string)}
+                     sx={{ color: 'red', cursor: 'pointer' }}
+                     fontSize="large"
+                  />
+               </Box>
+               <Box
+                  component="img"
+                  src={organizer.image}
+                  alt="Organizer logo"
+                  sx={{
+                     width: '100%',
+                     height: 'auto',
+                     objectFit: 'contain',
+                  }}
                />
+            </>
+         ) : (
+            <Box
+               sx={{
+                  width: 120,
+                  height: 120,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  border: '1px dashed gray',
+                  borderRadius: 2,
+                  mx: 'auto',
+               }}
+            >
+               <ApartmentIcon sx={{ fontSize: 60, color: 'gray' }} />
             </Box>
          )}
-         <EditorOfImage
-            sectionID={sectionID}
-            order={organizer.order}
-            sectionName={sectionName}
-            image={organizer.image}
-            id={id}
-            pageID={pageID}
-         />
       </>
-   ) : (
+   ) : organizer?.image ? (
       <Box
          component="img"
          src={organizer?.image}
@@ -57,9 +77,10 @@ export function OneOrganizer({
             objectFit: 'contain',
          }}
       />
+   ) : (
+      <ApartmentIcon sx={{ fontSize: 80, color: 'gray' }} />
    );
 }
-
 export function OrganizersComponent(props: SectionProps): JSX.Element {
    const { data, adminEditor, pageID } = props;
    const { websiteID } = useDbContent();
