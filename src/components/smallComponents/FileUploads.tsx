@@ -4,7 +4,8 @@ import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import React from 'react';
 import addNewSpeakerExample from '../../assets/addNewSpeakerExample.png';
 import briefcaseExample from '../../assets/briefcaseExample.png';
-import companyExample from '../../assets/companyExample.png';
+// import companyExample from '../../assets/companyExample.png';
+import ApartmentIcon from '@mui/icons-material/Apartment';
 import logoExample from '../../assets/logoExample.png';
 import mapImageExample from '../../assets/mapImageExample.png';
 import { useDbContent } from '../../contexts/DBContentContext';
@@ -57,7 +58,7 @@ export function NewImgBoxFileUpload(props: ImgCardFileUploadProps): JSX.Element 
          shape = 'circle';
          break;
       case 'organizers':
-         backgroundImg = companyExample;
+         //backgroundImg = companyExample;
          className = 'organizer-logo';
          shape = 'square';
          break;
@@ -99,7 +100,11 @@ export function NewImgBoxFileUpload(props: ImgCardFileUploadProps): JSX.Element 
             <br></br>
             <ImageButtonFileUpload sectionID={sectionID} sectionName={sectionName} order={order} id={id} pageID={pageID} />
          </Box>
-         <img className={className} src={backgroundImg} />
+         {sectionName === 'organizers' ? (
+            <ApartmentIcon sx={{ fontSize: 80, color: 'white' }} />
+         ) : (
+            <img className={className} src={backgroundImg} />
+         )}
       </Box>
    );
 }

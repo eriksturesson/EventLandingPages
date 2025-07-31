@@ -27,9 +27,10 @@ export function OneOrganizer({
    pageID: string | null;
    onRemove: (id: string, imgStorageRef: string) => void;
 }): JSX.Element {
-   return adminEditor ? (
+   // return adminEditor ? (
+   return (
       <>
-         {organizer.image ? (
+         {organizer.image && (
             <>
                <Box>
                   <DeleteIcon
@@ -46,39 +47,20 @@ export function OneOrganizer({
                      width: '100%',
                      height: 'auto',
                      objectFit: 'contain',
+                     mb: 1,
                   }}
                />
             </>
-         ) : (
-            <Box
-               sx={{
-                  width: 120,
-                  height: 120,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  border: '1px dashed gray',
-                  borderRadius: 2,
-                  mx: 'auto',
-               }}
-            >
-               <ApartmentIcon sx={{ fontSize: 60, color: 'gray' }} />
-            </Box>
          )}
+         <EditorOfImage
+            sectionID={sectionID}
+            order={organizer.order}
+            sectionName={sectionName}
+            image={organizer.image}
+            id={id}
+            pageID={pageID}
+         />
       </>
-   ) : organizer?.image ? (
-      <Box
-         component="img"
-         src={organizer?.image}
-         alt="Organizer logo"
-         sx={{
-            width: '100%',
-            height: 'auto',
-            objectFit: 'contain',
-         }}
-      />
-   ) : (
-      <ApartmentIcon sx={{ fontSize: 80, color: 'gray' }} />
    );
 }
 export function OrganizersComponent(props: SectionProps): JSX.Element {
