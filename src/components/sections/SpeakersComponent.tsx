@@ -10,6 +10,7 @@ import { SectionProps, SectionTypes } from '../../interfaces/sectionInterfaces';
 import { db, storage } from '../../utils/firebase';
 import { EditorOfImage } from '../smallComponents/FileUploads';
 import { SaveTextsButton, handleStateTextChange } from '../smallComponents/TextEdits';
+import { CrossRemover } from '../smallComponents/CrossRemover';
 
 export function SpeakersComponent(props: SectionProps): JSX.Element {
    const { data, adminEditor, pageID } = props;
@@ -122,23 +123,8 @@ export function OneSpeaker({
 
    return adminEditor ? (
       <Paper elevation={5} sx={{ p: 2, borderRadius: 2, bgcolor: '#f9f9f9', mb: 3 }}>
-         <Box
-            sx={{
-               marginTop: '1rem',
-               backgroundColor: 'grey',
-               textAlign: 'center',
-               width: '100%',
-               display: 'flex',
-               alignItems: 'center',
-            }}
-         >
-            <SvgIcon
-               style={{ color: 'red', cursor: 'pointer' }}
-               onClick={() => onRemove(id, image as string)}
-               component={DeleteIcon}
-               fontSize="large"
-            />
-         </Box>
+         <CrossRemover id={id} topRightOrCenter={'top-right'} onRemove={onRemove} />
+
          <Box sx={{ p: 2, borderRadius: 2, mb: 3 }}>
             <TextField
                fullWidth

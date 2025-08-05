@@ -9,6 +9,7 @@ import { DBOrganizersKey, OrganizerObject } from '../../interfaces/dbInterfaces'
 import { SectionProps, SectionTypes } from '../../interfaces/sectionInterfaces';
 import { db, storage } from '../../utils/firebase';
 import { EditorOfImage } from '../smallComponents/FileUploads';
+import ApartmentIcon from '@mui/icons-material/Apartment';
 export function OneOrganizer({
    organizer,
    id,
@@ -26,16 +27,30 @@ export function OneOrganizer({
    pageID: string | null;
    onRemove: (id: string, imgStorageRef: string) => void;
 }): JSX.Element {
-   return adminEditor ? (
+   // return adminEditor ? (
+   return (
       <>
          {organizer.image && (
-            <Box>
-               <DeleteIcon
-                  onClick={() => onRemove(id, organizer.image as string)}
-                  sx={{ color: 'red', cursor: 'pointer' }}
-                  fontSize="large"
+            <>
+               <Box>
+                  <DeleteIcon
+                     onClick={() => onRemove(id, organizer.image as string)}
+                     sx={{ color: 'red', cursor: 'pointer' }}
+                     fontSize="large"
+                  />
+               </Box>
+               <Box
+                  component="img"
+                  src={organizer.image}
+                  alt="Organizer logo"
+                  sx={{
+                     width: '100%',
+                     height: 'auto',
+                     objectFit: 'contain',
+                     mb: 1,
+                  }}
                />
-            </Box>
+            </>
          )}
          <EditorOfImage
             sectionID={sectionID}
@@ -46,20 +61,8 @@ export function OneOrganizer({
             pageID={pageID}
          />
       </>
-   ) : (
-      <Box
-         component="img"
-         src={organizer?.image}
-         alt="Organizer logo"
-         sx={{
-            width: '100%',
-            height: 'auto',
-            objectFit: 'contain',
-         }}
-      />
    );
 }
-
 export function OrganizersComponent(props: SectionProps): JSX.Element {
    const { data, adminEditor, pageID } = props;
    const { websiteID } = useDbContent();

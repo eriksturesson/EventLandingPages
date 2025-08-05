@@ -27,3 +27,5 @@ yarn-error.log*
 # Env files
 .env
 .env.*
+
+storage.rules
