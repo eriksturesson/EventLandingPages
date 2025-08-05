@@ -1,12 +1,13 @@
 import { Alert, Box, Button, TextField, Typography } from '@mui/material';
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDbContent } from '../contexts/DBContentContext';
 import { createAdminURL } from '../utils/firebase';
 
 const CreateAdmin = () => {
    const location = useLocation();
+   const navigate = useNavigate();
    const searchParams = new URLSearchParams(location.search);
 
    const id = searchParams.get('id');
@@ -59,6 +60,8 @@ const CreateAdmin = () => {
             throw new Error(errorData.message || 'Failed to create admin');
          }
          setMessage({ type: 'success', text: 'created user' });
+         // ✅ Redirect to adminpage
+         navigate('/admin');
       } catch (error: any) {
          console.error('Error creating admin:', error);
          setMessage({ type: 'error', text: `Error creating user: ${error.message}` });

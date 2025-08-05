@@ -10,7 +10,7 @@ export async function getAdminsAndInvitesService(websiteID: string): Promise<{
 }> {
    const [admins, invites] = await Promise.all([getAdminsService(websiteID), getAdminInvitationService(websiteID)]);
 
-   const adminsInviteIDs = new Set(admins.map((a) => a.inviteID));
+   const adminsInviteIDs = new Set(admins.map((admin) => admin.inviteID));
    const filteredInvites: InvitedAdmin[] = [];
 
    for (const invite of invites) {
@@ -33,7 +33,7 @@ export async function getAdminsService(websiteID: string): Promise<DBAdminUserWi
    const adminsRaw = snapshot.val();
 
    if (!adminsRaw) {
-      throw BackendError.NotFound(`No admin users found for website ${websiteID}`);
+      return []; // Return an empty array if no admins found
    }
 
    const admins: Record<string, DBAdminUser> = adminsRaw;
@@ -42,11 +42,11 @@ export async function getAdminsService(websiteID: string): Promise<DBAdminUserWi
       Object.entries(admins).map(async ([uid, admin]) => {
          try {
             const userRecord = await auth.getUser(uid);
-
+            console.log('User record:', userRecord);
             return {
                ...admin,
-               createdAt: userRecord.metadata.creationTime || '',
-               lastLogin: userRecord.metadata.lastSignInTime || '',
+               createdAt: userRecord?.metadata.creationTime || '',
+               lastLogin: userRecord?.metadata.lastSignInTime || '',
             };
          } catch (error: any) {
             throw new BackendError({

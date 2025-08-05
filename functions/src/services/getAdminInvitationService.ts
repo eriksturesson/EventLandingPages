@@ -8,12 +8,14 @@ export async function getAdminInvitationService(websiteID: string): Promise<Invi
    const invitationsRaw = snapshot.val();
 
    if (!invitationsRaw) {
-      throw BackendError.NotFound(`No invitations found for website ${websiteID}`);
+      console.log(`No invited admins found for website ${websiteID}`);
+      return [];
    }
 
    const invitations: Record<string, InvitedAdmin> = invitationsRaw;
    if (!invitations || Object.keys(invitations).length === 0) {
-      throw BackendError.NotFound(`No invitations found for website ${websiteID}`);
+      console.log(`No invitations found for website ${websiteID}`);
+      return [];
    }
    const invitationsArray: InvitedAdmin[] = Object.values(invitations);
 
