@@ -25,15 +25,24 @@
 1. ##
 
 📁 Environment Configuration
-Create a .env file in the root folder of your project and add your Firebase config like this:
+A: Create a .env file in the root folder of your project and add your Firebase config like this:
 
 ```ts
-VITE_FIREBASE_API_KEY = yourApikey;
-VITE_FIREBASE_AUTH_DOMAIN = yourAuthDomain;
+VITE_FIREBASE_API_KEY=yourApikey;
+VITE_FIREBASE_AUTH_DOMAIN=yourAuthDomain;
+VITE_FIREBASE_DATABASE_URL=yourDbUrl
+VITE_FIREBASE_DATABASE_URL2=https://yourDB/firebasedatabase.app
 VITE_FIREBASE_PROJECT_ID = yourProjectID;
 VITE_FIREBASE_STORAGE_BUCKET = yourStorageBucket;
 VITE_FIREBASE_MESSAGING_SENDER_ID = yourMessageSenderID;
 VITE_FIREBASE_APP_ID = yourAppID;
+VITE_FIREBASE_MEASUREMENT_ID=yourMeasurementID
+```
+
+B: Create a .env file in the backend folder (functions) and add your Firebase config like this:
+
+```ts
+VITE_FIREBASE_DATABASE_URL = yourDbUrl;
 ```
 
 3. Change the storage.rules files to fit the name of your storage bucket link:
