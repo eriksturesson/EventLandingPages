@@ -55,6 +55,14 @@ jobs:
            working-directory: ./functions
            run: npm install
 
+         - name: Debug env vars before functions build
+           working-directory: ./functions
+           run: |
+              echo "PROJECT_ID=$PROJECT_ID"
+              echo "DATABASE_URL=$DATABASE_URL"
+              node -e "console.log('process.env.PROJECT_ID:', process.env.PROJECT_ID)"
+              node -e "console.log('process.env.DATABASE_URL:', process.env.DATABASE_URL)"
+
          - name: Build functions
            working-directory: ./functions
            run: npm run build
