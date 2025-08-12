@@ -1,10 +1,12 @@
 import { App, getApps, initializeApp } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
 import { getDatabase } from 'firebase-admin/database';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const isDev = process.env.NODE_ENV !== 'production';
-console.log('VITE_FIREBASE_DATABASE_URL:', process.env.DATABASE_URL);
-console.log('VITE_FIREBASE_PROJECT_ID:', process.env.PROJECT_ID);
+console.log('DATABASE_URL:', process.env.DATABASE_URL);
+console.log('PROJECT_ID:', process.env.PROJECT_ID);
 
 const firebaseConfig = isDev
    ? {
