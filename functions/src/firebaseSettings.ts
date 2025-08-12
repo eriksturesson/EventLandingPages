@@ -3,15 +3,16 @@ import { getAuth } from 'firebase-admin/auth';
 import { getDatabase } from 'firebase-admin/database';
 
 const isDev = process.env.NODE_ENV !== 'production';
+console.log('VITE_FIREBASE_DATABASE_URL:', process.env.VITE_FIREBASE_DATABASE_URL);
+console.log('VITE_FIREBASE_PROJECT_ID:', process.env.VITE_FIREBASE_PROJECT_ID);
 
 const firebaseConfig = isDev
    ? {
         databaseURL: 'http://localhost:9000?ns=emulator',
-        // valfritt: projectId: 'your-emulator-project-id',
      }
    : {
-        projectId: process.env.VITE_FIREBASE_PROJECT_ID, // Se till att denna är rätt
-        databaseURL: process.env.FIREBASE_DATABASE_URL,
+        projectId: process.env.VITE_FIREBASE_PROJECT_ID,
+        databaseURL: process.env.VITE_FIREBASE_DATABASE_URL,
      };
 
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
