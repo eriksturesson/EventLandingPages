@@ -1,6 +1,6 @@
 {
    "name": "event-landing-pages",
-   "version": "1.0.0",
+   "version": "2.0.0",
    "description": "A React application for creating and managing event landing pages.",
    "type": "module",
    "scripts": {

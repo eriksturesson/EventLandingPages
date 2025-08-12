@@ -2,8 +2,7 @@
 
 -  This is a plattform for creating one or more landingpages for event(s) from one single codebase that an admin can edit (a CMS for eventpages).
 -  Registrations (personal data) is handled via the call-to-action botton that you can lead to a form (google form etc), it is not handled in the platform.
--  The first version is not done yet, please wait while rebuilding older code to react.
--  This project uses firebase with "no-cost" plan from start. Just upgrade your plan if needed for production uses with more data and/or users.
+-  This project uses firebase with "no-cost" plan from start. Just upgrade your plan if needed for production.
 
 # You need to know this before starting:
 
