@@ -1,4 +1,4 @@
-import { App, getApps, initializeApp, cert } from 'firebase-admin/app';
+import { App, getApps, initializeApp, cert, applicationDefault } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
 import { getDatabase } from 'firebase-admin/database';
 import dotenv from 'dotenv';
@@ -7,9 +7,12 @@ dotenv.config();
 const isDev = process.env.NODE_ENV !== 'production';
 const projectId = process.env.PROJECT_ID;
 const databaseUrl = process.env.DATABASE_URL;
-
-console.log('Project ID:', projectId);
-console.log('Database URL:', databaseUrl);
+console.log('Relevant environment variables:', {
+   NODE_ENV: process.env.NODE_ENV,
+   PROJECT_ID: process.env.PROJECT_ID,
+   DATABASE_URL: process.env.DATABASE_URL,
+   FIREBASE_SERVICE_ACCOUNT_JSON: process.env.FIREBASE_SERVICE_ACCOUNT_JSON ? '[SET]' : '[NOT SET]',
+});
 
 if (!isDev) {
    if (!projectId) throw new Error('Missing PROJECT_ID environment variable!');
@@ -24,8 +27,7 @@ const firebaseConfig = isDev
         databaseURL: 'http://localhost:9000?ns=emulator',
      }
    : {
-        credential: cert(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON!)),
-        projectId,
+        credential: applicationDefault(),
         databaseURL: databaseUrl,
      };
 
