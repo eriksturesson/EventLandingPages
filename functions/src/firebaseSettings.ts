@@ -11,6 +11,7 @@ const firebaseConfig = isDev
      }
    : {
         projectId: process.env.VITE_FIREBASE_PROJECT_ID, // Se till att denna är rätt
+        databaseURL: process.env.FIREBASE_DATABASE_URL,
      };
 
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
