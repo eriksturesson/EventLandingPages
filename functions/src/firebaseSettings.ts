@@ -19,9 +19,7 @@ console.log('Relevant environment variables:', {
 if (!isDev) {
    if (!projectId) throw new Error('Missing PROJECT_ID environment variable!');
    if (!databaseUrl) throw new Error('Missing DATABASE_URL environment variable!');
-   if (!process.env.GOOGLE_APPLICATION_CREDENTIALS) {
-      throw new Error('Missing GOOGLE_APPLICATION_CREDENTIALS environment variable!');
-   }
+   console.log('GOOGLE_APPLICATION_CREDENTIALS:', process.env.GOOGLE_APPLICATION_CREDENTIALS);
 }
 
 const firebaseConfig = isDev

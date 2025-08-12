@@ -29,10 +29,10 @@ jobs:
            uses: actions/checkout@v3
 
          - name: Setup Firebase service account
-           run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ./firebase-service-account.json
+           run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ./functions/firebase-service-account.json
 
          - name: Set GOOGLE_APPLICATION_CREDENTIALS env var
-           run: echo "GOOGLE_APPLICATION_CREDENTIALS=./firebase-service-account.json" >> $GITHUB_ENV
+           run: echo "GOOGLE_APPLICATION_CREDENTIALS=./functions/firebase-service-account.json" >> $GITHUB_ENV
 
          - name: Set up Node.js
            uses: actions/setup-node@v4
