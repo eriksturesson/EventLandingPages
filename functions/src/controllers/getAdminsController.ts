@@ -4,20 +4,7 @@ import { auth, db } from '../firebaseSettings';
 import { getAdminsAndInvitesService, getAdminsService } from '../services/getAdminsService';
 
 export async function getAdminsController(req: Request, res: Response): Promise<any> {
-   // Set CORS headers
-   res.set('Access-Control-Allow-Origin', '*');
-   res.set('Access-Control-Allow-Methods', 'GET, OPTIONS');
-   res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization, x-website-id');
-   if (req.method === 'OPTIONS') {
-      res.status(204).send();
-      return;
-   }
-
    try {
-      if (req.method !== 'GET') {
-         throw BackendError.BadRequest('Only GET is allowed.');
-      }
-
       const authHeader = req.headers.authorization;
       if (!authHeader || !authHeader.startsWith('Bearer ')) {
          throw BackendError.Unauthorized('Missing or invalid Authorization header.');

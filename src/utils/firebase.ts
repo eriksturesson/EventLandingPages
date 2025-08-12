@@ -16,7 +16,7 @@ let beginingOfCloudFunctionRequestUrl = '';
 let config = {};
 if (devSettings === 'development') {
    console.log(`%c FIREBASE devSettings = ${devSettings}`, awesomeLogStyle);
-   beginingOfCloudFunctionRequestUrl = `http://127.0.0.1:5001/${import.meta.env.VITE_FIREBASE_PROJECT_ID}/us-central1/`;
+   beginingOfCloudFunctionRequestUrl = `http://127.0.0.1:5001/${import.meta.env.VITE_FIREBASE_PROJECT_ID}/us-central1/api/`;
 
    config = {
       apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -30,7 +30,9 @@ if (devSettings === 'development') {
    };
 } else if (devSettings === 'production') {
    console.error(`%c FIREBASE devSettings = ${devSettings}`, awesomeLogStyle);
-   beginingOfCloudFunctionRequestUrl = `https://us-central1-${import.meta.env.VITE_FIREBASE_PROJECT_ID}.cloudfunctions.net/`;
+   beginingOfCloudFunctionRequestUrl = `https://us-central1-${
+      import.meta.env.VITE_FIREBASE_PROJECT_ID
+   }.cloudfunctions.net/api/`;
    config = {
       apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
       authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,

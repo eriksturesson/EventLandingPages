@@ -1,16 +1,23 @@
 import type { Request, Response } from 'express';
+import cors from 'cors';
+import express from 'express';
 import { onRequest } from 'firebase-functions/v2/https';
 import { createAdminController } from './controllers/createAdminController';
 import { getAdminsController } from './controllers/getAdminsController';
 import { inviteAdminController } from './controllers/inviteAdminController';
+const app = express();
+// Use JSON middleware to parse JSON bodies for all routes
 
-export const getAdmins = onRequest(async (req: Request, res: Response): Promise<any> => {
-   return getAdminsController(req, res);
-});
-export const inviteAdmin = onRequest((req: Request, res: Response) => {
-   return inviteAdminController(req, res);
-});
+app.use(
+   cors({
+      origin: '*',
+      methods: ['GET', 'POST', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization', 'x-website-id'],
+   })
+);
+app.use(express.json());
 
-export const createAdmin = onRequest(async (req: Request, res: Response): Promise<any> => {
-   return createAdminController(req, res);
-});
+app.get('/getAdmins', getAdminsController);
+app.post('/inviteAdmin', inviteAdminController);
+app.post('/createAdmin', createAdminController);
+export const api = onRequest(app);

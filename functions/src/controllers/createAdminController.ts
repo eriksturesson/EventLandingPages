@@ -4,19 +4,7 @@ import { auth } from '../firebaseSettings';
 import { storeNewAdminService } from '../services/storeNewAdminService';
 
 export async function createAdminController(req: Request, res: Response): Promise<any> {
-   // Set CORS headers for preflight and actual requests
-   res.set('Access-Control-Allow-Origin', '*'); // Or restrict to specific domain(s)
-   res.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
-   res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-   if (req.method === 'OPTIONS') {
-      res.status(204).send(); // Preflight
-      return;
-   }
-
    try {
-      if (req.method !== 'POST') {
-         throw BackendError.BadRequest('Only POST is allowed.');
-      }
       const authHeader = req.headers.authorization;
       if (!authHeader || !authHeader.startsWith('Bearer ')) {
          throw BackendError.Unauthorized('Missing or invalid Authorization header.');
@@ -43,6 +31,7 @@ export async function createAdminController(req: Request, res: Response): Promis
       return res.status(200).json({ message: doneString });
    } catch (error) {
       const err = httpErrorFormatter(error);
+      console.error('Error in createAdminController:', error);
       return res.status(err.status).json(err.body);
    }
 }

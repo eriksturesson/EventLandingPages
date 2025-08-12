@@ -4,7 +4,16 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDbContent } from '../contexts/DBContentContext';
 import { createAdminURL } from '../utils/firebase';
-
+async function createUserOrSignIn(auth: any, email: string, password: string) {
+   try {
+      return await createUserWithEmailAndPassword(auth, email, password);
+   } catch (error: any) {
+      if (error.code?.includes('email-already-in-use') || error.code?.includes('email-already-exists')) {
+         return await signInWithEmailAndPassword(auth, email, password);
+      }
+      throw error;
+   }
+}
 const CreateAdmin = () => {
    const location = useLocation();
    const navigate = useNavigate();
@@ -25,27 +34,8 @@ const CreateAdmin = () => {
          return;
       }
       try {
-         let idToken: string;
-         let userCredential: any;
-         try {
-            // 1. Try creating the user
-            userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            setMessage({ type: 'success', text: `Admin created with UID: ${userCredential.user.uid}` });
-            idToken = await userCredential.user.getIdToken();
-         } catch (error: any) {
-            // 2. If user already exists, sign in instead
-            if (error.code === 'auth/email-already-in-use') {
-               userCredential = await signInWithEmailAndPassword(auth, email, password);
-               setMessage({
-                  type: 'success',
-                  text: `Email already existed, signed in instead. UID: ${userCredential.user.uid}`,
-               });
-               idToken = await userCredential.user.getIdToken();
-            } else {
-               // 3. If it's some other error, throw it
-               throw error;
-            }
-         }
+         let userCredential = await createUserOrSignIn(auth, email, password);
+         const idToken = await userCredential.user.getIdToken();
 
          const response = await fetch(createAdminURL, {
             method: 'POST',
@@ -53,14 +43,15 @@ const CreateAdmin = () => {
                'Content-Type': 'application/json',
                Authorization: `Bearer ${idToken}`,
             },
-            body: JSON.stringify({ email, inviteID: id, userID: userCredential.user.uid, websiteID }),
+            body: JSON.stringify({ email, inviteID: id, websiteID }),
          });
+
          if (!response.ok) {
             const errorData = await response.json();
             throw new Error(errorData.message || 'Failed to create admin');
          }
-         setMessage({ type: 'success', text: 'created user' });
-         // ✅ Redirect to adminpage
+
+         setMessage({ type: 'success', text: 'Admin created successfully' });
          navigate('/admin');
       } catch (error: any) {
          console.error('Error creating admin:', error);
