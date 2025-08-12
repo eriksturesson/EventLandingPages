@@ -64,6 +64,10 @@ jobs:
               node -e "console.log('process.env.DATABASE_URL:', process.env.DATABASE_URL)"
 
          - name: Build functions
+           env:
+              NODE_ENV: production
+              PROJECT_ID: ${{ secrets.PROJECT_ID }}
+              DATABASE_URL: ${{ secrets.DATABASE_URL }}
            working-directory: ./functions
            run: npm run build
 
@@ -83,4 +87,8 @@ jobs:
               echo "}" >> storage.rules
 
          - name: Deploy to Firebase
+           env:
+              NODE_ENV: production
+              PROJECT_ID: ${{ secrets.PROJECT_ID }}
+              DATABASE_URL: ${{ secrets.DATABASE_URL }}
            run: firebase deploy --non-interactive

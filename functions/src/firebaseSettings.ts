@@ -5,8 +5,11 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const isDev = process.env.NODE_ENV !== 'production';
-console.log('DATABASE_URL:', process.env.DATABASE_URL);
-console.log('PROJECT_ID:', process.env.PROJECT_ID);
+const projectId = process.env.PROJECT_ID;
+const databaseUrl = process.env.DATABASE_URL;
+
+console.log('Project ID:', projectId);
+console.log('Database URL:', databaseUrl);
 
 const firebaseConfig = isDev
    ? {

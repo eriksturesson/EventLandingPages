@@ -41,9 +41,8 @@ VITE_FIREBASE_MEASUREMENT_ID=yourMeasurementID
 B: Create a .env file in the backend folder (functions) and add your Firebase config like this:
 
 ```ts
-VITE_FIREBASE_DATABASE_URL = yourDbUrl;
-VITE_FIREBASE_PROJECT_ID = yourProjectID;
-VITE_FIREBASE_DATABASE_URL = yourDbUrl;
+PROJECT_ID = yourProjectID;
+DATABASE_URL = yourDbUrl;
 ```
 
 3. Change the storage.rules files to fit the name of your storage bucket link:
