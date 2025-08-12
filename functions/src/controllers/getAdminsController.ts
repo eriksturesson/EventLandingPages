@@ -12,8 +12,10 @@ export async function getAdminsController(req: Request, res: Response): Promise<
 
       const idToken = authHeader.split('Bearer ')[1];
       const decodedToken = await auth.verifyIdToken(idToken);
-      const uidFromToken = decodedToken.uid;
 
+      const uidFromToken = decodedToken.uid;
+      console.log('Decoded token uid:', decodedToken.uid);
+      if (decodedToken.email) console.log('Decoded token email:', decodedToken.email);
       const websiteID = req.headers['x-website-id'] as string;
 
       if (!websiteID || typeof websiteID !== 'string' || websiteID.trim() === '') {

@@ -4,20 +4,18 @@ import { getDatabase } from 'firebase-admin/database';
 
 const isDev = process.env.NODE_ENV !== 'production';
 
-if (isDev) {
-   process.env.FIREBASE_AUTH_EMULATOR_HOST = 'localhost:9099';
-}
+const firebaseConfig = isDev
+   ? {
+        databaseURL: 'http://localhost:9000?ns=emulator',
+        // valfritt: projectId: 'your-emulator-project-id',
+     }
+   : {
+        projectId: process.env.VITE_FIREBASE_PROJECT_ID, // Se till att denna är rätt
+     };
 
-const app: App =
-   getApps().length === 0
-      ? initializeApp(
-           isDev
-              ? {
-                   databaseURL: 'http://localhost:9000?ns=emulator',
-                }
-              : undefined
-        )
-      : getApps()[0];
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+
+console.log('Firebase Admin initialized with projectId:', app?.options?.projectId);
 
 const db = getDatabase(app);
 

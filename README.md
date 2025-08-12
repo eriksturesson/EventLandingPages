@@ -42,6 +42,7 @@ B: Create a .env file in the backend folder (functions) and add your Firebase co
 
 ```ts
 VITE_FIREBASE_DATABASE_URL = yourDbUrl;
+VITE_FIREBASE_PROJECT_ID = yourProjectID;
 ```
 
 3. Change the storage.rules files to fit the name of your storage bucket link:
