@@ -10,6 +10,7 @@ import { SectionProps, SectionTypes } from '../../interfaces/sectionInterfaces';
 import { db, storage } from '../../utils/firebase';
 import { EditorOfImage } from '../smallComponents/FileUploads';
 import ApartmentIcon from '@mui/icons-material/Apartment';
+import { CrossRemover } from '../smallComponents/CrossRemover';
 export function OneOrganizer({
    organizer,
    id,
@@ -29,28 +30,13 @@ export function OneOrganizer({
 }): JSX.Element {
    // return adminEditor ? (
    return (
-      <>
+      <Box sx={{ contentAlign: 'center', width: '100%' }}>
          {organizer.image && (
-            <>
-               <Box>
-                  <DeleteIcon
-                     onClick={() => onRemove(id, organizer.image as string)}
-                     sx={{ color: 'red', cursor: 'pointer' }}
-                     fontSize="large"
-                  />
-               </Box>
-               <Box
-                  component="img"
-                  src={organizer.image}
-                  alt="Organizer logo"
-                  sx={{
-                     width: '100%',
-                     height: 'auto',
-                     objectFit: 'contain',
-                     mb: 1,
-                  }}
-               />
-            </>
+            <DeleteIcon
+               onClick={() => onRemove(id, organizer.image as string)}
+               sx={{ position: 'absolute', zIndex: 4, color: 'red', cursor: 'pointer' }}
+               fontSize="large"
+            />
          )}
          <EditorOfImage
             sectionID={sectionID}
@@ -60,7 +46,7 @@ export function OneOrganizer({
             id={id}
             pageID={pageID}
          />
-      </>
+      </Box>
    );
 }
 export function OrganizersComponent(props: SectionProps): JSX.Element {
