@@ -3,23 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { DBWebsiteIdKey } from '../interfaces/dbInterfaces';
 import { sectionTypes } from '../interfaces/sectionInterfaces';
 import { db } from './firebase';
-/* Does not work
-async function uploadStandardImages() {
-   let images = [mapImageExample, speakerImgExample1, speakerImgExample2, speakerImgExample3, fullScreenMediaExample1];
-   images.forEach((image) => {
-      console.log('image:' + image);
-      const pitchCardRef = storageRef(storage, `/setupImages/${image}`);
-      const base64String = image; // Base64 string
-      const binaryString = btoa(base64String.split(',')[1]); // Binary data string
-      const imageBlob = new Blob([binaryString], { type: 'image/jpg' }); // Create a BLOB object
-      uploadBytes(pitchCardRef, imageBlob).then((snapshot) => {
-         console.log('Uploaded a blob or file!');
-         console.log('snapshot.ref.fullPath', snapshot.ref.fullPath);
-         let startURL = devSettings === 'PRODUCTION' ? `gs://` : `http://127.0.0.1:9199/v0/b/`;
-      });
-   });
-}
-*/
 
 async function createFirstTimeSections(websiteID: string) {
    let counter = 0;

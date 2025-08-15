@@ -1,15 +1,5 @@
 {
    "rules": {
-      "Program": {
-         ".read": true,
-         ".write": "auth.uid != null"
-      },
-      "users": {
-         "$user_id": {
-            ".read": "$user_id === auth.uid",
-            ".write": "$user_id === auth.uid"
-         }
-      },
       "admins": {
          "$websiteID": {
             "$userId": {
@@ -33,10 +23,6 @@
          }
       },
       "websiteIds": {
-         ".read": true,
-         ".write": true
-      },
-      "setupImages": {
          ".read": true,
          ".write": true
       }
