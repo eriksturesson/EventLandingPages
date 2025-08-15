@@ -12,7 +12,6 @@ jobs:
       env:
          NODE_ENV: production
          VITE_NODE_ENV: production
-         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
          PROJECT_ID: ${{ secrets.PROJECT_ID }}
          DATABASE_URL: ${{ secrets.DATABASE_URL }}
          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
