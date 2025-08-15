@@ -83,5 +83,8 @@ jobs:
            run: npm run build
 
          - name: Deploy to Firebase
-           working-directory: ./
-           run: firebase deploy --project ${{ secrets.PROJECT_ID }} --non-interactive
+           uses: FirebaseExtended/action-hosting-deploy@v0
+           with:
+              repoToken: ${{ secrets.GITHUB_TOKEN }}
+              firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SKALBAR_EVENTPLATTFORM_MED_CMS }}
+              projectId: ${{ secrets.PROJECT_ID }}
