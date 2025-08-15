@@ -67,9 +67,11 @@ jobs:
            run: npm run build
 
          - name: Install Firebase CLI
+           working-directory: ./
            run: npm install -g firebase-tools
 
          - name: Create storage.rules file
+           working-directory: ./
            run: |
               echo "rules_version = '2';" > storage.rules
               echo "service firebase.storage {" >> storage.rules
@@ -82,4 +84,5 @@ jobs:
               echo "}" >> storage.rules
 
          - name: Deploy to Firebase
+           working-directory: ./
            run: firebase deploy --non-interactive
