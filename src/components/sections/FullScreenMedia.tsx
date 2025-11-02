@@ -4,7 +4,7 @@ import { useDbContent } from '../../contexts/DBContentContext';
 import { DBFullScreenMedia } from '../../interfaces/dbInterfaces';
 import { SectionProps } from '../../interfaces/sectionInterfaces';
 import { ImageButtonFileUpload } from '../smallComponents/FileUploads';
-import { FullScreenMediaTextFields } from '../smallComponents/TextEditDialog';
+import TextEditDialog, { FullScreenMediaTextFields } from '../smallComponents/TextEditDialog';
 import { handleSaveTexts } from '../smallComponents/TextEdits';
 
 export function FullScreenMedia({ adminEditor, data, pageID }: SectionProps): JSX.Element {
@@ -172,6 +172,8 @@ export function FullScreenMedia({ adminEditor, data, pageID }: SectionProps): JS
                </Grid>
             </Grid>
          )}
+
+         {isEditing && <TextEditDialog textFields={textFields} onEditing={setEditing} onSubmit={handleTextSubmit} />}
       </Stack>
    );
 }
