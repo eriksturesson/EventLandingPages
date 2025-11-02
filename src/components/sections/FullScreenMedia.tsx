@@ -1,6 +1,5 @@
 import { Box, Button, Grid, Slider, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
-import arrowDown from '../../assets/baseline_keyboard_arrow_down_white_18dp.png';
 import { useDbContent } from '../../contexts/DBContentContext';
 import { DBFullScreenMedia } from '../../interfaces/dbInterfaces';
 import { SectionProps } from '../../interfaces/sectionInterfaces';
@@ -114,9 +113,9 @@ export function FullScreenMedia({ adminEditor, data, pageID }: SectionProps): JS
                         {textFields.location}
                      </Typography>
                   )}
-                  <Box mt={2}>
+                  {/* <Box mt={2}>
                      <Box component="img" src={arrowDown} alt="Scroll down" sx={{ height: '2em' }} />
-                  </Box>
+                  </Box> */}
                </Stack>
             </Stack>
 
