@@ -50,7 +50,7 @@ export function FullScreenMedia({ adminEditor, data, pageID }: SectionProps): JS
       if (!content?.media) return null;
       if (content.mediaType === 'video') {
          return (
-            <video autoPlay muted loop className="video-container" style={mediaStyle}>
+            <video autoPlay playsInline muted loop className="video-container" style={mediaStyle}>
                <source src={content.media} type="video/mp4" />
                Your browser does not support the video tag.
             </video>
