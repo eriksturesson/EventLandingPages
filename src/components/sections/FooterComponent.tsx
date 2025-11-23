@@ -127,7 +127,7 @@ export function FooterComponent(props: SectionProps): JSX.Element {
                      <SaveTextsButton
                         refBelowWebsiteID={
                            pageID
-                              ? `customPages/${pageID}/conent/${sectionID}/content/`
+                              ? `customPages/${pageID}/content/${sectionID}/content/`
                               : `homepageContent/${sectionID}/content/`
                         }
                         data={{
